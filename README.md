@@ -19,3 +19,33 @@
 4. 结合后端人员进行Ajax长轮询实现IM通信，后期将用H5 websocket进行重构，封装locaStorage进行本地存储操作。文件上传依赖七牛插件进行相关配置实现，ngRouter状态管理机制进行路由跳转，模板，控制器，数据绑定等操作。
 5. App.url命名空间进行基于restful架构的API接口管理，通过ajax调用（登录，注册，session管理，药厂、医生、医导、患者等不同角色，通讯录列表，管理员设置，药店店长，店员创建，删除，更换，患者积分管理，推广销售管理，药品品种列表，系统消息实时自动更新）等。 
 6. Requirejs进行部分模块异步加载和管理，成功，信息，错误，警告弹窗组件，可定制异步数据加载树组件封装，Database数据展示，Oclazyload实现基于路由的懒加载，Bootstrap页面布局和公共样式应用等，Chrome 、Batarang等性能监控与调优工具的使用，逐渐完善。 通过Gulp构建工具搭建BrowserSync 环境进行调试。 
+
+
+
+
+> Please put the files on a server or local host to preview. 
+> then preview:  
+
+> 1. http://localhost/src/
+> 2. http://localhost/src/#/music/home
+> 3. http://localhost/html/index.html
+> 4. http://localhost/landing/index.html
+
+
+> Documents locate "src/tpl/docs.html" or 
+> 1. "http://localhost/src/index.html#/app/docs"
+> 2. online: http://flatfull.com/themes/angulr/angular/#/app/docs
+
+
+> Use Grunt and Bower
+
+> install node.js
+> go to the app root
+
+> npm install -g grunt-cli
+> npm install
+> grunt bower-install
+> npm start
+
+
+> grunt build:angular to build the 'angular' folder
