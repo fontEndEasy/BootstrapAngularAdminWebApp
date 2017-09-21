@@ -1,0 +1,30 @@
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="set_Company">
+    <div class="panel-heading font-bold text-center">创建门店</div>
+    	<!-- 没有合适的人选 那也可以去新建一个店长信息 -->
+        <div style="margin-top:40px; padding:10px;">
+		   <form class="bs-example bs-example-form" role="form">
+		      <div class="form-group">
+		        	<input type="text" class="form-control" ng-model='storename' placeholder="店名">
+		      </div>
+		      <br>
+		      <div class="form-group">
+		        	<input type="text" class="form-control" ng-model='name' placeholder="店长姓名">
+		      </div>
+		      <br>
+		      <div class="form-group">
+		        <input type="text" class="form-control" ng-model='tel' min-length="11" maxlength="11" placeholder="店长手机号">
+		      </div>
+		      <br>
+		   </form>
+		</div>
+	    <div class="cnt-opr-bar form-group">
+	        <div class="col-md-offset-2 col-md-4">
+	            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+	        </div>
+	        <div class="col-md-4">
+	            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+	        </div>
+	    </div>
+</div>

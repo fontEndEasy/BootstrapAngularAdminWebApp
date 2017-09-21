@@ -1,0 +1,96 @@
+<script type="text/ng-template" id="consultingRecordBox.html">
+    <div class="modal-body clearfix p-lg  bg-f8 r r-3x">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="col-xs-12">
+            <h4 class="text-center m-b-sm">咨询记录</h4>
+            <div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope">
+                <div class="col-xs-12">
+                    <div class="row h-max-600 overflow-auto">
+                        <div class="p-l">
+                            <div class="col-xs-12 b-l b-l-2x">
+                                <div class="m-b-lg clearfix  w-full text-center" ng-show="findByPatientAndDoctorLoading">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                </div>
+                                <div class="m-b-lg clearfix  w-full text-center" ng-show="recordList.length<1">无数据</div>
+                                <div class="m-b-lg clearfix  w-full" ng-repeat="item in recordList.slice().reverse()">
+                                    <div class="pull-left  w-full">
+                                        <div class="pos-rlt wrapper-sm">
+                                            {{item.createTime | amDateFormat:'YYYY/MM/DD H:mm'}}
+                                        </div>
+                                        <div class="pos-rlt wrapper-sm b r bg-white box-shadow ">
+                                            <span class="arrow pull-up left"></span>
+                                            <span class="position-absolute avatar z-index-1" style="display: block;width: 0;height: 0;top: 19px;left: -9px;margin-top: -9px;"><i class="on md position-relative"style="top:2px;left:-16px;border:none;" ></i></span>
+                                            <div class="m-b-none text-dark word-break-break-word faceBox">
+                                                <div class="row m-b-sm">
+                                                    <div class="col-xs-2">
+                                                        <div class="row">
+                                                            <div class="p-l text-muted">
+                                                                咨询结果：
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        <div class="row">
+                                                            <div class="p-r">
+                                                                {{item.consultAdvise}}
+                                                                <span ng-repeat="part in item.consultAdviseDiseaseList">({{part.name}})</span><span ng-if="part">语音({{part.voices}})</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-b-sm">
+                                                    <div class="col-xs-2">
+                                                        <div class="row">
+                                                            <div class="p-l text-muted">
+                                                                用药建议：
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        <div class="row">
+                                                            <div class="p-r" ng-if="item.patientDrugSuggestList">
+                                                                <p ng-repeat="slice in item.patientDrugSuggestList.c_patient_drug_suggest_list">{{slice.general_name}}&nbsp;&nbsp;&nbsp;{{slice.manufacturer}}</p>
+                                                            </div>
+                                                            <div class="p-r" ng-if="!item.patientDrugSuggestList">
+                                                                暂无
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-b-sm">
+                                                    <div class="col-xs-2">
+                                                        <div class="row">
+                                                            <div class="p-l text-muted">
+                                                                检查建议：
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        <div class="row">
+                                                            <div class="p-r">
+                                                                <span ng-repeat="li in item.checkSuggestList">"{{li.name}}"</span>
+                                                                <span ng-if="!item.checkSuggestList||item.checkSuggestList.length<1">
+                                                                    暂无
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="pull-left m-r-sm" ng-repeat="img in item.images">
+                                                        <img width="120" height="120" ng-src="{{img}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>

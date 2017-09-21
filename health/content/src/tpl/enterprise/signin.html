@@ -1,0 +1,52 @@
+<div class="login-top">
+    <p>我是公司管理者！<a ui-sref="access.signup"> 立即注册 </a>公司。</p>
+</div>
+<div class="container enterprise-login-wrapper" ng-controller="enterpriseSigninFormController"
+     ng-init="app.settings.container = false;">
+    <div class="m-b-lg clear">
+        <div class="login-right">
+            <h4 class="text-center">登录公司管理系统</h4>
+
+            <form name="form" class="form-validation">
+                <div class="text-danger wrapper text-center" ng-show="authError">
+                    {{authError}}
+                </div>
+                <div id="login_with_pswd" ng-if="login_with_pswd">
+                    <div class="list-group list-group-sm">
+                        <div class="list-group-item">
+                            <input type="text" placeholder="手机号" class="form-control no-border" ng-model="enterprise.telephone" tabindex="1" required>
+                        </div>
+                        <div class="list-group-item">
+                            <input type="password" placeholder="密码" class="form-control no-border" ng-model="enterprise.password" tabindex="2" required>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-sm">
+                        <label class="i-checks"><input type="checkbox" id="rememberInfo"><i></i>记住登录信息</label>
+                        <span class="pull-right">忘记密码?(<a class="text-info" ng-click="withCODE()">使用验证码登录</a>)</span>
+                    </div>
+                </div>
+                <div id="login_with_code" ng-if="!login_with_pswd">
+                    <div class="list-group list-group-sm">
+                        <div class="list-group-item">
+                            <input type="text" placeholder="手机号" class="form-control no-border" ng-model="enterprise.telephone" tabindex="1" required>
+                            <button type="button" class="get-code" ng-click="getCode()">获取验证码</button>
+                        </div>
+                        <div class="list-group-item">
+                            <input type="text" placeholder="短信验证码" class="form-control no-border" ng-model="enterprise.ranCode" tabindex="2" required>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-sm clear">
+                        <label class="i-checks pull-right">
+                            <a href class="text-info" ng-click="withPSWD()">使用账号密码登录</a>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="login()" ng-disabled='form.$invalid'>登&nbsp;&nbsp;录</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="cprt-footer" ng-include="'src/tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+</div>

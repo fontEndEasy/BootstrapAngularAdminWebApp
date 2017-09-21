@@ -1,0 +1,38 @@
+<div ng-controller="GroupManageCtrl">
+	<div class="panel group-manage-panel">
+		<div class="panel-heading b-b b-light" ng-if="canCreateGroup">
+			<a class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="createGroup()"> <i class="fa fa-plus"></i>
+				创建新集团
+			</a>
+			<button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="linkToInvite()"> <i class="fa icon-action-redo"></i>
+				邀请医生创建医生集团
+			</button>
+		</div>
+		<div class="panel-body">
+			<ul class="row row-sm">
+				<li class="col-lg-3 col-md-4 col-sm-6 groupList" ng-repeat="group in groupList">
+					<div class="panel b-a">
+						<div class="panel-heading text-center bg-info no-border">
+							<img ng-src="{{group.groupLogoUrl}}" style="width: 80px;height: 80px;">
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item"> <i class="fa fa-group m-r-xs"></i>
+								集团名称：{{group.name}}
+							</li>
+							<li class="list-group-item"> <i class="fa fa-user m-r-xs"></i>
+								管理员：{{group.adminName}}
+							</li>
+							<li class="list-group-item">
+								<i class="glyphicon glyphicon-time m-r-xs"></i>
+								创建时间：{{group.creatorDate | date:'yyyy-MM-dd'}}
+							</li>
+						</ul>
+						<div class="panel-footer text-center">
+							<a ng-click="linkToManageGroup(group.id,group.name,group.creator)"  class="btn btn-info font-bold">管理集团</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

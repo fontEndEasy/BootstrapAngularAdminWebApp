@@ -1,0 +1,30 @@
+{
+  "name": "angular-popover-toggle",
+  "homepage": "https://github.com/Elijen/angular-popover-toggle",
+  "authors": [
+    "Petr Peller <petr.peller@gmail.com>"
+  ],
+  "description": "popoverToggle directive allowing manual control over AngularUI's popover",
+  "main": "popover-toggle.js",
+  "keywords": [
+    "angular",
+    "angular-ui",
+    "angular-bootstrap",
+    "popover",
+    "popover-toggle",
+    "ui-popover",
+    "bootstrap",
+    "toggle"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "*"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

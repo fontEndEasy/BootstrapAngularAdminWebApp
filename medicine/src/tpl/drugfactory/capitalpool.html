@@ -1,0 +1,331 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="capitalpoolController">
+    <div class="navi-wrap capitalpool">
+        <div class="frame-panel">
+            <div class="row">
+                <div class="col-md-3 mrb-15 breed-base-title">
+                    <h2 class="title-3 text-left">资金池管理</h2>
+                </div>
+            </div>
+            <div class="row m-b">
+                <div class="col-xs-12">
+                    <div class="b clearfix">
+                        <div class="clearfix m">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="title">品种资金池合计：{{(chartAcoutData.totalMoney||0)/100 | currency:"￥"}}元</span>
+                                    <span class="capitalpool-desc">累计锁定资金：{{(chartAcoutData.totalFreezeMoney||0)/100 | currency:"￥"}}元 累计可用余额：{{(chartAcoutData.totalUsableMoney||0)/100 | currency:"￥"}}元</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <div class="pull-right mrr-10">
+                                <button type="button" class="btn btn-primary" ui-sref="app.capitalpool.capitalpool_drug({type:1,id:''})">
+                                    <span>品种间调拨</span>
+                                </button>
+                            </div> -->
+                                </div>
+                            </div>
+                            <div class="row capitalpool-serial" style="overflow:auto">
+                                <div class="capitalpool-chartdiv" id="capitalpool-chartdiv" style="width:{{maxWith}}px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="b m-b-sm clearfix" ng-repeat="capitalPool in chartData ">
+                        <div class="clearfix m">
+                            <div class="row m-b">
+                                <div class="col-md-9">
+                                    <span class="title">{{capitalPool.goodsNo}} 资金池：{{(capitalPool.money||0)/100 | currency:"￥"}}元</span>
+                                    <span class="capitalpool-desc">已锁定资金：{{(capitalPool.freezeMoney||0)/100 | currency:"￥"}}元 可用余额：{{(capitalPool.usableMoney||0)/100 | currency:"￥"}}元</span>
+                                </div>
+                                <div class="col-md-3 clearfix">
+                                    <div class="pull-right m-t">
+                                        <button type="button" class="btn btn-primary btn-sm" ng-click="getDetails(capitalPool);capitalPool.isShowDetails=!capitalPool.isShowDetails">
+                                            <span>详情</span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" ui-sref="app.capitalpool.capitalpool_recharge({id:capitalPool.bizId})">
+                                            <span>充值</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row" ng-show="!capitalPool.thisOpen">
+                                <div class="col-xs-4">
+                                    <div class="clearfix" style="line-height:10px;">
+                                        <div class="bg-dark pull-left b-r b-white position-relative text-center" style="width:{{planPool.money/(amountCount(capitalPool)||0)*100}}%" ng-repeat="planPool in capitalPool.details.pageData">&nbsp;
+                                        </div>
+                                        <div class="bg-light pull-left text-center position-relative" style="width:{{capitalPool.usableMoney/amountCount(capitalPool)*100}}%">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="b b-2x" ng-if="capitalPool.details.pageData.length>0&&capitalPool.isShowDetails">
+                                <div class="clearfix m">
+                                    <div class="bg-dark pull-left b-r b-white position-relative text-center" style="width:{{planPool.money/(amountCount(capitalPool)||0)*100}}%" ng-repeat="planPool in capitalPool.details.pageData">
+                                        {{$index+2}}
+                                        <div class="position-absolute top left right bottom z-index-1 clearfix" ng-show="planPool.isHover">
+                                            <div class="clearfix" ng-class="planPool.fundsName=='money'?'b b-dark b-3x':''">
+                                                <div class="pull-left bg-danger " style="width:{{(planPool.auditMoney||0)/planPool.money*100}}%" ng-class="planPool.fundsName=='auditMoney'?'b b-dark b-3x':''" ng-if="planPool.auditMoney">
+                                                    <div style="height:24px">
+                                                        <!-- {{planPool.auditMoney}} -->
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left bg-success " style="width:{{(planPool.balance||0)/planPool.money*100}}%" ng-class="planPool.fundsName=='balance'?'b b-dark b-3x':''" ng-if="planPool.balance">
+                                                    <div style="height:24px">
+                                                        <!-- {{planPool.balance}} -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-light pull-left text-center position-relative" style="width:{{capitalPool.usableMoney/amountCount(capitalPool)*100}}%">
+                                        {{capitalPool.details.pageData.length+2}}
+                                        <div class="position-absolute top left right bottom z-index-1 clearfix  b b-dark b-3x" ng-show="capitalPool.isHover">
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table m-n m">
+                                    <thead>
+                                        <tr>
+                                            <th>子账号</th>
+                                            <th>
+                                                <i class="label label-sm bg-white b-dark b  p-n" style="padding-left:0px ;padding-right:0px">
+                                                    <b class="label label-sm bg-danger m-n r-n">&nbsp;</b><b class="label label-sm bg-success m-n r-n">&nbsp;</b></i> 锁定总额
+                                            </th>
+                                            <th><b class="label label-sm bg-danger b-dark b">&nbsp;</b>已发生费用</th>
+                                            <th>
+                                                <b class="label label-sm bg-success b-dark b">&nbsp;</b> 剩余费用
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.积分兑药预备金</td>
+                                            <td>{{0 | currency:"￥"}}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr ng-repeat="planPool in capitalPool.details.pageData" ng-mouseover="planPool.isHover=true" ng-mouseleave="planPool.isHover=false" ng-class="planPool.isHover?'bg-info':''">
+                                            <td>{{$index+2}}.推广活动[{{planPool.startDate | date:'yyyy/MM/dd'}}-{{planPool.endDate | date:'yyyy/MM/dd'}}]</td>
+                                            <td ng-mouseover="planPool.fundsName='money'" ng-mouseleave="planPool.fundsName=''">
+                                                <a>{{(planPool.money||0)/100 | currency:"￥"}}</a>
+                                            </td>
+                                            <td ng-mouseover="planPool.fundsName='auditMoney'" ng-mouseleave="planPool.fundsName=''">
+                                                <a>{{(planPool.auditMoney||0)/100| currency:"￥"}}</a>
+                                            </td>
+                                            <td ng-mouseover="planPool.fundsName='balance'" ng-mouseleave="planPool.fundsName=''">
+                                                <a class="hide" ng-bind="planPool.balance = planPool.money-planPool.auditMoney"></a>
+                                                {{(planPool.balance||0)/100 | currency:"￥"}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-mouseover="capitalPool.isHover=true" ng-mouseleave="capitalPool.isHover=false" ng-class="capitalPool.isHover?'bg-info':''">
+                                            <td colspan="3">
+                                                {{capitalPool.details.pageData.length+2}}.资金池余额
+                                            </td>
+                                            <td>
+                                                {{(capitalPool.usableMoney||0)/100 | currency:"￥"}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="b b-2x text-center" ng-if="capitalPool.details.pageData.length<1&&capitalPool.isShowDetails">
+                                无数据
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <pagination ng-show="page_count>2" total-items="page_count" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.tablebox {
+    border: 0;
+}
+
+.tablebox td {
+    border: 0;
+}
+
+.tablebox th {
+    border: 0;
+}
+
+.capitalpool .title {
+    padding: 3px;
+    font-size: 18px;
+    display: block;
+}
+
+.capitalpool-panel {
+    padding: 7px 3px;
+    border: #dee5e7 solid 1px;
+}
+
+.capitalpool-desc {
+    padding: 3px;
+    border-top: #dee5e7 solid 1px;
+}
+
+
+/*.capitalpool-serial {
+    width: 100%;
+}*/
+
+.capitalpool-chartdiv {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.capitalpool-panel button {
+    width: 100px;
+    margin-top: 10px;
+}
+
+.capitalpool-min-ul {
+    margin: 8px;
+}
+
+.capitalpool-ul {
+    margin: 20px 5px;
+}
+
+.capitalpool-min-ul ul {
+    width: 40%;
+    height: 6px;
+    margin-left: 10px;
+}
+
+.capitalpool-ul ul {
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+}
+
+.capitalpool-min-ul li,
+.capitalpool-ul li {
+    position: relative;
+    float: left;
+    height: 100%;
+    text-align: center;
+    color: #ffffff;
+    background-color: #3c3837;
+    border-right: #fff solid 1px;
+}
+
+.capitalpool-ul li span {
+    display: inline-block;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    text-indent: 0;
+    float: left;
+    display: none;
+}
+
+.capitalpool-min-ul li.capitalpool-syfy,
+.capitalpool-ul li.capitalpool-syfy {
+    color: #d7f4f9;
+    background-color: #b8d6a4;
+}
+
+.capitalpool-table {
+    padding: 0;
+    margin: 25px;
+}
+
+.capitalpool-table .row {
+    margin: 0;
+}
+
+.capitalpool-table #capitalpool-contactsList th i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 3px;
+}
+
+.capitalpool-default {
+    background-color: #3c3837;
+}
+
+.capitalpool-yjsfy {
+    background-color: #339999;
+}
+
+.capitalpool-djsfy {
+    background-color: #990000;
+}
+
+.capitalpool-syfy {
+    background-color: #c1f2ff;
+}
+
+.capitalpool-ul li span.numbers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: block !important;
+}
+
+.capitalpool-ul li span.ayjsfybg {
+    background-color: #339999;
+}
+
+.capitalpool-ul li span.adjsfybg {
+    background-color: #990000;
+}
+
+.capitalpool-ul li span.asyfybg {
+    background-color: #c1f2ff;
+}
+
+.capitalpool-ul li span.capitalpool-focus {
+    position: absolute;
+    top: 0px;
+    left: -2px;
+    height: 100%;
+    width: 100%;
+    border: #ff9900 solid 2px;
+    display: none;
+}
+
+.capitalpool-ul li.capitalpool-active span.ayjsfybg {
+    display: inline-block;
+}
+
+.capitalpool-ul li.capitalpool-active span.adjsfybg {
+    display: inline-block;
+}
+
+.capitalpool-ul li.capitalpool-active span.asyfybg {
+    display: inline-block;
+}
+
+.capitalpool-ul li.capitalpool-table-active span.capitalpool-focus {
+    display: inline-block;
+}
+
+.capitalpoolfold {
+    display: none;
+}
+
+.capitalpoolfold.foldopen {
+    display: block;
+}
+
+.capitalpool-button-hover {
+    display: block;
+}
+</style>

@@ -1,0 +1,407 @@
+<div class="aside-wrap" ng-controller="navCtrl">
+    <!-- if you want to use a custom scroll when aside fixed, use the slimScroll
+    <div class="navi-wrap" ui-jq="slimScroll" ui-options="{height:'100%', size:'8px'}">
+  -->
+    <div class="navi-wrap" ng-model="datas">
+        <!-- nav -->
+        <div ng-show="!isCompany">
+            <!-- logo -->
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                <div class="wrapper">
+                    <div ng-if="isActive">
+                        <span class="thumb-lg w-auto-folded m-t-sm">
+                            <img id="group_logo" ng-show="datas.groupPicFile" ng-src="{{datas.groupPicFile}}" class="img-full" alt="...">
+                        </span>
+                        <div data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                            <span class="clear">
+                                <span class="block m-t-sm">
+                                    <strong class="font-bold text-lt">{{rootGroup.name || '未创建集团'}}</strong>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="!isActive">
+                        <p class="tip-text">尊敬的
+                            <span class="text-warning" ng-bind="user.name">XXX</span>
+                            医生，
+                            <span ng-if="un_reg">您尚未加入任何医生集团。您可以app上加入已有的医生集团；如果您想自己创建医生集团，可以
+                                <br/><a ui-sref="app.group_create" class="text-success text-sm">立即创建<i class="fa fa-hand-o-left m-l-n-md"></i></a></a> 。</span>
+                            <span ng-if="un_check && !user.isAdmin && !no_pass">您已加入医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <span class="text-warning">正在审核</span>。</span>
+                            <span ng-if="un_check && user.isAdmin && !no_pass">您已创建医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <a ui-sref="app.group_create" class="text-warning text-sm">正在审核<i class="fa fa-hand-o-left m-l-n-md"></i></a></a> 。</span>
+                            <span ng-if="pass && !user.isAdmin">您已加入医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <span class="text-success">已审核通过</span>。</span>
+                            <span ng-if="pass && user.isAdmin">您已创建医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <a ui-sref="app.group_create" class="text-success text-sm">已审核通过<i class="fa fa-hand-o-left m-l-n-md"></i></a> 。</span>
+                            <span ng-if="no_pass && !user.isAdmin">您已加入医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <span class="text-danger">审核未通过</span>。</span>
+                            <span ng-if="no_pass && user.isAdmin">您已创建医生集团：<b class="text-info" ng-bind="rootGroup.name"></b> ，该集团
+                                <a ui-sref="app.group_create" class="text-danger text-sm">审核未通过<i class="fa fa-hand-o-left m-l-n-md"></i></a></a> 。</span>
+                            <span ng-if="un_check">审核通过后方可进行邀请医生等相关操作。</span>
+                            <span ng-if="pass">可以通过邀请两位以上（含）医生来激活该集团。</span>
+                            <span ng-if="no_pass">可以重新填写并提交审核信息。</span>
+                            <span ng-if="pass && !user.isAdmin">如果您不是管理员，请联系集团内管理员将您添加到集团通讯录。</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="dropdown wrapper" style="padding:0 15px 5px" dropdown ng-if="has_more_group">
+                    <a class="check-wht" style="margin:0" href class="dropdown-toggle hidden-folded" dropdown-toggle>
+                        <span>切换医生集团</span>
+                    </a>
+                    <!-- dropdown 切换医生集团 -->
+                    <div class="dropdown-menu animated fadeInRight w hidden-folded" style="padding:0;background-color:transparent">
+                        <span class="arrow top hidden-folded arrow-info"></span>
+                        <ul class="group-list-panel bg-info" ng-controller="GroupSwitch">
+                            <li ng-repeat="group in groupList">
+                                <a data-id="{{group.id}}" href ng-click="{{group.isCurGroup ? '' : 'changed($event)'}}">
+                                    <i class="fa fa-check {{group.isCurGroup ? 'text-default' : 'text-info'}}"></i>
+                                    <span ng-bind="group.name"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- / dropdown -->
+                </div>
+                <div class="line dk hidden-folded"></div>
+            </div>
+            <!-- /logo -->
+            <!-- list -->
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <!-- list -->
+                <ul class="nav ng-scope">
+                    <li ng-if="(user.isInGroup && user.isAdmin && pass) || (pass && user.isAdmin)">
+                        <a ui-sref="app.contacts" href class="nav-item">
+                            <i class="fa fa-book text-info-dker"></i>
+                            <span class="font-bold">通讯录</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a ui-sref="app.relationship.list" href class="nav-item">
+                            <i class="fa fa-sort-numeric-asc text-info-dker"></i>
+                            <span class="font-bold">医生等级</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive && canSee">
+                        <a ui-sref="app.schedule" href class="nav-item">
+                            <i class="fa fa-calendar text-info-dker"></i>
+                            <span class="font-bold">值班表</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="glyphicon glyphicon-list text-info-dker"></i>
+                            <span class="font-bold">医生考核</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.evaluation_by_patient" href class="nav-item">
+                                    <span>邀请患者数</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.evaluation_by_doctor" href class="nav-item">
+                                    <span>邀请医生数</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.evaluation_by_finance" href class="nav-item">
+                                    <span>财务贡献</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-bar-chart-o text-info-dker"></i>
+                            <span class="font-bold ng-scope">医生统计</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.statistics_of_disease" href class="nav-item">
+                                    <span>按病种统计</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.statistics_of_title" href class="nav-item">
+                                    <span>按职称统计</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.statistics_of_area" href class="nav-item">
+                                    <span>按区域统计</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-rmb text-info-dker"></i>
+                            <span class="font-bold ng-scope">收入查询</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.statistic_of_report({name:'group',date:0})" href class="nav-item">
+                                    <span>集团收入</span>
+                                </a>
+                            </li>
+                            <li ng-if="canSee">
+                                <a ui-sref="app.reports_of_finance({name:'doctor',date:0})" href class="nav-item">
+                                    <span>医生收入</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-wheelchair text-info-dker"></i>
+                            <span class="font-bold ng-scope">患者库</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.patient({type:'group'})" href class="nav-item">
+                                    <span>集团患者库</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.patient({type:'disease'})" href class="nav-item">
+                                    <span>病种患者库</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="user.isAdmin && isActive">
+                        <a ui-sref="app.group_drug_library" href class="nav-item">
+                            <i class="fa fa-medkit text-info-dker"></i>
+                            <span class="font-bold">集团药品库</span>
+                        </a>
+                    </li>
+                    <!--                    <li ng-if="user.isInGroup && user.isAdmin">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa icon-emoticon-smile text-info-dker"></i>
+                            <span class="font-bold ng-scope">资料中心</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.article_list" href class="nav-item">
+                                    <span>患教中心</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.file_management" href class="nav-item">
+                                    <span>文件管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a ui-sref="app.article_list" href class="nav-item">
+                            <i class="fa icon-emoticon-smile text-info-dker"></i>
+                            <span class="font-bold">患教中心</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a ui-sref="app.public_msg_list" href class="nav-item">
+                            <i class="fa fa-rss text-info-dker"></i>
+                            <span class="font-bold">爱心宣教</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a ui-sref="app.consultation.introduce" href class="nav-item">
+                            <i class="fa fa-eye text-info-dker"></i>
+                            <span class="font-bold">会诊</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-heart text-info-dker"></i>
+                            <span class="font-bold ng-scope">健康关怀计划</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.care_plan_list" href class="nav-item">
+                                    <span>关怀计划列表</span>
+                                </a>
+                            </li>
+                            <!-- <li>
+                                <a ui-sref="app.care_plan.questions_of_disease" href class="nav-item">
+                                    <span>病情跟踪题库</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.reserve_of_schedule" href class="nav-item">
+                                    <span>日程库</span>
+                                </a>
+                            </li> -->
+                            <li>
+                                <a ui-sref="app.lifeQualityLibrary" href class="nav-item">
+                                    <span>生活量表题库</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.surveyLibrary" href class="nav-item">
+                                    <span>调查表题库</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a ui-sref="app.follow_up_table" class="auto">
+                            <!-- <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span> -->
+                            <i class="fa icon-emoticon-smile text-info-dker"></i>
+                            <span class="font-bold ng-scope">随访计划</span>
+                        </a>
+                        <!-- <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.follow_up_table" href class="nav-item">
+                                    <span>随访计划列表</span>
+                                </a>
+                            </li>
+                        </ul> -->
+                    </li>
+                    <li ng-if="!user.isAdmin || !isActive">
+                        <a ui-sref="app.invite_list" class="nav-item">
+                            <i class="fa fa-users text-info-dker"></i>
+                            <span class="font-bold">我的患者</span>
+                        </a>
+                    </li>
+                    <li ng-if="!user.isAdmin || !isActive">
+                        <a ui-sref="app.doc.msg_manage.send_msg({id:'pub_doctor_'+user.userId})" href class="nav-item">
+                            <i class="fa fa-rss text-info-dker"></i>
+                            <span class="font-bold">爱心宣教</span>
+                        </a>
+                    </li>
+                    <li ng-if="!user.isAdmin || !isActive">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-database text-info-dker"></i>
+                            <span>资料中心</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href class="nav-item">
+                                    <span>资料中心</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.doc.platform_doc" class="nav-item">
+                                    <span>玄关患教中心</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" ng-if="user.isInGroup">
+                                <a ui-sref="app.doc.group_doc" class="nav-item">
+                                    <span>集团患教中心</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.doc.doctor_doc" class="nav-item">
+                                    <span>我的资料</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="!user.isAdmin || !isActive">
+                        <a ui-sref="app.file_management" href class="nav-item">
+                            <i class="fa fa-file text-info-dker"></i>
+                            <span class="font-bold">我的文件</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.isInGroup && user.isAdmin && isActive">
+                        <a class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-cogs text-info-dker"></i>
+                            <span class="font-bold ng-scope">设置</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href class="nav-item">
+                                    <span>设置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.group_edit" href class="nav-item">
+                                    <span>基本信息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.charge_setting" href class="nav-item">
+                                    <span>集团财务</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.enterprise_identify" href class="nav-item">
+                                    <span>加V认证</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.schedule_setting" href class="nav-item">
+                                    <span>值班设置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.group_admin" href class="nav-item">
+                                    <span>管理员</span>
+                                </a>
+                            </li>
+                            <li class="hide">
+                                <a ui-sref="app.disease_setting" href class="nav-item">
+                                    <span>病种标签设置</span>
+                                </a>
+                            </li>
+                            <li ng-if="canSee">
+                                <a ui-sref="app.expert_setting" href class="nav-item">
+                                    <span>专家名单设置</span>
+                                </a>
+                            </li>
+                            <li ng-if="canSee">
+                                <a ui-sref="app.charge_setting" href class="nav-item">
+                                    <span>收费设置</span>
+                                </a>
+                            </li>
+                            <li ng-if="canSee">
+                                <a ui-sref="app.bank_account" href class="nav-item">
+                                    <span>银行卡号管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- list -->
+        </div>
+        <!-- nav -->
+    </div>
+</div>

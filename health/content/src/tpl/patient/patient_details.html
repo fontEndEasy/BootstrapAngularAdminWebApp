@@ -1,0 +1,74 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="PatientDetails">
+    <div class="panel-heading font-bold text-center">患者详情 (<span class="text-info" ng-bind="viewData.patientName"></span>)</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div id="patient_record" class="data-tab">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>用户姓名</td>
+                            <td>李小龙</td>
+                        </tr>
+                        <tr>
+                            <td>成员关系</td>
+                            <td>父亲</td>
+                        </tr>
+                        <tr>
+                            <td>年龄</td>
+                            <td>65</td>
+                        </tr>
+                        <tr>
+                            <td>联系方式</td>
+                            <td>13985565655</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">诊断记录1 (2015年8月25日)</td>
+                        </tr>
+                        <tr>
+                            <td>病种</td>
+                            <td>感冒</td>
+                        </tr>
+                        <tr>
+                            <td>医生</td>
+                            <td>高明</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">诊断记录2 (2015年8月25日)</td>
+                        </tr>
+                        <tr>
+                            <td>病种</td>
+                            <td>感冒</td>
+                        </tr>
+                        <tr>
+                            <td>医生</td>
+                            <td>高明</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">诊断记录3 (2015年8月25日)</td>
+                        </tr>
+                        <tr>
+                            <td>病种</td>
+                            <td>感冒</td>
+                        </tr>
+                        <tr>
+                            <td>医生</td>
+                            <td>高明</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button ng-click="close()" type="button" class="w100 btn btn-primary">关 闭</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

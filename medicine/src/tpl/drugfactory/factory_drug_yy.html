@@ -1,0 +1,43 @@
+modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="factory_drugyy">
+    <div class="panel-heading font-bold text-center">【{{general_name}}】医药代表</div>
+    <div class="panel-body">
+        <div style="padding:20px;">
+            <div class="row yylist">
+                <div class="pull-right input-group">
+                    <input type="text" class="form-control" style="" placeholder="医药代表" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+                    <div class="input-group-addon" ng-click="findByKeyWord()">搜索</div>
+                </div>
+                <table id="yydb_contactsList" class="tablebox table table-striped" style="border:#eaeff0 solid 1px;">
+                    <thead>
+                        <tr>
+                            <!-- <th>
+                                <div class="checkbox" style="padding-left:20px;">
+                                  <label class="i-checks">
+                                    <input type="checkbox" name="checkall"><i></i>
+                                  </label>
+                                </div>
+                            </th> -->
+                            <th>
+                               选择
+                            </th>
+                            <th style="width:60px;">头像</th>
+                            <th>姓名</th>
+                            <th>职位</th>
+                            <th>联系方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group text-center">
+        <button ng-click="save_medicine_creates(); " style="width:100px;" type="button" class="btn btn-info">保 存</button>
+        <button ng-click="cancel(); " style="width:100px;" type="button" class="btn btn-default">关 闭</button>
+    </div>
+</div>
+
+<!-- /modal dialog

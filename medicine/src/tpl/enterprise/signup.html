@@ -1,0 +1,60 @@
+    <div class="container w-auto-xs " ng-controller="SignupFormController">
+      <a href class="navbar-brand block m-t">{{app.name}}</a>
+      <div class="panel panel-default m-t-lg col-lg-10 col-lg-offset-1">
+        <div class="row">
+          <div class="panel-heading font-bold ">公司账户注册</div>
+        </div>
+        <div class="panel-body ">
+          <form class="form-horizontal" novalidate name="singnupForm">
+            <div class="form-group">
+              <div class="col-sm-12"><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;公司账户基本信息&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-right"></i>&nbsp;&nbsp;公司账户基本信息</div>
+            </div>
+            <!-- <div class="form-group m-t-lg" ng-class="{'has-error':singnupForm.userName.$invalid&&singnupForm.userName.$dirty}">
+              <label class="control-label col-sm-2">用户名</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control " placeholder="用户名" required ng-model="userName" name="userName" ng-pattern="/^[a-z0-9]+$/i" ng-minlength="6" ng-maxlength="16" >
+                <span class="help-block m-b-none">6-16位英文字母或数字</span>
+              </div>
+            </div> -->
+            <div class="form-group" ng-class="{'has-error':singnupForm.userPhone.$invalid&&singnupForm.userPhone.$dirty}">
+              <label class="control-label col-sm-2">手机号码</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control " placeholder="手机号码" name="userPhone" ng-model="userPhone" required></div>
+              <div class="col-sm-4 text-right">
+                <button class="btn btn-info btn-block" ng-disabled="singnupForm.userPhone.$invalid||getSmsBTState" ng-click="getSMS()">{{getSmsBT}}</button>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':(singnupForm.smsCode.$invalid||!smsCodeResult)&&singnupForm.smsCode.$dirty}">
+              <label class="control-label col-sm-2">短信验证码</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control " placeholder="短信验证码" name="smsCode" ng-model="smsCode" required ng-disabled="singnupForm.userPhone.$invalid"></div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':singnupForm.userPwd.$invalid&&singnupForm.userPwd.$dirty}">
+              <label class="control-label col-sm-2">密码</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control " placeholder="密码" name="userPwd" ng-model="userPwd" ng-pattern="/^[a-z0-9]+$/i" ng-minlength="6" ng-maxlength="16" required>
+                <span class="help-block m-b-none">6-16位英文字母或数字，区分大小写</span>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':(singnupForm.userPwdCheck.$dirty&&userPwdCheck!=userPwd)||(singnupForm.userPwdCheck.$invalid&&singnupForm.userPwdCheck.$dirty)}">
+              <label class="control-label col-sm-2">确认密码</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control " placeholder="确认密码" name="userPwdCheck" ng-model="userPwdCheck" required>
+                <span class="help-block m-b-none">请确认，再次输入您的密码</span>
+              </div>
+            </div>
+            <div class="form-group m-t-lg">
+              <div class="col-sm-3 col-sm-offset-2">
+                <button class="btn btn-primary btn-block" ng-disabled="singnupForm.$invalid||userPwdCheck!=userPwd" ng-click="signup()">注册</button>
+              </div>
+            </div>
+            <div class="form-group m-t-lg" ng-show="authError">
+              <div class="col-sm-10 col-sm-offset-2 text-danger">
+                {{authError}}
+                <!-- &nbsp;&nbsp;&nbsp;<a class="text-danger" ui-sref="access.resetPassword">马上登录</a> -->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>

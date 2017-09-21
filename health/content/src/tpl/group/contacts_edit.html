@@ -1,0 +1,42 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsEdit">
+  <div class="panel-heading font-bold text-center">编辑组织</div>
+  <div class="panel-body">
+    <div class="clear" style="height: 100%">
+      <div class="col-md-6 cnt-apportion-left cnt-col-lt" style="height: 100%">
+        <p class="form-text text-center">选择<span class="text-info">上级组织</span></p>
+        <div id="cnt_list_apportion" class="list-group">
+          <div class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+        </div>
+      </div>
+      <div class="col-md-6 cnt-apportion-right">
+        <p class="form-text text-center">若不选择则移至为<span class="text-info">顶级组织</span></p>
+        <div class="cnt-apportion-list">
+          <div id="cnt_list_department"><span class="text-muted">上级科室</span></div>
+        </div>
+        <form name="form" class="form-validation form-horizontal">
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" placeholder="组织名称" class="form-control" ng-model="formData.name" reuired>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <textarea type="text" placeholder="组织描述" class="form-control" ng-model="formData.description"></textarea>
+            </div>
+          </div>
+        </form>  
+      </div>
+    </div>
+  </div>
+  <div class="cnt-opr-bar form-group">
+    <div class="col-md-offset-2 col-md-4">
+      <button ng-click="save()" type="button" class="w100 btn btn-success">确 定</button>
+    </div>
+    <div class="col-md-4">
+      <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+    </div>
+  </div>
+</div>
+<!-- /modal dialog -->

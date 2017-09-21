@@ -1,0 +1,329 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="NewFollowUpCtrl">
+    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="row">
+            <div class="col-xs-6 col-md-6 col-lg-5 b-l b-grey">
+                <!-- <div class="clearfix  m-b-sm  m-t-lg">随访计划名称
+                    <input type="text" class="form-control r-3x" placeholder="请输入随访计划名称" ng-model="lists.name">
+                </div> -->
+                <div class="form-group clearfix m-b-sm  m-t-lg">
+                    <!-- <div class="row"> -->
+                    <!-- <label class="col-lg-5 control-label">随访计划名称</label>
+                        <div class="col-lg-7">
+                            <div class="row">
+                                <input type="text" class="form-control r-3x" placeholder="请输入随访计划名称" ng-model="lists.name">
+                            </div>
+                        </div> -->
+                    <div class="input-group">
+                        <span class="input-group-addon text-muted b-grey r-3x">随访计划名称：</span>
+                        <input type="text" class="form-control b-grey r-3x" placeholder="请输入随访计划名称" ng-model="lists.name">
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-3">
+                <div class="clearfix m-b-sm  m-t-lg">
+                    <div class="input-group">
+                        <input type="text" class="form-control r-3x b-grey" placeholder="请选择随访标签" value="{{lists.diseaseLableName}}" disabled="disabled" required>
+                        <span class="input-group-btn">
+                                        <button class="btn btn-default r-3x b-grey" type="button" ng-click="chooseDisease()">选择</button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 b-l b-grey">
+                <p class="text-muted text-sm">随访计划简介：</p>
+                <textarea class="form-control r-3x  m-b-sm" rows="3" placeholder="随访计划简介" ng-model="lists.description"></textarea>
+            </div>
+        </div>
+        <!-- 第一天 -->
+        <div class="row" ng-repeat="list in lists.followUpDays track by $index">
+            <div class="col-xs-12 b-l b-grey">
+                <div class="m-l-n-xl inline pull-left" ng-class="{'m-t-sm':!$first}"><span class="m-t badge bg-info badge-md bg-light text-white" style="margin-left:13px;">{{$index + 1}}</span></div>
+                <div class="b bg-white b-grey r-3x clearfix" ng-class="{'m-t-sm':!$first}" style="position: relative;">
+                    <button class="btn btn-rounded btn-xs btn-icon btn-danger  m-l-sm m-r-sm" style="position: absolute;right: -20px;top: -10px;" ng-if="$index!=0" ng-click="removeFollowUpDay($index)"><i class="fa fa-remove text-xs"></i></button>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left text-dark" ng-if="$index == 0">第1天</div>
+                            <div class="pull-left" ng-class="{true:'text-danger',false:'text-dark'}[!list.dayNum&&list.dayNum!=0]" ng-if="$index != 0" ng-click="timeEditor($index,list.dayNum,lists.followUpDays[$index-1].dayNum)" style="cursor: pointer;">{{list.dayNum ? '第 '+ list.dayNum +' 天' : '请选择时间'}}</div>
+                            <div class="pull-right" ng-hide="$first">
+                                <button class="btn btn-xs btn-icon m-l-sm m-r-sm bg-white" ng-click="timeEditor($index,list.dayNum,lists.followUpDays[$index-1].dayNum)"><i class="fa fa-angle-right text-2x text-grey"></i></button>
+                            </div>
+                        </div>
+                        <!-- <div class="b-b b-grey m-t-sm"></div> -->
+                    </div>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs">
+                            <!-- <input type="text" class="form-control b-none bg-light" placeholder="请输入日程的主题" ng-model="list.name"> -->
+                            <div class="input-group">
+                                <span class="input-group-addon text-muted">日程的主题：</span>
+                                <input type="text" class="form-control" placeholder="请输入日程的主题" ng-model="list.name">
+                            </div>
+                        </div>
+                        <div class="m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left text-dark">患教资料</div>
+                            <div class="pull-right b-l b-grey">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-success  m-l-sm m-r-sm" ng-click="addFromPlatform($index)"><i class="fa fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm" ng-repeat="followUpDayDetail in list.followUpDayDetails | filter:{type : 6}">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left m-l-lg">{{followUpDayDetail.name}}</div>
+                            <div class="pull-right">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-danger  m-l-sm m-r-sm" ng-click="removeList($parent.$index,followUpDayDetail)"><i class="fa fa-remove text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left text-dark">调查表</div>
+                            <div class="pull-right b-l b-grey">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-success  m-l-sm m-r-sm" ng-click="addList(5,$index)"><i class="fa fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm" ng-repeat="followUpDayDetail in list.followUpDayDetails | filter:{type : 5}">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left m-l-lg">{{followUpDayDetail.name}}</div>
+                            <div class="pull-right">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-danger  m-l-sm m-r-sm" ng-click="removeList($parent.$index,followUpDayDetail)"><i class="fa fa-remove text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left text-dark">生活量表</div>
+                            <div class="pull-right b-l b-grey">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-success  m-l-sm m-r-sm" ng-click="addList(3,$index)"><i class="fa fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm" ng-repeat="followUpDayDetail in list.followUpDayDetails | filter:{type : 3}">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left m-l-lg">{{followUpDayDetail.name}}</div>
+                            <div class="pull-right">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-danger  m-l-sm m-r-sm" ng-click="removeList($parent.$index,followUpDayDetail)"><i class="fa fa-remove text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="m-t-sm b-b b-grey"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left text-dark">提醒内容</div>
+                            <div class="pull-right b-l b-grey" ng-hide="(list.followUpDayDetails | filter:{type : 7}).length>0">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-success  m-l-sm m-r-sm" ng-click="textEditor($index)"><i class="fa fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="b-b b-grey m-t-sm" ng-class="{'b-none':(list.followUpDayDetails | filter:{type : 7}).length<1}"></div>
+                    </div>
+                    <div class="col-xs-12 m-t-sm" ng-repeat="followUpDayDetail in list.followUpDayDetails | filter:{type : 7}">
+                        <div class="p-b-xs p-t-xs clearfix">
+                            <div class="pull-left m-l-lg">{{followUpDayDetail.name}}</div>
+                            <div class="pull-right">
+                                <button class="btn btn-rounded btn-xs btn-icon btn-danger  m-l-sm m-r-sm" ng-click="removeList($parent.$index,followUpDayDetail)"><i class="fa fa-remove text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="m-t-sm b-b b-grey" ng-class="{'b-none':$last}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 添加 -->
+        <div class="row">
+            <div class="col-xs-12 b-l b-grey">
+                <div class="clearfix m-t m-b-lg">
+                    <div class="pull-left">
+                        <button class="btn m-b-xs btn-success r-2x" ng-click="addDay()">添加日程项</button>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn m-b-xs btn-default w-xs r-2x" ng-click="save()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="NewFollowUp_DiseaseSelected.html">
+        <div class="modal-header">
+            <h4 class="modal-title">选择病种</h4>
+        </div>
+        <div style="height:320px;overflow-y:scroll;">
+            <div class="modal-body list-group" id="sch_cnt_list"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="add()">确定</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="NewFollowUp_TimeDialog.html">
+        <div class="modal-header">
+            <h4 class="modal-title">选择时间间隔</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="row text-right">
+                        <label class="control-label text-lg">第</label>
+                    </div>
+                </div>
+                <div class="col-xs-3 m-l-lg">
+                    <div class="row">
+                        <select class="form-control ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" ng-model="timePoint">
+                            <!-- <option value="">请选择时间</option> -->
+                            <option value="1" ng-if="prevTime < 1">1</option>
+                            <option value="2" ng-if="prevTime < 2">2</option>
+                            <option value="3" ng-if="prevTime < 3">3</option>
+                            <option value="4" ng-if="prevTime < 4">4</option>
+                            <option value="5" ng-if="prevTime < 5">5</option>
+                            <option value="6" ng-if="prevTime < 6">6</option>
+                            <option value="7" ng-if="prevTime < 7">7</option>
+                            <option value="8" ng-if="prevTime < 8">8</option>
+                            <option value="9" ng-if="prevTime < 9">9</option>
+                            <option value="10" ng-if="prevTime < 10">10</option>
+                            <option value="11" ng-if="prevTime < 11">11</option>
+                            <option value="12" ng-if="prevTime < 12">12</option>
+                            <option value="13" ng-if="prevTime < 13">13</option>
+                            <option value="14" ng-if="prevTime < 14">14</option>
+                            <option value="15" ng-if="prevTime < 15">15</option>
+                            <option value="16" ng-if="prevTime < 16">16</option>
+                            <option value="17" ng-if="prevTime < 17">17</option>
+                            <option value="18" ng-if="prevTime < 18">18</option>
+                            <option value="19" ng-if="prevTime < 19">19</option>
+                            <option value="20" ng-if="prevTime < 20">20</option>
+                            <option value="21" ng-if="prevTime < 21">21</option>
+                            <option value="22" ng-if="prevTime < 22">22</option>
+                            <option value="23" ng-if="prevTime < 23">23</option>
+                            <option value="24" ng-if="prevTime < 24">24</option>
+                            <option value="25" ng-if="prevTime < 25">25</option>
+                            <option value="26" ng-if="prevTime < 26">26</option>
+                            <option value="27" ng-if="prevTime < 27">27</option>
+                            <option value="28" ng-if="prevTime < 28">28</option>
+                            <option value="29" ng-if="prevTime < 29">29</option>
+                            <option value="30" ng-if="prevTime < 30">30</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-3 m-l-lg">
+                    <div class="row">
+                        <label class="control-label text-lg">天</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="confirm()">确定</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="NewFollowUp_TextDialog.html">
+        <div class="modal-header">
+            <h4 class="modal-title">输入提醒内容</h4>
+        </div>
+        <div class="modal-body clearfix">
+            <div class="col-xs-12">
+                <input type="text" class="form-control b-grey r-3x" placeholder="请输入随访计划名称" ng-model="text">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="confirm()">确定</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="NewFollowUp_AddList.html">
+        <div class="modal-header">
+            <h4 class="modal-title">{{viewName}}</h4>
+        </div>
+        <div class="clearfix m-t-sm m-b-sm">
+            <div class="col-xs-6 cnt-col-lt">
+                <div class="list-group" style="height:320px;overflow-y:scroll;">
+                    <div class="modal-body b-none" id="sch_list"></div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <table id="listDatable" class="table table-striped b-t b-b b-l b-r dataTable no-footer" style="margin-top:0px !important;">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="docModalContent.html">
+        <div class="modal-header">
+            <div class="input-group" style="width: 400px;margin: 0 auto;position: relative;">
+                <input type="text" class="form-control" placeholder="输入资料标题关键字搜索" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+                <a ng-show="mainKWLength>0" style="position: absolute;top: 10px;right: 120px;z-index: 999;" ng-click="clearMainKW()" class="glyphicon glyphicon-remove"></a>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" ng-click="findDocByKeyWord()">搜索全部文档</button>
+                </span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="b-a bg-light dk r r-2x m-t-md">
+                        <span ng-if="doing_async">...loading...</span>
+                        <abn-tree tree-control="my_tree" tree-data="my_data" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf="fa fa-stethoscope dcolor" icon-expand="fa fa-caret-right" icon-collapse="fa fa-caret-down" ng-if="isTreeLoad">
+                        </abn-tree>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="panel panel-default m-t-md">
+                        <div class="panel-heading">
+                            <span>筛选项:</span>
+                        </div>
+                        <div class="panel-body-p clearfix">
+                            <div class="font-bold kw-txt">
+                                关键字：
+                            </div>
+                            <div class="kw-content" ng-class="{'kw-open':open, 'kw-close': !open}">
+                                <div class="btn-group" id="kw_content">
+                                    <label ng-repeat="keyword in keywords" ng-click="sortByKeyword(keyword)" class="btn btn-default  btn-xs" style="margin-left:5px;!important;margin-bottom: 10px;" ng-model="$parent.radioModel" btn-radio="keyword.name">{{keyword.name}}</label>
+                                </div>
+                            </div>
+                            <a class="font-bold more-txt" ng-click="open=!open;" ng-show="showMore">
+                                更多
+                                <i class=" fa ng-scope fa-angle-down" ng-class="{'fa-angle-down': !open, 'fa-angle-right': open}"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                    <table id="doc_list" class="table table-striped b-t b-b m-t-sm h-full table-hover">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>使用次数</th>
+                                <th>浏览量</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div>

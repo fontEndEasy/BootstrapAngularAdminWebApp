@@ -1,0 +1,160 @@
+<div class="hbox-auto-xs hbox-auto-sm" ng-controller="CustomerService">
+    <div class="panel-heading font-bold text-center" ng-bind="viewTitle"></div>
+    <div class="panel-body" ng-model="formData">
+        <form name="form" class="form-validation form-horizontal">
+            <div class="text-danger wrapper text-center" ng-show="authError" ng-bind="authError"></div>
+            <div class="form-group" ng-show="viewData.isDoctor">
+                <div class="col-sm-12 text-center">
+                    <img class="portrait" ng-src="{{viewData.doctorPortrait}}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">医生姓名</label>
+
+                <div class="col-sm-6">
+                    <input type="text" placeholder="医生姓名" class="form-control" ng-model="viewData.name" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">手机号码</label>
+
+                <div class="col-sm-6">
+                    <input type="text" placeholder="手机号码" class="form-control" ng-model="viewData.telephone" readonly/>
+                </div>
+            </div>
+            <div class="form-group rewrite-col">
+                <label class="col-sm-3 col-xs-11 control-label">医疗机构<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-4 col-xs-8 re-col">
+                    <input type="text" id="hospital_ipt" placeholder="选择医疗机构" class="form-control"
+                           ng-model="formData.hospital" required>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <button type="button" ng-click="choose($index, 'hospital')" class="w100 btn btn-info">选择</button>
+                </div>
+            </div>
+            <div class="form-group rewrite-col">
+                <label class="col-sm-3 col-xs-11 control-label">科室<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-4 col-xs-8 re-col">
+                    <input type="text" id="departments_ipt" placeholder="选择科室" class="form-control"
+                           ng-model="formData.departments" required>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <button type="button" ng-click="choose($index, 'department')" class="w100 btn btn-info">选择</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-11 control-label">职称<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <select id="doctor_title" class="form-control" tabindex="1" required>
+                        <option value="1">请选择职称</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-if="viewData.isDoctor" class="form-group required-items">
+                <label class="col-sm-3 control-label">证书编号<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <input type="tel" placeholder="证书编号" class="form-control" ng-model="formData.licenseNum"
+                           tabindex="2" required>
+                </div>
+            </div>
+            <div ng-show="viewData.isDoctor" class="form-group required-items">
+                <label class="col-sm-3 control-label">证书到期时间<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6 input-append date form_datetime">
+                    <input type="text" placeholder="证书到期日" class="form-control" ng-model='formData.licenseExpire'
+                           tabindex="3" readonly required>
+                    <span class="add-on"><i class="icon-th glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-11 control-label">角色标签<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <select id="doctor_role" class="form-control" tabindex="1" required>
+                        <option value="1" selected>医生</option>
+                        <option value="2">护士</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-model="imgs">
+                <label class="col-sm-3 control-label">证书图片</label>
+
+                <div class="col-sm-6" ng-if="imgs">
+                    <div class="certificate-list" ng-if="imgs">
+                        <div id="gl_point">
+                            <a ng-repeat="val in imgs" ng-class="{{cur-img}}" href>
+                                <img ng-src="{{val}}"/>
+                            </a>
+                        </div>
+                        <div id="gl_preview">
+                            <img src=""/>
+                        </div>
+                    </div>
+                </div>
+                <p class="col-sm-6 form-text" ng-if="!imgs">暂无证件图片！</p>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group check-opr">
+                <label class="col-sm-3 control-label">审核意见<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <div class="check-items">
+                        <label class="i-checks text-success" for="pass">
+                            <input type="radio" name="check" id="pass" checked required/>
+                            <i></i>
+                            审核通过
+                        </label>
+                    </div>
+                    <div class="check-items">
+                        <label class="i-checks text-danger" for="nopass">
+                            <input type="radio" name="check" id="nopass" required/>
+                            <i></i>
+                            审核不通过
+                            <div class="inner-items">
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark" checked/>
+                                    <i></i>
+                                    <span>资料不真实</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark"/>
+                                    <i></i>
+                                    <span>手机号不属于本人</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark"/>
+                                    <i></i>
+                                    <span>已离职</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input id="other_remark" type="radio" name="check-remark"/>
+                                    <i></i>
+                                    其它原因
+                                    <div class="inner-items">
+                                        <textarea id="remarkNopass" placeholder="审核意见" class="form-control"
+                                                  ng-model='viewData.remarkNopass'></textarea>
+                                    </div>
+                                </label>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-2 col-xs-4">
+                    <button type="submit" class="w100 btn btn-primary" ng-click="submit()" ng-disabled='form.$invalid'>
+                        确定
+                    </button>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <button type="button" class="w100 btn btn-default" ng-click="return()">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

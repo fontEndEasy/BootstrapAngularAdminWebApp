@@ -1,0 +1,61 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Chainsalesrankinglist">
+<div class="frame-panel mailcontainer">
+	<div class="row">
+		<div class="col-md-3 mrb-15">
+			<h2 class="title-3 text-left">销售排行榜</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="mail-left">
+				<div class="integtitle">
+				  	本月店内药品销量排行榜Top10
+				  </div>
+			      <div class="integration-table">
+			      	<table class="tablebox table table-striped">
+			            <thead>
+			            	<tr>
+			            		<th style="width:20px; text-align:center;"></th>
+			            		<th>药品名</th>
+			            		<th>销量</th>
+			            	</tr>
+			            </thead>
+			            <tbody>
+			            	<tr ng-repeat="list in topDNList">
+			            		<td style="width:20px; text-align:center;">{{$index+1}}</td>
+			            		<td>{{list.name}}</td>
+			            		<td>{{list.number}}</td>
+			            	</tr>
+			            </tbody>
+			        </table>
+			      </div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="row mail-right">
+				  <div class="integtitle">
+				  	本月同行药品销量排行榜Top10
+				  </div>
+			      <div class="integration-table">
+			      	<table class="tablebox table table-striped">
+			            <thead>
+			            	<tr>
+			            		<th style="width:20px; text-align:center;"></th>
+			            		<th>药品名</th>
+			            		<th>销量</th>
+			            	</tr>
+			            </thead>
+			            <tbody>
+			            	<tr ng-repeat="list in topTHList">
+			            		<td style="width:20px; text-align:center;">{{$index+1}}</td>
+			            		<td>{{list.name}}</td>
+			            		<td>{{list.number}}</td>
+			            	</tr>
+			            </tbody>
+			        </table>
+			      </div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

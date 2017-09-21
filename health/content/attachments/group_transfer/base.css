@@ -1,0 +1,36 @@
+
+.mask {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.mask-bg {
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.mask div {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: center;
+}
+
+.mask-text span, .mask-text b {
+    display: inline-block;
+    margin: 2px;
+    padding: 3px;
+    border: 1px solid #CCCCCC;
+}
+
+.p_a {
+    background-color: #f92672;
+}
+
+.p_b {
+    background-color: #fff;
+}

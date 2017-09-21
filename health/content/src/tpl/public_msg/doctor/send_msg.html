@@ -1,0 +1,112 @@
+<div class="m-lg col-sm-12 col-md-12 col-lg-10 edit_a p-msg" ng-controller="DocSendMsgCtrl">
+    <div class="row">
+        <div class="col-md-12 col-lg-10 col-lg-offset-1">
+            <h4 class="info-title bdr-blue">群发消息</h4>
+        </div>
+    </div>
+    <form name="forma" class="form-horizontal form-validation ng-pristine ng-valid-email ng-invalid ng-invalid-required ng-valid-url ng-valid-pattern ng-valid-validator ng-valid-blacklist">
+        <div class="form-group form-counter">
+            <label class="col-sm-2 control-label">标题<i class="fa fa-asterisk text-danger"></i></label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="formData.title" class="input_counter form-control" required="required" maxlength="40">
+            </div>
+            <em class="frm_input_append frm_counter">{{titleLength}}/40</em>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">题图<i class="fa fa-asterisk text-danger"></i></label>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" ng-click="selectFile()"  over-class="b-info" style="margin:0;width: 100%;height: 100%"  ng-model="fontImg"  accept=".jpg,.jpeg,.png,.bmp">
+                            <img ngf-src="fontImgUrl" width="100%" height="100%" ng-show="fontImgUrl">
+                            <i ng-show="!fontImgUrl" class="fa fa-file-picture-o" style="font-size:80px;line-height:100px;color:#dee5e7;"></i>
+                        </div>
+                        <div class="progress m-b-none" ng-show="uploadPercent>0">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{uploadPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadPercent}}%;min-width: 2em;">
+                                {{uploadPercent>0?uploadPercent:0}}%
+                                <span class="sr-only">{{uploadPercent}}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="btn-group">
+                            <!--<button class="btn m-b-xs w-xs btn-default" ngf-select ng-model="fontImg" name="fontImg" ngf-max-size="5000000" ng-model-rejected="reGroupLogo" accept=".jpg,.jpeg,.png,.bmp,.gif" required>上传</button>-->
+                            <!--<button class="btn m-b-xs w-xs btn-default" ng-click="deleteImg()">删除</button>-->
+                        </div>
+                        <br/>
+                        <span class="text-muted">推荐尺寸540X270；支持.jpg, .jpeg, .bmp, .gif, .png类型文件，2M以内</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">正文</label>
+            <div class="col-sm-10">
+                <div id="myEditor"></div>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group text-center">
+            <button class="btn m-b-xs w-xs btn-success" ng-disabled="isSaved" ng-click="sendMsg()">发送</button>
+            <button class="btn m-b-xs w-xs btn-primary" ng-disabled="isSaved" ng-click="preview()">预览</button>
+        </div>
+    </form>
+    <!-- 七牛上传组件 -->
+    <qiniu-uploader token="{{token}}" bucket="vpan" progress-call-back="fileUploadProcess" upload="upload" filters="qiniuFilters" file-list="fileList" cancel="cancel" max-file-size="2mb" chunk-sizee="1mb" unique-names="true" multi-selection="false" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded"></qiniu-uploader>
+    <!-- 七牛上传组件 end -->
+</div>
+
+<script type="text/ng-template" id="previewModalContent.html">
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width:1px;
+            margin-right:2px
+        }
+        .pre-content{
+            height: 670px;
+            overflow: auto;
+        }
+        .pre-content article img{
+            max-width:100%;
+            max-height: 200px;
+            height: auto;
+        }
+        .pre-content>.pub-data{
+            font-size: 17px;
+            color: #8c8c8c;
+        }
+        .pre-content >h2{
+            line-height: 150%;
+            font-size: 24px;
+        }
+        .pre-content>img{
+            width: 100%;
+            margin: 10px 0;
+        }
+        .pre-content article{
+            font-size:16px;
+            line-height: 150%;
+        }
+    </style>
+
+    <div class="panel panel-default panel-nofoot p-msg">
+        <div class="panel-heading">
+            <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title font-bold">公告预览</h4>
+        </div>
+            <img ng-src="src/img/ipod_header.png">
+            <div class="pre-content">
+                <h2>{{msg.title}}</h2>
+                <span class="pub-data">{{msg.time}}</span>
+                <img ng-src="{{msg.fontImgUrl}}" class="img-responsive">
+                <article ng-bind-html="msg.content">
+
+                </article>
+            </div>
+    </div>
+</script>
+

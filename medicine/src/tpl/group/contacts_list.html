@@ -1,0 +1,34 @@
+<div class="table-responsive" ng-controller="ContactsList">
+    <div ng-show="!isSearch">
+        <table id="contactsList" class="table table-striped b-t b-b">
+            <thead>
+            <tr>
+                <th></th>
+                <th>名称</th>
+                <th>医生号</th>
+                <th>职称</th>
+                <th>联系方式</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="isSearch">
+        <table id="searchList" class="table table-striped b-t b-b">
+            <thead>
+            <tr>
+                <th></th>
+                <th>名称</th>
+                <th>所在组织</th>
+                <th>职称</th>
+                <th>联系方式</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

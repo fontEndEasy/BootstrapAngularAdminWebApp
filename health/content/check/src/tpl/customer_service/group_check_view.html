@@ -1,0 +1,128 @@
+<div class="hbox-auto-xs hbox-auto-sm" ng-controller="GroupCheckEdit">
+    <div class="panel-heading font-bold text-center">
+        <p class="text-lg">申请信息</p>
+    </div>
+    <div class="panel-body" ng-model="formData">
+        <form name="form" class="form-validation form-horizontal">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">医生集团名称</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.groupName"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">姓名</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.doctorName"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">联系电话</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.telephone"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">医疗机构</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.hospitalName"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">医院级别</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.level"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">科室</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.departments"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">职称</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.title"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">证书编号</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.licenseNum"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">证书到期时间</label>
+                    <p class="col-sm-6 form-text" ng-bind="viewData.licenseExpire"></p>
+                </div>
+                <div class="form-group" ng-model="imgs">
+                    <label class="col-sm-3 control-label">证书图片</label>
+
+                    <div class="col-sm-6" ng-if="imgs">
+                        <div class="certificate-list">
+                            <div id="gl_point">
+                                <a ng-repeat="val in imgs" ng-class="{{cur-img}}" href>
+                                    <img ng-src="{{val}}"/>
+                                </a>
+                            </div>
+                            <div id="gl_preview">
+                                <img src=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="col-sm-6 form-text" ng-if="!imgs">暂无证件图片！</p>
+                </div>
+            </div>
+            <div class="form-group" ng-if="viewData.auditMsg">
+                <label class="col-sm-3 control-label">审核未通过原因</label>
+                <p class="col-sm-6 form-text" ng-bind="viewData.auditMsg"></p>
+            </div>
+            <div class="form-group" ng-if="viewData.adminName">
+                <label class="col-sm-3 control-label">审核员</label>
+                <p class="col-sm-6 form-text" ng-bind="viewData.adminName"></p>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in" ng-if="isChecking"></div>
+            <div class="form-group check-opr" ng-if="isChecking">
+                <label class="col-sm-2 control-label">审核意见<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <div class="check-items">
+                        <label class="i-checks text-success" for="pass">
+                            <input type="radio" name="check" id="pass" checked required/>
+                            <i></i>
+                            审核通过
+                        </label>
+                    </div>
+                    <div class="check-items">
+                        <label class="i-checks text-danger" for="nopass">
+                            <input type="radio" name="check" id="nopass" required/>
+                            <i></i>
+                            审核不通过
+                            <div class="inner-items">
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark" checked/>
+                                    <i></i>
+                                    <span>医疗机构信息有误</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark"/>
+                                    <i></i>
+                                    <span>管理员信息不全</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input id="other_remark" type="radio" name="check-remark"/>
+                                    <i></i>
+                                    其它原因
+                                    <div class="inner-items">
+                                        <textarea id="remarkNopass" placeholder="审核意见" class="form-control"
+                                                  ng-model='viewData.remarkNopass'></textarea>
+                                    </div>
+                                </label>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group" ng-if="isChecking">
+                <div class="col-sm-offset-3 col-sm-2 col-xs-4">
+                    <button type="submit" class="w100 btn btn-primary" ng-click="submit()" ng-disabled='form.$invalid'>确 定</button>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <button type="button" class="w100 btn btn-default" ng-click="return()">取 消</button>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!isChecking">
+                <div class="col-sm-offset-3 col-sm-2 col-xs-4">
+                    <button type="button" class="w100 btn btn-default" ng-click="return()">返 回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

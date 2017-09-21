@@ -1,0 +1,69 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="InvitePatientList">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3 text-center">我的患者</h2>
+            </div>
+            <div class="col-md-4">
+                <!-- search form -->
+                <form class="group-search none">
+                    <div>
+                        <input id="key_ipt" type="text" placeholder="患者搜索..."/>
+                        <i ng-show="loaded" class="fa icon-magnifier" ng-click="submit()"></i>
+                        <span ng-show="!loaded" class="loading"><i class="glyphicon glyphicon-repeat"></i></span>
+                    </div>
+                    <div class="hide"><button type="submit" ng-click="submit()"></button> </div>
+                </form>
+                <!-- / search form -->
+            </div>
+            <div class="col-md-5 mrb-10">
+                <div class="pull-right mrr-10">
+                    <a ui-sref="app.invitation" class="btn btn-primary">
+                        <i class="fa fa-fw fa-plus"></i>
+                        <span class="hid">添加患者</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-3 cnt-col-lt">
+                <div class="list-group">
+                    <ul id="group_list" class="patient-list">
+                    </ul>
+                    <div class="custom-group none">
+                        <div ng-show="dddd" class="edit-item">
+                            <button type="submit" class="add-btn ok-btn">确 定</button>
+                            <div>
+                                <input type="text"/>
+                            </div>
+                        </div>
+                        <button type="button" class="w100 btn btn-default none">
+                            <i class="fa fa-fw fa-plus"></i>
+                            <span class="hid">添加分组</span>
+                        </button>
+                    </div>
+                    <div ng-if="loading" class="loading">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="contactsList" class="table table-striped b-t b-b">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>手机号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

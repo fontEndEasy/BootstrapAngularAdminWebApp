@@ -1,0 +1,130 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="MailContacts" ng-app="myApp">
+    <!-- 药企-->
+    <div class="navi-wrap" ng-model="datas">
+        <div class="frame-panel">
+            <div class="row">
+                <div class="col-md-3 mrb-15">
+                    <h2 class="title-3 text-left">通讯录</h2>
+                </div>
+                <div class="col-md-9 mrb-10">
+                    <div class="pull-right mrr-10">
+                        <button class="btn btn-info" ng-click="templateBox=!templateBox">
+                            <span class="hid">批量导入</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="addDrugFactory('1')">
+                            <span class="hid">添加部门</span>
+                        </button>
+                        <button type="button" class="btn btn-success" ng-click="addDrugFactory('2')">
+                            <span class="hid">添加人员</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row contacts-mail">
+                <div class="col-md-3 cnt-col-lt cnt-contacts-list">
+                    <div id="cnt_zuzhi_list" class="list-group">
+                        <div ng-if="loading" class="loading">
+                            <i class="glyphicon glyphicon-repeat"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9" style="padding-left:0;">
+                    <div class="row mail-right">
+                        <div class="pull-right input-group" style="width: 240px; position: relative; border:none; margin:10px; margin-right:15px;">
+                            <input type="text" class="form-control" style="" placeholder="输入搜索内容" ng-model="mainKeyword">
+                            <div class="input-group-addon a-link" ng-click="forward(targetDepartment,mainKeyword)">搜索
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="min-height:625px;">
+                                <table class="table tablebox table-striped b-t b-b m-t-sm h-full table-hover no-footer">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="text-center">头像</th>
+                                            <th class="text-left">姓名</th>
+                                            <th class="text-left">职位</th>
+                                            <th class="text-left">联系方式</th>
+                                            <th class="text-left">备注</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="l in list" ng-click="openEdit(l)">
+                                            <td class="text-center"><img ng-src="src/img/a0.jpg"></td>
+                                            <td class="text-left"><a>{{l.name}}</a></td>
+                                            <td class="text-left">{{ l.position}}</td>
+                                            <td class="text-left">{{ l.telephone}}</td>
+                                            <td class="text-left">{{ l.remarks}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="templateBox">
+        <div class="mask"></div>
+        <div class="cnt-anim-dialog animating capitalpooldrug-anim-dialog">
+            <div class="navi-wrap capitalpool_drug">
+                <div class="col-xs-12 m-t-xl">
+                    <a class="btn btn-success btn-block r r-3x" href="file/导入模板.xlsx">下载批量导入模版</a>
+                </div>
+                <div class="col-xs-12 m-t-lg">
+                    <div class="btn btn-info btn-block r r-3x" ngf-select="upload($file)" ngf-accept="'.xls,.xlsx,.xltx,.xltm,.xlsb,.xlam'">上传批量导入文件</div>
+                </div>
+                <div class="col-xs-12 m-t-lg">
+                    <a class="btn btn-default btn-block r r-3x" ng-click="templateBox=!templateBox">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.cnt-contacts-list {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.capitalpooldrug-anim-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -130px;
+    width: 420px;
+    height: 260px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0px 0 1px rgba(0, 0, 0, .5);
+}
+
+.capitalpool_drug {
+    padding: 20px 10px;
+    font-size: 16px;
+}
+
+.capitalpool_drug .row {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.capitalpool_drug button {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.drugcode_drug_btns {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+#cnt_zuzhi_list {
+    border: #dee5e7 solid 1px;
+    min-height: 700px;
+    border-radius: 4px;
+}
+</style>

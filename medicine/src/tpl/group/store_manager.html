@@ -1,0 +1,116 @@
+<div class="wrapper-md" ng-controller="storemanager">
+    <div class="row" ng-model="datas">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" novalidate name="settingsForm"  >
+
+                    	<div class="row">
+							<div class="col-md-3 mrb-15 breed-base-title">
+								<h2 class="title-3 text-left">管理员</h2>
+							</div>
+							<div class="col-md-9 mrb-10">
+								<!-- 单体药店从通讯录里添加管理员--标示：（1）-->
+					            <div class="pull-right mrr-10" ng-show='{{datas.c_MonomerDrugStore}}'>
+					            	
+				                    <button type="button" class="btn btn-primary" ng-click="addStoreManager('{{1}}');">
+				                        <i class="fa fa-fw fa-plus"></i>
+				                        <span class="hid">添加管理员</span>
+				                    </button>
+				                </div>
+				                <!-- 而连锁店从是新增管理员 标示--（2）-->
+				                 <div class="pull-right mrr-10" ng-show='{{datas.c_ChainDrugStore}}'>
+				                    <button type="button" class="btn btn-primary" ng-click="addStoreManager('{{1}}');">
+				                        <i class="fa fa-fw fa-plus"></i>
+				                        <span class="hid">添加管理员</span>
+				                    </button>
+				                </div>
+				                <!-- 总店的管理员是单独录入 -->
+				                 <div class="pull-right mrr-10" ng-show='{{datas.c_StoreHQ}}'>
+				                    <button type="button" class="btn btn-primary" ng-click="addStoreManager('{{2}}');">
+				                        <i class="fa fa-fw fa-plus"></i>
+				                        <span class="hid">添加管理员</span>
+				                    </button>
+				                </div>
+				                <!-- 药厂-->
+				                 <div class="pull-right mrr-10" ng-show='{{datas.c_DrugFactory}}'>
+				                    <button type="button" class="btn btn-primary" ng-click="addStoreManager('{{1}}');">
+				                        <i class="fa fa-fw fa-plus"></i>
+				                        <span class="hid">添加管理员</span>
+				                    </button>
+				                </div>
+							</div>
+						</div>
+                        <div class="line m-t-lt  line-dashed b-b line-lg pull-in"></div>
+                        <div>
+                       		<span id="manager">
+                       			<div class="manager-lab-container">
+			                        <div ng-repeat="l in list" class="ng-scope" id="{{l['employee-user']}}">
+			                        	<img style="width: 50px;height: 50px;" class="circle" ng-src="src/img/a0.jpg">
+			                            <i class="fa fa-times" ng-click="deleteManager(l.id,l['employee-user']);"></i>
+			                            <h3 class="ng-binding">{{l.employee.name || '&nbsp;&nbsp;'}}</h3>
+			                        </div>
+		                    	</div>
+                       			<!-- <b ng-repeat="l in list" style="margin-left:26px;">
+		                       			<a ng-click='del_manager("{{l.employee.id}}");'>
+		                       				<img src="src/img/del.png" id="del" style="display: none;"/>
+		                       			</a> 
+                       			</b> -->
+                       		</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.circle{ 
+	border:1px solid #FFF; 
+	dotted #000000;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px; 
+}
+
+.manager-lab-container{
+    padding: 5px 5px 10px;
+    border-bottom: 1px dashed #eee;
+    margin-bottom: 20px;
+}
+.manager-lab-container div{
+    position: relative;
+    display: inline-block;
+    min-width: 150px;
+    margin:10px;
+    padding: 15px;
+    border: 1px solid #50A7CD;
+    border-radius: 4px;
+    background-color: #69D1FF;
+    text-align: center;
+    box-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+.manager-lab-container div h3{
+    line-height: 40px;
+    margin: 0;
+    color: #fff;
+    font-size: 24px;
+}
+.manager-lab-container div span{
+    color: #858AC2;
+}
+.manager-lab-container div .fa{
+    position: absolute;
+    top:0;
+    right: 0;
+    padding: 0 2px 6px 6px;
+    background-color: rgba(0,0,0,.2);
+    border-bottom-left-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+/* .manager-lab-container div:hover .fa{
+    opacity: 1;
+} */
+</style> 

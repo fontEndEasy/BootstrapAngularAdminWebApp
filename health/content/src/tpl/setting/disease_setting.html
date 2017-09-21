@@ -1,0 +1,37 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="DiseaseSettingCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center">擅长病种</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-lt" style="padding-right: 15px">
+                <div class="list-group">
+                    <div ng-if="loading" class="loading">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </div>
+                    <div class="lab-container">
+                        <div ng-repeat="item in dataDom">
+                            <i class="fa fa-times" ng-click="removeItem(item)"></i>
+                            <h3>{{item.name}}</h3>
+                            <!-- ID：<span>{{item.id}}</span> -->
+                        </div>
+                    </div>
+                    <div class="btn-container mrb-15">
+                        <button type="button" class="btn btn-primary" ng-click="addData()">
+                            <i class="fa fa-pencil"></i>
+                            <span class="hid">修改病种标签</span>
+                        </button>
+                        <button type="button" class="btn btn-success" ng-click="saveData()">
+                            <i class="fa fa-save"></i>
+                            <span class="hid">保 存</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

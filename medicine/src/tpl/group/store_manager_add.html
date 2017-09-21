@@ -1,0 +1,37 @@
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsAddManager">
+    <div class="panel-heading font-bold text-center">添加管理员</div>
+    <div class="panel-body">
+        <div>
+            <table id="store_manager_add_table" class="tablebox table table-striped" style="border:#F4F4F4 solid 1px;">
+                <thead>
+                    <tr>
+                        <th></th> 
+                        <th>姓名</th>
+                        <th>联系方式</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr ng-repeat="l in list">
+                        <td>
+                            <input type="checkbox" value="{{ l.id }}" />
+                        </td>
+                        <td>{{ l.name}}</td>
+                        <td>{{ l.mobile_phone}}</td>
+                      </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="saveManyTimes();" type="button" class="w100 btn btn-success">确 定</button>
+        </div><!-- 
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="saveAgain()" type="button" class="w100 btn btn-success">继续添加</button>
+        </div> -->
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>

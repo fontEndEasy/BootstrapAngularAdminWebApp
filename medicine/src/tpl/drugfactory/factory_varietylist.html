@@ -1,0 +1,67 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="factory_varietylist">
+    <!-- 单个门店初始化页面 -->
+    <div class="navi-wrap" ng-model="datas">
+        <div class="frame-panel">
+            <div class="row">
+                <div class="col-md-3 mrb-15 breed-base-title">
+                    <h2 class="title-3 text-left">品种库</h2>
+                </div>
+                <div class="col-md-9 mrb-10">
+                    <div class="pull-right mrr-10">
+                        <button type="button" class="btn btn-primary breed-base-add-btn" ui-sref="app.factory_varietylist.add_company_drug">
+                            <span class="hid">添加品种</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row pos-r">
+                <div class="col-md-3 cnt-col-lt ">
+                </div>
+                <!-- tanle开始 -->
+                <div class="col-md-12 cnt-col-rt ">
+                    <div class="panel panel-default" style="position:relative;">
+                        <div class="col-xs-2" style="position:absolute; right:0; top:10px;">
+                            <div class="pull-right input-group">
+                                <input type="text" class="form-control" style="" placeholder="输入药品名称" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+                                <div class="input-group-addon" ng-click="findByKeyWord()">搜索</div>
+                            </div>
+                        </div>
+                        <div>
+                            <table id="contactsList" class="tablebox table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:60px;">产品图片</th>
+                                        <th>商品名 &#183; 通用名</th>
+                                        <th>规格</th>
+                                        <th>包装规格</th>
+                                        <th>认证药店数</th>
+                                        <th>未认证药店数</th>
+                                        <th>医药代表</th>
+                                        <th>云盘资料</th>
+                                        <th>状态</th>
+                                        <!-- <th style="text-align: center;">备注</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.tablebox {
+    border: 0;
+}
+
+.tablebox td {
+    border: 0;
+}
+
+.tablebox th {
+    border: 0;
+}
+</style>

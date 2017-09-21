@@ -1,0 +1,67 @@
+<div>
+<!-- logo -->
+<div class="clearfix hidden-xs text-center hide show" id="aside-user">
+  <div class="dropdown wrapper">
+    <a>
+      <span class="thumb-lg w-auto-folded m-t-sm">
+        <img ng-show="datas.groupPicFile" ng-src="{{datas.groupPicFile}}" class="img-full" alt="..."></span>
+    </a>
+    <a data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+      <span class="clear">
+        <span class="block m-t-sm">
+          <strong class="font-bold text-lt" >{{rootGroup.name || '未创建集团'}}</strong>
+        </span>
+      </span>
+    </a>
+    <a ui-sref="app.contacts.joinToCompany" ng-hide="rootGroup.enterpriseName">加入公司</a>
+    <a ng-show="rootGroup.enterpriseName"> 所属公司：{{rootGroup.enterpriseName}} </a>
+</div>
+  <div class="line dk hidden-folded"></div>
+</div>
+<!-- /logo -->
+<!-- list -->
+
+<ul class="nav">
+  <li class="active">
+    <a ui-sref="app.contacts.list">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text-active"></i>
+        <i class="fa fa-fw fa-angle-down text"></i>
+      </span>
+      <i class="fa fa-book text-info-dker"></i>
+      <span class="font-bold">通讯录</span>
+    </a>
+    <ul class="nav dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span class="">通讯录</span>
+        </a>
+      </li>
+      <li>
+        <a ui-sref="app.relationship" href>
+          <span>邀请关系</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a ui-sref="app.schedule" href>
+      <i class="fa fa-calendar text-info-dker"></i>
+      <span class="font-bold">值班表</span>
+    </a>
+  </li>
+  <li>
+    <a ui-sref="app.groupSettings" ui-sref-opts="{reload:true}" href>
+      <i class="fa  fa-cogs text-info-dker"></i>
+      <span class="font-bold">设置</span>
+    </a>
+  </li>
+  <li>
+    <a ui-sref="app.group_admin" href>
+      <i class="fa fa-user text-info-dker"></i>
+      <span class="font-bold">集团管理员</span>
+    </a>
+  </li>
+</ul>
+<!-- list -->
+</div>

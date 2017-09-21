@@ -1,0 +1,25 @@
+body{
+     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+}
+.container{
+    max-width: 800px;
+}
+.container > h1{
+    font-size: 22px;
+}
+.container .font-img{
+    height: 200px;
+}
+.container > aside{
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #8c8c8c;
+}
+.container .kw-ul{
+    list-style-type: none;
+    display: inline;
+}
+.container .kw-ul li{
+    float: left;
+    margin-left: 10px;
+}

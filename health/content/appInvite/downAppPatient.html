@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <title>个人中心</title>
+</head>
+
+<body>
+    <div class="slide" style="width:100%;height: 100%;text-align:center;">
+        <img src="img/patientLogo.png" alt="医生伽平台" style="width:30%;height: 30%;margin-top: 10%;">
+    </div>
+    <div class="text-center">
+        <h3 class="m-t-lg">玄关健康患者端</h3>
+    </div>
+    <div class="p-l-r-sm">
+        <!-- <p class="text-info">健康伽医生版，主要服务于医生集团，医生可以随时随地记录，检索，跟踪和持续管理自己的患者，实时掌握患者病情，以缩短治疗周期，减少患者痛苦，提升服务质量，并可同圈子好友进行专业方面的交流与分享。</p> -->
+    </div>
+    <div class="btn p-t-lg p-b-xxl text-center">
+        <a class="btn bg-success cl-white btn-lg" id="downLoad">立即下载</a>
+    </div>
+    <script type="text/javascript">
+    (function function_name(argument) {
+        var device = discernDevice();
+        var downLoadUrl = 'goDownApp.html';
+        var iphoneUrl = 'http://fir.im/xghz';
+        var android = 'http://fir.im/rvg6';
+
+        if (device == 'weixin')
+            return location.href = downLoadUrl;
+        if (device == 'qq')
+            return location.href = downLoadUrl;
+        if (device == 'weibo')
+            return location.href = downLoadUrl;
+        if (device == 'iphone')
+            return goToDown(iphoneUrl);
+        if (device == 'android');
+        return goToDown(android);
+        if (!device)
+            return alert("暂时不支持您的设备");
+
+        //识别设备
+        function discernDevice() {
+            var user = navigator.userAgent.toLowerCase();
+            if (user.match(/MicroMessenger/i) == "micromessenger") {
+                return 'weixin'; //在微信中打开
+            }
+            if (user.match(/QQ/i) == "qq") {
+                return 'qq'; //在QQ打开
+            }
+            if (user.match(/WeiBo/i) == "weibo") {
+                return 'weibo'; //在新浪微博客户端打开
+            }
+            if (user.indexOf('android') != -1) {
+                return 'android';
+            } else if (user.indexOf('iphone') != -1) {
+                return 'iphone';
+            } else {
+                return null;
+            }
+        }
+
+        //下载
+        function goToDown(downLoadUrl) {
+            document.getElementById("downLoad").addEventListener('touchstart', function() {
+                location.href = downLoadUrl;
+                //alert("你得设备是：" + downLoadUrl);
+            })
+        }
+
+    })()
+    </script>
+</body>
+
+</html>

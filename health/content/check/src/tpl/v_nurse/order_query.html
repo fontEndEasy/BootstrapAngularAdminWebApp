@@ -1,0 +1,55 @@
+<div id="list_wrapper" class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="OrderQuery">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="org-title text-center">订单查询</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pb-10">
+                <form class="form-horizontal">
+                    <div class="form-group query-form">
+                        <div class="col-lg-offset-3 col-lg-6  col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
+                            <div class="query-option none"><a>综合搜索</a> | <a>订单号</a> | <a>姓名</a> | <a
+                                    class="focus">电话</a></div>
+                            <div class="query-data col-md-12">
+                                <input class="form-control" ng-model="keyword" placeholder="患者手机号" tabindex="1" autofocus/>
+                                <button type="submit" class="btn btn-default" ng-click="search()">搜 索</button>
+                            </div>
+                            <div class="query-result col-md-12" ng-show="!hasResult" ng-bind="queryResult">没有找到相关数据！
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="panel panel-default" ng-show="hasResult">
+                    <div class="panel-body">
+                        <div class="wrapper-md">
+                            <div ng-init="loading=true" ng-if="loading" class="loading">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="order_list_got" class="table table-striped b-t b-b">
+                                    <thead>
+                                    <tr>
+                                        <th>订单号</th>
+                                        <th>订单类型</th>
+                                        <th>姓名</th>
+                                        <th>电话</th>
+                                        <th>用户姓名</th>
+                                        <th>患者姓名</th>
+                                        <th>患者电话</th>
+                                        <th>订单状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view></div>

@@ -1,0 +1,339 @@
+{
+  "aaData": [{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  },{
+    "name": "李四",
+    "employeeID": "100",
+    "time": "2015/04/11 - 2015/04/19",
+    "reason": "外地出差",
+    "person": "王二"
+  },{
+    "name": "张三",
+    "employeeID": "78",
+    "time": "2015/04/16 - 2015-04-27",
+    "reason": "生病住院",
+    "person": "王二"
+  }]
+}

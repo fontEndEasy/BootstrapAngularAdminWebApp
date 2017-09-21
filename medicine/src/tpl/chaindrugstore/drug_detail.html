@@ -1,0 +1,115 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ChainDrugDetail">
+    <div class="panel-heading font-bold text-center">品种详细信息</div>
+    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="col-md-2" style="width:100px;">
+                    <img width="90" height="90" ng-src="{{image}}">
+                </div>
+                <div class="col-md-9" style="padding-left:20px;">
+                    <div class="h5 m-t-xs m-b-xs col-md-12" style="margin-bottom:5px;">产品名称：{{general_name}}</div>
+                    <small class="text-muted col-md-12" style="margin-bottom:5px;">规格：{{specification}}</small>
+                    <small class="text-muted col-md-12" style="margin-bottom:5px;">包装规格：{{pack_specification}}</small>
+                    <small class="text-muted col-md-12">生产厂家：{{manufacturer}}</small>
+                </div>
+            </div>
+        </div>
+        <tabset justified="true" class="tab-container mrt-15">
+            <tab heading="基本信息">
+                <div class="form-horizontal" >
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">药品经营类别：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="biz_type.name"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">适应症：</label>
+                        <label class="control-label col-md-9 text-left">
+                            {{indicationstext}}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">使用类别：</label>
+                        <label class="form-text col-md-9 text-left" ng-bind="pack_specification"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">管理类别：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="number"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">管理厂商：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="manufacturer"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">剂型：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="title"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">通用名：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="general_name"></label>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="说明书" select="tabs.instruction()">
+                <div class="form-horizontal" style="margin-top:0">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 text-left" ng-bind-html="manual"></label>
+                    </div>
+                    <div  ng-repeat="s in usages">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 text-right">(具体群体)用法用量：</label>
+                            <label class="control-label col-md-9 text-left">
+                                ----------------
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">用法：</label>
+                            <label class="control-label col-md-9 text-left" ng-bind="s.method"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">用量：</label>
+                            <label class="control-label col-md-9 text-left">
+                                {{s.patients}}/{{s.period.text}}/{{s.times}}次/每次{{s.quantity}}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">备注：</label>
+                            <label class="control-label col-md-9 text-left" ng-bind="codes"></label>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="其它" select="tabs.otherInfo()">
+                <div class="form-horizontal" ng-model="info" style="margin-top:0">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">条码：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="bar_code"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">产品码：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="codes"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">批准文号：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="number"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">药品商品名：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="trade_name"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">助记码：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="abbr"></label>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button ng-click="cancel();	" type="button" class="w100 btn btn-primary">关 闭</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

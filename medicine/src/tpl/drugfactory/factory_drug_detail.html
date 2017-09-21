@@ -1,0 +1,228 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="factory_drugdetail">
+    <div class="panel-heading font-bold text-center">品种详细信息</div>
+    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="col-md-2" style="width:100px;">
+                    <img width="90" height="90" ng-src="{{image}}">
+                </div>
+                <div class="col-md-7" style="padding-left:20px;">
+                    <div class="h5 m-t-xs m-b-xs col-md-12" style="margin-bottom:5px;">产品名称：{{general_name}}</div>
+                    <small class="text-muted col-md-12" style="margin-bottom:5px;">规格：{{specification}}</small>
+                    <small class="text-muted col-md-12" style="margin-bottom:5px;">包装规格：{{pack_specification}}</small>
+                    <small class="text-muted col-md-12">生产厂家：{{manufacturer}}</small>
+                </div>
+                <div class="col-md-2 cnt-opr-btn">
+                    <button ng-click="drug_audit()" ng-if="request_0" type="button" class="btn btn-success"><i class="fa"></i>提交审核
+                    </button>
+                    <button type="button" ng-if="request_1" class="btn btn-audit1" disabled="disabled"><i class="fa"></i>审核中
+                    </button>
+                    <button type="button" ng-if="request_9" class="btn btn-audit9" disabled="disabled"><i class="fa"></i>已审核
+                    </button>
+                </div>
+            </div>
+        </div>
+        <tabset justified="true" class="tab-container mrt-15">
+            <tab heading="基本信息">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold" style="width:120px;">药品经营类别：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="biz_type"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold" style="width:120px;">适应症：</label>
+                        <label class="control-label col-md-9 text-left">
+                            <span>
+                                {{indicationstext}}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold" style="width:120px;">使用类别：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="use_types"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold" style="width:120px;">管理类别：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="gg_type"></label>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:120px;">厂家：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="companyname"></label>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold"  style="width:120px;">剂型：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="title"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right font-bold" style="width:120px;">通用名：</label>
+                        <label class="control-label col-md-9 text-left" ng-bind="general_name"></label>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="说明书" select="tabs.instruction()">
+                <div class="form-horizontal" style="margin-top:0">
+                    <div class="form-group">
+                        <label class="control-label font-bold col-md-2 text-right">说明书：</label>
+                        <div class="control-label col-md-9 text-left" ng-bind-html="manual"></div>
+                    </div>
+                    <div ng-repeat="s in usages">
+                        <div class="form-group">
+                            <label class="text-right font-bold" style="width: 25%;">（{{s.patients}}）适用群体：</label>
+                            <div class="b-t" style="height:5px;width:70% ;display: inline-block;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label font-bold col-md-3 text-right">用法：</label>
+                            <div class="control-label col-md-9 text-left">{{s.period.text}}/{{s.times}}次</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label font-bold col-md-3 text-right">用量：</label>
+                            <div class="control-label col-md-9 text-left">
+                                每次{{s.quantity}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label font-bold col-md-3 text-right">备注：</label>
+                            <div class="control-label col-md-9 text-left" ng-bind="s.method"></div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="其它" select="tabs.otherInfo()">
+                <div class="form-horizontal" ng-model="info" style="margin-top:0">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 font-bold text-right" style="width:120px;">条码：</label>
+                        <div class="control-label col-md-9 text-left" ng-bind="bar_code"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 font-bold text-right" style="width:120px;">产品码：</label>
+                        <span class="control-label col-md-9 text-left" ng-bind="codes"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 font-bold text-right" style="width:120px;">批准文号：</label>
+                        <div class="control-label col-md-9 text-left" ng-bind="number"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 font-bold text-right" style="width:120px;">药品商品名：</label>
+                        <div class="control-label col-md-9 text-left" ng-bind="trade_name"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 font-bold text-right" style="width:120px;">助记码：</label>
+                        <div class="control-label col-md-9 text-left" ng-bind="abbr"></div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="药店认证" select="tabs.getStoreInfo();">
+                <table id="storeList" class="tablebox table">
+                    <thead>
+                        <tr>
+                            <th style="width:70%;">药店</th>
+                            <th style="width:30%;">认证状态</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background-color:#ffffff;">
+                        <tr class="form-group">
+                            <td class="col-md-7" style="width:70%;">
+                                <input type="text" class="form-control" id="searchText" ng-model="searchText" placeholder="输入药店名称过滤">
+                            </td>
+                            <td class="col-md-5" style="width:30%;">
+                                <select ng-model="a" ng-change="change(a)" id="select" class="form-control ng-valid ng-dirty">
+                                    <option value="">所有</option>
+                                    <option value="9">已认证</option>
+                                    <option value="0">未认证</option>
+                                    <option value="1">申请中</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="te" ng-repeat="s in list_store  | filter:searchText">
+                            <td>{{s.drug_store.name}}</td>
+                            <td style="position:relative;">
+                                <button class='btn whenbtns' ng-show="!s.isShow" ng-click="opera('{{s.drug_store.id}}','{{s.state.value}}');" ng-init="count=0" ng-class="{0:'btn-danger',1:'btn-warning',9:'btn-success'}[s.state.value]">
+                                    <ANY ng-switch="{{s.state.value}}">
+                                        <ANY ng-switch-when="0">未认证</ANY>
+                                        <ANY ng-switch-when="1">申请中</ANY>
+                                        <ANY ng-switch-when='9'>已认证</ANY>
+                                    </ANY>
+                                </button>
+                                <div class="btns_hover">
+                                    <button class='btn btn-danger' ng-if="s.state.value==9" ng-click="opera('{{s.drug_store.id}}','0');">
+                                        <ANY ng-switch="{{s.state.value}}">
+                                            取消认证
+                                        </ANY>
+                                    </button>
+                                    <button class='btn btn-danger' ng-if="s.state.value==0" ng-click="opera('{{s.drug_store.id}}','9');">
+                                        <ANY ng-switch="{{s.state.value}}">
+                                            授予认证
+                                        </ANY>
+                                    </button>
+                                    <button class='btn btn-danger' ng-if="s.state.value==1" ng-click="opera('{{s.drug_store.id}}','0');">
+                                        <ANY ng-switch="{{s.state.value}}">
+                                            拒绝认证
+                                        </ANY>
+                                    </button>
+                                    <button class='btn btn-success' ng-if="s.state.value==1" ng-click="opera('{{s.drug_store.id}}','9');">
+                                        <ANY ng-switch="{{s.state.value}}">
+                                            授予认证
+                                        </ANY>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+        </tabset>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button ng-click="cancel(); " type="button" class="w100 btn btn-primary">关 闭</button>
+        </div>
+    </div>
+</div>
+<style>
+.div-a {
+    float: left;
+    width: 49%;
+    border: 0px
+}
+
+.div-b {
+    float: left;
+    width: 49%;
+    border: 0px
+}
+
+.font {
+    size: 12px;
+}
+
+#storeList table,
+#storeList tr,
+#sroreList td {
+    background-color: #ffffff;
+}
+
+.btns_hover {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100px;
+    height: auto;
+    border: none !important;
+    display: none;
+    background: #ffffff;
+    z-index: 10;
+}
+
+.btns_hover button {
+    margin-bottom: 3px;
+}
+
+.te {
+    height: 50px;
+    background: #000000;
+}
+</style>
+<!-- /modal dialog -->

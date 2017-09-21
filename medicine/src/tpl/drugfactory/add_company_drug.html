@@ -1,0 +1,328 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="company_add_drug">
+    <div class="panel-heading font-bold text-center">品种新增</div>
+    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">产品名称<b style="color: red;">*</b>
+                        </label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="产品名称" ng-model="general_name">
+                        </div>
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">规 格<b style="color: red;">*</b>
+                        </label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="规 格" ng-model="specification">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">生产厂家<b style="color: red;">*</b>
+                        </label>
+                        <div class="col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="生产厂家 " ng-model="manufacturer">
+                        </div>
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">包装规格<b style="color: red;">*</b>
+                        </label>
+                        <div class="col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="包装规格 " ng-model="pack_specification">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">批准文号<b style="color: red;">*</b>
+                        </label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="批准文号 " ng-model="number">
+                        </div>
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">商品名</label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="商品名 " ng-model="trade_name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">产品识别码</label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <input type="text" class="form-control" placeholder="产品识别码 " ng-model="codes">
+                        </div>
+                        <label class="control-label col-md-2 text-right" style="width:100px; line-height:34px;">注册日期</label>
+                        <div class="form-text col-md-4" style="width:160px; line-height:34px;">
+                            <div class="input-prepend">
+                                <input type="text" ng-model="approval_date" id="approval_date" class="form-control" placeholder="年-月-日" style="background:#ffffff;" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <tabset justified="true" class="tab-container mrt-15">
+            <tab heading="基本信息">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="control-label col-sm-2 text-right" style="line-height:30px;">管理类别<b style="color: red;">*</b></div>
+                        <div class="form-text col-sm-9">
+                            <select id="select" name='type' ng-model="chk" ng-change="setGLLB(chk)" class="form-control ng-valid ng-dirty">
+                                <option ng-repeat="l in list_gllb" value="{{l.value}}">{{l.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">经营类别<b style="color: red;">*</b></label>
+                        <div class="form-text col-sm-9">
+                            <select id="jylb" class="form-control ng-valid ng-dirty">
+                                <option ng-repeat="l in list" value="{{l.id}}">{{l.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">剂型<b style="color: red;">*</b></label>
+                        <div class="col-md-9">
+                            <select id="jx" class="form-control ng-valid ng-dirty">
+                                <option ng-repeat="l in list_jx" value="{{l.id}}">{{l.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">单位<b style="color: red;">*</b></label>
+                        <div class="col-md-9">
+                            <select id="unit" ng-model="unit" class="w100 form-control" placeholder="单位" ng-options="a.id as a.name for a in list_unit">
+                                <option value="">选择单位</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group dplist">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">适应症</label>
+                        <div class="form-text col-sm-9">
+                            <div id="liMenu_syz" ng-click="change($event,'syz');" class="form-control ng-valid ng-dirty"></div>
+                        </div>
+                        <ul id="syz_ul" class="syz"></ul>
+                    </div>
+                    <div class="form-group dplist">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">使用类别</label>
+                        <div class="form-text col-sm-9">
+                            <div id="liMenu_sylb" ng-click="change($event,'sylb');" class="form-control ng-valid ng-dirty"></div>
+                        </div>
+                        <ul id="sylb_ul" class="sylb"></ul>
+                    </div>
+                    <input type="hidden" ng-model="image_url" id="logo" />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right" style="line-height:30px;">图片</label>
+                        <div class="col-md-9">
+                            <!-- <iframe id="name_iframe" class="form-control" frameborder="0" scrolling="no"  style="width: 100%; height: 200px; padding:0;" src="src/tpl/setting/file.html"></iframe> -->
+                            <a href="javascript:void(0);" ng-click="company_upload()" style="display:block; width:384px; height:300px;">
+                                <img id="company_image" ng-src="{{company_image}}" width="100%" alt="">
+                            </a>
+                            <!-- 七牛上传组件 -->
+                            <qiniu-uploader token="{{token}}" bucket="drug" upload="company_upload" file-list="fileList" max-file-size="2mb" chunk-sizee="1mb" success-call-back="companyuploaderSuccess" error-call-back="uploaderError"></qiniu-uploader>
+                            <!-- 七牛上传组件 end -->
+                            <div>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp大小不超过2M</div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="说明书" select="initEditor()">
+                <div class="form-group">
+                    <div class="col-sm-14 edui-container" id="editorContent" style="margin-bottom:10px;">
+                        <!-- <div id="myEditor"></div> -->
+                        <!-- 百度富文本编辑器（含七牛上传） -->
+                        <ng-umeditor class="block w-full" token="{{yy_token}}" bucket="drug" content="planData.content"></ng-umeditor>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-right:0; margin-bottom:10px;">
+                        <button ng-click="addDiv();" type="button" class="btn btn-success pull-right">增加用法用量</button>
+                        <div class="col-md-5">
+                            <div class="form-text col-md-10"></div>
+                        </div>
+                    </div>
+                    <div ng-show="isInit" class="loading" style="min-height: 60px;"><i class="glyphicon glyphicon-repeat"></i></div>
+                    <div class="clearfix text-center list-wrap" ng-repeat="p in list_div">
+                        <div class="divp" id="{{$index}}">
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label text-left">说明<b style="color: red;">*</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-sm" ng-model="p.patients" placeholder="适用于哪些群体，如年龄段、病种、体重等">
+                                        <label class="pull-right"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label text-left">用法<b style="color: red;">*</b></label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control input-sm text-center" placeholder="每天" value="每天" type="text" readonly="readonly" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select name="contactsList_length" aria-controls="contactsList" ng-model="p.times" class="form-control input-sm">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 form-text text-left">次</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label text-left">用量<b style="color: red;">*</b></label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control input-sm text-center" placeholder="每次" value="每次" type="text" readonly="readonly" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input class="form-control input-sm" ng-model="p.quantity" placeholder="数量" type="text" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select name="contactsList_length" aria-controls="contactsList" ng-model="p.units" class="w100 form-control input-sm" placeholder="单位" ng-options="a.name for a in list_unit">
+                                            <option value="">选择单位</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label text-left">备注</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-sm" ng-model="p.method" placeholder="补充说明，如口服、不可咀嚼等">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <a ng-click="removeBtn($index);" ng-if="$index != 0">
+                                    <img style="padding-top: 55px;width: 30px;" src="src/img/image_u212.jpg">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="其它">
+                <div class="form-horizontal" style="margin-top:0">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">条码</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="bar_code" ng-model="bar_code" placeholder="条码">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">助记码</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="abbr" placeholder="助记码" ng-model="abbr">
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+    <!-- 存放id -->
+    <input type="hidden" ng-model="biz_type" id="hi_jylb">
+    <input type="hidden" ng-model="indications" id="hi_syz">
+    <input type="hidden" ng-model="use_types" id="hi_sylb">
+</div>
+<!-- /modal dialog -->
+<style type="text/css">
+.w50 {
+    float: right;
+}
+
+#header {
+    width: 100%;
+    background: #cfc;
+}
+
+#container {
+    width: 100%;
+}
+
+#container #left,
+#container #content,
+#container #right {
+    width: 80px;
+    float: left
+}
+
+#left {
+    background: #fc0;
+}
+
+#content {
+    margin: 0 10px;
+    background: #0c0;
+}
+
+#right {
+    background: #0cf;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.dplist {
+    position: relative;
+}
+
+.dplist ul {
+    position: absolute;
+    top: 45px;
+    left: 108px;
+    width: 400px;
+    min-height: 200px;
+    max-height: 250px;
+    line-height: 16px;
+    overflow: auto;
+    display: none;
+    z-index: 300;
+    background: #ffffff;
+    border: #cecece solid 1px;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.dplist ul li {
+    line-height: 32px;
+    border-bottom: #cecece solid 1px;
+}
+
+.form-text span {
+    color: red;
+}
+
+#liMenu_sylb,
+#liMenu_syz {
+    position: relative;
+    padding-right: 14px;
+    padding-left: 14px;
+    border: solid 1px #cecece;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#liMenu_sylb:after,
+#liMenu_syz:after {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 6px solid #000;
+    border-bottom-width: 0;
+}
+
+.cnt-list-warp dt,
+.cnt-list-warp dd {
+    padding: 2px 0 2px 14px;
+}
+</style>

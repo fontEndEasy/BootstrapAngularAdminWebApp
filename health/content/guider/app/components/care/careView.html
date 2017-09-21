@@ -1,0 +1,300 @@
+<div class="col-lg-10 col-lg-offset-1 care">
+    <button class="btn btn-default m-t-sm m-b-sm" ng-class="{'text-danger hover-danger':waitOrderList.length>0}" style="margin-left: 15px;border-radius:3px;" ng-show="!isShowWait" ng-click="isShowWait=!isShowWait">等待处理({{waitOrderList.length||0}})</button>
+    <button class="btn btn-default m-t-sm m-b-sm" style="margin-left: 15px;border-radius:3px;" ng-show="isShowWait" ng-click="isShowWait=!isShowWait"><返回正在处理</button>
+    <div class="clearfix">
+        <!-- 会话 -->
+        <div class="col-xs-12">
+            <div class="bg-white r-2x clear">
+                <!--等待 处理-->
+                <div class="col-xs-3" ng-show="isShowWait">
+                    <div class="row bg-white r-2x clear">
+                        <div class="text-center p-t-md p-b-md text-dark bg-f8 b-b box-shadow b-r">等待处理({{waitOrderList.length}})</div>
+                        <!--<i class="fa fa-spinner fa-spin" ng-show="ordersListIsLoading"></i>-->
+                        <div class="block list-group overflow-auto m-n bg-light h-700 position-relative curing">
+                            <div class="text-center" style="position:absolute;top:180px;left:0;right: 0;" ng-show="waitOrderList.length<1">
+                                <img src="assets/img/no_order.png" width="150px" />
+                                <p>暂无待处理项</p>
+                            </div>
+                            <!--<div class="text-center" ng-show="orderlistsData.length<1">无数据</div>-->
+                            <div class="b bg-white r-2x box-shadow m-xs m-b-sm p-l-sm p-r-sm hover-pointer" ng-repeat="item in waitOrderList">
+                                <div class="status ng-binding" ng-class="{'bg-warn':item.careType=='warning','bg-help':item.careType=='help'}">{{item.careType==='help'?'求助':'告警'}}</div>
+                                <div class="clearfix m-t-sm m-b-sm">
+                                    <div class="pull-right text-xs">
+                                        <button type="button" ng-click="receiveCareOrder(item)" class="btn btn-success btn-xs m-t-sm"> 处理</button>
+                                    </div>
+                                    <div class="clear line-height-20">
+                                        <span class="text-dark">{{item.careName}}</span>
+                                        <small class="text-muted clear text-ellipsis">患者{{item.patient.userName}}，{{item.patient.ageStr}}，{{item.patient.sex==1?'男':'女'}}</small>
+                                    </div>
+                                </div>
+                                <div class="b-t text-xs p-t-md p-b-md">
+                                    <span class="m-t-n-xxs b-gray b-r-5 p-xxs">{{item.timeString}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--等待 处理 end-->
+                <div class="col-xs-3" ng-show="!isShowWait">
+                    <div class="row b-r">
+                        <div class="text-center p-t-md p-b-md text-dark bg-f8 b-b">正在处理({{handleCareOrderList.length}})</div>
+
+                        <div class="block list-group overflow-auto m-n bg-light h-700 position-relative handle">
+                            <div class="text-center" style="position:absolute;top:180px;left:0;right: 0;" ng-show="handleCareOrderList.length<1">
+                                <img src="assets/img/no_order.png" width="150px" />
+                                <p>暂无处理项</p>
+                            </div>
+                                <div class="text-normal r-none b-r-n clearfix hover-pointer bg-white p-l-sm p-r-sm b-t" ng-class="{'selected-gray':item.orderId==currentCare.orderId}" ng-repeat="item in handleCareOrderList track by $index" ng-click="handel(item)">
+                                    <div class="status ng-binding" ng-class="{'bg-warn':item.careType=='warning','bg-help':item.careType=='help'}">{{item.careType==='help'?'求助':'告警'}}</div>
+                                    <div class="clear m-t-sm m-b-sm">
+                                        <div class="clearfix">
+                                            <a href="" class="text-base">
+                                                <span class="pull-left  clear">{{item.careName||'健康关怀'}}</span>
+                                                <!--<small class="b inline r pull-left m-l-xs" ng-class="{0:'text-info b-info',1:'text-danger b-danger'}[item.bussiness.timeout]">&nbsp;{{item.bussiness.timeout==0?'咨询中':'超时中'}}&nbsp;</small>-->
+                                            </a>
+                                        </div>
+                                        <small class="text-muted m-t-xxs">患者{{item.patient.userName}}，{{item.patient.ageStr}}，{{item.patient.sex==1?'男':'女'}}</small>
+                                        <span class="text-xs b-gray b-r-5 inline p-xxs pull-right">{{item.timeString}}</span>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-6" style="border-right: 1px solid #eee;">
+                    <div class="row">
+                        <div class="text-dark bg-f8 p-t-sm p-b-sm b-b b-r clear">
+                            <span class="pull-left m-l font-bold m-t-xs m-b-xs">{{currentCare.patient.userName?'患者'+currentCare.patient.userName:'暂无处理项'}}</span>
+                            <button class="pull-right btn btn-xs btn-success m-t-xs m-r-sm" ng-show="currentCare" ng-click="closeCare()">处理完成
+                            </button>
+                        </div>
+                        <div class="h-700 block position-relative p-md" style="overflow-y: auto;">
+                            <div ng-show="currentCare">
+                                <h1 class="text-lg" style="border-left:3px solid #636161;text-indent: 0.5em;">详细信息</h1>
+                                <div class="line line-dashed b-b pull-in"></div>
+
+                                <div class="wrapper-sm  bg-white "  ng-show="currentCare&&currentCare.careType=='help'">
+                                    <div class="m-b-none text-dark word-break-break-word faceBox">
+                                        <div class="row m-b-sm text-danger">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l">
+                                                        求助时间：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        {{currentCare.timeString}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        事件：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        患者发出求助，已超过一小时，没有医生联系。
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        患者：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        {{currentCare.patient.userName}}，{{currentCare.patient.ageStr}}，{{currentCare.patient.sex==1?'男':'女'}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        求助内容：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        {{careDetail.helpMsg||''}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wrapper-sm bg-white "  ng-show="currentCare&&currentCare.careType=='warning'">
+                                    <div class="m-b-none text-dark word-break-break-word faceBox">
+                                        <div class="row m-b-sm text-danger">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l">
+                                                        告警时间：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        {{currentCare.timeString}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        事件：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        患者回复的问题中触发了健康告警，超过一小时仍未有医生联系。
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        患者：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        {{currentCare.patient.userName}}，{{currentCare.patient.ageStr}}，{{currentCare.patient.sex==1?'男':'女'}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-sm">
+                                            <div class="col-xs-2">
+                                                <div class="row">
+                                                    <div class="p-l text-muted">
+                                                        告警内容：
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <div class="row">
+                                                    <div class="p-r">
+                                                        <ul style="list-style-type:disc;padding-left:17px;margin-top:-8px;">
+                                                            <li ng-repeat="item in careDetail.answer.answers" class="m-t-sm">问：{{item.questionName}}<p>答：{{item.answer}}</p></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h1 class="text-lg" style="border-left:3px solid #636161;text-indent: 0.5em;">医生团队</h1>
+                                <div class="line line-dashed b-b pull-in"></div>
+                                <div>
+                                    <!-- doctor-info-dailog -->
+                                    <doctor-info-dailog></doctor-info-dailog>
+                                    <!-- doctor-info-dailog end -->
+                                    <ul class="list-group-lg no-bg auto clearfix" ng-show="remindDocs.length>0">
+                                        <li class="b p-md text-center pull-left m-t-sm position-relative" ng-repeat="item in remindDocs track by $index" style="width: 45%;margin-left: 3%;">
+                                            <span class="thumb-md avatar hover-pointer" ng-click="showDocInfo(item.userId)">
+                                              <img ng-src={{item.headPicFileName||'./assets/img/peopleDefault.jpg'}} alt="...">
+                                            </span>
+
+                                            <button class="btn btn-sm btn-icon  btn-success m-r" style="position: absolute;top: -1px;right: -16px;" title="拨打电话" popover-is-open="item.callViewIsOpen" uib-popover-template="'careCallView.html'" popover-placement="left" ng-click="setCurrentDocTel(item)"><i class="fa fa-phone"></i></button>
+                                            <span class="clear">
+                                              <span class="font-bold">{{item.name}}</span>
+                                              <small class="text-muted clear text-ellipsis">{{item.doctor.title+','+item.doctor.hospital}}</small>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <p class="m-md p-b-sm" style="border-bottom:1px dashed #D0D1D2;" ng-show="notRemindDocs.length>0">以下为不接收提醒的医生，请在紧急必要时再联系他们。</p>
+                                    <ul ng-show="notRemindDocs.length>0" class="list-group-lg no-bg auto clearfix">
+                                        <li class="b p-md text-center pull-left m-t-sm position-relative" ng-repeat="item in notRemindDocs track by $index" style="width: 45%;margin-left: 3%;">
+                                            <span class="thumb-md avatar hover-pointer" ng-click="showDocInfo(item.userId)">
+                                              <img ng-src={{item.headPicFileName||'./assets/img/peopleDefault.jpg'}} alt="...">
+                                            </span>
+                                                    <button class="btn btn-sm btn-icon  btn-default m-r" style="position: absolute;top: -1px;right: -16px;" title="拨打电话" popover-is-open="item.callViewIsOpen" uib-popover-template="'careCallView.html'" popover-placement="left" ng-click="setCurrentDocTel(item)"><i class="fa fa-phone"></i></button>
+                                            <span class="clear">
+                                              <span class="font-bold">{{item.name}}</span>
+                                              <small class="text-muted clear text-ellipsis">{{item.doctor.title+','+item.doctor.hospital}}</small>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 con-panel">
+                    <div ng-show="currentCare">
+                        <div class="b-b p-l-sm bg-f8 p-r-sm" style="height: 50px;line-height: 50px;">
+                            <span class="text-md">客服备注</span>
+                            <button class="btn btn-sm btn-icon btn-default pull-right m-t-sm" ng-click="addCareRemarks()"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <ul class="p-l-sm p-r-sm" style="max-height: 670px;overflow-y: auto;" id="remarkListContent">
+                            <li ng-repeat="item in remarkList" class="m-t-sm bg-f8 b p-sm" ng-if="item.isNew!=true">
+                                <span style="font-size: 16px;">{{item.guideName}}</span><small class="pull-right">{{item.createTime | date:'MM月dd日 HH:mm'}}</small>
+                                <p>{{item.remark}}</p>
+                            </li>
+                            <li ng-repeat="item in remarkList" class="m-t-sm bg-f8 b p-sm" ng-if="item.isNew==true">
+                                <a href="#"  editable-textarea="item.remark" e-rows="7" style="width: 100%;" style="color: #58666E;"  onaftersave="updateCareRemarks(item)">
+                                    <span style="font-size: 16px;">{{item.guideName}}</span><small class="pull-right">{{item.createTime | date:'MM月dd日 HH:mm'}}</small>
+                                    <p>{{item.remark||'请填写内容'}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 会话 end -->
+    </div>
+</div>
+
+<!-- 拨打电话 -->
+<script type="text/ng-template" id="careCallView.html">
+    <div class="form-group w-250 h-max-200">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="currentDocItem.callViewIsOpen=false;"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="p-t-sm text-center">
+            确定用平台来拨通医生与您的电话吗？
+        </div>
+        <div class="m-t-xs text-center text-xs" ng-class="{true:'text-success',false:'text-danger'}[call.result.type]" ng-if="call.result">{{call.result.content}}</div>
+        <div class="clearfix text-center m-t-sm">
+            <button type="button" class="btn btn-sm btn-success m-r-xs" ng-click="callPhone()">
+                <span ng-if="call.isCalling">拨打中 <i class="fa" ng-class="{true:'fa-spinner fa-spin'}[call.isCalling]"></i>
+                </span>
+                <span ng-if="!call.isCalling">确定</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-info" ng-click="currentDocItem.callViewIsOpen=false;">取消</button>
+        </div>
+    </div>
+</script>
+<!-- 拨打电话 end -->

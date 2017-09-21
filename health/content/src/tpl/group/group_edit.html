@@ -1,0 +1,184 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="groupEdit">
+    <div class="frame-panel">
+        <div class="panel-body">
+            <div class="row m-b-lg">
+                <div class="col-md-2">
+                    <button class="btn btn-info" ng-click="transferTo()" ng-disabled="!isRootAdmin">转让医生集团 &nbsp;<i class="fa fa-arrow-right"></i></button>
+                </div>
+                <h3 class="h3 col-md-6 text-center">基本信息</h3>
+            </div>
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+            <div>
+                <form class="form-horizontal" novalidate name="settingsForm">
+                    <div class="row m-t-lg" ng-class="{'has-error':settingsForm.groupName.$invalid&&settingsForm.groupName.$dirty}">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">医生集团名</label>
+                        </div>
+
+                        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 form-text" ng-bind="groupName"></div>
+                    </div>
+
+                    <div class="row m-t-sm" ng-class="{'has-error':settingsForm.groupInfo.$invalid&&settingsForm.groupInfo.$dirty}">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">简介<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                            <textarea class="form-control" rows="6" placeholder="填写集团简介" name="groupInfo" ng-model="groupInfo" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group mrt-15">
+                        <div class="col-sm-offset-2 text-info">&nbsp;&nbsp;&nbsp;&nbsp;提示：以<i class="fa fa-asterisk text-danger mrr-15"></i>&nbsp;&nbsp;&nbsp;标注的为必填项！</div>
+                    </div>
+
+                    <div class="row m-t-sm" ng-if="(group_edit && !step_apply) || isActive">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">集团擅长</label>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-10" ng-if="dataDom.length">
+                            <div class="lab-container">
+                                <div ng-repeat="item in dataDom">
+                                    <i class="fa fa-times" ng-click="removeItem(item)"></i>
+                                    <h3>{{item.name}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-10 btn-container mrb-15" ng-if="!dataDom.length">
+                            <button type="button" class="btn btn-primary" ng-click="addData()">
+                                <i class="fa fa-plus"></i>
+                                <span class="hid">添加病种标签</span>
+                            </button>
+                        </div>
+                        <div class="col-sm-offset-2 col-lg-6 col-md-8 col-sm-10 btn-container mrb-15" ng-if="dataDom.length">
+                            <button type="button" class="btn btn-primary" ng-click="addData()">
+                                <i class="fa fa-pencil"></i>
+                                <span class="hid">修改病种标签</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in col-lg-8 col-md-10 col-sm-12 "></div>
+
+                    <div class="row">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">允许成员邀请医生加入</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <label class="i-checks control-label">
+                                <input type="radio" name="memberInvite" ng-model="memberInvite" ng-disabled="financialState" value="true">
+                                <i></i>
+                                是
+                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label class="i-checks control-label">
+                                <input type="radio" name="memberInvite" ng-model="memberInvite" ng-disabled="financialState" value="false">
+                                <i></i>
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="(group_edit && !step_apply) || isActive">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">允许医生申请加入集团</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <label class="i-checks control-label">
+                                <input type="radio" name="memberApply" ng-model="memberApply" ng-disabled="financialState" value="true">
+                                <i></i>
+                                是
+                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label class="i-checks control-label">
+                                <input type="radio" name="memberApply" ng-model="memberApply" ng-disabled="financialState" value="false">
+                                <i></i>
+                                否
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in" ng-if="(group_edit && !step_apply) || isActive"></div>
+
+                    <div class="row m-t-sm">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">集团LOGO</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                            <div ng-click="selectFile()" class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:100px;cursor:pointer" ng-model="groupLogo" name="groupLogo">
+                                <img src="{{groupLogoUrl || 'src/img/logoDefault.jpg'}}" ngf-src="groupLogo" width="100%" height="auto">
+                            </div>
+                            <div class="progress m-b-none" ng-show="groupLogoProgress>0">
+                                <div class="progress-bar progress-bar-striped progress-bar-success active font-bold"
+                                     role="progressbar m-b-none" aria-valuenow="{{groupLogoProgress}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{groupLogoProgress}}%;min-width: 2em;">
+                                    {{groupLogoProgress>0?groupLogoProgress:0}}%
+                                    <span class="sr-only">{{groupLogoProgress}}%</span>
+                                </div>
+                            </div>
+                            <p class="font-bold"
+                               ng-class="{'text-success text-right':groupLogo.result,'text-danger':reGroupLogo[0].$error}"
+                               ng-show="groupLogo.result||reGroupLogo[0].$error">
+                                {{groupLogo.result?groupLogo.result:'上传错误：'+reGroupLogo[0].$error}}</p>
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-lg-offset-0 col-sm-6 col-xs-6">
+                            <p>提示：支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+                        </div>
+                    </div>
+                    <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+                    <div class="row m-t-sm m-b-lg">
+                        <div class="col-sm-2 col-sm-offset-2">
+                            <button class="btn btn-primary btn-block" ng-disabled='settingsForm.$invalid'
+                                    ng-click="submitBt()">保&nbsp;&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-lg" ng-show="authError">
+                        <div class="col-sm-10 col-sm-offset-3 text-danger">
+                            {{authError}}
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 七牛上传组件 -->
+    <qiniu-uploader token="{{token}}" bucket="vpan" progress-call-back="progress" upload="upload" filters="qiniuFilters" file-list="fileList" cancel="cancel" max-file-size="99999gb" chunk-sizee="1mb" unique-names="true" multi-selection="true" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded"></qiniu-uploader>
+    <!-- 七牛上传组件 end -->
+</div>
+
+<script type="text/ng-template" id="groupTransfer.html">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-3 text-center">转让医生集团</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form name="transfer" class="form-horizontal form-validation">
+            <div class="text-danger wrapper text-center" ng-show="authError || ajaxInfo">
+                {{authError || ajaxInfo}}
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 text-right">接收集团的医生<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-md-6">
+                    <input class="form-control" data-id="{{selectedDoctorId}}" ng-model="selectedDoctorName" disabled required tabindex="1">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" ng-click="selectDoctor()">选择医生</button>
+                </div>
+            </div>
+            <div class="form-group mrt-15">
+                <p class="form-text text-center"><span class="text-info">提示：</span>转让集团后，您将成为普通管理员，可以退出集团以及被取消管理员资格。</p>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button class="btn btn-success w100" type="submit" ng-disabled='transfer.$invalid' ng-click="confirm()">确定转让</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default w100" type="button" ng-click="cancel()">取 消</button>
+        </div>
+    </div>
+</script>

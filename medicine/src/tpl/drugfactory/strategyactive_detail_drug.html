@@ -1,0 +1,125 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating capitalpooldrug-anim-dialog" ng-controller="drugcodeMarkController">
+    <div class="navi-wrap capitalpool_drug">
+        <div class="row">
+            <div class="capitalpool_drug-panel">
+                <div class="row">
+                    <div class="col-md-4">
+                        审核状态：
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <div class="radio markradio">
+                            <label class="i-checks">
+                                <input type="radio" name="a" value="1" checked="">
+                                <i></i> 通过
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio markradio">
+                            <label class="i-checks">
+                                <input type="radio" name="a" value="2">
+                                <i></i> 不通过
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">备注：</div>
+                                <input type="text" class="form-control" ng-model="drugcodedesc" placeholder="备注说明">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row drugcode_drug_btns text-center">
+                    <button type="button" class="btn btn-success" ng-click="pmenter()">
+                        <span>确定</span>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="pmcancel()">
+                        <span>取消</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal_capitalpool" tabindex="-1" role="dialog" aria-labelledby="myModal_capitalpool" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModal_capitalpoollable">更新成功</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tixing">
+        <div class="row tixingcontent">
+            当前所选审核的金额已超过活动剩余预算，请先到资金池中完成资金调拨，以保证审核的推广费有足够的资金。
+        </div>
+        <div class="row drugcode_drug_btns text-center">
+            <button type="button" class="btn btn-default" ng-click="pmcancel()">
+                <span>知道了</span>
+            </button>
+        </div>
+    </div>
+</div>
+<style>
+.capitalpooldrug-anim-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -120px;
+    width: 420px;
+    height: 240px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0px 0 1px rgba(0, 0, 0, .5);
+}
+
+.capitalpool_drug {
+    padding: 20px 10px;
+    font-size: 16px;
+}
+
+.capitalpool_drug .row {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.capitalpool_drug button {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.drugcode_drug_btns {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.tixing {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 5;
+    display: none;
+}
+
+.tixingcontent {
+    font-size: 18px;
+    padding: 30px;
+    margin: 0;
+    padding-top: 50px;
+}
+</style>

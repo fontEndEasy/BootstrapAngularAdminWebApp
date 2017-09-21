@@ -1,0 +1,67 @@
+<div class="frame-panel-a doc" ng-controller="HealthScienceCtrl">
+
+    <div class="row">
+        <div class="col-md-4">
+            <a ui-sref="app.create_health_science" class="btn btn-info" type="button" >新建科普文章</a>
+            <a ng-click="showTopDoc()" class="btn btn-success" type="button">{{topOrNormal}}</a>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group" style="width: 400px;margin: 0 auto;position: relative;">
+                <input type="text" class="form-control" placeholder="输入资料标题关键字搜索" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+                <a ng-show="mainKWLength>0" style="position: absolute;top: 10px;right: 120px;z-index: 999;" ng-click="clearMainKW()" class="glyphicon glyphicon-remove"></a>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" ng-click="findDocByKeyWord()">搜索全部文档</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-md">
+        <div class="col-md-3">
+            <div class="b-a bg-light dk r r-2x">
+                <abn-tree class="abn-tree"
+                          tree-control      = "my_tree"
+                          tree-data         = "my_data"
+                          on-select         = "my_tree_handler(branch)"
+                          expand-level      = "2"
+                          icon-leaf         = "fa fa-stethoscope dcolor"
+                          icon-expand       = "fa fa-caret-right"
+                          icon-collapse     = "fa fa-caret-down"
+                          initial-selection = "全部文档"
+                          ng-if             = "isTreeLoad">
+                </abn-tree>
+            </div>
+        </div>
+        <div class="col-md-9"  ng-show="!isTop">
+            <div class="panel panel-default">
+            <table id="article_list" class="table table-striped b-t b-b m-t-sm h-full table-hovers">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th width="80px">浏览量</th>
+                    <th width="100px">发布时间</th>
+                    <th width="150px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="col-md-9" ng-show="isTop">
+            <span><i class="fa fa-asterisk text-danger"></i>说明：如果设置置顶的文档不足5篇，则最新的文档会默认置顶，一直维持5篇文档置顶</span>
+            <table id="topDocTable" style="margin-top: 0 !important;" class="article_talbe table table-striped b-t b-b  h-full table-hover">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th width="80px">浏览量</th>
+                    <th width="100px">发布时间</th>
+                    <th width="150px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

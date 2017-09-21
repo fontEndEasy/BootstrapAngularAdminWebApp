@@ -1,0 +1,12 @@
+<div class="m-lg p-msg clearfix frame-panel-a" style="min-height:500px;" ng-controller="PublicMsgListCtrl">
+    <div class="m pull-left p-msg-l" ng-repeat="item in pub_msg_list" ng-click="toManage(item)">
+        <div class="panel b-a">
+            <div>
+                <img ng-src={{item.photourl||"src/img/nophoto.jpg"}}>
+            </div>
+            <div class="panel-footer text-center">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+</div>

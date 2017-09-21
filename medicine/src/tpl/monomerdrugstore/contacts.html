@@ -1,0 +1,91 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="MonoContacts">
+
+	<!-- 零售店-->
+	<div class="navi-wrap" ng-model="datas">
+		<div class="frame-panel">
+			<div class="row">
+				<div class="col-md-3 mrb-15">
+					<h2 class="title-3 text-left">通讯录</h2>
+				</div>
+				<div class="col-md-9 mrb-10">
+					<div class="pull-right mrr-10">
+						<button type="button" class="btn btn-primary" ng-click="addMonomerDrug()"><span class="hid">添加店员</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="row contacts-mail">
+				<div class="col-md-2">
+					<div class="mail-left">
+							<div ng-if="loading" class="list_1">
+							    <abn-tree 
+						          tree-data         = "my_datatree" 
+						          tree-control      = "my_tree" 
+						          on-select         = "my_tree_handler(branch)" 
+						          expand-level      = "2" 
+						          initial-selection = "店长"
+						          icon-leaf         = "fa fa-stethoscope dcolor"
+		                          icon-expand       = "fa fa-caret-right"
+		                          icon-collapse     = "fa fa-caret-down"
+						          >
+						        </abn-tree>
+							</div>
+					</div>
+				</div>
+				<div class="col-md-10" style="padding-left:0;">
+					<div class="row mail-right">
+						<div class="pull-right input-group" style="width: 240px; position: relative; border:none; margin:10px; margin-right:15px;">
+					        <input type="text" class="form-control" style="" placeholder="输入搜索内容" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+					        <div class="input-group-addon" ng-click="findByKeyWord()">搜索</div>
+			            </div>
+			            <div class="col-md-12" ng-if="normal">
+							<div class="panel panel-default" style="min-height:630px;">
+								<table class="table tablebox table-striped b-t b-b m-t-sm h-full table-hover no-footer" id="contactsList article_list">
+									<thead>
+										<tr class="text-left">
+											<th>头像</th>
+											<th>姓名</th>
+											<th>联系方式</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="text-left" ng-repeat="l in list" ui-sref="app.monomerdrugstore.details({id:l.employee.id,dz:query_status})">
+											<td><img ng-src="src/img/a0.jpg"></td>
+											<td>{{l.employee.name }}</td>
+											<td>{{ l['user$mobile_phone']}}</td>
+											<td>{{ l['employee-remark']}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-12" ng-if="!normal">
+							<div class="panel panel-default list_leave">
+								<table class="table tablebox table-striped b-t b-b m-t-sm h-full table-hover no-footer" id="contactsList article_list">
+									<thead>
+										<tr class="text-left">
+											<th>头像</th>
+											<th>姓名</th>
+											<th>联系方式</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="text-left" ng-repeat="l in list" ui-sref="app.monomerdrugstore.details({id:l.id,dz:query_status})">
+											<td><img ng-src="src/img/a0.jpg"></td>
+											<td>{{l.name }}</td>
+											<td>{{ l['user$mobile_phone']}}</td>
+											<td>{{ l.remark}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

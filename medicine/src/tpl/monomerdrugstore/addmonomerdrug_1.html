@@ -1,0 +1,38 @@
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="MonoContactsAdd">
+    <div class="panel-heading font-bold text-center">新建人员</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-12 cnt-apportion-right">
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <div class="col-md-12">
+                            <input type="text" id='name' placeholder="姓名" class="form-control" ng-model="name" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="手机号" id='tel' maxlength="11" class="form-control" ng-model="tel" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea placeholder="备注" id='remark' class="form-control" ng-model="remark" style="margin:0; resize:none;" reuired>
+                            </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog

@@ -1,0 +1,46 @@
+<div class="wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" novalidate name="settingsForm" ng-controller="groupLogoCtrl">
+                        <div class="row">
+                            <div class="font-bold col-sm-12"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;集团图标</div>
+                        </div>
+                        <div class="row m-t-sm ">
+                            <div class="col-sm-3 text-right">
+                                <label class="control-label">集团图标</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="bg-white text-center ng-File-UpLoad-Bt" nv-file-over="" over-class="b-info" style="min-height:100px;" ngf-select ng-model="groupLogo" name="groupLogo" ngf-max-size="2000000" ng-model-rejected="reGroupLogo" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                                  <img ngf-src="groupLogo" width="100%" height="auto" ng-show="groupLogo.progress>0">
+                                  <i ng-show="!groupLogo.progress" class="fa fa-file-picture-o" style="font-size:80px;line-height:100px;color:#dee5e7;"></i>
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <p>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+                                <div class="progress m-b-none" ng-show="groupLogo.progress>0">
+                                  <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{groupLogo.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{groupLogo.progress}}%;min-width: 2em;">
+                                    {{groupLogo.progress>0?groupLogo.progress:0}}%
+                                    <span class="sr-only">{{groupLogo.progress}}%</span>
+                                  </div>
+                                </div>
+                                <p class="font-bold" ng-class="{'text-success text-right':groupLogo.result,'text-danger':reGroupLogo[0].$error}" ng-show="groupLogo.result||reGroupLogo[0].$error">{{groupLogo.result?groupLogo.result:'上传错误：'+reGroupLogo[0].$error}}</p>
+                              </div>
+                        </div>
+                        <div class="form-group m-t-lg">
+                          <div class="col-sm-3 col-sm-offset-3">
+                            <button class="btn btn-primary btn-block" ng-disabled="settingsForm.$invalid" ng-click="goToGroup()" >确定</button>
+                          </div>
+                        </div>
+                        <div class="form-group m-t-lg" ng-show="authError">
+                          <div class="col-sm-10 col-sm-offset-2 text-danger">
+                            {{authError}}
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

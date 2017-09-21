@@ -1,0 +1,30 @@
+
+<!-- navbar collapse -->
+<div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+	<!-- buttons -->
+	<div class="nav navbar-nav hidden-xs" style="height:53px;">
+		<!-- <a href class="btn no-shadow navbar-btn"
+			ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+			<i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+		</a> -->
+	</div>
+	<ul class="nav navbar-nav hidden-sm">
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li class="dropdown headerbtns">
+			<!-- <div class="pull-right">
+				<button type="button" class="btn btn-info" style="background-color:#36bfad; border-color:#36bfad;" ui-toggle-class="active"
+					target=".settings">
+					<i class="fa  fa-cogs"></i>
+					<a href style="color:#ffffff;">设置</a>
+				</button>
+			</div> -->
+			<div class="pull-right mrr-10">
+				<button type="button" class="btn btn-primary" style="background-color:#36bfad; border-color:#36bfad;" ng-click="logout()">
+					<i class="glyphicon glyphicon-log-out"></i>
+					<a style="color:#ffffff;">退出</a>
+				</button>
+			</div>
+		</li>
+	</ul>
+</div>

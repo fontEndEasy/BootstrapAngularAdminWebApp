@@ -1,0 +1,40 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Strategy">
+    <div class="frame-panel mailcontainer" style="min-height:760px;">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3 text-left">推广策略管理</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-right mrr-10">
+                    <button type="button" class="btn btn-primary" ui-sref="app.strategy.edit_strategy({type:'add',id:'0'})">
+                        <span class="hid">添加推广策略</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row mail-right">
+                    <div class="integration-table">
+                        <table id="strategy-table" class="tablebox table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <!-- <th>药店配额</th> -->
+                                    <th>单品推广费</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+#strategy-table.dataTable thead .sorting_asc {
+    background: url();
+}
+</style>

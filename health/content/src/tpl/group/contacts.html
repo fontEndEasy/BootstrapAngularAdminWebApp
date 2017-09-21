@@ -1,0 +1,40 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Contacts">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-offset-4 col-md-4 mrb-15">
+                <h2 class="title-3 text-center">通讯录</h2>
+            </div>
+            <div class="col-md-4 mrb-10">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" ng-click="invite()">
+                        <i class="fa fa-comments"></i>
+                        <span class="hid">邀请医生</span>
+                    </button>
+                </div>
+                <div class="pull-right mrr-10">
+                    <button type="button" class="btn btn-primary" ng-click="addUnit()">
+                        <i class="fa fa-fw fa-plus"></i>
+                        <span class="hid">添加组织</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="cnt_list" class="list-group">
+                    <div ng-if="loading" class="loading">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <div ui-view>
+                        <p class="text-center form-text">没有可显示的数据！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

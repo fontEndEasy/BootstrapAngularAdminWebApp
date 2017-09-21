@@ -1,0 +1,84 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="VCheckDetails">
+    <div class="panel-heading font-bold text-center">
+        审核详情
+    </div>
+    <div class="panel-body" ng-model="formData">
+
+          <form name="form" class="form-validation form-horizontal details">
+            <div class="text-danger wrapper text-center" ng-show="authError" ng-bind="authError"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label detailstitle">认证信息</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">身份证号</label>
+              <label class="col-sm-9 control-label">2100000000000000000000000</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">医疗机构</label>
+              <label class="col-sm-9 control-label">深圳市南山区人民医院</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">科室</label>
+              <label class="col-sm-9 control-label">急诊</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">职称</label>
+              <label class="col-sm-9 control-label">护士</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">手机号码</label>
+              <label class="col-sm-9 control-label">13800000000</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">审核意见</label>
+              <label class="col-sm-9 control-label">资料不真实</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">审核结果</label>
+              <label class="col-sm-9 control-label">未通过</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">审核人员</label>
+              <label class="col-sm-9 control-label">10001</label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">证书图片</label>
+              <div class="col-sm-9 control-label bookimgs">
+                <img class="select" src="src/img/a0.jpg" width="100" height="100" />
+                <img src="src/img/a0.jpg" width="100" height="100" />
+                <img src="src/img/a0.jpg" width="100" height="100" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <label class="col-sm-9 control-label"><img src="src/img/a0.jpg" width="300" height="300" /></label>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label detailstitle">审核信息</label>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">审核流程</label>
+              <div class="col-sm-9 control-label checklog">
+                <div><span>注册时间</span><span>2015-11-30 13:11</span><span></span><div class="clear"></div></div>
+                <div><span>提交时间</span><span>2015-11-30 13:11</span><span></span><div class="clear"></div></div>
+                <div>
+                  <span>驳回时间</span>
+                  <span>2015-11-30 13:11</span>
+                  <span class="yyinfo">
+                    <span class="yyinfotitle">原因：</span>
+                    <span class="yyinfocontent">资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实资料不真实</span>
+                    <div class="clear"></div>
+                  </span>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-12">
+                <button class="btn m-b-xs w-xs btn-info" ng-click="back()">返回</button>
+              </div>
+            </div>
+        </form>
+    </div>
+</div>

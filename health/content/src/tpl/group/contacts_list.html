@@ -1,0 +1,48 @@
+<div class="table-responsive" ng-controller="ContactsList">
+    <div class="none">
+        <!-- search form -->
+        <form id="group_search_form" class="group-search">
+            <div>
+                <input id="key_ipt" type="text" autocomplete="off" placeholder="按（姓名 / 电话 / 职称）搜索"/>
+                <i ng-show="loaded" class="fa icon-magnifier" ng-click="submit()"></i>
+                <span ng-show="!loaded" class="loading"><i class="glyphicon glyphicon-repeat"></i></span>
+            </div>
+            <div class="hide"><button type="submit" ng-click="submit()"></button> </div>
+        </form>
+        <!-- / search form -->
+    </div>
+    <div ng-show="!isSearch">
+        <table id="contactsList" class="table table-striped b-t b-b">
+            <thead>
+            <tr>
+                <th></th>
+                <th>名称</th>
+                <th>医生号</th>
+                <th>职称</th>
+                <th>手机号</th>
+                <th>备用联系方式</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="isSearch">
+        <table id="searchList" class="table table-striped b-t b-b">
+            <thead>
+            <tr>
+                <th></th>
+                <th>名称</th>
+                <th>所在组织</th>
+                <th>职称</th>
+                <th>手机号</th>
+                <th>备用联系方式</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

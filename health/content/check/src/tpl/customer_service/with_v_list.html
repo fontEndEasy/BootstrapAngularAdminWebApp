@@ -1,0 +1,85 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="GroupWithVCheck">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="org-title text-center">集团加V认证</h2>
+            </div>
+        </div>
+        <div class="row" style="margin: 0;">
+            <div class="col-md-12 tab-wrap">
+                <tabset class="tab-container">
+                    <tab heading="待审核" select="tabs.unCheck()" active="tabs.active[0]">
+                        <div>
+                            <div ng-init="loading=true" ng-if="loading" class="loading">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="list_unCheck" class="table table-striped b-t b-b">
+                                    <thead>
+                                    <tr>
+                                        <th>集团Logo</th>
+                                        <th>医生集团名称</th>
+                                        <th>认证公司名称</th>
+                                        <th>管理者姓名及电话</th>
+                                        <th>提交时间</th>
+                                        <th class="identify-remark">审核备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="已通过" select="tabs.passed()" active="tabs.active[1]">
+                        <div>
+                            <div ng-init="loading=true" ng-if="loading" class="loading">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="list_passed" class="table table-striped b-t b-b">
+                                    <thead>
+                                    <tr>
+                                        <th>集团Logo</th>
+                                        <th>医生集团名称</th>
+                                        <th>认证公司名称</th>
+                                        <th>管理者姓名及电话</th>
+                                        <th>提交时间</th>
+                                        <th class="identify-remark">审核备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="未通过" select="tabs.noPass()" active="tabs.active[2]">
+                        <div>
+                            <div ng-init="loading=true" ng-if="loading" class="loading">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="list_noPass" class="table table-striped b-t b-b">
+                                    <thead>
+                                    <tr>
+                                        <th>集团Logo</th>
+                                        <th>医生集团名称</th>
+                                        <th>认证公司名称</th>
+                                        <th>管理者姓名及电话</th>
+                                        <th>提交时间</th>
+                                        <th class="identify-remark">审核备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

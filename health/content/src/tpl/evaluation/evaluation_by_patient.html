@@ -1,0 +1,63 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="EvaluationByPatient">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center">邀请患者数</h2>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-12 cnt-col">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table id="evaluationByPatient" class="table table-striped b-t b-b">
+                            <thead>
+                            <tr>
+                                <th>排名</th>
+                                <th>头像</th>
+                                <th>医生名称</th>
+                                <th>医院</th>
+                                <th>科室</th>
+                                <th>职称</th>
+                                <th>邀请患者数</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="patientModalContent.html">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-3 text-center"><span class="text-info" ng-bind="doctorName"></span>的患者列表</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <table id="patientsTable" class="table table-striped b-t b-b b-l b-r">
+            <thead>
+            <tr>
+                <th>头像</th>
+                <th>患者姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>手机号码</th>
+                <th>邀请时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-offset-5 col-md-2">
+            <button class="btn btn-info w100" type="button" ng-click="cancel()">关 闭</button>
+        </div>
+    </div>
+</script>

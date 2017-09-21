@@ -1,0 +1,41 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="CheckListPass">
+  <div class="frame-panel">
+    <div class="row">
+      <!-- <div class="col-md-4 col-xs-0"></div> -->
+      <div class="col-md-12">
+        <h2 class="org-title text-center">已通过</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 pb-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="wrapper-md">
+              <div ng-init="loading=true" ng-if="loading" class="loading">
+                <i class="glyphicon glyphicon-repeat"></i>
+              </div>
+              <div class="table-responsive">
+                <table id="doctorList_pass" class="table table-striped b-t b-b">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th width="80">姓名</th>
+                      <th>医疗机构</th>
+                      <th>科室</th>
+                      <th>职称</th>
+                      <th>电话</th>
+                      <th>提交时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

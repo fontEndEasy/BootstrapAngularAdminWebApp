@@ -1,0 +1,96 @@
+<div class="col-lg-10 col-lg-offset-1 ">
+    <div class="m-t-lg clearfix">
+        <div class="col-xs-3">
+            <div class="bg-white r r-3x pull-left box-shardow p b">
+                <div>
+                    <uib-datepicker class="datepicker w-full text-lg" ng-model="selectDate" current-text="今天" clear-text="清理" close-text="关闭" show-weeks="false" starting-day="1" custom-class="getDayClass(date,mode)" />
+                </div>
+                <div class="text-center m-t">
+                    <button class="btn btn-info r r-2x text-base p-r-sm p-l-sm" ng-click="today()">今天</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-9 h-700 overflow-auto">
+            <div ng-show="schedulesList.length<1" class="text-center b bg-white r r-3x clearfix m-b-sm">
+                <div class="p">没有数据</div>
+            </div>
+            <div ng-show="scheduleDetailLoading" class="text-center r r-3x clearfix m-b-sm">
+                <div><i class="fa fa-spinner fa-spin text-white" ng-show="setRemarksLoading"></i></div>
+            </div>
+            <div class="b bg-white r r-3x clearfix m-b-sm" ng-repeat="item in schedulesList">
+                <div class="col-xs-3 p">
+                    <div class="clearfix">
+                        <div class="col-xs-6">
+                            <div class="text-center a-link r r-3x clear position-relative" ng-click="openPatientInfoDailog(item.orderDetail.orderVo.userVo.userId,item.orderDetail.orderVo.orderId,null)">
+                                <img class="w-full" ng-src="{{item.patientHeadIcon}}">
+                            </div>
+                            <h5 class="text-center text-sm">{{item.patientName}}<br><small>(患者)</small></h5>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="text-center a-link r r-3x clear position-relative" ng-click="openDoctorInfoDailog(item.doctorId,null,1)">
+                                <img class="w-full" ng-src="{{item.doctorHeadIcon}}">
+                                <div class="position-absolute absolute-bottom absolute-left absolute-right bg-danger text-center text-white text-md p-t-xs p-b-xs" ng-if="item&&item.troubleFree==2">开启免打扰</div>
+                            </div>
+                            <h5 class="text-center text-sm">{{item.doctorName}}<br><small>(医生)</small></h5>
+                        </div>
+                    </div>
+                    <div class="clearfix text-center">
+                        <a class="btn btn-primary r r-2x text-base p-r-sm p-l-sm m-t-xs" ui-sref="order.schedule.threeWayCalling({order:item})">三方通话</a>
+                    </div>
+                </div>
+                <div class="col-xs-9 b-l">
+                    <div class="p-l p-r p-t p-b-sm position-relative">
+                        <div class="position-absolute text-white text-center p-xxs p-r-sm p-l-sm font-bold text-md r r-2x box-shadow" style="top:5px;right:-25px;width:100px; " ng-class="{1:'bg-success',0:'bg-primary',2:'bg-danger',3:'bg-info'}[item.flag]">{{{0:'未拨打',1:'拨打成功',2:'拨打失败',3:'正在拨打'}[item.flag]}}</div>
+                        <div class="row p-b-sm">
+                            <div class="col-xs-2">
+                                <div class="row">预约时间：</div>
+                            </div>
+                            <div class="col-xs-10">{{item.scheduleTime | amDateFormat:'YYYY/MM/DD H:mm'}} - {{item.scheduleTime |amAdd : '30' : 'minutes'| amDateFormat:'H:mm'}}
+                                <button class="btn btn-default r r-2x btn-xs inline" ng-click="openTimeEditor(item.scheduleTime,item.orderId)">修改</button>
+                            </div>
+                        </div>
+                        <div class="row b-b p-b-sm">
+                            <div class="col-xs-2">
+                                <div class="row">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</div>
+                            </div>
+                            <div class="col-xs-10">
+                                <textarea class="form-control" rows="3" style="resize:none" ng-model="item.orderDetail.orderVo.remarks"></textarea>
+                                <div class="text-right m-t-xs">
+                                    <button class="btn btn-success r r-2x btn-xs p-r-sm p-l-sm" ng-click="setRemarks(item.orderId,item.orderDetail.orderVo.remarks)">保存<i class="fa fa-spinner fa-spin" ng-show="setRemarksLoading"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-t-sm">
+                            <div class="clearfix">
+                                <div class="col-xs-2">
+                                    <div class="row">通话记录：</div>
+                                </div>
+                                <div class="col-xs-10 h-max-200 overflow-auto">
+                                    <div ng-repeat="part in item.callRecordList">
+                                        <div class="clearfix">
+                                            {{part.time}}
+                                        </div>
+                                        <div class="clearfix m-t-xs" ng-repeat="list in part.list">
+                                            <div class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{list.createTime | amDateFormat:'H:mm'}} 三方通话 {{{true:'成功',false:'失败'}[list.status]}}</div>
+                                            <div class="pull-right text-muted">{{integer(list.endTime-list.createTime)}} 分钟</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TimeEditor -->
+<time-editor open="openTimeEditor" minute-step="30" min-date="{{minDate}}" call-back="timeEditorCallBack"></time-editor>
+<!-- TimeEditor end -->
+<!-- patientInfoDailog -->
+<patient-info-dailog open="openPatientInfoDailog"></patient-info-dailog>
+<!-- patientInfoDailog end -->
+<!-- doctor-info-dailog -->
+<doctor-info-dailog open="openDoctorInfoDailog"></doctor-info-dailog>
+<!-- doctor-info-dailog end -->
+<div ui-view></div>

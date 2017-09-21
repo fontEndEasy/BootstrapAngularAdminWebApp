@@ -1,0 +1,163 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="OCancelDetails">
+    <div class="panel-heading font-bold text-center">
+        已取消订单详情
+    </div>
+    <div class="panel-body" ng-model="formData">
+          <form name="form" class="form-validation form-horizontal ingdetails">
+            <div class="text-danger wrapper text-center" ng-show="authError" ng-bind="authError"></div>
+            <div class="infolog release">
+              <div class="form-group header info">
+                <label class="col-sm-12 control-label itemheader">基本信息</label>
+              </div>
+
+              <div class="form-group infoblock">
+                <div class="infoitem">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">订单号</label>
+                    <label class="col-sm-6 control-label">98524563</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">订单类型</label>
+                    <label class="col-sm-6 control-label">加号+检查</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">护士姓名</label>
+                    <label class="col-sm-6 control-label">李护士</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">就诊人姓名</label>
+                    <label class="col-sm-6 control-label">李小兵</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">护士手机号码</label>
+                    <label class="col-sm-6 control-label">18011112222</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">就诊人手机号码</label>
+                    <label class="col-sm-6 control-label">18011112222</label>
+                  </div>
+                </div>
+                <div class="rightline"></div>
+                <div class="infoitem">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">医院信息</label>
+                    <label class="col-sm-6 control-label">深圳市南山区人民医院，急诊科，泌尿科</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">预约服务时间</label>
+                    <label class="col-sm-6 control-label">11月23日上午8点30分</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">加号医生</label>
+                    <label class="col-sm-6 control-label">李大医</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">检查项目</label>
+                    <label class="col-sm-6 control-label">血常规，凝血四项，丈夫血型</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">留言</label>
+                    <label class="col-sm-6 control-label">十万火急，找人看病</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">支付时间</label>
+                    <label class="col-sm-6 control-label">2015-11-30 15:11</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="servicelog release">
+              <div class="form-group odd header">
+                <label class="col-sm-2 control-label itemheader">服务跟踪</label>
+                <label class="col-sm-2 control-label">订单流程</label>
+                <label class="col-sm-2 control-label">操作时间</label>
+                <label class="col-sm-2 control-label">异常提醒</label>
+                <label class="col-sm-2 control-label">客服操作</label>
+                <label class="col-sm-2 control-label">备注</label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o0.png"></i><span>下单</span></label>
+                <label class="col-sm-2 control-label">2015-11-28 15:11</label>
+                <label class="col-sm-2 control-label"><p>未结束，需联系</p></label>
+                <label class="col-sm-2 control-label"><p></p></label>
+                <label class="col-sm-2 control-label"></label>
+              </div>
+              <div class="form-group odd">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o1.png"></i><span>接单</span></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label">
+                  <i><img src="src/img/o2.png"></i><span><p>护士给客户的电话</p><p>( 预约时间：2015-11-30 15:11 )</p></span>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>2015-11-28 15:11 通话5分36秒</p>
+                  <p>2015-11-28 15:11 通话5分36秒</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>未结束，需联系</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>客服10001 李阳 致电电话 <br/>2015-11-28 15:11</p>
+                  <p>客服10001 李阳 致电电话 <br/>2015-11-28 15:11</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>护士忘记了</p>
+                </label>
+              </div>
+              <div class="form-group odd">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o3.png"></i><span>护士给客户的短信</span></label>
+                <label class="col-sm-2 control-label">
+                  <p>2015-11-28 15:11</p>
+                  <p>2015-11-28 15:11</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>未结束，需联系</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>客服10001 李阳 致电电话 <br/>2015-11-28 15:11</p>
+                  <p>客服10001 李阳 致电电话 <br/>2015-11-28 15:11</p>
+                  <p>客服10001 李阳 致电电话 <br/>2015-11-28 15:11</p>
+                </label>
+                <label class="col-sm-2 control-label">
+                  <p>护士忘记了</p>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o4.png"></i><span>开始服务</span></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+              </div>
+              <div class="form-group odd">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o5.png"></i><span>完成服务</span></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"><i><img src="src/img/o6.png"></i><span>检查结果录入</span></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label"></label>
+              </div>
+              
+            </div>
+            
+
+        </form>
+    </div>
+</div>

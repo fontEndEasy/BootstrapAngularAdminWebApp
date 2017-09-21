@@ -1,0 +1,33 @@
+<!-- modal dialog -->
+<div class="dialog-container animating fade-in-down">
+    <div class="dialog-heading font-bold text-center">解除医生</div>
+    <div class="dialog-body">
+        <div ng-show="showInfo">
+            <div class="panel panel-default mrt-15 mrb-10 mrr-15 mrl-15">
+                <div class="panel-heading" style="border-bottom:none">
+                    <div class="clearfix">
+                        <img class="pull-left thumb-md avatar b-3x m-r" ng-src="{{viewData.headPicFile}}" alt="..">
+                        <div class="clear">
+                            <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.name"></div>
+                            <small class="text-muted" ng-bind="viewData.info"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="form-text mrb-10">解除后将会使该医生转入“已解除”群组，你将不能对该医生进行业务操作。</p>
+        </div>
+        <div ng-show="showWarn">
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                    <div class="txt-warning"><i class="fa fa-warning"></i><span ng-bind="viewData.warn_text">操作失败！</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-opr-bar clear">
+        <div class="col-md-offset-2 col-md-4"><button type="button" class="w100 btn btn-danger" ng-click="doQuit()">解 除</button></div>
+        <div class="col-md-4"><button type="button" class="w100 btn btn-default" ng-click="exit()">取 消</button></div>
+    </div>
+</div>
+<!-- /modal dialog -->

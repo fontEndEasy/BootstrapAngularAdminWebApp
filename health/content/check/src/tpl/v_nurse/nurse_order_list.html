@@ -1,0 +1,56 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="NListGroup">
+  <div class="frame-panel">
+    <div class="row">
+      <!-- <div class="col-md-4 col-xs-0"></div> -->
+      <div class="col-md-12">
+        <h2 class="org-title text-center" ng-bind="check_status">待审核(医生集团)</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 pb-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="wrapper-md">
+              <div ng-init="loading=true" ng-if="loading" class="loading">
+                <i class="glyphicon glyphicon-repeat"></i>
+              </div>
+              <div class="table-responsive">
+                <table id="vgroupList0" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>订单号</th><th>订单类型</th><th>就诊人姓名</th><th>支付时间</th><th>异常提醒</th><th>操作</th><th>备注</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList1" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>订单号</th><th>订单类型</th><th>护士姓名</th><th>就诊人姓名</th><th>接单时间</th><th>预约服务时间</th><th>订单状态</th><th>异常提醒</th><th>操作</th><th>备注</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList2" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>订单号</th><th>订单类型</th><th>护士姓名</th><th>就诊人姓名</th><th>完成时间</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList3" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>订单号</th><th>订单类型</th><th>护士姓名</th><th>就诊人姓名</th><th>取消时间</th><th>取消原因</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>

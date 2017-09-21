@@ -1,0 +1,43 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm fade-in-left">
+    <div class="titlecontainer">
+        <div class="bar"></div>
+        <div class="tools">
+            <div class="back" ng-click="back();">返回</div>
+            <div class="title">客户拜访</div>
+        </div>
+    </div>
+    <div class="contentcontainer">
+        <div class="visitlistcontainer" ng-show="visitShow">
+            <div ng-repeat="vl in VisitList" class="visitlist" ng-click="gotoVisit('edit',vl.id,vl.flag)">
+                <div class="row clearfix">
+                    <div class="visitinline visiticon" style="margin-right:0.15rem;">
+                        <img src="common/images/u1007.png" width="100%" alt="">
+                    </div>
+                    <div class="visitinline visittext">
+                        <div class="row visitname clearfix">
+                            <span>{{vl.doctorName}}</span>
+                            <span ng-if="vl.flag=='0'"><img src="common/images/u1004.png" alt=""></span>
+                        </div>
+                        <div class="row visitdate">
+                            {{ vl.creatorDate | myDateTime}}
+                        </div>
+                    </div>
+                    <div ng-if="vl.flag=='0'" class="visitinline visitbtns">
+                        <div class="deletebtn" ng-click="delvisit($event,vl.id)">
+                            <img src="common/images/u1005.png" width="100%" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="vl.remark && vl.remark !=''" class="row desc">
+                    {{vl.remark}}
+                </div>
+            </div>
+        </div>
+        <div class="notvisitlist" ng-show="!visitShow">
+            <img src="common/images/u1006.png" alt="">
+        </div>
+        <div class="newvisit">
+            <button class="btn btn-default" ng-click="gotoVisit('add')">新建拜访</button>
+        </div>
+    </div>
+</div>

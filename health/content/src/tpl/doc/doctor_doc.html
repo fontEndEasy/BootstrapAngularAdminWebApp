@@ -1,0 +1,35 @@
+<div class="frame-panel-a doc" ng-controller="doctorDocCtrl">
+
+
+    <div class="row" style="position: relative;">
+        <a ui-sref="app.doc.create_article" class="btn btn-info" style="position:absolute;margin-left:15px;z-index: 999;" type="button" >新建文章</a>
+        <div class="input-group" style="width: 400px;margin: 0 auto;position: relative;">
+            <input type="text" class="form-control" placeholder="输入资料标题关键字搜索" ng-model="mainKeyword"  ng-keypress="pressEnter($event)">
+
+            <a ng-show="mainKWLength>0" style="position: absolute;top: 10px;right: 120px;z-index: 999;" ng-click="clearMainKW()" class="glyphicon glyphicon-remove"></a>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="findDocByKeyWord()">搜索全部文档</button>
+            </span>
+        </div>
+    </div>
+
+    <div class="row m-t-sm">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+            <table id="collectDocTable" class="table table-striped b-t b-b m-t-sm h-full table-hover">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th width="80px">使用次数</th>
+                    <th width="80px">浏览量</th>
+                    <th width="100px">发布时间</th>
+                    <th width="150px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>

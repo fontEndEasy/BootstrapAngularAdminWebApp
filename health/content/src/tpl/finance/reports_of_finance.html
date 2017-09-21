@@ -1,0 +1,82 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ReportsOfFinance">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center">报表查询记录</h2>
+            </div>
+            <div style="position: absolute;right: 22px;">
+                <a ui-sref="app.statistic_of_report" class="btn btn-info" ng-show="isGroup && !canBack">统计报表</a>
+                <button class="btn btn-default" ng-click="goBack()" ng-show="isGroup && canBack"><i
+                        class="fa fa-chevron-circle-left text-danger"></i> 返 回
+                </button>
+            </div>
+        </div>
+        <div class="row none">
+            <form id="order_query" action="{{action_url}}" method="post">
+                <div class="order-query">
+                    <input type="text" placeholder="姓名" class="form-control" id="userName" style="max-width: 120px" tabindex="1" ng-model="childName"/>
+                    <input type="tel" placeholder="手机号" class="form-control mrl-10" id="telephone" style="max-width: 120px" tabindex="2" ng-model="telephone"/>
+                    <select class="form-control mrl-10" tabindex="3" ng-model="oType">
+                        <option value="" selected>全部</option>
+                        <option value="TW">图文咨询</option>
+                        <option value="DH">电话咨询</option>
+                        <option value="HZ">会诊</option>
+                        <option value="MZ">门诊</option>
+                        <option value="JK">健康关怀</option>
+                        <option value="KJ">扣减项</option>
+                        <option value="TK">提成退款</option>
+                    </select>
+                    <div class="time-group mrl-10">
+                        <div class="time-control time-start">
+                            <input type="text" placeholder="起始时间" id="start_time" tabindex="4" autocomplete="off" style="width: 105px" ng-model="startTime" readonly/>
+                        </div>
+                        <div class="time-control time-end">
+                            <input type="text" placeholder="结束时间" id="end_time" tabindex="5" autocomplete="off" style="width: 105px" ng-model="endTime" readonly/>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="margin-left: 10px" ng-click="queryOrder()">查 询</button>
+                    <button type="submit" class="btn btn-info" style="margin-left: 10px" ng-click="export()">导 出</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-rt" style="padding-left: 15px;">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <div ng-show="isGroup">
+                            <table id="table_of_group" class="table table-striped b-t b-b">
+                                <thead>
+                                <tr>
+                                    <th>医生名称</th>
+                                    <th>手机号</th>
+                                    <th>订单类型</th>
+                                    <th>订单号</th>
+                                    <th>订单时间</th>
+                                    <th>订单金额（元）</th>
+                                    <th>提成金额（元）</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-show="!isGroup">
+                            <table id="table_of_doctor" class="table table-striped b-t b-b">
+                                <thead>
+                                <tr>
+                                    <th>医生名称</th>
+                                    <th>手机号</th>
+                                    <th>已完成订单金额（元）</th>
+                                    <th>未完成订单金额（元）</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,256 @@
+<!-- list -->
+<ul class="nav" ng-model="datas">
+    <li ng-class="{active:$state.includes('app.check')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-gavel"></i>
+            <span>审核管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>审核管理</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.check.doctor.check_list({type:'un_check', page:'page_1'})" href>
+                    <b class="badge bg-primary pull-right" id="doctor_check" ng-bind="datas.doctor_check">0</b>
+                    <span>医生资格审核</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.check.group.check_list({type:'un_check', page: 'page_1'})" href>
+                    <b class="badge bg-info pull-right" id="group_check" ng-bind="datas.group_check">0</b>
+                    <span>医生集团审核</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.check.group.with_v_list({type:'un_check', page: 'page_1'})" href>
+                    <b class="badge bg-success pull-right" id="group_check_with_v" ng-bind="datas.group_check_with_v">0</b>
+                    <span>集团加V认证</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-if="undefineded">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="glyphicon glyphicon-edit"></i>
+            <span>反馈处理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>反馈处理</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.feedback_undone">
+                    <b class="badge bg-info pull-right" id="feedback_undo" ng-bind="datas.feedback_undo">0</b>
+                    <span>待处理</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a ui-sref="app.public_msg_list" href class="nav-item">
+            <i class="fa fa-rss"></i>
+            <span>爱心宣教</span>
+        </a>
+    </li>
+    <li ng-class="{active:$state.includes('app.doc')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-database"></i>
+            <span>文档中心</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span>患教资料</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.doc.article.list">
+                    <b class="badge bg-success pull-right"></b>
+                    <span>患教资料</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.doc.health.science">
+                    <b class="badge bg-primary pull-right"></b>
+                    <span>健康科普</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.doc.ads.patient">
+                    <b class="badge bg-success pull-right"></b>
+                    <span>患者广告条</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.care_plan')}">
+        <a href="" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-heart"></i>
+            <span class="ng-scope">健康关怀计划</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li>
+                <a ui-sref="app.care_plan_list" href class="nav-item">
+                    <span>关怀计划列表</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="app.lifeQualityLibrary" href class="nav-item">
+                    <span>生活量表题库</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="app.surveyLibrary" href class="nav-item">
+                    <span>调查表题库</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.follow_up_table')}">
+        <a href="" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa icon-emoticon-smile"></i>
+            <span class="ng-scope">随访计划</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li>
+                <a ui-sref="app.follow_up_table" href class="nav-item">
+                    <span>随访计划列表</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.reports_of_finance')}">
+        <a href="" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-rmb"></i>
+            <span class="ng-scope">收入结算</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li>
+                <a ui-sref="app.reports_of_finance({name:'group'})" href class="nav-item">
+                    <span>集团报表</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="app.reports_of_finance({name:'doctor'})" href class="nav-item">
+                    <span>医生报表</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="app.reports_of_finance({name:'salesclerk'})" href class="nav-item">
+                    <span>店员报表</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.guider_account')}">
+        <a href="" class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-lock"></i>
+            <span class="ng-scope">账号管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li>
+                <a ui-sref="app.guider_account" href class="nav-item">
+                    <span>导医账号</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a class="three" ui-sref="app.topUp_confirm">
+            <i class="fa fa-money"></i>
+            <span>充值确认</span>
+        </a>
+    </li>
+    <li class="line dk"></li>
+    <li ng-class="{active:$state.includes('app.order_query')}">
+        <a class="three" ui-sref="app.order_query">
+            <i class="glyphicon glyphicon-list text-primary-lter"></i>
+            <span>订单查询</span>
+        </a>
+    </li>
+    <li ng-class="{active:$state.includes('app.order.done')}">
+        <a ui-sref="app.order.done">
+            <i class="fa fa-file-text text-success-lter"></i>
+            <b class="badge bg-success pull-right" id="order_done" ng-bind="datas.order_done">0</b>
+            <span>已支付订单</span>
+        </a>
+    </li>
+    <li ng-class="{active:$state.includes('app.message_tpl')}">
+        <a href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-envelope text-info"></i>
+            <span>短信平台</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li>
+                <a ui-sref="app.message_tpl">
+                    <span>短信模板</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="app.message_query">
+                    <span>短信查询</span>
+                </a>
+            </li>
+            <!--            <li class="nav-sub-header">
+                <a href>
+                    <span>患教资料</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.article_list">
+                    <b class="badge bg-success pull-right"></b>
+                    <span>患教资料</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.doc.health.science">
+                    <b class="badge bg-primary pull-right"></b>
+                    <span>健康科普</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.doc.ads.patient">
+                    <b class="badge bg-success pull-right"></b>
+                    <span>患者广告条</span>
+                </a>
+            </li>-->
+        </ul>
+    </li>
+</ul>
+<!-- / list -->

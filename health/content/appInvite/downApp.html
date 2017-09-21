@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <title>个人中心</title>
+</head>
+
+<body>
+    <div class="text-center m-t-lg" id="patiBox">
+        <img class="m-t-xs" src="img/patientLogo.png" height="90" width="90">
+        <h1 class="font-xl">玄关健康(患者端)</h1>
+    </div>
+    <div class="btn p-t-sm p-b-xl text-center">
+        <a class="btn bg-success cl-white" id="downLoad_pati" style="width:55%;">
+            <!-- <img src="#" id="icon" height="20" style="display:inline-block"> -->
+            <lable class="font-lg" style="display:inline-block;">免费下载</lable>
+        </a>
+    </div>
+    <div style="display:block;height:0px;line-height:0px;border:1px solid #d6d6d6" id="lineDiv"></div>
+    <div class="text-center m-t-lg" id="doctBox">
+        <img class="m-t-xs" src="img/doctorLogo.png" height="95" width="95">
+        <h1 class="font-xl">玄关健康(医生端)</h1>
+    </div>
+    <div class="btn p-t-sm p-b-xl text-center">
+        <a class="btn bg-success cl-white" id="downLoad_doc" style="width:55%;">
+            <!-- <img src="#" id="icon" height="20" style="display:inline-block"> -->
+            <lable class="font-lg" style="display:inline-block;">免费下载</lable>
+        </a>
+    </div>
+    <script type="text/javascript">
+    (function loadFc() {
+
+        // function hasClass(elem, cls){
+        //     cls = cls || '';
+        //     if(cls.replace(/\s/g, '').length == 0) return false;
+        //     return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+        // }
+
+        // function addClass(elem, cls){
+        //     if(!hasClass(elem, cls)){
+        //         elem.className += ' ' + cls;
+        //     }
+        // }
+
+        // function removeClass(elem, cls){
+        //     if(hasClass(elem, cls)){
+        //         var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, '') + ' ';
+        //         while(newClass.indexOf(' ' + cls + ' ') >= 0){
+        //             newClass = newClass.replace(' ' + cls + ' ', ' ');
+        //         }
+        //         elem.className = newClass.replace(/^\s+|\s+$/g, '');
+        //     }
+        // }
+
+        //获取url参数
+        var parameterArry = (function getParameter() {
+            var url = location.search;
+            var theRequest = {};
+            if (url.indexOf('?') != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = strs.length - 1; i >= 0; i--) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        })();
+
+        var doctTeb = document.getElementById("doctTeb");
+        var doctBox = document.getElementById("doctBox");
+        var patiTeb = document.getElementById("patiTeb");
+        var patiBox = document.getElementById("patiBox");
+        var icon = document.getElementById("icon");
+
+        var lineDiv = document.getElementById("lineDiv");
+        var downLoad_doc = document.getElementById("downLoad_doc");
+        var downLoad_pati = document.getElementById("downLoad_pati");
+
+        // 患者
+        if (parameterArry.userType == 1) {
+            lineDiv.style.display = 'none';
+            doctBox.style.display = 'none';
+            downLoad_doc.style.display = 'none';
+        }
+        // 医生
+        else if (parameterArry.userType == 3) {
+            lineDiv.style.display = 'none';
+            patiBox.style.display = 'none';
+            downLoad_pati.style.display = 'none';
+        }
+
+
+        var device = discernDevice();
+        var downLoadUrl = 'goDownApp.html';
+        var iPhoneUrl = {
+            doc: "http://fir.im/xgys",
+            pati: "http://fir.im/xghz"
+        };
+        var androidUrl = {
+            doc: "http://fir.im/9kep",
+            pati: "http://fir.im/rvg6"
+        };
+
+        //显示设备icon
+        // if(device.iphone){
+        //     icon.src = 'img/iPhoneIcon.png';
+        // }else if(device.android){
+        //     icon.src = 'img/andriodIcon.png';
+        // }
+
+        //判断设备
+        function wathDevice(downLoadUrl) {
+            if (device.weixin)
+                return goToDown(downLoadUrl);
+            if (device.qq)
+                return goToDown(downLoadUrl);
+            if (device.weibo)
+                return goToDown(downLoadUrl);
+            if (device.iphone)
+                return goToDown(iPhoneUrl);
+            if (device.android);
+            return goToDown(androidUrl);
+            if (!device)
+                return alert("暂时不支持您的设备");
+        }
+
+        wathDevice(downLoadUrl);
+
+        //识别设备
+        function discernDevice() {
+            var user = navigator.userAgent.toLowerCase();
+            var dv = {};
+            if (user.match(/MicroMessenger/i) == "micromessenger") {
+                dv.weixin = true;
+            }
+            if (user.match(/QQ/i) == "qq") {
+                dv.qq = true;
+            }
+            if (user.match(/WeiBo/i) == "weibo") {
+                dv.weibo = true;
+            }
+            if (user.indexOf('android') != -1) {
+                dv.android = true;
+            } else if (user.indexOf('iphone') != -1) {
+                dv.iphone = true;
+            } else {
+                dv = null;
+            }
+            return dv;
+        }
+
+        //下载
+        function goToDown(downLoadUrl) {
+            document.getElementById("downLoad_doc").addEventListener('touchstart', function() {
+                if (downLoadUrl.doc) {
+                    location.href = downLoadUrl.doc;
+                } else {
+                    location.href = downLoadUrl;
+                }
+            })
+            document.getElementById("downLoad_pati").addEventListener('touchstart', function() {
+                if (downLoadUrl.pati) {
+                    location.href = downLoadUrl.pati;
+                } else {
+                    location.href = downLoadUrl + '?downTye=pati';
+                }
+            })
+        }
+
+    })()
+    </script>
+</body>
+
+</html>

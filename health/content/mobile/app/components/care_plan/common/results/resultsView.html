@@ -1,0 +1,46 @@
+<div class="clearfix">
+    <div class="clearfix" ng-repeat="question in questionlist">
+        <div class="col-xs-12 bg-white b-t b-b p-t-xs p-b-xs m-b-xs">
+            <!-- 非填空题标题 -->
+            <div class="row p-b-xs">
+                <div class="col-xs-12">
+                    <div class="text-md p-t-xxxs p-b-xxxs">{{$index+1}}.{{question.issueName}}</div>
+                </div>
+            </div>
+            <!-- 选择题 -->
+            <div class="row m-b-xs">
+                <div class="col-xs-12 bg-white p-t-xs" ng-repeat="answer in question.resAnswers" ng-show="answer.optionsId === question.resAnswer.optionsId">
+                    <div class="text-sm" ng-class="{true:'color-blue'}[answer.optionsId === question.resAnswer.optionsId]">
+                        <span class="tag tag-xs tag-blue" ng-class="{true:'bg-blue color-white'}[answer.optionsId === question.resAnswer.optionsId]">{{answer.options}}</span>&nbsp; {{answer.optionsName}}
+                        <span ng-show="answer.score">（{{answer.score}}分）</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 提示 -->
+            <div class="row" ng-show="question.resAnswer.doctorsContents || question.resAnswer.patientContents">
+                <div class="col-xs-12 bg-white p-t-xs">
+                    <div class="b-t p-t-xs text-xxs">
+                        <span class="tip color-white text-xxxs" ng-class="{'warn':'bg-danger','warn3':'bg-danger','info':'bg-warning'}[userType == 3 ? question.resAnswer.doctorsLeve : question.resAnswer.patientLeve]">{{{'warn':'!','warn3':'!','info':'T'}[userType == 3 ? question.resAnswer.doctorsLeve : question.resAnswer.patientLeve]}}</span>&nbsp;
+                        <lable class="vertical-align-middle">{{{'warn':'警告','warn3':'警告','info':'提示'}[userType == 3 ? question.resAnswer.doctorsLeve:question.resAnswer.patientLeve]}}</lable>
+                    </div>
+                    <div class="text-xs m-t-xs color-qianhui">{{userType == 3 ? question.resAnswer.doctorsContents : question.resAnswer.patientContents }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix" ng-show="assessResults">
+        <div class="col-xs-12 text-xxs color-qianhui p-t-xs p-b-xxs">
+            得分
+        </div>
+        <div class="col-xs-12 bg-white b-t b-b p-t-xs p-b-xs m-b-xs">
+            <h5 class="text-sm color-blue">{{countFraction}} 分</h5>
+        </div>
+        <div class="col-xs-12 text-xxs color-qianhui p-t-xs p-b-xxs">
+            结果分析
+        </div>
+        <div class="col-xs-12 bg-white b-t b-b p-t-xs p-b-xs m-b-xs" ng-repeat="assessResult in assessResults" ng-if="countFraction >= assessResult.minScore && countFraction <= assessResult.maxScore">
+            <h5 class="text-sm">{{assessResult.minScore}}~{{assessResult.maxScore}} 分</h5>
+            <p class="color-qianhui">{{assessResult.conclusion}}</p>
+        </div>
+    </div>
+</div>

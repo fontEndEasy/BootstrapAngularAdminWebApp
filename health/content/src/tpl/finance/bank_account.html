@@ -1,0 +1,106 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="BankAccount">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-lg-10 col-md-12 mrb-15">
+                <h2 class="title-3 text-center">银行卡号管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-rt" style="padding-left: 15px;">
+                <div class="panel panel-default">
+                    <div class="wrapper-md y-wrapper">
+                        <div class="row" ng-repeat="info in bankAccount">
+                            <div class="col-lg-10 col-md-12">
+                                <div class="col-md-1 col-xs-2 text-lg" ng-bind="$index+1"></div>
+                                <div class="col-md-7 col-xs-10 form-horizontal">
+                                    <div class=" form-group">
+                                        <div class="col-md-4 col-xs-4 text-right">银行名称</div><div class="col-md-8 col-xs-8" ng-bind="info.bankName">中国工商银行</div>
+                                    </div>
+                                    <div class="form-group hide">
+                                        <div class="col-md-4 col-xs-4 text-right">开户行</div><div class="col-md-8 col-xs-8" ng-bind="info.subBank">中国工商银行深圳高新支行</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-xs-4 text-right">银行卡号</div><div class="col-md-8 col-xs-8" ng-bind="info.bankNo">6222024555569899</div>
+                                    </div>
+                                    <div class="form-group hide">
+                                        <div class="col-md-4 col-xs-4 text-right">持卡人</div><div class="col-md-8 col-xs-8" ng-bind="info.userName">徐启胜</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-md-offset-0 col-xs-offset-6 col-xs-3 hide">
+                                    <button ng-click="setDefault($index)" class="btn {{info.isDefault ? 'btn-success' : 'btn-default'}}" ng-disabled="info.isDefault">{{info.isDefault ? "默认卡号" : "设为默认"}}</button>
+                                </div>
+                                <div class="col-md-2 col-xs-3">
+                                    <button class="btn btn-danger" ng-click="remove($index)">删 除</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10 col-md-12">
+                                <div class="col-md-2 col-xs-3">
+                                    <button class="btn btn-info text-lg" ng-click="addAccount()" ng-disabled="!canAddMore">添加银行卡</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="addBackAccount.html">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-3 text-center">添加银行卡号</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form name="account" class="form-horizontal form-validation">
+            <div class="text-danger wrapper text-center" ng-show="authError || ajaxInfo">
+                {{authError || ajaxInfo}}
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 text-right">银行卡号<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-md-8">
+                    <input class="form-control" ng-model="account.bankNo" tabindex="1" required autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 text-right">所属银行<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-md-8">
+                    <!--<input class="form-control" ng-model="account.bankName" tabindex="2" required>-->
+                    <select class="form-control" id="bank_list"></select>
+                </div>
+            </div>
+            <div class="form-group hide">
+                <label class="control-label col-md-3 text-right">开户支行<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-md-8">
+                    <input class="form-control" ng-model="account.subBank" tabindex="3">
+                </div>
+            </div>
+            <div class="form-group hide">
+                <label class="control-label col-md-3 text-right">持卡人</label>
+                <div class="col-md-8">
+                    <input class="form-control" ng-model="account.userName" tabindex="4">
+                </div>
+            </div>
+            <div class="form-group hide">
+                <div class="col-md-offset-3 col-md-8">
+                    <label class="checkbox i-checks m-b-md">
+                        <input type="checkbox" ng-model="account.isDefault" tabindex="5"><i></i>设为默认
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button class="btn btn-info w100" type="submit" ng-disabled='account.$invalid' ng-click="confirm()">确 定</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default w100" type="button" ng-click="cancel()">取 消</button>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,113 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="FollowUpTableCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">随访计划</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3 ng-binding">病种：{{diseaseNameSelected}}</h2>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" ng-click="addFollow()">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="hid">新建随访计划</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>题目名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="viewPopCtrl.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{viewName}}</h3>
+        </div>
+        <div class="clearfix m-t-sm m-b-sm">
+            <div class="col-xs-6 cnt-col-lt">
+                <div class="list-group" style="height:320px;overflow-y:scroll;">
+                    <div class="modal-body" id="sch_list"></div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <table id="listDatable" class="table table-striped b-t b-b b-l b-r dataTable no-footer" style="margin-top:0px !important;">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>随访表名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{viewData.careName}}</h3>
+        </div>
+        <div class="modal-body" style="height:320px;overflow-y:scroll;">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>随访简介：</h4>
+                    <p>{{viewData.careDesc || '无'}}</p>
+                </div>
+            </div>
+            <div class="row m-t-md" ng-show="viewData.caresIssues.length > 0" ng-repeat="answerTemplate in viewData.caresIssues">
+                <div class="col-xs-12">
+                    <div class="row text-sm">
+                        <div class="col-xs-12" ng-show="answerTemplate.type == 2">
+                            {{$index + 1}}. {{answerTemplate.content}}
+                        </div>
+                        <div class="col-xs-12" ng-show="answerTemplate.type == 3">
+                            {{$index + 1}}. {{answerTemplate.content}}
+                        </div>
+                        <div class="col-xs-12" ng-show="answerTemplate.type == 1">
+                            {{$index + 1}}.
+                            <abc ng-bind-html="setHtml(answerTemplate.content)"></abc>
+                        </div>
+                    </div>
+                    <div class="row m-t-sm" ng-show="answerTemplate.type == 2">
+                        <div class="col-xs-4" ng-repeat="answer in answerTemplate.answers">
+                            {{answer.number}}.{{answer.content}}
+                        </div>
+                    </div>
+                    <div class="row m-t-sm" ng-show="answerTemplate.type == 3">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" rows="3" placeholder="答案"></textarea>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in" ng-hide="$last"></div>
+                </div>
+            </div>
+            <div class="row text-lg text-center" ng-hide="viewData.caresIssues.length > 0">
+                无相关数据
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" ng-click="delete()">删除</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div>

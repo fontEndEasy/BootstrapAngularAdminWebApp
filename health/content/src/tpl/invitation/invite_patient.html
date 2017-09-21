@@ -1,0 +1,45 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="InvitePatient">
+    <div class="frame-panel">
+        <form class="form-horizontal">
+            <div class="form-group mrb-15">
+                <div class="col-lg-8 col-md-10 col-sm-12">
+                    <h2 class="title-3 text-center mrb-15">添加患者</h2>
+                    <div class="edit-wrapper">
+                        <div class="form-control invite-phone-input" id="invite_phone_list" onpaste="return false"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-4 col-md-5 col-sm-6 text-muted">
+                    <p>可以通过以下两种方式添加患者账号：</p>
+                    <p>1、直接输入患者账号；</p>
+                    <p>2、批量复制患者账号，然后粘贴（Ctrl+V）到输入框中。</p>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="btn btn-default w100" ui-sref="app.invite_list">返 回</a>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger w100" type="button" ng-click="clear()">清 空</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success w100" type="button" ng-click="add()">添 加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="succeed">
+                <div class="col-md-8 col-sm-12">
+                    <div class="form-control form-text" id="succeed_list"></div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="invited">
+                <div class="col-md-8 col-sm-12">
+                    <div class="form-control form-text" id="invited_list"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

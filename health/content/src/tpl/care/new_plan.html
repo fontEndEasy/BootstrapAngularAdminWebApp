@@ -1,0 +1,235 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="NewCarePlanCtrl">
+    <form class="form-horizontal" novalidate name="NewCarePlanFrom">
+        <div class="sch-frame-panel">
+            <div class="row">
+                <h4 class="font-bold text-center m-b-md">新建健康关怀计划</h4>
+            </div>
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">健康关怀计划介绍</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2 text-right">计划名称：</label>
+                                    <label class="control-label col-sm-3 text-left">{{planName}}</label>
+                                    <label class="control-label col-sm-2 text-right">所属病种：</label>
+                                    <label class="control-label col-sm-3 text-left">{{care_plan_disease.name}}</label>
+                                </div>
+                            </div>
+                            <div class="row m-t-xs">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2 text-right">计划简介：</label>
+                                    <label class="control-label col-sm-3 text-left">{{planInfo}}</label>
+                                    <label class="control-label col-sm-2 text-right">价格：</label>
+                                    <label class="control-label col-sm-3 text-left">{{planPrice?planPrice/100+'元':''}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-sm m-t-xs" ng-click="editIntroduce()">&nbsp;&nbsp;编 辑&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+
+                <!--<div class="row">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-sm-2">计划名称：<i class="fa fa-asterisk text-danger"></i></label>-->
+
+                        <!--<div class="col-sm-3">-->
+                            <!--<input type="text" class="form-control " placeholder="计划名称" id="planName" name="planName" ng-model="planName" required>-->
+                        <!--</div>-->
+                        <!--<label class="control-label col-sm-2">所属病种：<i class="fa fa-asterisk text-danger"></i></label>-->
+
+                        <!--<div class="col-sm-3">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="text" class="form-control" value="{{care_plan_disease.name}}"-->
+                                       <!--disabled="disabled" required>-->
+                                    <!--<span class="input-group-btn">-->
+                                        <!--<button class="btn btn-default" type="button" ng-click="chooseDisease()">选择-->
+                                        <!--</button>-->
+                                    <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row m-t-xs">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-sm-2">计划简介：</label>-->
+
+                        <!--<div class="col-sm-3">-->
+                            <!--<textarea class="form-control" rows="6" placeholder="计划简介" name="planInfo" ng-model="planInfo"></textarea>-->
+                        <!--</div>-->
+
+                        <!--<label class="control-label col-sm-2">价格：<i class="fa fa-asterisk text-danger"></i></label>-->
+
+                        <!--<div class="col-sm-3">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="number" class="form-control" placeholder="价格" name="planPrice" ng-model="planPrice" required>-->
+                                <!--<span class="input-group-addon">&nbsp;&nbsp;元&nbsp;&nbsp;</span>-->
+                            <!--</div>-->
+                            <!--<div class="row" ng-show="carePlanMin && carePlanMax">&nbsp;&nbsp;&nbsp;&nbsp;<code>{{carePlanMin}}~{{carePlanMax}}元</code></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-sm-offset-2 text-info">&nbsp;&nbsp;&nbsp;&nbsp;提示：以<i class="fa fa-asterisk text-danger mrr-15"></i>&nbsp;&nbsp;&nbsp;标注的为必填项！</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">健康关怀计划项目</h3>
+                    </div>
+                    <div class="panel-body">
+
+                            <ul class="nav nav-tabs">
+                                <li class="ng-isolate-scope" ng-class="{1:'active'}[tabNbr]" ng-click="tebChange(1)">
+                                    <a href="" class="ng-binding">病情跟踪</a>
+                                </li>
+                                <li class="ng-isolate-scope" ng-class="{2:'active'}[tabNbr]" ng-click="tebChange(2)">
+                                    <a href="" class="ng-binding">日程提醒</a>
+                                </li>
+                                <li class="ng-isolate-scope" ng-class="{3:'active'}[tabNbr]" ng-click="tebChange(3)">
+                                    <a href="" class="ng-binding">生活量表</a>
+                                </li>
+                                <li class="ng-isolate-scope" ng-class="{4:'active'}[tabNbr]" ng-click="tebChange(4)">
+                                    <a href="" class="ng-binding">用药关怀</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content m-t-sm">
+                                <div class="tab-pane ng-scope" ng-class="{1:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot1">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}.{{shelf.ghnrContent}}</label>
+
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-danger btn-sm m-t-xs" ng-click="removeShelf($index,'depot1')">删 除</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b pull-in"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane ng-scope " ng-class="{2:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot2">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}.{{shelf.ghnrContent}}</label>
+
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-danger btn-sm m-t-xs"
+                                                            ng-click="removeShelf($index,'depot2')">删 除
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b pull-in"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane ng-scope" ng-class="{3:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot3">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}.
+                                                {{shelf.ghnrContent}}</label>
+
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-danger btn-sm m-t-xs"
+                                                            ng-click="removeShelf($index,'depot3')">删 除
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b pull-in"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane ng-scope" ng-class="{4:'active'}[tabNbr]">
+                                    <div ng-show="care_plan_depots.depot4.length > 0">
+                                        <table id="medicineList" class="table table-striped b-b">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>产品名（商品名）</th>
+                                                <th>包装规格</th>
+                                                <th>生产厂家</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in care_plan_depots.depot4">
+                                                <td><img style="border:1px solid #eee;border-radius:2px"
+                                                         ng-src="{{item.image_url || item.image || 'src/img/medicine.png'}}"/></td>
+                                                <td>{{item.general_name||item.trade_name}}</td>
+                                                <td>{{item.pack_specification}}</td>
+                                                <td>{{item.manufacturer}}</td>
+                                                <!--<td><i class="fa fa-circle text-xs {{item.state==1?'text-success':item.state==2?'text-warning':item.state==3?'text-danger':'text-muted'}}"></i>&nbsp;{{item.state==1?'已认证':item.state==2?'待认证':item.state==3?'已取消':'未认证'}}</td>
+                                                <td>{{item.abbr}}</td>-->
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm m-t-xs" ng-click="delete($index)">删 除
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row text-left">
+                                    <div class="col-sm-10">
+                                        <button type="button" ng-disabled="care_plan_disease?false:true"
+                                                class="btn btn-info btn-sm m-t-xs" ng-click="showPop(tabNbr)">&nbsp;&nbsp;添 加&nbsp;&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row text-center m-t-sm form-group">
+                    <div class="col-sm-3 col-lg-offset-4">
+                        <div class="col-sm-6 text-center">
+                            <button type="submit" ng-disabled="NewCarePlanFrom.$invalid || (care_plan_disease?false:true)" class="btn btn-success" ng-click="savePlan()">&nbsp;&nbsp;确认提交&nbsp;&nbsp;
+                            </button>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <button type="button" class="btn btn-primary" ng-click="_cancel()">&nbsp;&nbsp;返 回&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{care_plan_disease.name}}</h3>
+        </div>
+        <div class="modal-body">
+            <div ng-show="items.length > 0">
+                <!--<select multiple="" class="form-control text-md" ng-model="selectItem" ng-options="((items.indexOf(item)+1)+'： '+item.ghnrContent) for item in items">
+                </select>-->
+                <select multiple="false" class="form-control text-md">
+                    <option ng-repeat="item in items" ng-click="changed(item)" class="{{item.selected ? 'opt-selected' : 'opt-unselect'}}">{{(items.indexOf(item)+1)+'：'+item.ghnrContent}}
+                    </option>
+                </select>
+            </div>
+            <div class="row text-lg text-center" ng-hide="items.length > 0">
+                无相关数据
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="button" ng-click="ok()">&nbsp;&nbsp;确 定&nbsp;&nbsp;</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">&nbsp;&nbsp;取 消&nbsp;&nbsp;</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="diseaseSelected.html">
+        <div class="modal-header">
+            <h3 class="modal-title">选择病种</h3>
+        </div>
+        <div style="height:320px;overflow-y:scroll;">
+            <div class="modal-body list-group" id="sch_cnt_list"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="add()">&nbsp;&nbsp;确 定&nbsp;&nbsp;</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">&nbsp;&nbsp;取 消&nbsp;&nbsp;</button>
+        </div>
+    </script>
+</div>

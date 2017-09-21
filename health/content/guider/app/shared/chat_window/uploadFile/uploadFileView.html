@@ -1,0 +1,41 @@
+<button class="pull-left btn btn-sm btn-default no-shadow b-none bg-f8" title="图片" uib-popover-template="'UploadFile.html'" popover-placement="top" popover-is-open="data.isOpen" ng-click="goRunning.closePopover('uploadFile')">
+    <i class="fa fa-file-image-o inline m-t-xs fa-fw"></i>
+</button>
+<!-- 七牛上传组件 -->
+<qiniu-uploader upload="upload" token="{{token}}" bucket="message" filters="qiniuFilters" file-list="fileList" cancel="cancel" max-file-size="99999gb" chunk-sizee="1mb" unique-names="true" multi-selection="false" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded"></qiniu-uploader>
+<!-- 七牛上传组件 end -->
+<script type="text/ng-template" id="UploadFile.html">
+    <div class="form-group h-300 w-200">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="data.isOpen=false"><i class="fa fa-close"></i></button>
+        </div>
+        <div>
+            <label class="text-black">上传图片:</label>
+        </div>
+        <div class="h-max-200 text-center" ng-show="data.imgFile.url && !data.isLoading" ng-click="upload()">
+            <img class="inline w-max-full" height="200" ng-src="{{data.imgFile.url}}" alt="">
+        </div>
+        <div class="h-max-200" ng-show="!data.imgFile.url">
+            <div class="b b-dark text-center p-xs">
+                <p class="clearfix" ng-show="!data.isLoading">
+                    <div ng-click="upload()" style="cursor: pointer"><i class="fa fa-file-image-o m-t-xs" style="font-size:90px;"></i></div>
+                </p>
+                <p class="clearfix" ng-show="data.isLoading"><i class="fa fa-spinner fa-spin m-t-lg m-b-lg"></i></p>
+            </div>
+        </div>
+        <!-- <button type="button" class="btn btn-info m-t-xs  btn-block" ng-click="upload()">
+            <i class="fa fa-cloud-upload fa-lg"></i>
+            <span class="hid">上传文件</span>
+        </button> -->
+        <div class="m-t-sm m-b-n-sm clearfix">
+            <div class="m-b-xs">
+                <!-- <input type="file" class="text-sm" nv-file-select uploader="uploader"> -->
+            </div>
+            <div class="clearfix">
+                <!-- <div class="pull-left text-danger text-xs" ng-if="data.error">{{data.error}}</div> -->
+                <!-- {{data.isLoading}} -->
+                <button class="btn btn-info btn-sm inline r-2x text-sm pull-right" ng-click="goRunning.submit(data.imgFile,2)">发送</button>
+            </div>
+        </div>
+    </div>
+</script>

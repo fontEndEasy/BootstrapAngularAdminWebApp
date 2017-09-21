@@ -1,0 +1,64 @@
+<!-- navbar collapse -->
+<div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+    <!-- buttons -->
+    <div class="nav navbar-nav hidden-xs">
+        <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+        </a>
+    </div>
+    <!-- / buttons -->
+
+    <!-- link and dropdown -->
+    <ul class="nav navbar-nav hidden-sm">
+
+    </ul>
+    <!-- / link and dropdown -->
+
+    <!-- search form -->
+
+    <!-- / search form -->
+
+    <!-- nabar right -->
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a ng-if="isSysAdmin && isActive" href ng-click="switch_user()">
+                <span ng-if="roleX" class="font-bold text-lt">切换到普通用户</span>
+                <span ng-if="!roleX" class="font-bold text-lt">切换到管理员</span>
+            </a>
+        </li>
+        <li class="dropdown" dropdown>
+            <a ng-if="!isCompany" href class="dropdown-toggle clear" dropdown-toggle>
+                <span ng-show="{{!!(datas.user_headPicFile)}}" class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                    <img ng-src="{{datas.user_headPicFile}}" alt="...">
+                    <!-- <i class="on md b-white bottom"></i> -->
+                </span>
+                <span class="font-bold text-lt" ng-bind="datas.user_name">admin</span> <b class="caret"></b>
+            </a>
+
+            <a ng-if="isCompany" href class="dropdown-toggle clear" dropdown-toggle>
+                <span class="font-bold text-lt" ng-bind="enterprise_userName">admin</span> <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <ul class="dropdown-menu animated fadeInRight w">
+                <li ng-if="canCreateGroup">
+                    <a ng-click="createGroup()">
+                        <span>创建集团</span>
+                    </a>
+                </li>
+                <li ui-toggle-class="active" target="#settings">
+                    <a href>
+                        <span>设置</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="logout()">退出</a>
+                </li>
+            </ul>
+            <!-- / dropdown -->
+        </li>
+    </ul>
+    <!-- / navbar right -->
+
+</div>
+<!-- / navbar collapse -->

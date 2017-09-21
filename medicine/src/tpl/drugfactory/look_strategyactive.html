@@ -1,0 +1,56 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="LookStrategyactive">
+    <div class="panel-heading font-bold text-center">近30天推广记录明细</div>
+    <div class="panel-body set_integration_panel">
+        <div class="panel-heading">
+            <div class="row">
+                  <div class="integration-table">
+                    <table id="lookstrategyactive-table" class="tablebox table table-striped">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>已结算金额</th>
+                                <th>待结算金额</th>
+                                <th>已作废金额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="l in c_YQTGHD_area_date_list">
+                                <td>{{l.date}}</td>
+                                <td>{{l.yjsje}}</td>
+                                <td>{{l.djsje}}</td>
+                                <td>{{l.wxxsje}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <button ng-click="look_strategyactive_cancel()" type="button" class="w100 btn btn-default">关 闭</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal_integrat" tabindex="-1" role="dialog" aria-labelledby="myModalIntegratLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalIntegratLabel">更新成功</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg{
+    background-color:#23b7e5;
+}
+</style>

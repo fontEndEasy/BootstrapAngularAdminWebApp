@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>玄关健康服务平台</title>
+	
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="../Slider/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<link href="../Slider/css/slider.css" rel="stylesheet" type="text/css" />
+<script src="../Slider/js/jQuery-easing.js" type="text/javascript"></script>
+<script src="../Slider/js/jQuery-jcSlider.js" type="text/javascript"></script>
+<script src="../Slider/js/bower_components/zepto-min.js"></script>
+<script src="../Slider/js/bower_components/event.js"></script>
+<script src="../Slider/js/bower_components/touch.js"></script>
+<script src="../Slider/js/bower_components/flexible.js"></script>
+<link href="../Slider/css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+        <section class="content">
+        <div id="pic_wrap" class="banner pic_one" style="display: none">
+            <ul id="imgShow">
+                <li>
+                    <div class="middle-out">
+                        <div class="middle-in">
+                            <img src="../img/01.png"/>
+                        </div>
+                    </div>
+                </li>
+                 <li>
+                    <div class="middle-out">
+                        <div class="middle-in">
+                            <img src="../img/02.png"/>
+                        </div>
+                    </div>
+                </li>
+                 <li>
+                    <div class="middle-out">
+                        <div class="middle-in">
+                            <img src="../img/01.png"/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+       	<div class="_img">
+       		<a href="second.html">
+		       	<img alt="" src="../img/03.png" class="imgs" style="display:block; margin: 0 auto;margin-top: 1rem;">
+       		</a>
+       	</div>
+      </section>
+    </div>
+  </body>
+<style type="text/css">
+.pic_one{
+	display:block;
+	width: 3.5rem;	
+}
+</style>
+<script type="text/javascript">
+$(function () {
+    $('#pic_wrap').jcSlider({
+        loading: false,                 //预加载loading开关设置，提供true,false
+        loadpic: '../Slider/img/loading.gif',     //预加载loading图片路径，相对定位,如../img/riddick.png
+        play: true,                     //是否开起自动播放功能，提供true,false
+        play_speed: 2000,               //自动播放速度设置，提供easing值 或 数值(mm)
+        slider_btn: true,               //左右按钮开关，提供true,false
+        slider_speed: 500,              //图片切换速度设置，提供easing值 或 数值(mm)
+        slider_num: true,               //数字按钮开关，提供true,false
+        offset: 0,                      //设置左右按钮偏移量(px)
+        btn_event: 'mouseover',             //数字按钮事件设置，提供click,mouseover等
+        btn_position: 'middle',         //数字按钮位置，提供left,middle,right
+        num_offsetW: 0,                 //设置数字按钮的X偏移(px)
+        num_offsetH: 470,               //设置数字按钮的Y偏移(px)
+        scaling: false,                  //是否设置图片大小，提供true,false
+        width: 956,                     //设置图片宽度单位(px)
+        height: 300,                    //设置图片高度单位(px)        
+        sliderModle: 'xScroll'
+    });
+    var tagli = $("#imgShow li");
+    if (tagli.length > 0) {
+        $('#pic_wrap').css('display', 'block');
+    }
+    var _w1 = $('#pic_wrap').width();
+    var _w2 = $('#sliderNum').width();
+    $('#sliderNum').css('left', (_w1 - _w2) / 2);
+});
+</script>
+</html>

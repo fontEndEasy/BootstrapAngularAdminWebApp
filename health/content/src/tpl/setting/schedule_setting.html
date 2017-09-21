@@ -1,0 +1,73 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ScheduleSetting">
+
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center">值班设置</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-lt" style="padding-right: 15px">
+                <div class="list-group">
+                    <h2 class="block-title">免费值班名单</h2>
+                    <div id="lab_container" class="lab-container mrl-10"></div>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary" ng-click="addData()">
+                            <i class="fa fa-pencil"></i>
+                            <span class="hid">修改值班名单</span>
+                        </button>
+                    </div>
+                    <form name="form" class="form-horizontal stl-form">
+                        <h2 class="block-title">值班时间设置</h2>
+                        <div class="form-group">
+                            <div class="col-md-2 col-xs-12 text-right">
+                                <label class="control-label">免费值班时间</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="formData.taskForFree"><nobr>小时/月</nobr>
+                            </div>
+                            <div class="col-md-7 form-text">（提示：当医生被设为免费值班，必须在当月完成线上“免费值班任务”后，方可进行收费值班。）</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2 col-xs-12 text-right">
+                                <label class="control-label pull-right">有效值班时间</label>
+                            </div>
+                            <div class="col-md-3 input-append">
+                                <div class="time-group">
+                                    <div class="time-control time-start">
+                                        <input type="text" placeholder="08:00" id="start_time" ng-model='formData.startTime' tabindex="3">
+                                        <span class="add-on"><i class="fa fa-clock-o"></i></span>
+                                    </div>
+                                    <div class="time-control time-end">
+                                        <input type="text" placeholder="22:00" id="end_time" ng-model='formData.endTime' tabindex="3">
+                                        <span class="add-on"><i class="fa fa-clock-o"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7 form-text">（提示：“有效值班时间”针对集团所有医生，只有在此时间范围内医生才能值班。）</div>
+                        </div>
+
+                        <h2 class="block-title">值班收费设置</h2>
+                        <div class="form-group">
+                            <div class="col-md-2 col-xs-12 text-right">
+                                <label class="control-label pull-right">值班价格</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="formData.priceForTask"><nobr>元/15分钟</nobr>
+                            </div>
+                            <div class="col-md-7 form-text">（提示：“值班价格”针对集团所有医生。在“免费值班任务”结束后，再次上线时的值班收费才能按此价格结算。）</div>
+                        </div>
+
+                    </form>
+                    <div class="btn-container mrb-15">
+                        <button type="button" class="btn btn-success" ng-click="saveData()">
+                            <i class="fa fa-save"></i>
+                            <span class="hid">保 存</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

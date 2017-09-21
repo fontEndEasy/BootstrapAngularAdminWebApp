@@ -1,0 +1,120 @@
+<div class="frame-panel cst cst-list" ng-controller="GuiderAccountCtrl">
+    <div class="content">
+        <h1 class="text-center" style="font-size: 24px;font-weight: bold;">
+            导医管理
+        </h1>
+        <button class="btn btn-success" ng-click="openAddGuiderModal()">新增账户</button>
+        <div class="panel panel-default m-t-lg">
+            <xg-table searching="true" length-menu="[5,10,20,50]" data="data">
+                <table class="table table-striped m-b-none table-hover" style="border:1px solid #eaeff0;border-top:none;">
+                    <tr>
+                        <th width="16%">
+                            导医ID
+                        </th>
+                        <th width="16%" style="text-align: center">
+                            姓名
+                        </th>
+                        <th width="16%" style="text-align: center">
+                            手机号码
+                        </th>
+                        <th width="16%" style="text-align: center">
+                            新增时间
+                        </th>
+                        <th width="16%" style="text-align: center">
+                            用户状态
+                        </th>
+                        <th width="16%" style="text-align: center">
+                            操作
+                        </th>
+                    </tr>
+                    <tr ng-repeat="item in $parent.sliceData" ng-click="openGuiderInfoModal(item)">
+                        <td>{{item.userId}}</td>
+                        <td align="center">{{item.name}}</td>
+                        <td align="center">{{item.telephone}}</td>
+                        <td align="center">{{item.createTime}}</td>
+                        <td align="center" >{{item.status==1?'启用':'禁用'}}</td>
+                        <td align="center">
+                            <button class="btn btn-primary btn-xs" ng-click="enable(item,$event)">启用</button>
+                            <button class="btn btn-danger btn-xs" ng-click="disable(item,$event)">禁用</button>
+                        </td>
+                    </tr>
+                </table>
+            </xg-table>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="addGuiderModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">新增账户</div>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal ng-pristine ng-valid">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">姓名<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" maxlength="20" ng-model="name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">手机号码<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-10">
+                        <input type="number" class="form-control" maxlength="20" ng-model="telephone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <p class="text-danger">{{errorInfo}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <p>系统将生成6位字母数字符号组合密码，密码将通过短信发送到上方所填写手机号。用户可通过手机号及密码登录。</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-sm btn-success" ng-click="addGuiderAccount()">新增</button>
+                        <button class="btn btn-sm btn-default" ng-click="cancel()">取消</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="guiderInfoModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">账户详情</div>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal ng-pristine ng-valid">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">姓名<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" maxlength="20" ng-model="name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">手机号码<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" maxlength="20" ng-model="telephone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-sm btn-success" ng-click="saveGuiderAccount()">保存</button>
+                        <button class="btn btn-sm btn-default" ng-click="cancel()">取消</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-2">
+                        <button class="btn btn-sm btn-info" ng-click="resetPassWord()">重置密码</button>
+                    </div>
+                    <div class="col-lg-10">
+                        <p>系统将生成6位字母数字符号组合密码，密码将通过短信发送到上方所填写手机号。用户可通过手机号及密码登录。</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+</script>
+

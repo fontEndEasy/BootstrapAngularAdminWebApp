@@ -1,0 +1,41 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div id="dialog_container" class="" ng-controller="ContactsDelete">
+    <div id="dialog" class="col-md-offset-2 col-md-8 animating fade-in-down">
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">值班名录</div>
+            <div class="panel-body">
+                <div class="frame-panel">
+                    <div class="row pos-r">
+                        <div class="col-md-3 cnt-col-lt">
+                            <div>
+                                <input id="keys_ipt" placeholder="关键字" class="form-control w100" />
+                            </div>
+                            <div id="cnt_list" class="list-group">
+                                <div ng-if="loading" class="loading">
+                                    <i class="glyphicon glyphicon-repeat"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 cnt-col-rt">
+                            <div class="panel panel-default">
+                                <div ui-view>
+                                    <p class="text-center form-text">没有可显示的数据！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cnt-opr-bar form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button ng-click="save()" type="button" class="w100 btn btn-success">确 定</button>
+                </div>
+                <div class="col-md-4">
+                    <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

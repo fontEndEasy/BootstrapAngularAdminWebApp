@@ -1,0 +1,95 @@
+<div ng-controller="ChargeCtrl">
+	<div class="sch-frame-panel row">
+	<div class="col-xs-9">
+      <h2 class="title-3 text-center">收费设置</h2>
+      <form name="myForm" class="charge-form" ng-submit="submit()">
+      <table class="table table-bordered table-hover table-condensed bg-white-only m-t-sm">
+          <thead>
+            <tr>
+              <th>服务套餐</th>
+              <th>最低价（元）</th>
+              <th>最高价（元）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                图文咨询
+              </td>
+              <td>
+              	<!-- <input type="number" name="input" min="0" max="1000000" required ng-model="charge.textMin" placeholder="单位（元）" class="input-sm form-control w-sm"> -->
+      <input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.textMin" required="" tabindex="0" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="0" max="1000000">
+              </td>
+              <td>
+              	<input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.textMax" required="" tabindex="1" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="{{charge.textMin}}" max="1000000">
+              </td>
+            </tr>
+            <tr>                    
+              <td>
+                电话咨询
+              </td>
+              <td>
+              	<input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.phoneMin" required="" tabindex="2" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="0" max="1000000">
+              </td>
+              <td>
+              	<input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.phoneMax" required="" tabindex="3" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="{{charge.phoneMin}}" max="1000000">
+              </td>
+            </tr>
+            <tr>                    
+              <td>
+                门诊定价
+              </td>
+              <td>
+				<input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.clinicMin" required="" tabindex="4" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="0" max="1000000">
+              </td>
+              <td>
+              	<input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.clinicMax" required="" tabindex="5" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="{{charge.clinicMin}}" max="1000000">
+              </td>
+            </tr>
+            <tr>
+                <td>
+                    健康关怀计划
+                </td>
+                <td>
+                    <input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.carePlanMin" required="" tabindex="4" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="0" max="1000000">
+                </td>
+                <td>
+                    <input type="number" class="form-control ng-invalid input-sm ng-invalid-required ng-dirty ng-valid-number ng-touched charge-input" placeholder="单位（元）" ng-model="charge.carePlanMax" required="" tabindex="5" pattern="\d*" aria-required="true" aria-invalid="true" style="" min="{{charge.carePlanMin}}" max="1000000">
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-success" ng-disabled="myForm.$invalid" aria-disabled="true" disabled="disabled" >提交</button>
+        <div class="pull-right">
+          <span class="text-danger font-bold" ng-show="myForm.$error.required">不能为空</span>
+        	<span class="text-danger font-bold" ng-show="myForm.$error.number">输入必须为数字</span>
+          <span class="text-danger font-bold" ng-show="myForm.$error.min">最小为0,且最高价不能小于最低价</span>
+          <span class="text-danger font-bold" ng-show="myForm.$error.pattern">必须为整数</span>
+        </div>
+    </form>
+    </div>
+    <div class="col-xs-3">
+		 <h2 class="title-3 text-center">提示</h2>
+<p class="m-t-sm r-t charge-tip">
+    设置价格范围后，医生集团内部所有的医生套餐价格不能超出此范围。
+</p>
+    </div>
+	</div>
+
+<script type="text/ng-template" id="updateModalContent.html">
+
+<div class="panel panel-default del-modal">
+<div class="panel-heading">确认修改？</div>
+<div class="panel-body">
+<button class="btn btn-default" ng-click="cancel()">取消</button>
+<button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>
+</div>
+</script>
+
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+
+
+</div>
+

@@ -1,0 +1,141 @@
+<div class="frame-panel-a edit_a row" ng-controller="CareIntroCtrl">
+    <div class="main col-sm-12 col-md-12 col-lg-10">
+        <form name="forma" class="form-horizontal form-validation ng-pristine ng-valid-email ng-invalid ng-invalid-required ng-valid-url ng-valid-pattern ng-valid-validator ng-valid-blacklist">
+            <div class="form-group form-counter">
+                <label class="col-sm-2 control-label">计划名称<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-sm-10">
+                    <input type="text" ng-model="formData.title" class="input_counter form-control" required="required">
+                </div>
+                <em class="frm_input_append frm_counter">{{titleLength}}/40</em>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属病种<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-sm-10" style="max-width:300px;">
+                    <ui-select ng-model="formData.selectedDisease" theme="bootstrap" ng-disabled="isEdit">
+                        <ui-select-match placeholder="选择所属病种...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in diseaseData | filter: $select.search">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">价格<span ng-show="carePlanMin && carePlanMax"><code>({{carePlanMin}}~{{carePlanMax}}元)</code></span><i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-sm-10" style="max-width:300px;">
+                    <div class="input-group" >
+                        <input type="number" class="form-control" placeholder="价格" name="planPrice" ng-model="formData.planPrice" required>
+                        <span class="input-group-addon">&nbsp;&nbsp;元&nbsp;&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">题图<i class="fa fa-asterisk text-danger"></i></br><span class="text-muted">( 建议尺寸：540像素*260像素，不大于2M )</span></label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="bg-white text-center ng-File-UpLoad-Bt" nv-file-over="" over-class="b-info" style="margin:0;width: 100%;height: 100%" ngf-select ng-model="fontImg" name="fontImg" ngf-max-size="2000000" ng-model-rejected="reGroupLogo" accept=".jpg,.jpeg,.png,.bmp" required>
+                                <img ngf-src="fontImgUrl"  width="100%" height="100%" ng-show="fontImgUrl">
+                                <i ng-show="!fontImgUrl" class="fa fa-file-picture-o" style="font-size:80px;line-height:100px;color:#dee5e7;"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="btn-group">
+                                <button class="btn m-b-xs w-xs btn-default" ngf-select ng-model="fontImg" name="fontImg" ngf-max-size="2000000" ng-model-rejected="reGroupLogo" accept=".jpg,.jpeg,.png,.bmp" required>上传</button>
+                                <button class="btn m-b-xs w-xs btn-default" ng-click="deleteImg()">删除</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">摘要<i class="fa fa-asterisk text-danger"></i></br><span class="text-muted">（选填，该摘要只在发送图文消息为单条时显示）</span></label>
+                <div class="col-sm-10">
+                    <textarea maxlength="100" ng-model="formData.summary" class="form-control" rows="5"></textarea>
+                    <label class="pull-right">{{summaryLength}}/80</label>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">正文<i class="fa fa-asterisk text-danger"></i></label>
+                <div class="col-sm-10" id="editorContent">
+                    <div id="myEditor"></div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group text-center">
+                <button class="btn m-b-xs w-xs btn-success" ng-click="saveDoc()" ng-disabled="isSaved">确认</button>
+                <button class="btn m-b-xs w-xs btn-primary" ng-click="toPreview()" ng-disabled="isSaved">预览</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+
+<script type="text/ng-template" id="previewModalContent.html">
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width:1px;
+            margin-right:2px
+        }
+        .pre-content{
+            height: 500px;
+            overflow: auto;
+        }
+        .pre-content article img{
+            max-width:100%;
+            max-height: 200px;
+            height: auto;
+        }
+        .pre-content>.pub-data{
+            font-size: 17px;
+            color: #8c8c8c;
+        }
+        .pre-content >h2{
+            line-height: 150%;
+            font-size: 24px;
+        }
+        .pre-content>.summary{
+            border-left:3px solid #CCCCCC;
+            padding-left: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 150%;
+        }
+        .pre-content>img{
+            width: 100%;
+            margin: 10px 0;
+        }
+        .pre-content article{
+            padding: 5px;
+            font-size:16px;
+            line-height: 150%;
+        }
+    </style>
+
+    <div class="panel panel-default panel-nofoot p-msg">
+        <div class="panel-heading">
+            <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title font-bold">关怀计划预览</h4></div>
+        <div>
+            <img ng-src="src/img/ipod_header.png">
+            <div class="pre-content">
+                <h2>{{article.title}}</h2>
+                <span class="pub-data" ng-model="article.time"></span>
+                <div class="summary" ng-model="article.summary"></div>
+                <img ng-src="{{article.fontImgUrl}}" class="img-responsive">
+                <article ng-bind-html="article.content">
+
+                </article>
+            </div>
+        </div>
+    </div>
+</script>

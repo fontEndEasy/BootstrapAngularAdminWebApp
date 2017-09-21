@@ -1,0 +1,42 @@
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="MonoMerDetail">
+    <div class="panel-heading font-bold text-center">修改店员信息</div>
+    <div class="panel-body">
+        <div style="height: 100%">
+            <form name="form" class="form-validation form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12" style="margin-bottom:10px;">
+                        <input type="text" id='name' placeholder="填写员工姓名" value="{{name}}" class="form-control" ng-model="name" reuired>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12" style="margin-bottom:10px;">
+                        <input type="text" id='tel' placeholder="填写电话号码" value="{{tel}}" class="form-control" ng-model="tel" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12" style="margin-bottom:10px;">
+                        <textarea placeholder="备注" id='remark' class="form-control" value="{{remark}}" ng-model="remark" cols="5" style="resize:none;">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isDZ">
+                    <div class="col-md-12">
+                          是否在职：
+                        <label for="yes"><input type="radio" id="yes" name="bm" value="0" checked="checked"/>在职</label>&nbsp;&nbsp;
+                        <label for="no"><input name="bm" type="radio" id="no" value="8"/> 离职</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="update()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>

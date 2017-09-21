@@ -1,0 +1,253 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right"
+	ng-controller="company_add_drug">
+	<div class="panel-heading font-bold text-center">品种新增</div>
+	<div class="panel-body">
+		<div class="panel-heading">
+			<div class="clearfix">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-md-2 text-right">产品名称：<b
+							style="color: red;">*</b>
+						</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+						<label class="control-label col-md-2 text-right">规 格：<b
+							style="color: red;">*</b>
+						</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-2 text-right">生产厂家：<b
+							style="color: red;">*</b>
+						</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+						<label class="control-label col-md-2 text-right">包装规格：<b
+							style="color: red;">*</b>
+						</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+					</div>
+					<div class="form-group" ng-show="isSearch">
+						<label class="control-label col-md-2 text-right">批注文号：<b
+							style="color: red;">*</b>
+						</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+						<label class="control-label col-md-2 text-right">商品名：</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-2 text-right">批准文号：</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+						<label class="control-label col-md-2 text-right">商品名：</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-2 text-right">产品识别码：</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+						<label class="control-label col-md-2 text-right">注册日期：</label>
+						<div class="form-text col-md-4">
+							<input type="text" class="form-control"
+								ng-model="formData.contactWay">
+						</div>
+					</div>
+					<div class="form-group"></div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-14 edui-container" id="editorContent">
+				<div id="myEditor"></div>
+			</div>
+		</div>
+		<tabset justified="true" class="tab-container mrt-15"> <tab
+			heading="基本信息">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">药品经营类别：</label>
+				<div class="form-text col-md-10">
+					<!-- <select  id="select" style="width: 150px;margin-left: 50px;" class="form-control ng-valid ng-dirty">
+						<option ng-repeat="l in list" value="{{l.id}}">{{l.name}}</option>
+					 </select>
+					  -->
+					 <ul id="myUl">
+						<li class="liMenu show" onclick="change(this);">当前选择↓</li>
+						<li value="{{l.id}}"  ng-repeat="l in list" class="liHide"><input type="checkbox" value="{{l.id}}">{{l.name}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">适应症：</label>
+				<div class="form-text col-md-10"></div>
+			</div>
+			<div class="form-group" ng-show="isSearch">
+				<label class="control-label col-md-2 text-right">使用类别：</label>
+				<div class="form-text col-md-10"
+					ng-bind="viewData.departmentFullName"></div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">管理类别：</label>
+				<div class="form-text col-md-10" ng-bind="pack_specification"></div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">剂型：</label>
+				<div class="col-md-5">
+					<select  id="select" style="width: 150px;margin-left: 50px;" class="form-control ng-valid ng-dirty">
+						  <option ng-repeat="l in list_jx" value="{{l.id}}">{{l.name}}</option>
+					 </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">通用名：</label>
+				<div class="col-md-5">
+					<div class="form-text col-md-10" ng-bind="general_name"></div>
+				</div>
+			</div>
+		</div>
+		</tab> <tab heading="说明书">
+		<div class="form-horizontal" style="margin-top:0">
+			<div class="form-group">
+			<button ng-click="addDiv();" type="button" class="w50 btn btn-success">增加用法用量</button>
+				<div class="col-md-5">
+					<div class="form-text col-md-10"></div>
+				</div>
+			</div>
+			<div ng-show="isInit" class="loading" style="min-height: 60px;"><i class="glyphicon glyphicon-repeat"></i></div>
+            <div class="clearfix text-center" id="wrapper"  ng-repeat="p in list_div">
+            	<div class="divp" id="{{p.id}}">
+	            	<div class="col-sm-2">
+		                <a  ng-click="removeBtn('{{p.id}}');">
+		                	<img class="pull-left thumb-md avatar b-3x m-r" style="padding-top: 55px;width: 30px;" src="src/img/image_u212.jpg" >{{p.id}}
+		                </a> 
+	            	</div>
+	                <div class="clear">
+	                	<label class="col-sm-2 control-label">群体</br><em class="text-muted"></em></label>
+		                <div class="col-sm-10">
+		                     <input type="text" class="form-control" placeholder="适用于哪些群体，如年龄段、病种、体重等" >
+		                    <label class="pull-right"></label>
+		                </div>
+	                	<label class="col-sm-2 control-label">用法</br><em class="text-muted"></em></label>
+		                <div class="col-sm-10">
+		                     <input type="text" class="form-control" placeholder="药品名称/助记码/生产厂家/药品商品名/医药公司" >
+		                    <label class="pull-right"></label>
+		                </div>
+	                	<label class="col-sm-2 control-label">用量</br><em class="text-muted"></em></label>
+		                <div class="col-sm-10">
+		                     <input type="text" class="form-control" placeholder="药品名称/助记码/生产厂家/药品商品名/医药公司" >
+		                    <label class="pull-right"></label>
+		                </div>
+	                	<label class="col-sm-2 control-label">备注</br><em class="text-muted"></em></label>
+		                <div class="col-sm-10">
+		                     <input type="text" class="form-control" placeholder="药品名称/助记码/生产厂家/药品商品名/医药公司" >
+		                    <label class="pull-right"></label>
+		                </div>
+            		</div>
+                </div>
+            </div>
+            <br>
+		</div>
+		<!-- <div class="form-group">
+			<div class="col-sm-12 edui-container" id="editorContent">
+				<div id="myEditor"></div>
+			</div>
+		</div> -->
+		</tab> <tab heading="其它">
+		<div class="form-horizontal" ng-model="info" style="margin-top:0">
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">条码：</label>
+				<div class="col-md-10">
+					<input type="text" class="form-control"
+						ng-model="formData.contactWay">
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label class="control-label col-md-2 text-right">助记码：</label>
+				<div class="col-md-10">
+					<input type="text" class="form-control"
+						ng-model="formData.contactWay">
+				</div>
+			</div>
+		</div>
+		</tab> </tabset>
+	</div>
+	<div class="cnt-opr-bar form-group">
+		<div class="col-md-offset-2 col-md-4">
+			<button ng-click="save()" type="button" class="w100 btn btn-success">保
+				存</button>
+		</div>
+		<div class="col-md-4">
+			<button ng-click="cancel()" type="button"
+				class="w100 btn btn-default">取 消</button>
+		</div>
+	</div>
+</div>
+<!-- /modal dialog -->
+
+<style type="text/css">
+.w50{float: right;}
+#wrapper { width: 400px;height:150px;margin:0 auto; padding-top:0 auto; background-color: #FAFAFA;}
+#header {width: 100%; background: #cfc;}
+#container { width: 100%; }
+#container #left,#container #content, #container #right { width: 80px; float: left }
+#left { background: #fc0;}
+#content { margin: 0 10px;background: #0c0;}
+#right { background: #0cf;}
+</style>
+
+<style>
+ul{list-style-type:none;}
+li{border:solid 1px;width:100px;}
+.liShow{display:block;background:while;}
+.liHide{display:none;background:blue;}
+</style>
+<script>
+var nextState=1;
+function change(obj){
+	var liArray=document.getElementsByTagName("LI");
+	var i=1;
+	var length=liArray.length;
+	switch(nextState){
+		case 1:
+		obj.innerHTML="当前选择↑";
+		for(;i<length;i++){
+			liArray[i].className="liShow";
+		}
+		nextState=0;
+		break;
+		case 0:
+		obj.innerHTML="当前选择↓";
+		for(;i<length;i++){
+			liArray[i].className="liHide";
+		}
+		nextState=1;
+	}
+	$(".liMenu").show();
+}
+</script>

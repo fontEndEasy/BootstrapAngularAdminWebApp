@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta id="viewport" name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no"> -->
+    <!-- <meta content="telephone=no" name="format-detection"> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
+    <title></title>
+    <!-- <base href="/"> -->
+    <!-- <script type="text/javascript">
+  var docEl = window.document.documentElement;
+  var width = docEl.getBoundingClientRect().width;
+  if (width !== 640) {
+    var rate = width / 640;
+    document.getElementById('viewport').setAttribute('content','width=device-width,minimum-scale=' + rate + ',maximum-scale=' + rate + ',initial-scale=' + rate + ',user-scalable=no');
+  }
+</script>   -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6uWsWUrNR6xqQref0wIwMgGw"></script>
+    <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=6uWsWUrNR6xqQref0wIwMgGw&v=1.0"></script> -->
+    <script data-main="application-configuration" src="./vendor/requirejs/require.js"></script>
+</head>
+
+<body ng-cloak></body>
+<div ui-view></div>
+<div alert-box></div>
+
+</html>

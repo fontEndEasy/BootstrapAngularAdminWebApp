@@ -1,0 +1,102 @@
+<div style="text-align: center;padding-top: 200px;" ng-controller="SettingCtrl">
+  <div class="setting-row">
+    <p>邀请医生集团加入公司，点击“复制链接”，将邀请码发送给医生</p>
+  </div>
+  <div class="setting-row">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="invite()">邀请医生</button>
+  </div>
+  <div class="setting-row">
+    <p>注意：一个邀请码只能邀请一位医生集团加入您的公司，邀请码在24小时内使用有效。</p>
+  </div>
+</div>
+
+<script type="text/ng-template" id="inviteDocCreateGroupModalContent.html">
+<div class="modal-header">
+<button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h3 class="modal-title">邀请医生创建集团</h3>
+</div>
+<div class="modal-body">
+        <form name="form" class="form-validation form-horizontal">
+          <div class="form-group">
+            <div class="col-md-9">
+              <input type="text" id="doctorInfo" placeholder="请输入医生号/手机号" class="form-control" ng-model="formData.doctorInfo" reuired></div>
+            <div class="col-md-3">
+              <button type="submit" ng-click="query()" class="w100 btn btn-info" ng-disabled='form.$invalid'>查 找</button>
+            </div>
+          </div>
+         
+          <div id="searchInfo">
+            <div ng-show="showResult">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="clearfix">
+                    <a href class="pull-left thumb-md avatar b-3x m-r"><img src={{viewData.imgSrc}} alt=".."></a>
+                    <div class="clear">
+                      <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.name"></div>
+                      <small class="text-muted" ng-bind="viewData.info"></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><button ng-click="inviteCreateGroup()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>邀请创建集团</button></div>
+            </div>
+
+            <div ng-show="showNoneResult">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="clearfix"> <i  class="txt-warn fa fa-warning pull-left"></i>
+                    <div style="pull-left">
+                      <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.keys">13896959605</div>
+                      <small class="text-muted">未找该医生的信息 ( 请确认输入信息是否有误! )。您还可以通过发送短信邀请。 </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><button ng-click="sendMsg()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>发送短信邀请</button></div>
+            </div>
+
+            <div ng-show="showMsgBox">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+              <div class="form-group">
+                    <div class="col-md-9">
+                      <input class="w100 form-control" ng-model="formData.phone" placeholder="请输入手机号码"/>
+                    </div>
+                    <div class="col-md-3">
+                      <button ng-click="doSend()" class="w100 btn btn-success">发 送</button>
+                    </div>
+                  </div>
+
+              <div class="form-group">
+                <p class="col-md-offset-2 col-md-10 form-text">我们已经为您编辑好了邀请信息，请直接点击“发送” ！</p>
+              </div>           
+            </div>
+
+            <div ng-show="showSuccess">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="txt-success"><i class="fa fa-check"></i>操作成功！</div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="showWarn">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="txt-warning"><i class="fa fa-warning"></i><span ng-bind="formData.warn_text">操作失败！</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form> 
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+</div>
+</script>

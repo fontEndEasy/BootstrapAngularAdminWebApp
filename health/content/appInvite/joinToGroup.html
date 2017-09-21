@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <title>加入我们</title>
+</head>
+
+<body style="padding: 20px 10px; background: #f1f2f4;">
+    <div class="content">
+        <div class="boday p-t-xxxl">
+            <div class="text-center">
+                <img src="img/LOGO.png" width="80" height="80" id="doctorLogo">
+                <h3 class="font-sm m-t-xs" id="doctorName"></h3>
+                <p class="font-xl">
+                    邀请您加入
+                    <br/>【 <strong id="groupName"></strong> 】
+                </p>
+            </div>
+            <div class="m-t-xl clearfix ">
+                <a class="btn bg-success cl-white btn-block width-100 p-t-b-xs border-radius-sm font-lg" id="joinBt">立即加入</a>
+            </div>
+            <div class="m-t-xxl">
+                <h3 class="font-sm m-t-xs">成员：</h3>
+                <ul class="width-100 clearfix list-block m-t-sm" id="groupList">
+                    <li class="fl display-block width-25 ">
+                        <div class="width-90 text-center bg-gray p-t-b-xs border-radius-sm">
+                            <img src="img/LOGO.png" width="36" height="36">
+                            <p class="p-none m-none"></p>
+                        </div>
+                    </li>
+                    <li class="fl display-block width-25 ">
+                        <div class="width-90 text-center bg-gray p-t-b-xs border-radius-sm">
+                            <img src="img/LOGO.png" width="36" height="36">
+                            <p class="p-none m-none"></p>
+                        </div>
+                    </li>
+                    <li class="fl display-block width-25 ">
+                        <div class="width-90 text-center bg-gray p-t-b-xs border-radius-sm">
+                            <img src="img/LOGO.png" width="36" height="36">
+                            <p class="p-none m-none"></p>
+                        </div>
+                    </li>
+                    <li class="fl display-block width-25 ">
+                        <div class="width-90 text-center bg-gray p-t-b-xs border-radius-sm">
+                            <img src="img/LOGO.png" width="36" height="36">
+                            <p class="p-none m-none"></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function() {
+
+        //获取url参数
+        var parameterArry = (function getParameter() {
+            var url = location.search;
+            var theRequest = {};
+            if (url.indexOf('?') != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = strs.length - 1; i >= 0; i--) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        })();
+
+        //将groupId，doctorId存入localstorage，后面需要用到
+        if (parameterArry.groupId && parameterArry.doctorId) {
+            // localStorage.setItem('inv_groupId',parameterArry.groupId);
+            // localStorage.setItem('inv_inviteId',parameterArry.groupId);
+        } else {
+            return alert("缺少参数：集团或邀请人ID");
+        }
+
+        // ajax post请求：
+        var createAjax = function() {
+            var xhr = null;
+            try {
+                //IE系列浏览器
+                xhr = new ActiveXObject("microsoft.xmlhttp");
+            } catch (e1) {
+                try {
+                    //非IE浏览器
+                    xhr = new XMLHttpRequest();
+                } catch (e2) {
+                    window.alert("您的浏览器不支持ajax，请更换！");
+                }
+            }
+            return xhr;
+        };
+        var ajax = function(conf) {
+            // 初始化
+            //type参数,可选
+            var type = conf.type;
+            //url参数，必填 
+            var url = conf.url;
+            //data参数可选，只有在post请求时需要
+            var data = conf.data;
+            //datatype参数可选    
+            var dataType = conf.dataType;
+            //回调函数可选
+            var success = conf.success;
+
+            if (type == null) {
+                //type参数可选，默认为get
+                type = "get";
+            }
+            if (dataType == null) {
+                //dataType参数可选，默认为text
+                dataType = "text";
+            }
+            // 创建ajax引擎对象
+            var xhr = createAjax();
+            // 打开
+            xhr.open(type, url, true);
+            // 发送
+            if (type == "GET" || type == "get") {
+                xhr.send(null);
+            } else if (type == "POST" || type == "post") {
+                xhr.setRequestHeader("content-type",
+                    "application/x-www-form-urlencoded");
+                xhr.send(data);
+            }
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (dataType == "text" || dataType == "TEXT") {
+                        if (success != null) {
+                            //普通文本
+                            success(xhr.responseText);
+                        }
+                    } else if (dataType == "xml" || dataType == "XML") {
+                        if (success != null) {
+                            //接收xml文档    
+                            success(xhr.responseXML);
+                        }
+                    } else if (dataType == "json" || dataType == "JSON") {
+                        if (success != null) {
+                            //将json字符串转换为js对象  
+                            success(eval("(" + xhr.responseText + ")"));
+                        }
+                    }
+                }
+            };
+        };
+
+        postDecision();
+
+        //发送请求
+        function postDecision() {
+
+            if (!(parameterArry.groupId && parameterArry.doctorId)) {
+                return alert('提交的参数异常！');
+            }
+            // var groupName = parameterArry.name;
+            // document.getElementById('groupName').innerHTML = groupName;
+            var url = serverApiRoot + "group/doctor/getInviteGroupDoctors?";
+            var data = 'doctorId=' + parameterArry.doctorId + '&groupId=' + parameterArry.groupId;
+            //console.log(url+data);
+            ajax({
+                type: "post",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function(data) {
+                    if (data.resultCode == 1) {
+                        if (data.data.status == 0) {
+                            alert(data.data.msg);
+                        } else {
+                            console.log(data);
+                            // localStorage.setItem('inv_groupName',data.data.groupName);
+                            document.getElementById('joinBt').href = "verification.html?groupId=" + parameterArry.groupId + "&inviteId=" + parameterArry.doctorId + "&groupName=" + data.data.groupName;
+                            document.getElementById('groupName').innerHTML = data.data.groupName;
+                            document.getElementById('doctorLogo').src = data.data.headPicFileName;
+                            document.getElementById('doctorName').innerHTML = data.data.name;
+                            // document.getElementById('groupName').innerHTML = 'groupName';
+                            var docterList = '',
+                                arryLangth = data.data.users.length;
+                            if (arryLangth > 4)
+                                arryLangth = 4;
+                            for (var i = 0; i < arryLangth; i++) {
+                                var headPicFileName = data.data.users[i].headPicFileName;
+                                var name = data.data.users[i].name;
+                                docterList = "<li class='fl display-block width-25'>" +
+                                    "  <div class='width-90 text-center bg-gray p-t-b-xs border-radius-sm'><img src='" + headPicFileName + "' width='36' height='36'><p class='p-none m-none'>" + name + "</p></div>" +
+                                    "</li>" + docterList;
+                            }
+                            document.getElementById('groupList').innerHTML = docterList;
+                        }
+
+                    } else {
+                        alert(data.resultMsg);
+                    }
+
+                }
+            })
+        }
+    })()
+    </script>
+</body>
+
+</html>

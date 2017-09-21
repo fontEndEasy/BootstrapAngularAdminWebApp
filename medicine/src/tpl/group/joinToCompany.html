@@ -1,0 +1,33 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div id="dialog_container" class="" ng-controller="joinToCompanyCtrl">
+  <div id="dialog" class="col-md-offset-2 col-md-8 animating fade-in-down">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">加入公司</div>
+      <div class="panel-body">
+        <form name="form" class="form-validation form-horizontal">
+          <div class="form-group" ng-hide="authError||success">
+            <div class="col-md-9">
+              <input type="text" placeholder="邀请码" class="form-control" ng-model="code" reuired>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" ng-click="jionIn()" class="w100 btn btn-info" ng-disabled='form.$invalid'>加 入</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 text-center text-2x " ng-show="authError||success" ng-class="{'text-success':success,'text-danger':authError}">
+              {{authError}}{{success}}
+            </div>
+          </div>
+        </form> 
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <div class="col-md-offset-4 col-md-4">
+            <button ng-click="cancel()" type="button" class="pull-right w100 btn btn-default">返 回</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal dialog -->

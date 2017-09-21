@@ -1,0 +1,33 @@
+<script type="text/ng-template" id="TimeEditorCtrlBox.html">
+    <div class="modal-body clearfix p-lg" st-table="displayedCollection" st-safe-src="rowCollection">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="row">
+            <div class="clearfix">
+                <div class="col-xs-7 col-xs-offset-1">
+                    <div class="row">
+                        <div class="input-group m-t-lg p-t-xs">
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="data.date" datepicker-options="dateOptions" is-open="show" current-text="今天" clear-text="清理" close-text="关闭" show-weeks="false" starting-day="1" min-date="data.minDate" />
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="show=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="p-l-sm p-r-sm">
+                            <div class="input-group">
+                                <uib-timepicker ng-model="data.date" minute-step="data.minuteStep || 1" hour-step="data.hourStep || 1" min="data.minDate" show-meridian="false"></uib-timepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <button class="btn btn-info" type="button" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

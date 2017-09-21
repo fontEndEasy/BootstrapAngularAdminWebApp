@@ -1,0 +1,107 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ChainVarietylist">
+    <ui-medicine open="medicineDialog"></ui-medicine>
+    <!-- 单个门店初始化页面 -->
+    <div class="navi-wrap" ng-model="datas">
+        <div class="frame-panel">
+            <div class="row">
+                <div class="col-md-3 mrb-15 breed-base-title">
+                    <h2 class="title-3 text-left">品种库</h2>
+                </div>
+            </div>
+            <div class="row integrationtableifframe">
+                <div class="form-text col-md-2" style="width:320px; padding:7px 0;">
+                    <label class="control-label col-md-2 text-center" style="width:68px; padding:7px 0;">药品名称</label>
+                    <div class="col-sm-9" style="width:220px; padding:0;">
+                        <input type="text" id="monointegrationtable_stime" ng-model="title" class="form-control" placeholder="药品名称" style="background:#ffffff;" />
+                    </div>
+                </div>
+                <div class="form-text col-md-2" style="width:320px; padding:7px 0;">
+                    <label class="control-label col-md-4 text-center" style="width:68px; padding:7px 0;">上架状态</label>
+                    <div class="col-sm-7" style="width:220px; padding:0;">
+                        <select ng-model="state_id" class="form-control">
+                            <option value="">全部</option>
+                            <option ng-repeat="l in stateOptions" value="{{l.id}}">{{l.title}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-text col-md-2" style="width:320px; padding:7px 0;">
+                    <label class="control-label col-md-4 text-center" style="width:68px; padding:7px 0;">认证状态</label>
+                    <div class="col-sm-7" style="width:220px; padding:0;">
+                        <select ng-model="cert_state_id" class="form-control">
+                            <option value="">全部</option>
+                            <option ng-repeat="l in cer_stateOptions" value="{{l.id}}">{{l.title}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-text col-md-4 pull-right" style="width:250px; padding:7px 0;">
+                    <button type="button" class="btn btn-default" style="width:80px;" ng-click="searchTable()">
+                        <span class="hid">查 询</span>
+                    </button>
+                    <button type="button" class="btn btn-primary breed-base-add-btn" style="width:80px;" ng-click="add_store_drug()">
+                        <span class="hid">添加品种</span>
+                    </button>
+                    <button type="button" class="btn btn-primary " style="width:80px;" ng-click="submitCheck()">
+                        <span class="hid">提交认证</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="integration-table integrationtable-table">
+                    <table id="chaincontactsList" class="tablebox table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div>
+                                        <div class="checkbox" style="padding:0; padding-left:10px;">
+                                            <label class="i-checks">
+                                                <input type="checkbox" name="checkall"><i></i> 全选
+                                            </label>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>产品名（商品名）</th>
+                                <th>规格</th>
+                                <th>包装规格</th>
+                                <th>生产厂家</th>
+                                <th style="padding-left:30px;">上架状态</th>
+                                <th style="padding-left:30px;">认证状态</th>
+                                <th>助记码</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.tablebox {
+    border: 0;
+}
+
+.tablebox td {
+    border: 0;
+}
+
+.tablebox th {
+    border: 0;
+}
+
+#chaincontactsList.table tbody td div {
+    border: none;
+    margin: 0;
+    margin-left: 2px;
+}
+
+.integrationtableifframe {
+    margin: 10px 5px;
+    border: #dee5e7 solid 1px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 5px 20px;
+}
+</style>

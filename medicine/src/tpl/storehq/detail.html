@@ -1,0 +1,27 @@
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="storehqPFDetailController">
+    <div class="panel-heading font-bold text-center">分店提成明细</div>
+    <div class="integration-table integrationtable-table">
+        <table id="pflogdetail-table" class="tablebox table table-striped">
+            <thead>
+                <tr>
+                    <th>分店名称</th>
+                    <th>款项</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="lt in logdetail_list">
+                    <td>{{lt.name}}</td>
+                    <td>{{lt.sdmoney}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="text-center">
+            <button ng-click="cancel()" type="button" class="btn btn-default" style="width:100px;">关闭</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog

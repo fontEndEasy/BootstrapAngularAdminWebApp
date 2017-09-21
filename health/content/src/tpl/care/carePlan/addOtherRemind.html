@@ -1,0 +1,41 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">其他提醒</div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-inline clearfix" ng-if="remindData.tmpType===1">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="form-group">
+                            请选择发送时间：
+                        </div>
+                        <time-set-cpn time="remindData.sendTime" hour-step="1" minute-step="30" class="form-inline"></time-set-cpn>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="form-group">
+                            提醒内容：
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="row">
+                        <textarea ng-model="remindData.OtherRemind.content" placeholder="请输入其它提醒内容，如复查、出院" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>

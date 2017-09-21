@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app"  ng-controller="PreviewCtrl">
+<head>
+    <meta charset="UTF-8">
+    <title>{{article.title}}</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script>
+        window.location.href = 'src/tpl/Navigator_Not_Surpport.html';
+    </script>
+    <![endif]-->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <!--<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />-->
+    <link rel="stylesheet" href="src/css/preview.css" />
+</head>
+<body>
+
+<div class="container" style="position: relative;">
+    <div style="position: absolute;top:15px;right:-50px;">
+        <button class="btn m-b-xs w-xs btn-success" ng-show="showTop" ng-click="topArticle()">置顶</button>
+        <button class="btn m-b-xs w-xs btn-info" ng-show="showQuitTop" ng-click="quitTopArticle()">取消置顶</button>
+    </div>
+    <h1>{{article.title}}</h1>
+    <hr/>
+    <aside>
+        <div class="row">
+            <div class="col-xs-12" ng-show="article.tags.length>0">
+                <span class="pull-left">关键字：</span>
+                <ul class="kw-ul">
+                    <li ng-repeat="tag in article.tags">{{tag}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="pull-left">作者：{{article.author}}</span>
+                <ul class="author-ul">
+
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <img ng-src="{{article.copyPath}}" class="img-responsive font-img"  ng-show="article.copyPath&&article.isShow">
+    <hr/>
+
+    <article ng-bind-html="article.content">
+
+    </article>
+</div>
+</body>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="src/js/controllers/preview/preview.js"></script>
+</html>

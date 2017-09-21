@@ -1,0 +1,39 @@
+<div class="wrapper-md" ng-controller="messageList">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="font-bold col-sm-12">
+                            <i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;
+                            <b style="font-size: 20px; color: black;">系统消息</b>
+                        </div>
+                    </div>
+                    <div class="row" style="position:relative; margin-top:15px;">
+                        <div class="col-xs-3" style="position:absolute; right:0; top:10px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="输入消息内容" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="findByKeyWord()">搜索</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table id="messagecontactsList" class="tablebox table table-striped b-t b-b systable">
+                                <thead>
+                                    <tr>
+                                        <th>时间</th>
+                                        <th>消息内容</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsAddDoor">
+    <div class="panel-heading font-bold text-center">新建门店</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-6 cnt-apportion-right">
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="店长姓名" class="form-control" ng-model="formData.name" reuired>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="店长姓名" class="form-control" ng-model="formData.name" reuired>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="店长手机" class="form-control" ng-model="formData.name" reuired>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">确 定</button>
+        </div><!-- 
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="saveAgain()" type="button" class="w100 btn btn-success">继续添加</button>
+        </div> -->
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog

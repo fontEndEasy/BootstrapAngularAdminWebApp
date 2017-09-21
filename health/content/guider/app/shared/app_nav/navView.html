@@ -1,0 +1,78 @@
+<div class="box-shadow bg-f8 clearfix">
+    <div class="col-lg-10 col-lg-offset-1">
+        <ul class="nav navbar-nav hidden-sm">
+            <li class="dropdown">
+                <a class="text-black" ui-sref="order.home">玄关健康导医平台</a>
+            </li>
+            <li class="dropdown" ng-class="{'open':$state.is('order.home')}">
+                <a ui-sref="order" class="dropdown-toggle">
+                    <span class="ng-scope">接单</span>
+                    <!-- <span class="badge badge-sm up bg-danger pull-right-xs">2</span> -->
+                </a>
+            </li>
+            <li class="dropdown" ng-class="{'open':$state.is('order.history')}">
+                <a ui-sref="order.history" class="dropdown-toggle">
+                    <span class="ng-scope">历史接单记录</span>
+                </a>
+            </li>
+            <li class="dropdown" ng-class="{'open':$state.is('order.schedule')}">
+                <a ui-sref="order.schedule" class="dropdown-toggle">
+                    <span class="ng-scope">日程</span>
+                    <span class="badge badge-sm bg-danger"  ng-show="noServiceScheduleCount>0">{{noServiceScheduleCount}}</span>
+                </a>
+            </li>
+            <li class="dropdown" ng-class="{'open':$state.is('order.myOrder')}">
+                <a ui-sref="order.myOrder" class="dropdown-toggle">
+                    <span class="ng-scope">咨询记录</span>
+                </a>
+            </li>
+            <li class="dropdown" ng-class="{'open':$state.is('order.care')}">
+                <a ui-sref="order.care" class="dropdown-toggle">
+                    <span class="ng-scope">健康关怀</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown" uib-dropdown auto-close="outsideClick" ng-click="clearMsgNewAcount($event)">
+                <a class="dropdown-toggle" uib-dropdown-toggle>
+                    <i class="fa fa-bell fa-fw "></i>
+                    <span class="badge badge-sm position-absolute bg-danger" style="top:5px;right:5px" ng-show="MsgListNewDataAcount>0">{{MsgListNewDataAcount}}</span>
+                </a>
+                <!-- dropdown -->
+                <div class="dropdown-menu p-sm w-400 bg-f8 h-max-400 overflow-auto">
+                    <div ng-repeat="item in msgList.slice().reverse()">
+                        <div class="m-t-sm m-b-sm text-center">
+                            <span class="inline bg-light r-2x text-xs p-l-xs p-r-xs">{{item.sendTime | amDateFormat:'YYYY-MM-DD H:mm'}}</span>
+                        </div>
+                        <div class="b r r-2x p-b-sm p-l-sm p-r-sm bg-white m-t-sm m-b-sm">
+                            <h5>{{item.content}}</h5>
+                            <p class="m-b-xs" >{{item.param.content}}</p>
+                        </div>
+                    </div>
+                    <div class="text-center text-xs p-t-sm b-t">
+                        <a ng-click="getMsgListOldData()">{{isNoOldData?'全部信息已加载':'更多消息'}}</a>
+                    </div>
+                </div>
+                <!-- / dropdown -->
+            </li>
+            <li class="dropdown" uib-dropdown>
+                <a href="" class="dropdown-toggle clear" uib-dropdown-toggle>
+                    <div class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                        <img ng-src="{{user.headPicFileName}}" alt="...">
+                    </div>
+                    <span class="hidden-sm hidden-md">{{user.name || '导医'+user.id}}</span> <b class="caret"></b>
+                </a>
+                <!-- dropdown -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="openChangePwdModal()">更改密码</a>
+                    </li>
+                    <li>
+                        <a ng-click="signOut()">退出登录</a>
+                    </li>
+                </ul>
+                <!-- / dropdown -->
+            </li>
+        </ul>
+    </div>
+</div>

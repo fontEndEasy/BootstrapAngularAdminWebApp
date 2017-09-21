@@ -1,0 +1,345 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>健康关怀计划</title>
+    <link href="base.css" type="text/css" rel="stylesheet">
+    <script src="../../assets/config.js"></script>
+    <style>
+
+        html, body, p, ul, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            background: #EBEBEB;
+            font: normal normal normal 14px/1.4em '微软雅黑', Arial;
+            color: #555;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .order-info {
+            padding: 20px 15px 15px;
+            margin-bottom: 20px;
+            background: #fff;
+            border-bottom: 1px solid #D6D6D6;
+        }
+
+        .order-info h2 {
+            font-size: 20px;
+        }
+
+        .order-price {
+            margin: 5px 0 10px;
+            color: #ABABAB;
+            font-size: 12px;
+        }
+
+        .order-price span {
+            margin-left: 10px;
+            color: #FF8947;
+        }
+
+        .info-pic {
+            margin-bottom: 10px;
+        }
+
+        .info-pic img {
+            width: 100%;
+            border: 1px solid #EEE;
+            border-radius: 2px;
+        }
+        .info-desc{
+            overflow: hidden;
+        }
+        .info-desc img{
+            float: left;
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            max-width: 100%;
+        }
+
+        .order-doctor {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #D6D6D6;
+        }
+
+        .order-doctor h2 {
+            padding: 0 0 10px 15px;
+            border-bottom: 1px solid #D6D6D6;
+            color: #ABABAB;
+            font-size: 14px;
+
+        }
+
+        .doctor-list {
+            padding: 0 15px;
+            background: #fff;
+        }
+
+        .doctor-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #D6D6D6;
+            line-height: 1.8em;
+        }
+
+        .doctor-list li:last-child {
+            border-bottom: none;
+        }
+
+        .doctor-list li img {
+            float: left;
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+        }
+
+        .doctor-list li div {
+            margin-left: 60px;
+        }
+
+        .doctor-list li div h3, .doctor-list li div p {
+            width: 100%;
+            height: 24px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .doctor-list li div h3{
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .doctor-list li div p {
+            font-size: 14px;
+        }
+
+        .gd-icon {
+            display: inline-block;
+            width: 19px;
+            line-height: 19px;
+            margin-right: 10px;
+            border-radius: 20px;
+            background-color: #f7943f;
+            text-align: center;
+            font-size: 1em;
+            font-family: Georgia, '宋体', Arial;
+            color: #fff;
+        }
+
+        .gd-step {
+            margin-bottom: 75px;
+            padding: 15px 15px 10px;
+            background: #fff;
+            border-top: 1px solid #D6D6D6;
+            border-bottom: 1px solid #D6D6D6;
+        }
+
+        .gd-ttl {
+            margin-bottom: 20px;
+        }
+
+        .gd-step > div > h4 {
+            font-weight: bold;
+        }
+
+        .gd-step > div > p {
+            margin-bottom: 20px;
+        }
+
+        .gd-tip {
+            color: #AAAAAA;
+        }
+
+        .gd-next {
+            position: fixed;
+            z-index: 10000;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            height: 40px;
+            padding: 10px;
+            background: #fff;
+            box-shadow: 0 -1px 1px rgba(0,0,0,.2);
+        }
+        .gd-next button {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border: none;
+            border-radius: 6px;
+            background-color: #39CF78;
+            text-align: center;
+            color: #fff;
+            font: normal normal normal 18px/40px '微软雅黑', Arial;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .none {
+            display: none;
+        }
+        .mask {
+            bottom: 45%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="order_wrapper" class="none">
+    <div class="order-info">
+        <h2 class="info-ttl" id="info_ttl">糖尿病健康关怀计划</h2>
+
+        <div class="order-price">价格:<span id="price"></span></div>
+        <div class="info-pic">
+            <img src="img/pic01.jpg" id="info_pic">
+        </div>
+        <P id="info_desc" class="info-desc">医生可以通过“爱心宣教”给患者发送医疗科普、健康、饮食等方面的文章，有助于帮助患者更好的了解健康知识。</P>
+    </div>
+
+    <div class="order-doctor">
+        <h2>医生</h2>
+        <ul class="doctor-list" id="doctor_list">
+            <li>
+                <img src="img/head-pic-2.jpg"/>
+
+                <div>
+                    <h3>XXXX</h3>
+                    <p>XXXX-XXXX</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="gd-step">
+        <h3 class="gd-ttl"><span class="gd-icon">i</span>如何购买？</h3>
+
+        <div>
+            <h4>第一步</h4>
+
+            <p>输入您的手机号码，将本关怀计划套餐添加到您的账户。</p>
+            <h4>第二步</h4>
+
+            <p>登录玄关健康APP支付。</p>
+        </div>
+        <div class="gd-tip">您登录玄关健康账户之后，在“消息”栏看到一个待支付的健康关怀计划订单。</div>
+    </div>
+    <div class="gd-next">
+        <button id="go_ahead_btn" target="_self">立即购买</button>
+    </div>
+</div>
+<div id="mask" class="mask mask-bg none">
+    <div class="mask-text">
+        <p id="mask_text">正在加载，请稍候！</p>
+        <p id="mask_process"></p>
+    </div>
+</div>
+<script src="base.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var wrapper = document.getElementById('order_wrapper');
+        var mask = document.getElementById('mask');
+        var maskText = document.getElementById('mask_text');
+        var ttl = document.getElementById('info_ttl'),
+                price = document.getElementById('price'),
+                desc = document.getElementById('info_desc'),
+                pic = document.getElementById('info_pic'),
+                list = document.getElementById('doctor_list'),
+                params = getParameter(window.location),
+                btn = document.getElementById('go_ahead_btn'),
+                userId = '',
+                dataStr = '',
+                careName = '',
+                url = 'make_order.html?';
+
+        if (params) {
+            var n = 0;
+            for (var k in params) {
+                if (n === 0) {
+                    dataStr += k + '=' + params[k];
+                } else {
+                    dataStr += '&' + k + '=' + params[k];
+                }
+                n++;
+            }
+        }
+
+        btn.addEventListener('click', function () {
+            if (params.packId) {
+                url += 'packId=' + (params.packId || '') + '&careName=' + (careName || '');
+            } else {
+                url += 'tk=' + (params.tk || '') + '&careName=' + (careName || '');
+            }
+            window.location.href = url;
+        });
+
+        mask.setAttribute('class', 'mask mask-bg');
+        addProcess();
+
+        ajax({
+            url: serverApiRoot + 'pack/carePlan/findCarePlanInfo',
+            //data: 'packId=' + 337,
+            data: dataStr,
+            type: 'post',
+            dataType: 'json',
+            success: function (resp) {
+                console.log(resp);
+
+                if (resp.resultCode == '1') {
+                    var dt = resp.data;
+                    mask.setAttribute('class', 'mask none');
+                    wrapper.setAttribute('class', '');
+                    ttl.innerHTML = careName = dt.careName;
+                    price.innerHTML = '&yen; ' + dt.price;
+                    //desc.innerHTML = dt.careDesc;
+                    desc.innerHTML = dt.content || '';
+
+                    pic.src = dt.imagePath || 'img/care_logo.png';
+
+                    list.innerHTML = '';
+                    var doctors = dt.doctoreRatios;
+                    for (var i = 0; i < doctors.length; i++) {
+                        var li = document.createElement('li');
+                        var img = document.createElement('img');
+                        var div = document.createElement('div');
+                        var h3 = document.createElement('h3');
+                        var p = document.createElement('p');
+
+                        img.src = doctors[i].doctorePic || '';
+                        h3.innerHTML = doctors[i].doctoreName || '';
+                        p.innerHTML = (doctors[i].departments || '') + '&nbsp;&nbsp;' + (doctors[i].title || '');
+
+                        div.appendChild(h3);
+                        div.appendChild(p);
+                        li.appendChild(img);
+                        li.appendChild(div);
+                        list.appendChild(li);
+                    }
+                } else {
+                    mask.setAttribute('class', 'mask none');
+                    alert("获取数据失败！");
+                }
+            },
+            error: function () {
+                mask.setAttribute('class', 'mask none');
+                alert("服务端出错！");
+            }
+        });
+    };
+</script>
+</body>
+</html>

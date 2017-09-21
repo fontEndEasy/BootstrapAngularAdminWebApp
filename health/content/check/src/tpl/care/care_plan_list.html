@@ -1,0 +1,40 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="CarePlanListCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">健康关怀计划</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseNameSelected}}</h2>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" ng-click="newPlan()">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="hid">新建计划</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>计划名称</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

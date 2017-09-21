@@ -1,0 +1,64 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ReportsOfFinance">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center" ng-bind="reports_name"></h2>
+            </div>
+            <div class="hide" style="position: absolute;right: 22px;">
+                <form action="{{action_url}}" method="post">
+                    <button type="submit" class="btn btn-info" ng-click="export()" ng-disabled="!canExport">导出报表</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-rt" style="padding-left: 15px;">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <div ng-show="isGroup">
+                            <table id="table_of_group" class="table table-striped b-t b-b">
+                                <thead>
+                                <tr>
+                                    <th>报表名称</th>
+                                    <th>待结算金额（元）</th>
+                                    <th>已结算金额（元）</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-show="isDoctor">
+                            <table id="table_of_doctor" class="table table-striped b-t b-b">
+                                <thead>
+                                <tr>
+                                    <th>结算周期</th>
+                                    <th>待结算金额（元）</th>
+                                    <th>已结算金额（元）</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-show="isSalesclerk">
+                            <table id="table_of_salesclerk" class="table table-striped b-t b-b">
+                                <thead>
+                                <tr>
+                                    <th>结算周期</th>
+                                    <th>待结算金额（元）</th>
+                                    <th>已结算金额（元）</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

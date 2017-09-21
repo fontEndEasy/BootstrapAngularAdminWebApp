@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>检查直通车</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="" />
+    <meta name="keywords" content="检查直通车" />
+</head>
+<body>
+<div class="container">
+    <div class="banner">
+        <img class="ban-header" src="../img/check_youhui.png">
+        <div class="detail">
+            <p class="title">
+                检查直通车
+            </p>
+                    <span class="price">
+                        ￥125
+                    </span>
+            <p class="confirm">
+                您下单后，平台将安排您指定医院的护士为您服务。
+            </p>
+            <p class="tip">
+                （仅为服务费，不含医院产生的任何费用）
+            </p>
+        </div>
+    </div>
+    <div class="service">
+        <p class="title">服务内容</p>
+        <ul>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">预约医生</p>
+                    <p class="p-2">提前预约您指定医院的科室。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">诊前提醒</p>
+                    <p class="p-2">检查前的注意事项等。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">挂号缴费</p>
+                    <p class="p-2">帮您快速办理手续。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">优先检查</p>
+                    <p class="p-2">如需检查，将为您优先安排。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">取送结果</p>
+                    <p class="p-2">取送检查结果并快递给您。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li class="list-item">
+                <img src="../img/services.png" width="40" height="40"/>
+                <div class="list-c">
+                    <p class="p-1">上传结果</p>
+                    <p class="p-2">上传检查结果到您的APP。</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="payment">
+        <p class="title">付费方式</p>
+        <div class="detail">
+            <p>
+                微信和支付宝
+            </p>
+            <p>
+                如8小时内约不到护士，系统会自动退款给你
+            </p>
+        </div>
+    </div>
+    <div class="pay buybtns">
+        <a href="#">我要下单</a>
+    </div>
+</div>
+</body>
+<script src="../bower_components/zepto-min.js"></script>
+<script type="text/javascript">
+	var url = window.location.href; 
+	var jcd_id=url.split("=");
+	$(function(){
+		$(".buybtns").children().attr("href","//packages="+jcd_id[1]);
+	});
+</script>
+<style type="text/css">
+    *{
+        padding:0;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    html{
+        font-family: '微软雅黑', Microsoft YaHei, Tahoma, '黑体', '宋体';
+    }
+    a{
+        text-decoration: none;
+    }
+    ul{
+        list-style-type: none;
+    }
+    .clear{
+        clear: both;
+    }
+    .banner{
+        background-size: 100%;
+        background:url(../img/check_banner.png) no-repeat;
+        background-size: 100% 100%;
+    }
+    .ban-header{
+        width: 60px;
+        height: 22px;
+        margin-left: 15px;
+    }
+    .banner .detail{
+        margin:10px 15px 0;
+        width:53%;
+    }
+    .banner .detail .title{
+        font-size: 20px;
+        margin-top: 10px;
+        color: #444444;
+    }
+    .banner .detail .price{
+        font-size:20px;
+    }
+    .banner .detail .confirm{
+        color:#888888;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+    .banner .detail .tip{
+        color:#888888;
+        margin-top: 10px;
+        font-size: 10px;
+        padding-bottom: 10px;
+    }
+    .service{
+        margin:25px 10px 0px;
+        border-bottom: 1px solid #dddddd;
+    }
+    .service .title{
+        border-left: 4px solid #6DD0E3;
+        text-indent: 6px;
+    }
+    .service .list-item{
+        margin-top: 25px;
+    }
+    .service .list-item:last-of-type{
+        margin-bottom: 25px;
+    }
+    .service .list-item img{
+        float: left;
+        margin:0 10px;
+    }
+    .service .list-item .list-c{
+        float: left;
+    }
+    .service .list-item .list-c .p-1{
+        color: #6DD0E3;
+    }
+    .service .list-item .list-c .p-2{
+        color: #888888;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+    .payment{
+        margin:25px 10px 80px;
+    }
+    .payment .title{
+        border-left: 4px solid #6DD0E3;
+        text-indent: 6px;
+    }
+    .payment .detail{
+        margin: 20px 10px;
+    }
+    .payment .detail p{
+        color: #888888;
+        font-size: 13px;
+    }
+    .pay{
+        padding: 5px 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #dddddd;
+        background-color: #ffffff;
+        text-align: center;
+    }
+    .pay a{
+        background-color: #42CE7B;
+        border: 0;
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        color: #ffffff;
+        height: 45px;
+        line-height: 45px;
+        border-radius: 5px;
+    }
+    .pay a:active{
+        background-color: #3EC274;
+        border: 0;
+    }
+</style>
+</html>

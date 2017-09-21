@@ -1,0 +1,177 @@
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating capitalpooldrug-anim-dialog" ng-controller="capitalpoolRechargeController">
+    <div class="navi-wrap capitalpool_drug">
+        <div class="row">
+            <div class="capitalpool_drug-panel">
+                <div class="row">
+                    <div class="col-md-11">
+                        请先通过银行转账后再提交此充值确认申请单，平台财务负责人核实到账金额后将及时审核，审核后充值费用将立即转入品种资金池的余额中，更多有关充值的问题请查看<a href="javascript:void(0);" style="text-decoration:underline; color:#0099FF;">详细说明</a>
+                    </div>
+                </div>
+                <div class="row" style="margin:10px 0; padding-left:15px;">
+                    <div class="col-md-11" style="overflow:hidden;">
+                        {{walletMoney.goodsNo}}资金池当前余额：{{walletMoney.usableMoney | currency:"￥"}}元
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">收款银行：</div>
+                                <input type="text" class="form-control inbankinput" ng-model="collectingCard.name" placeholder="收款银行" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">收款支行：</div>
+                                <input type="text" class="form-control inbankinput" ng-model="collectingCard.branch" placeholder="收款支行" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">收款户名：</div>
+                                <input type="text" class="form-control inbankinput" ng-model="collectingCard.accountName" placeholder="收款户名" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">收款账号：</div>
+                                <input type="text" class="form-control inbankinput" ng-model="collectingCard.cardNumber" placeholder="收款账号" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">转账银行：</div>
+                                <select class="form-control" ng-model="transferInfo.name" ng-options="bank.bankName as bank.bankName for bank in transferBankList">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">转账支行：</div>
+                                <input type="text" class="form-control" ng-model="transferInfo.branch" placeholder="转账支行">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">转账户名：</div>
+                                <input type="text" class="form-control" ng-model="transferInfo.accountName" placeholder="转账户名">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">转账账号：</div>
+                                <input type="number" class="form-control" ng-model="transferInfo.cardNumber" placeholder="转账账号">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">转账金额：</div>
+                                <input type="number" class="form-control" ng-model="transferInfo.money" placeholder="转账金额">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row capitalpool_drug_btns text-center">
+                    <button type="button" class="btn btn-success" ng-click="submitApply(transferInfo)">
+                        <span>提交确认申请单</span>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="cancel()">
+                        <span>取消</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal fade" id="myModal_capitalpool" tabindex="-1" role="dialog" aria-labelledby="myModal_capitalpool" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModal_capitalpoollable">更新成功</h4>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+<style>
+.capitalpooldrug-anim-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -341px;
+    margin-top: -340px;
+    width: 682px;
+    height: 680px;
+    overflow: hidden;
+}
+
+.capitalpool_drug {
+    padding: 20px 10px;
+    font-size: 16px;
+}
+
+.capitalpool_drug .row {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.capitalpool_drug button {
+    width: 120px;
+    margin-right: 10px;
+}
+
+.capitalpool_drug select {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.capitalpool-serial {
+    position: relative;
+    width: 100%;
+}
+
+.capitalpool-drug-chart {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.capitalpool_drug .row.capitalpool_drug_btns {
+    margin-top: 30px;
+}
+</style>

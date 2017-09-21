@@ -1,0 +1,92 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">病情跟踪：{{repeatAskData.question.name}}</div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="m-t clearfix">
+                <table class="table table-striped b-t b-b b-l b-r dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>发送日期</th>
+                            <th>发送时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="repeat in repeatAskOption.repeats track by $index">
+                            <td>第
+                                <span ng-bind="repeat.repeatSeq=$index+1"></span>次重复</td>
+                            <td class="form-inline">
+                                <div class="form-group">
+                                    第
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" ng-model="repeat.dateSeq" ng-options="item as item for item in [1,2,3,4,5,6,7]">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    天
+                                </div>
+                            </td>
+                            <td>
+                                <time-set-cpn time="repeat.sendTime" hour-step="1" minute-step="30" class="form-inline" filter-arry-json="timeFilterArry(repeat.sendTime,repeat.dateSeq)"></time-set-cpn>
+                            </td>
+                            <td>
+                                <button class="btn btn-xs btn-danger text-xs" ng-click="removeItem(item.lifeScaleId,item.version)">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="addReaptOption(timeFilterArry(null,repeatAskOption.repeats[repeatAskOption.repeats.length-1].dateSeq))">
+                    <i class="glyphicon glyphicon-plus"></i> 添加重复时间
+                </button>
+            </div>
+            <div class="clearfix form-inline m-t b-t">
+                <div class="m-t">
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="checkbox" ng-model="isEnd" checked>&nbsp;&nbsp;结束条件：连续&nbsp;&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option ng-repeat="item in [1,2,3,4,5,6,7]" ng-selected="endCondition.continueDays==item">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        &nbsp;&nbsp;天级别&nbsp;&nbsp;
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option ng-repeat="item in ['正常','异常','危险']" ng-selected="endCondition.level==$index+1?true:false">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        &nbsp;&nbsp;达到结束条件后此问题将停止发送
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>
+<style type="text/css">
+.table tbody td div {
+    margin: 0;
+    border: none;
+    border-radius: none;
+}
+</style>

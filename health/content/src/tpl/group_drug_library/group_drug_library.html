@@ -1,0 +1,40 @@
+<div class="frame-panel-a ng-scope" ng-controller="groupDrugLibraryCtrl">
+    <div class="m-t">
+        <a class="btn btn-success" type="button" ng-click="openDrugBox()">添加药品</a>
+    </div>
+    <table id="groupDrugLibraryTable" class="table table-striped b-b b-t b-r b-l m-t m-b-xxs">
+        <thead>
+            <tr>
+                <th></th>
+                <th>产品名（商品名）</th>
+                <th>规格</th>
+                <th>包装规格</th>
+                <th>生产厂家</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ng-if="drugList&&drugList.length>0">
+            <tr ng-repeat="item in drugList track by $index">
+                <td width="10%">
+                    <img ng-src="{{item.goods$image}}" ng-if="item.goods$image">
+                    <img src="src/img/medicine.png" ng-if="!item.goods$image">
+                </td>
+                <td width="25%">{{item.goods$general_name}}</td>
+                <td width="10%">{{item.goods$specification}}</td>
+                <td width="10%">{{item.goods$pack_specification}}</td>
+                <td width="35%">{{item.goods$manufacturer}}</td>
+                <td width="20%">
+                    <button class="btn btn-danger btn-sm m-t-xs" ng-click="delete(item.id)">删 除</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="!drugList||drugList.length<1">
+            <tr>
+                <td colspan="5" class="text-center">无</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <pagination ng-show="page_count>0" total-items="page_count" ng-model="page" items-per-page="page_size" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+    </div>
+</div>

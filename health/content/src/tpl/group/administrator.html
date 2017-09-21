@@ -1,0 +1,161 @@
+<div ng-controller="AdminCtrl" class="frame-panel row">
+  <div class="panel group-admin-panel">
+    <div class="panel-heading b-b b-light">
+      <button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="transferTo()"> <i class="fa fa-plus"></i>
+        邀请管理员
+      </button>
+    </div>
+    <div class="panel-body">
+      <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+          <tr>
+            <th st-sort="firstName">管理员</th>
+            <th st-sort="lastName">账号</th>
+            <th st-sort="firstName">医生号</th>
+            <th st-sort="lastName">职称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="adminstrator in adminstrators">
+            <td>{{adminstrator.doctor.name}}</td>
+            <td>{{adminstrator.doctor.telephone}}</td>
+            <td>{{adminstrator.doctor.doctorNum}}</td>
+            <td>{{adminstrator.doctor.position}}</td>
+            <td>
+              <button class="btn m-b-xs btn-xs btn-danger" ng-click="removeRow(adminstrator)" ng-show="!isSelf(adminstrator)"><i class="fa fa-trash-o"></i>删除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/ng-template" id="removeModalContent.html">
+
+<div class="panel panel-default del-modal">
+<div class="panel-heading">确认删除管理员{{item.doctor.name}}？</div>
+<div class="panel-body">
+<button class="btn btn-default" ng-click="cancel()">取消</button>
+<button class="btn btn-primary" ng-click="ok()">删除</button>
+</div>
+</div>
+</script>
+
+<script type="text/ng-template" id="inviteDocToManageModalContent.html">
+<div class="modal-header">
+<button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">邀请医生成为管理员</h4>
+</div>
+<div class="modal-body">
+
+        <form name="form" class="form-validation form-horizontal">
+          <div class="form-group">
+            <div class="col-md-9">
+              <input type="text" id="doctorInfo" placeholder="请输入医生号/手机号" class="form-control" ng-model="formData.doctorInfo" reuired></div>
+            <div class="col-md-3">
+              <button type="submit" ng-click="query()" class="w100 btn btn-info" ng-disabled='form.$invalid'>查 找</button>
+            </div>
+          </div>
+         
+          <div id="searchInfo">
+            <div ng-show="showResult">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="clearfix">
+                    <a href class="pull-left thumb-md avatar b-3x m-r"><img ng-src={{viewData.imgSrc}} alt=".."></a>
+                    <div class="clear">
+                      <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.name"></div>
+                      <small class="text-muted" ng-bind="viewData.info"></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><button ng-click="inviteManageGroup()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>邀请管理集团</button></div>
+            </div>
+
+            <div ng-show="showNoneResult">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="clearfix">
+                    <i style="float:left;" class="txt-warn fa fa-warning"></i>
+                    <div  style="float:left;">
+                      <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.keys">13896959605</div>
+                      <small class="text-muted">未找该医生的信息 ( 请确认输入信息是否有误! )。</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="showSuccess">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="txt-success"><i class="fa fa-check"></i>操作成功！</div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="showWarn">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="txt-warning"><i class="fa fa-warning"></i><span ng-bind="formData.warn_text">操作失败！</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="showInviteAgain">
+              <div class="line line-dashed b-b line-lg pull-in"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom:none">
+                  <div class="txt-warning"><i class="fa fa-warning"></i><span ng-bind="formData.inviteAgain_text">该医生上次未接受您的邀请，确定再次发送邀请吗？</span></div>
+                </div>
+              </div>
+              <button ng-click="inviteAgain()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>发送邀请</button>
+            </div>
+
+          </div>
+        </form> 
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+</div>
+</script>
+
+<script type="text/ng-template" id="groupTransfer.html">
+  <div class="modal-header">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="title-3 text-center">邀请医生成为管理员</h2>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <form name="transfer" class="form-horizontal form-validation">
+      <div class="text-danger wrapper text-center" ng-show="authError || ajaxInfo">
+        {{authError || ajaxInfo}}
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-3 text-right">集团的医生<i class="fa fa-asterisk text-danger"></i></label>
+        <div class="col-md-6">
+          <input class="form-control" data-id="{{selectedDoctorId}}" ng-model="selectedDoctorName" disabled required tabindex="1">
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary" ng-click="selectDoctor()">选择医生</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button class="btn btn-success w100" type="submit" ng-disabled='transfer.$invalid' ng-click="confirm(reInvite)">{{reInvite==1?'再次邀请':'确定邀请'}}</button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-default w100" type="button" ng-click="cancel()">取 消</button>
+    </div>
+  </div>
+</script>

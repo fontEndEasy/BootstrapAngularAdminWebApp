@@ -1,0 +1,49 @@
+<div class="frame-panel-msg" ng-controller="MsgManCtrl">
+    <div class="clearfix" style="border-bottom: 1px solid #ddd;padding-left: 15px;padding-bottom: 10px;">
+        <span style="font-size: 20px;">{{curPubName}}</span>
+        <a class="btn btn-info pull-right" ui-sref="app.public_msg_list">
+            <i class="fa  fa-mail-reply"></i>
+            <span class="hid">返回爱心宣教列表</span>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-12">
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <!-- list -->
+                <ul class="nav ng-scope">
+                    <li class="active">
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-rss text-info-dker"></i>
+                            <span class="font-bold">消息管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li>
+                                <a ui-sref="app.msg_manage.send_msg" href class="nav-item">
+                                    <span>群发消息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.msg_manage.msg_history" href class="nav-item">
+                                    <span>历史消息</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a ui-sref="app.msg_manage.setting" href class="nav-item">
+                            <i class="fa  fa-cogs text-info-dker"></i>
+                            <span class="font-bold">设置</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12" style="border-left: 1px solid #ddd;">
+            <ui-view></ui-view>
+        </div>
+    </div>
+</div>

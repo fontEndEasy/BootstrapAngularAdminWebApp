@@ -1,0 +1,275 @@
+<div class="frame-panel-a m-b bg-white b" ng-controller="fileManagementCtrl">
+    <div class="row m-t-sm">
+        <h4 class="col-xs-12">
+            ［{{medicine.name}}］云盘资料
+        </h4>
+    </div>
+    <div class="clearfix m-sm  b">
+        <div class=" m-sm">
+            <div class="row">
+                <div class="col-xs-2">
+                    <button type="button" class="btn btn-info m-t-xs  btn-block" ng-click="upload()">
+                        <i class="fa fa-cloud-upload fa-lg"></i>
+                        <span class="hid">上传文件</span>
+                    </button>
+                    <!-- //文件分类（可以为空）文档=document，图片=picture，视频=video，音乐=music，其它=other -->
+                    <div class="btn-group-vertical w-full m-t-sm" ng-init="typeCheck='all'">
+                        <label class="btn btn-default btn-block" btn-radio="'all'" ng-model="typeCheck" ng-click="type='';getMyFile(1,page_size,mode,'')">全部</label>
+                        <label class="btn btn-default btn-block" btn-radio="'doc'" ng-model="typeCheck" ng-click="type='document';getMyFile(1,page_size,mode,'document')">文档</label>
+                        <label class="btn btn-default btn-block" btn-radio="'img'" ng-model="typeCheck" ng-click="type='picture';getMyFile(1,page_size,mode,'picture')">图片</label>
+                        <label class="btn btn-default btn-block" btn-radio="'video'" ng-model="typeCheck" ng-click="type='video';getMyFile(1,page_size,mode,'video')">视频</label>
+                        <label class="btn btn-default btn-block" btn-radio="'audio'" ng-model="typeCheck" ng-click="type='music';getMyFile(1,page_size,mode,'music')">音乐</label>
+                        <label class="btn btn-default btn-block" btn-radio="'other'" ng-model="typeCheck" ng-click="type='other';getMyFile(1,page_size,mode,'other')">其它</label>
+                    </div>
+                </div>
+                <div class="col-xs-10 ">
+                    <div>
+                        <div class="row m-t-xs">
+                            <div class="col-xs-5 col-md-3">
+                                <!--<div class="btn-group pull-left " ng-init="roleCheck = 'fromMe'">-->
+                                <!--<label class="btn btn-md btn-success" btn-radio="'fromMe'" ng-model="roleCheck" ng-click="mode='upload';getMyFile(1,page_size)">我上传的</label>-->
+                                <!--<label class="btn btn-md btn-success" btn-radio="'toMe'" ng-model="roleCheck" ng-click="mode='receive';getMyFile(1,page_size)">我接收的</label>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="col-xs-5 col-md-7">
+                                <div class="form-group m-b-n  m-t-n-xxs">
+                                    <div class="input-group b b-grey rounded bg-white">
+                                        <input type="text" class="form-control input-sm bg-white no-border rounded padder ng-pristine ng-untouched ng-valid" placeholder="搜索文件" st-search style="height:36px" ng-model="searchKey" ng-enter="fileNameKey=searchKey;getMyFile(1, page_size)">
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-sm bg-white rounded" ng-click="fileNameKey=searchKey;getMyFile(1, page_size)"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="btn-group pull-right">
+                                    <select name="account" class="form-control text-xs" ng-change="getMyFile(1, page_size)" ng-model="page_size">
+                                        <!-- <option value="1">每页显示 1 条</option>
+                                <option value="2">每页显示 2 条</option>
+                                <option value="3">每页显示 3 条</option> -->
+                                        <option value="5">每页显示 5 条</option>
+                                        <option value="10">每页显示 10 条</option>
+                                        <option value="20">每页显示 20 条</option>
+                                        <option value="50">每页显示 50 条</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped b-b b-t b-r b-l m-t-sm m-b-xxs">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <!--<span class="checkbox">-->
+                                        <!--<label>-->
+                                        <!--<input type="checkbox" ng-model="isCheckAll" ng-change="checkAll()">-->
+                                        <!--</label>-->
+                                        <!--</span>-->
+                                    </th>
+                                    <th class="clearfix">
+                                        <span class="pull-left">
+                                            <a>
+                                        文件名
+                                    </a>
+                                        </span>
+                                        <!--<ul class="clearfix pull-left text-xs text-muted m-t-xxs m-l">-->
+                                        <!--&lt;!&ndash; <li class="pull-left m-r-xs a-link">下载</li> &ndash;&gt;-->
+                                        <!--<li class="pull-left m-r-xs a-link" ng-click="openDeleteConfirmDialog(checkList(myFiles,mode=='receive'?'fileSendId':'fileId'),mode)">删除</li>-->
+                                        <!--</ul>-->
+                                    </th>
+                                    <th>
+                                        <span>
+                                            <a>大小</a>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span>
+                                            <a>上传时间</a>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="!mgFilesIsLoading&&(!myFiles||!myFiles.length||myFiles.length<1)">
+                                    <td colspan="4" class="text-center">
+                                        无数据
+                                    </td>
+                                </tr>
+                                <tr ng-show="mgFilesIsLoading">
+                                    <td colspan="4" class="text-center">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in myFiles track by $index" ng-show="!mgFilesIsLoading">
+                                    <td width="1%">
+                                        <!--<span class="checkbox">-->
+                                        <!--<label>-->
+                                        <!--<input type="checkbox" ng-model="item.isCheck" ng-change="checkOne()">-->
+                                        <!--</label>-->
+                                        <!--</span>-->
+                                    </td>
+                                    <td width="55%" class="clearfix control-man">
+                                        <p class="r clear pull-left">
+                                            <img style="border-radius:0px" width="43" height="43" ng-src="{{fileFormatIdentify(item)}}">
+                                            <i class="fa fa-file-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='other'"></i>
+                                            <i class="fa fa-file-powerpoint-o f-w text-3x " ng-if="item.suffix=='ppt'"></i>
+                                            <i class="fa fa-file-archive-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='zip'"></i>
+                                            <i class="fa fa-file-pdf-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='pdf'"></i>
+                                            <i class="fa fa-file-movie-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='video'"></i>
+                                            <i class="fa fa-file-audio-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='music'"></i>
+                                            <i class="fa fa-file-image-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='picture'"></i>
+                                            <i class="fa fa-file-word-o f-w text-3x " ng-if="fileFormatIdentify(item.suffix)=='document'"></i>
+                                        </p>
+                                        <span class="pull-left m-l-sm">
+                                            <b class="block m-t-xxs">
+                                        <a editable-text="item.name" onaftersave="fileReName(item.fileId,item.name)" e-form="sirname">{{item.name}}</a>
+                                    </b>
+                                            <ul class="clearfix block text-xs control-chiden">
+                                                <li class="pull-left m-r-xs">
+                                                    <a target="_self" ng-href="{{item.url+'?download/'+item.name}}" class="text-muted">下载</a>
+                                                </li>
+                                                <li class="pull-left m-r-xs">
+                                                    <a class="text-muted" ng-click="openDeleteConfirmDialog(mode=='receive'?item.fileSendId:item.fileId,mode)">删除</a>
+                                                </li>
+                                                <!-- <li class="pull-left m-r-xs">
+                                            <a ng-click="sirname.$show()" class="text-muted">重命名</a>
+                                        </li> -->
+                                                <li class="pull-left" ng-show="['mp4','ogg','webm','mp3','wave','aac'].indexOf(item.suffix)>-1">
+                                                    <a ng-click="openVideoModal(item)" class="text-muted">播放</a>
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                    <td width="25%">
+                                        {{byte(item.size)}}
+                                    </td>
+                                    <td width="25%">
+                                        {{item.lastUpdateDate | date:'yyyy/dd/MM H:mm'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <pagination ng-show="page_count>0" total-items="page_count" ng-model="page" items-per-page="page_size" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style type="text/css">
+        .uploadBox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1006;
+            min-width: 100px;
+            max-width: 600px;
+        }
+        
+        .uploadBox table {
+            display: block;
+            max-height: 366px;
+            overflow: auto;
+        }
+        
+        .editable-controls {
+            margin-top: 0px !important;
+            border: 0px !important;
+        }
+        
+        .input-xs {
+            height: 22px;
+            padding: 3px 12px;
+        }
+        
+        .editable-click,
+        a.editable-click {
+            border: 0px;
+            color: #666;
+        }
+        </style>
+        <div class="uploadBox b b-grey r r-2x box-shadow-lg bg-white" ng-init="uploadBoxOpen=false" ng-show="fileList.length>0">
+            <div class=" clearfix">
+                <div>
+                    <button type="button" class="btn btn-primary btn-block" ng-click="uploadBoxOpen=!uploadBoxOpen">
+                        <span class="hid">{{upLoadingFilesNbr(fileList)==waitingFilesNbr(fileList)?'上传完毕':'正在上传'}}（{{upLoadingFilesNbr(fileList)}}/{{waitingFilesNbr(fileList)}}）</span>
+                        <i class="fa fa-lg a-link" ng-class="{true:'fa-angle-double-down',false:'fa-angle-double-up'}[uploadBoxOpen]"></i>
+                    </button>
+                </div>
+                <table class="table table-striped b-b b-t" style="margin-bottom: 0;" ng-show="uploadBoxOpen">
+                    <thead>
+                        <tr>
+                            <th>
+                                文件名
+                            </th>
+                            <th class="clearfix">
+                                大小
+                            </th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="file in fileList track by $index">
+                            <td width="35%">
+                                <p class="text-ellipsis">{{file.name}}</p>
+                            </td>
+                            <td width="20%">
+                                <p class="text-ellipsis">{{byte(file.size)}}</p>
+                            </td>
+                            <td width="30%" class="text-center">
+                                <span ng-show="file.status&&file.status!='ok'&&file.status!=-1">{{file.percent}}%({{file.formatSpeed}}/s)</span>
+                                <i class="fa fa-check-circle fa-fw text-success" ng-show="file.status&&file.status=='ok'"></i>
+                                <i class="fa fa-minus-circle fa-fw text-danger" ng-show="file.status&&file.status==-1"></i>
+                            </td>
+                            <td width="25%" class="text-center">
+                                <a ng-click="openDeleteConfirmDialog(file.fileId,mode)" ng-if="file.status&&file.status=='ok'">删除</a>
+                                <a ng-click="cancel(file,$index)" ng-if="file.status!=-1 && file.status!=4 && file.status!='ok'">取消</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div ng-if="false">
+            <ul class="block">
+                <li ng-repeat="file in fileList">
+                    名字：{{file.name}} 大小：{{file.size}} 已上传：{{file.loadedSize}} 速度：{{file.formatSpeed}} 进度：{{file.percent}}% 上传状态：{{file.status}}
+                    <a ng-click="cancel(file,$index)" ng-if="file.status!=-1 && file.status!=4 && file.status!=5">取消上传</a>
+                    <span ng-if="file.status==-1">已取消上传</span>
+                    <span ng-if="file.status==5">已上传完毕</span>
+                </li>
+            </ul>
+        </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-2 col-xs-offset-5 m-t-sm m-b-sm">
+            <button type="button" class="btn btn-info btn-block" ui-sref="app.factory_varietylist">
+                <span class="hid">返回</span>
+            </button>
+        </div>
+    </div>
+    <!-- 七牛上传组件 -->
+    <qiniu-uploader token="{{token}}" bucket="drug" upload="upload" filters="qiniuFilters" file-list="fileList" cancel="cancel" max-file-size="99999gb" chunk-sizee="1mb" unique-names="true" multi-selection="true" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded"></qiniu-uploader>
+    <!-- 七牛上传组件 end -->
+    <!-- <a ng-click="test()">test</a> -->
+    <script type="text/ng-template" id="DeleteConfirmDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title text-md">确认删除</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p class="text-md">确认要把所选文件删除吗？</p>
+            <small class="text-danger">（删除的文件将不可恢复)</small>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success btn-sm" type="button" ng-click="ok()">&nbsp;&nbsp;确 定&nbsp;&nbsp;</button>
+            <button class="btn btn-info btn-sm" type="button" ng-click="close()">&nbsp;&nbsp;取 消&nbsp;&nbsp;</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="videoModalContent.html">
+        <div class="modal-body" style="position:relative;">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default b-dark fancybox-close" style="position:absolute;right:-10px;top:-12px;background-color: #000000;border: 2px solid #ffffff;color: #ffffff !important;line-height: 0;" ng-click="close()"><i class="fa fa-close"></i></button>
+            <video style="background-color: black;" ng-class="{'h-200':item.suffix=='mp3'}" ng-src="{{videoUrl}}" poster="{{audioBgUrl}}" width="100%" height="100%" controls>
+            </video>
+        </div>
+    </script>
+</div>

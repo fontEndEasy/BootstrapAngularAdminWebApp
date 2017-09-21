@@ -1,0 +1,63 @@
+<div ng-controller="LightboxCtrl">
+<div class="modal-body"
+     ng-swipe-left="Lightbox.nextImage()"
+     ng-swipe-right="Lightbox.prevImage()">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+
+        <div class="btn-group" ng-if="Lightbox.images.length > 1">
+            <a class="btn btn-xs btn-default" ng-click="Lightbox.prevImage()">
+                ‹ 上一张
+            </a>
+
+            <a ng-href="{{Lightbox.imageUrl}}" target="_blank"
+               class="btn btn-xs btn-default" title="Open in new tab">
+                在新标签中打开
+            </a>
+
+            <a class="btn btn-xs btn-default" ng-click="Lightbox.nextImage()">
+                下一张 ›
+            </a>
+        </div>
+    </div>
+
+    <div class="lightbox-image-container">
+        <!-- caption -->
+        <div class="lightbox-image-caption">
+            <span>{{Lightbox.imageCaption}}</span>
+        </div>
+
+        <!-- image -->
+        <img ng-if="!Lightbox.isVideo(Lightbox.image)"
+             lightbox-src="{{Lightbox.imageUrl}}">
+
+        <!-- video -->
+        <div ng-if="Lightbox.isVideo(Lightbox.image)"
+             class="embed-responsive embed-responsive-16by9">
+            <!-- video file embedded directly -->
+            <video ng-if="!Lightbox.isSharedVideo(Lightbox.image)"
+                   lightbox-src="{{Lightbox.imageUrl}}"
+                   controls
+                   autoplay="true">
+            </video>
+
+            <!-- video embedded with an external service using
+                 `ng-videosharing-embed` -->
+            <embed-video ng-if="Lightbox.isSharedVideo(Lightbox.image)"
+                         lightbox-src="{{Lightbox.imageUrl}}"
+                         ng-href="{{Lightbox.imageUrl}}"
+                         iframe-id="lightbox-video"
+                         class="embed-responsive-item">
+                <a ng-href="{{Lightbox.imageUrl}}">Watch video</a>
+            </embed-video>
+        </div>
+    </div>
+
+
+</div>
+<div class="lightbox-footer" style="position:absolute;bottom: 0; width: 100%;height: 60px;background-color: black;opacity: 0.5;">
+</div>
+<button ng-click="removeChatImg(Lightbox.imageUrl)" class="btn m-b-xs w-xs btn-danger" style="position:absolute;bottom: 10px;right: 10px;;">删除</button>
+</div>

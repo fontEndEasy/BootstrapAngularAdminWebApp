@@ -1,0 +1,205 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="setting">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15 breed-base-title">
+                <h2 class="title-3 text-left">设置</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-right mrr-10">
+                    <button type="button" class="btn" ng-show="!button_show" style="background-color:#36bfad; color:#ebf7f5; width:120px;" ng-click="submit()">
+                        <span class="hid">保存</span>
+                    </button>
+                    <button type="button" class="btn" style="background-color:#36bfad; color:#ebf7f5; width:120px;" ng-show="button_show" ng-click="update()">
+                        <span class="hid">更新</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="lab-container" style="margin-top:0; padding:0;"></div>
+        <form class="form-horizontal setting-form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="font-weight:bold;">基本信息</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="基本信息" ng-model="data.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">简介</label>
+                <div class="col-sm-9">
+                    <textarea type="text" class="form-control" placeholder="简介" ng-model="data.remark" style="height: 120px;"></textarea>
+                </div>
+            </div>
+            <div class="lab-container"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="font-weight:bold;">企业标识</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-9">
+                    <span>
+                        <!-- <iframe id="name_iframe" class="form-control" frameborder="0" scrolling="no"  style="width: 230px; height: 230px; padding:0;" src="src/tpl/setting/file.html"></iframe> -->
+                        <a href="javascript:void(0);" ng-click="upload()" style="display:block; width:400px; height:300px;">
+                            <img id="setting_logo" ng-src="{{logo_image}}" width="100%" height="100%" alt="">
+                        </a>
+                        <!-- 七牛上传组件 -->
+                        <qiniu-uploader token="{{token}}" bucket="group" upload="upload" file-list="fileList" max-file-size="2mb" chunk-sizee="1mb" success-call-back="uploaderSuccess" error-call-back="uploaderError"></qiniu-uploader>
+                        <!-- 七牛上传组件 end -->
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory||loginType=='c_StoreHQ'" ng-show="!is_cm">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">是否使用统一的标识</label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label class="checkbox-inline i-checks">
+                            <input type="radio" name="logo_one" value="Y">
+                            <i></i> 是
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="radio" name="logo_one" value="N">
+                            <i></i> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BankInfoBlock" ng-if="loginType=='c_StoreHQ'">
+                <div class="lab-container"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="font-weight:bold;">银行账号信息</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1"></label>
+                    <label class="col-sm-2 control-label">持卡人</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="持卡人">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1"></label>
+                    <label class="col-sm-2 control-label">所属银行</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="所属银行">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1"></label>
+                    <label class="col-sm-2 control-label">银行卡号1</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" placeholder="银行卡号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1"></label>
+                    <label class="col-sm-2 control-label">预留手机号</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" placeholder="预留手机号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1"></label>
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-9">
+                        请确保持卡人与所填银行卡户主保持一致，以免由于信息不一致影响提现。
+                    </div>
+                </div>
+            </div>
+            <div class="lab-container"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="font-weight:bold;">其他信息</label>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">是否支持医疗保险</label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label class="checkbox-inline i-checks">
+                            <input type="radio" name="zcyb" value="true">
+                            <i></i> 是
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="radio" name="zcyb" value="false">
+                            <i></i> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">是否支持送药上门</label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label class="checkbox-inline i-checks" ng-click="changeZcsy(1)">
+                            <input type="radio" name="zcsy" value="true">
+                            <i></i> 是
+                        </label>
+                        <label class="checkbox-inline i-checks" ng-click="changeZcsy(0)">
+                            <input type="radio" name="zcsy" value="false">
+                            <i></i> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory" ng-show="is_online">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">送药说明</label>
+                <div class="col-sm-9">
+                    <textarea type="text" class="form-control" placeholder="送药说明" ng-model="data.sybz" style="height: 120px;"></textarea>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory" ng-show="is_online">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">营业时间</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="营业时间范围" ng-model='data.yysjd' />
+                </div>
+            </div>
+            <div class="form-group" ng-if="!is_c_DrugFactory" ng-show="is_online">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">联系电话</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control w400" placeholder="联系电话" ng-model='data.lxrsj' />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">所在行政区域</label>
+                <label class="col-sm-9 control-label text-left">
+                    <select style="width: 70px;" id="province" ng-change="change(x,0)" ng-model="x">
+                        <option ng-repeat="l in list" value="{{l.id}}">{{l.title}}</option>
+                    </select>&nbsp;省&nbsp;
+                    <select style="width: 70px;" id="city" ng-change="change(y,1)" ng-model="y">
+                        <option ng-repeat="m in list_1" value="{{m.id}}">{{m.title}}</option>
+                    </select>&nbsp;市&nbsp;
+                    <select style="width: 70px;" id="area">
+                        <option ng-repeat="n in list_2" value="{{n.id}}">{{n.title}}</option>
+                    </select>&nbsp;区/县&nbsp;
+                </label>
+            </div>
+            <div class="form-group" ng-show="is_show_map">
+                <label class="col-sm-1"></label>
+                <label class="col-sm-2 control-label">所在地理位置</label>
+                <div class="col-sm-9">
+                    <input type="hidden" value="" id="lat" name="lat" ng-model="data.latitude" placeholder="{{data.latitude}}" />
+                    <input type="hidden" value="" id="lng" name="longitude" ng-model='data.longitude' placeholder="{{data.longitude}}" />
+                    <input type="hidden" value="" id="logo" name="logo" ng-model='logo' />
+                    <input type="hidden" value="{{data.id}}" id="id" name="id" ng-model='data.id' />
+                    <div class="top" style="width:700px; margin-bottom: 20px;">
+                        <div id="r-result">
+                            <input type="text" ng-model='data.lxdz' id="areaDetail" placeholder="输入药店地址" name="areaDetail" class="form-control w400 text mapinputs" value="深圳" autocomplete="off">
+                            <span style="color:#ff0000" id="areaDetailspan"></span>
+                        </div>
+                    </div>
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    <div id="allmap" style="width: 600px; height: 500px; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="IntegrationTable">
+<div class="frame-panel mailcontainer">
+	<div class="row">
+		<div class="col-md-3">
+			<h2 class="title-3 text-left">积分兑换报表</h2>
+		</div>
+	</div>
+	<div class="row integrationtableifframe">
+	   <div class="form-text col-md-2" style="width:320px; padding:7px 0;">
+	   		<label class="control-label col-md-2 text-center" style="width:68px; padding:7px 0;">药品</label>
+			<div class="col-sm-9" style="width:220px; padding:0;">
+		        <select ng-model="dp_goods_id" ng-change="changeGoods(dp_goods_id)" class="form-control">
+					<option ng-repeat="l in JF_goods_xh_list" value="{{l.id}}">{{l.title}}</option>
+				 </select>
+			</div>
+		</div>
+		<div class="form-text col-md-2" style="width:320px; padding:7px 0;">
+	   		<label class="control-label col-md-2 text-center" style="width:68px; padding:7px 0;">药店</label>
+			<div class="col-sm-9" style="width:220px; padding:0;">
+		        <select ng-model="dp_store_id" ng-change="changeStore(dp_store_id)" class="form-control">
+		        	<option value="all">全部</option>
+					<option ng-repeat="l in JF_store_xh_list" value="{{l['id']}}">{{l['name']}}</option>
+				 </select>
+			</div>
+		</div>
+		<div class="form-text col-md-3" style="width:320px; padding:7px 0;">
+			<label class="control-label col-md-4 text-center" style="width:68px; padding:7px 0;">开始月份</label>
+			<div class="col-sm-7" style="width:220px; padding:0;">
+				<input type="text" name="integrationtable_stime" id="integrationtable_stime" ng-model="start_date" class="form-control" placeholder="年-月" style="background:#ffffff;" readonly/>
+			</div>
+		</div>
+	   <div class="form-text col-md-3" style="width:320px; padding:7px 0;">
+	   		<label class="control-label col-md-4 text-center" style="width:68px; padding:7px 0;">结束月份</label>
+			<div class="col-sm-7" style="width:220px; padding:0;">
+		        <input type="text" name="integrationtable_etime" id="integrationtable_etime" ng-model="end_date" class="form-control" placeholder="年-月" style="background:#ffffff;" readonly/>
+			</div>
+		</div>
+		<div class="form-text col-md-2 pull-right" style="width:200px; padding:7px 0;">
+			<button type="button" class="control-label btn btn-primary" style="padding-left:30px; padding-right:30px;"
+				ng-click="searchIntegrationTable()"><span class="hid">查 询</span>
+			</button>
+			<button type="button" class="control-label btn btn-primary btn-success disabled" style="padding-left:30px; padding-right:30px;"><span class="hid">导 出</span>
+			</button>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="integration-table integrationtable-table">
+            <table id="lookstrategyactive-table" class="tablebox table table-striped">
+                <thead>
+                    <tr>
+                    	<th>药店名称</th>
+                        <th>兑换月份</th>
+                        <th>兑换数量/单位</th>
+                        <th>兑换人次</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lt in JF_dates_xh_list">
+                    	<td>{{lt.name}}</td>
+						<td>{{lt.date}}</td>
+                        <td>{{lt.num_dh}}{{unit}}</td>
+                        <td>{{lt.num}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+	</div>
+</div>
+</div>
+
+<style>
+	.integrationtableifframe {
+		margin:20px 0;
+		border: #dee5e7 solid 1px;
+		border-radius: 4px;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		padding: 5px 20px;
+	}
+
+	.integrationtable-table{
+		padding: 15px;
+	}
+</style>

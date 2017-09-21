@@ -1,0 +1,234 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="IntegrationTableDetailController">
+    <div class="frame-panel mailcontainer">
+        <div class="row">
+            <div class="col-md-3">
+                <h2 class="title-3 text-left">推广费审核</h2>
+            </div>
+        </div>
+        <div class="row integrationtableifframe">
+            <div class="row stgdetailtext">
+                <span>品种名称：{{storeMoney.goodsNo}}</span>
+                <span>推广期：{{storeMoney.startDate | date:'yyyy-MM-dd'}} 至 {{storeMoney.endDate | date:'yyyy-MM-dd'}}</span>
+                <span>活动剩余预算：{{(storeMoney.usableMoney||0)/100 | currency:'￥'}}元</span>
+                <span>待审核费用：{{(storeMoney.draftMoney||0)/100 | currency:'￥'}}元</span>
+            </div>
+            <div class="row">
+                <div class="form-text col-md-3" style="width:320px; padding:7px 0;">
+                    <label class="control-label col-md-4 text-center" style="width:68px; padding:7px 0;">药店</label>
+                    <div class="col-sm-7" style="width:220px; padding:0;">
+                        <input type="text" id="integrationtable_stime" ng-model="storeName" placeholder="模糊查询药店" class="form-control" style="background:#ffffff;" />
+                    </div>
+                </div>
+                <div class="form-text col-md-6" style="width:640px; padding:7px 0;">
+                    <label class="control-label col-md-2 text-center" style="width:68px; padding:7px 0;">销售日期</label>
+                    <div class="col-sm-5" style="width:240px; padding:0;">
+                        <input type="text" id="integrationtabledetail_stime" ng-model="start_date" class="form-control" placeholder="年/月/日" style="background:#ffffff;" readonly/>
+                    </div>
+                    <label class="control-label col-md-2 text-center" style="width:25px; padding:7px 0;">至</label>
+                    <div class="col-sm-5" style="width:220px; padding:0;">
+                        <input type="text" id="integrationtabledetail_etime" ng-model="end_date" class="form-control" placeholder="年/月/日" style="background:#ffffff;" readonly/>
+                    </div>
+                </div>
+                <div class="form-text col-md-2 pull-right" style="width:220px; padding:7px 0;">
+                    <button type="button" class="control-label btn btn-primary" style="width:100px;" ng-click="search()">
+                        <span class="hid">查 询</span>
+                    </button>
+                    <button type="button" class="control-label btn btn-primary btn-success" style="width:100px;" ng-click="templateBox=!templateBox">
+                        <span class="hid">批量审核</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="integration-table integrationtable-table">
+                <table class="table m-n m">
+                    <thead>
+                        <tr>
+                            <th style="width:10px;">
+                                <span class="checkbox m-none">
+                                    <label class="i-checks" ng-click="checkAll()">
+                                        <input type="checkbox" ng-model="isCheckAll"><i></i>
+                                    </label>
+                                </span>
+                            </th>
+                            <th>销售日期</th>
+                            <th>销售药店</th>
+                            <th>销售员</th>
+                            <th>药监码</th>
+                            <th>推广费</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr ng-if="promotionDetails.length>0">
+                            <td colspan="5"></td>
+                            <td>合计：
+                                <span ng-if="promotionDetails">{{(sumIncome(promotionDetails)||0)/100 | currency:'￥'}}</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat="promotionDetail in promotionDetails" ng-if="promotionDetails.length>0">
+                            <td>
+                                <span class="checkbox b-n">
+                                    <label class="i-checks" ng-click="checkOne()">
+                                        <input type="checkbox" ng-model="promotionDetail.isCheck"><i></i>
+                                    </label>
+                                </span>
+                            </td>
+                            <td>{{promotionDetail.salesDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{promotionDetail.storeName}}</td>
+                            <td>{{promotionDetail.salesManName}}</td>
+                            <td>{{promotionDetail.drugCode}}</td>
+                            <td>{{(promotionDetail.income||0)/100 | currency:'￥'}}元</td>
+                        </tr>
+                        <tr ng-if="promotionDetails.length<1">
+                            <td class="text-center" colspan="6">
+                                无数据
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 text-center">
+                <pagination ng-show="pageCount>1" total-items="pageCount" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+            </div>
+        </div>
+    </div>
+    <div ng-show="templateBox">
+        <div class="mask"></div>
+        <div class="cnt-anim-dialog animating capitalpooldrug-anim-dialog">
+            <div class="navi-wrap capitalpool_drug">
+                <div class="col-xs-12">
+                    <div class="navi-wrap capitalpool_drug">
+                        <div class="row">
+                            <div class="capitalpool_drug-panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        审核状态：
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4">
+                                        <div class="radio markradio">
+                                            <label class="i-checks">
+                                                <input type="radio" name="a" value="9" ng-model="auditPromoteCheck">
+                                                <i></i> 通过
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="radio markradio">
+                                            <label class="i-checks">
+                                                <input type="radio" name="a" value="5" ng-model="auditPromoteCheck">
+                                                <i></i> 不通过
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group" style="padding:7px 15px;">
+                                            <div class="input-group">
+                                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">备注：</div>
+                                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="drugcodedesc" placeholder="备注说明">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 drugcode_drug_btns text-center">
+                    <button type="button" class="btn btn-success" ng-click="auditPromote()">
+                        <span>确定</span>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="templateBox=false">
+                        <span>取消</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.integrationtableifframe {
+    margin: 20px 0;
+    border: #dee5e7 solid 1px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 5px 20px;
+}
+
+.integrationtable-table {
+    padding: 15px;
+}
+
+.stgdetailtext {
+    color: #000000;
+    font-size: 16px;
+    padding: 5px 0 10px 18px;
+}
+
+.stgdetailtext span {
+    margin-right: 15px;
+}
+
+#stgdetail-table.table tbody td div {
+    border: none;
+}
+
+.capitalpooldrug-anim-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -120px;
+    width: 420px;
+    height: 240px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0px 0 1px rgba(0, 0, 0, .5);
+}
+
+.capitalpool_drug {
+    padding: 20px 10px;
+    font-size: 16px;
+}
+
+.capitalpool_drug .row {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.capitalpool_drug button {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.drugcode_drug_btns {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.tixing {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 5;
+    display: none;
+}
+
+.tixingcontent {
+    font-size: 18px;
+    padding: 30px;
+    margin: 0;
+    padding-top: 50px;
+}
+</style>

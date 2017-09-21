@@ -1,0 +1,131 @@
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="EditStrategyactive">
+    <div class="panel-heading font-bold text-center">
+        <span ng-if="type=='copy' || type=='add'">添加</span>
+        <span ng-if="type=='edit'">编辑</span>药品推广活动</div>
+    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="form-group row">
+                <label for="editstrategyactivet_stime" class="col-sm-3 text-right" style="line-height:36px;">开始日期</label>
+                <div class="col-sm-8">
+                    <div class="input-prepend">
+                        <input type="text" id="editstrategyactivet_stime" class="form-control" placeholder="年/月/日" style="background:#ffffff;" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="editstrategyactivet_etime" class="col-sm-3 text-right" style="line-height:36px;">结束日期</label>
+                <div class="col-sm-8">
+                    <div class="input-prepend">
+                        <input type="text" id="editstrategyactivet_etime" class="form-control" placeholder="年/月/日" style="background:#ffffff;" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 text-right" style="line-height:36px;">活动预算</label>
+                <div class="col-sm-8">
+                    <div class="input-prepend">
+                        <div class="input-group m-b">
+                            <input type="number" class="form-control" placeholder="活动预算" style="background:#ffffff;" ng-model="activityPrice">
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <tabset justified="true" class="tab-container mrt-15">
+            <tab heading="用区域设置策略">
+                <div class="panel-heading">
+                    <div class="form-group row">
+                        <div class="col-sm-6">选择策略</div>
+                        <div class="col-sm-6">行政区域</div>
+                    </div>
+                    <div class="form-group row add_strategyactive_ul">
+                        <div class="col-sm-5">
+                            <ul class="add_strategyactive_items">
+                                <li ng-repeat="item in active_items">{{item.name}}({{item.selectItems.length}})</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-7">
+                            <ul class="active_addrs_list">
+                                <li ng-repeat="addr in active_addrs">
+                                    <div class="checkbox">
+                                        <label for="address_{{addr.id}}" class="i-checks">
+                                            <input type="checkbox" id="address_{{addr.id}}"><i></i> {{addr.title}}({{addr.to}})
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-4"></div>
+        <div class="col-md-2" ng-if="type=='copy' || type=='add'">
+            <button ng-click="edit_strategyactive_save()" type="button" class="edit_strategyactive_btn w100 btn btn-success">添 加</button>
+        </div>
+        <div class="col-md-2" ng-if="type=='edit'">
+            <button ng-click="edit_strategyactive_update()" type="button" class="edit_strategyactive_btn w100 btn btn-success">更 新</button>
+        </div>
+        <div class="col-md-2">
+            <button ng-click="edit_strategyactive_cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal_integrat" tabindex="-1" role="dialog" aria-labelledby="myModalIntegratLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalIntegratLabel">更新成功</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.bg {
+    background-color: #23b7e5;
+}
+
+.active_addrs_list div.checkbox {
+    margin: 0;
+}
+
+.stgsearchpanel {
+    margin: 0px;
+    margin-right: 6px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border: #c3cece solid 1px;
+}
+
+.stgsearchpanel .search-all {
+    padding: 10px 15px;
+    margin: 0;
+    border-bottom: #c3cece solid 1px;
+}
+
+.stgsearchpanel .active_addrs_yd_list {
+    padding: 0 15px;
+    height: 200px;
+    overflow: auto;
+}
+
+.stgclblock {
+    margin-top: 15px;
+}
+
+.stgcllist {
+    padding: 0;
+    height: 200px;
+    overflow: auto;
+}
+
+.stgcllist a:hover {
+    color: #39a6e6;
+}
+</style>

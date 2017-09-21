@@ -1,0 +1,457 @@
+/*删除提示框*/
+.del-modal{
+	margin: 0;
+}
+
+/*值班表css start*/
+.sch-frame-panel{
+	height: 100%;
+	margin: 10px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #C3D0D3;
+	border-radius: 2px;
+}
+.sch-col-lt{
+	padding-right: 5px;
+}
+.sch-col-lt .list-group{
+	position: relative;
+	min-height: 524px;
+	margin-bottom: 0;
+	padding: 4px 1px 2px 2px;
+	overflow: auto;
+	border: 1px solid #DEE5E7;
+}
+.sch-col-rt{
+	padding-left: 5px;
+}
+.sch-col-lt .list-group{
+	border-radius: 4px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .1);
+}
+.sch-col-rt .panel{
+	margin-bottom: 0;
+	border-radius: 4px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .1);
+}
+.sch-table tr th{
+	text-align: center;
+	vertical-align: middle !important;
+	height: 50px;
+}
+.sch-table tr td:first-of-type{
+	text-align: center;
+	vertical-align: middle;
+	width: 10%;
+}
+.sch-table tr{
+	height: 80px;
+}
+.sch-table tr:first-of-type{
+	height: 50px;
+}
+.sch-table td:nth-child(2){
+	width: 30%;
+}
+.sch-table td:nth-child(3){
+	width: 30%;
+}
+.sch-table td:nth-child(4){
+	width: 30%;
+}
+.sch-table td:hover{
+	cursor: pointer;
+}
+.sch-table td:first-of-type:hover{
+	background-color: #fff;
+	opacity:1;
+}
+.sch-table .online-td{
+	vertical-align: middle;
+	text-align: center;
+}
+.sch-table .online-td .doc-tab{
+	width:75px;
+	height:40px;
+	position:relative;
+	border:1px solid #eaeff0;
+	font-size: 10px;
+	margin: 5px;
+	display: inline-block;
+	float: left;
+	background-color: #f6f8f8;
+}
+.doc-tab .doc-name, .doc-tab .time{
+	width: 75px;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	margin:0;
+	border: none;
+	border-radius: 2px;
+}
+.doc-tab .doc-name{
+	font-weight: bold;
+}
+
+.sch-table .online-td .doc-tab .icon-close{
+ 	position: absolute;
+ 	top: -5px;
+ 	right: -5px;
+ 	border-radius: 6px;
+ 	background-color: #f6f8f8;
+}
+.doc-tab .icon-close{
+	visibility: hidden;
+}
+.doc-tab:hover .icon-close{
+	visibility: visible;
+	cursor: pointer;
+}
+.sch-slide-bar-hide{
+	z-index: 99999;
+	width:400px;
+	position: fixed;
+	top:0;
+	bottom: 0;
+	right: -600px;
+	transition: left 1s;
+	box-shadow: -2px 0 2px rgba(0,0,0,.2);
+}
+.sch-slide-bar-show{
+	z-index: 99999;
+	width:400px;
+	position: fixed;
+	top:0;
+	bottom: 0;
+	right: 0;
+	transition: right 1s;
+	box-shadow: -2px 0 2px rgba(0,0,0,.2);
+}
+slide-bar > .panel{
+	margin: 0;
+	height: 100%;
+}
+slide-bar .doc-content{
+	position: absolute;
+	top: 167px;
+	bottom: 50px;
+	margin: 0;
+	width: 94%;
+	overflow-y:auto; 
+}
+.sch-slide-bar .panel-body{
+	background-color: #eee;
+}
+.sch-slide-bar .doctor-list{
+	padding: 20px;
+}
+.sch-slide-bar .choosed-doctor{
+	padding: 20px;
+	background-color: #fff;
+}
+.sch-slide-bar .publish{
+	margin-top: 20px;
+}
+slide-bar .list-group-item{
+	cursor: default;
+}
+/*值班表css end*/
+
+/*集团管理员start*/
+.group-manage-panel{
+	min-height: 500px;
+}
+.group-manage-panel .groupList{
+	max-width: 300px;
+}
+.ent-admin-panel{
+	min-height: 500px;
+}
+.group-admin-panel{
+	min-height: 500px;
+}
+/*集团管理员end*/
+
+/*收费设置start*/
+.charge-tip{
+	font-size: 14px;
+	line-height: 200%;
+	padding: 10px;
+	background-color: #FCF8E3;
+}
+.charge-clinic.ng-invalid{
+	border: 1px solid #f05050;
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.charge-input{
+	max-width: 100px;
+}
+/*收费设置end*/
+
+
+/*区域统计 start*/
+.area-panel{
+	height: 1000px;
+}
+.area-panel .nav{
+	height: 100%;
+}
+.area-panel .nav .v-text{
+	text-align: center;
+	 height: 333px;
+	 -webkit-writing-mode: vertical-lr;
+	padding-left: 20px;
+ }
+.area-table-c{
+	height: 333px;
+}
+/*区域统计 end*/
+
+
+/*消息管理 start*/
+.msg-content .main{
+	width: 800px;
+	margin: 0 auto;
+}
+.msg-content .radio-l{
+	margin-top:2px;
+}
+.msg-content .emulate-window{
+	height: 500px;
+}
+.msg-content .edit-window{
+	padding: 20px;
+	border: 1px solid #e7e7eb;
+	background-color: #f4f5f9;
+	min-height: 350px;
+}
+.msg-content .form-counter{
+	position: relative;
+}
+.msg-content .frm_counter{
+	position: absolute;
+	right: 10px;
+	top: 32px;
+	color:#98a6ad;
+}
+.msg-content .edit-window .arrow.left:after{
+	border-right-color: #f4f5f9;
+}
+.msg-content .single-pic-tab h1{
+	font-size: 18px;
+	font-weight: bold;
+}
+/*消息管理 end*/
+
+
+/*集团css*/
+.setting-row{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.setting-row .invitation{
+	margin:0 20px;
+}
+
+/***************Start abn-tree的样式改造***************/
+.abn-tree{
+	background-color: #fff;
+	font-size:14px;
+	font-family: 微软雅黑, 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+/***************End abn-tree的样式改造*****************/
+
+
+/***************Start 文章列表***************/
+.frame-panel-a{
+	height: 100%;
+	margin: 10px 10px 0px 10px;
+	background-color: #fff;
+	padding:10px;
+	border:1px solid #CCCCCC;
+}
+.panel-body-p{
+	padding:15px;
+}
+.doc .kw-content{
+	margin-left: 100px;
+	margin-right: 100px;
+	float: left;
+	padding: 0;
+
+}
+.doc .kw-close{
+	height: 50px;
+	overflow: hidden;
+}
+.doc .kw-open{
+	max-height: 200px;
+	overflow: auto;
+}
+.doc .kw-txt{
+	position: absolute;
+	width: 100px;
+	text-align: center;
+	margin-top:15px;
+}
+.doc .more-txt{
+	position: absolute;
+	width: 60px;
+	text-align: center;
+	right: 20px;
+	margin-top:15px;
+}
+.doc .article_talbe {
+	background-color: #fff;
+	width: 100% !important;
+	vertical-align: middle !important;
+	border:1px solid #DDDDDD;
+	border-radius:3px;
+}
+.doc .table tr:hover{
+	cursor: pointer;
+}
+.doc .table tbody td{
+	vertical-align: middle;
+}
+.doc .table .operate:hover{
+	cursor: pointer;
+}
+.doc .table .operate{
+	text-decoration: underline;
+}
+.doc .article-tip{
+	margin-top: 15px;
+	font-size: 14px;
+	line-height: 200%;
+	padding: 10px;
+	background-color: #FCF8E3;
+}
+.doc .sort-kw{
+	padding: 5px;
+	color: #58666e !important;
+	background-color: #fff;
+	border: 1px solid #c7d3d6;
+	box-shadow: 0 1px 1px rgba(90, 90, 90, 0.3);
+}
+
+.dataTables_scrollHeadInner{
+	width:100% !important;
+}
+.docModal .modal-dialog{
+	width: 80% !important;
+}
+
+/***************End 文章列表***************/
+
+
+
+/***************Start 编辑文章***************/
+.edit_a .main{
+	background-color: white;
+	margin: 0 auto;
+	float:none;
+	padding: 30px;
+}
+.edit_a .form-counter{
+	position: relative;
+}
+.edit_a .frm_counter{
+	position: absolute;
+	right: 20px;
+	top: 8px;
+	color:#98a6ad;
+}
+.edit_a .edit-kw {
+	padding: 0 0 0 3px;
+	position: relative;
+	display: inline-block;
+}
+.edit_a .edit-kw .label-btn{
+	margin: 3px;
+	display: inline-block;
+	line-height: 30px;
+	padding: 0px 35px 0px 10px !important;
+	border-radius: 2px;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: default;
+}
+.edit_a .edit-kw .label-btn i {
+	float: right;
+	width: 30px;
+	line-height: 30px;
+	margin-left: 5px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 4px;
+}
+.edit-a .ng-File-UpLoad-Bt {
+	background: #f6f8f8;
+	cursor: pointer;
+	border: 3px dashed #dee5e7;
+}
+
+/***************End 编辑文章***************/
+
+/***************Start 浏览文章***************/
+
+.read-article{
+	max-width: 800px;
+	margin-top: -50px;
+	background-color: #fff !important;
+}
+.read-article .btn-ctrl{
+	position: fixed;
+	top:15px;
+	right:15px;
+}
+.read-article > h1{
+	font-size: 22px;
+}
+.read-article .font-img{
+	height: 200px;
+}
+.read-article > aside{
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #8c8c8c;
+}
+.read-article .kw-ul{
+	list-style-type: none;
+	display: inline;
+}
+.read-article .kw-ul li{
+	float: left;
+	margin-left: 10px;
+}
+
+/***************Start 爱心宣教***************/
+
+.panel-nofoot{
+	margin: 0;
+}
+.p-msg .pre-body{
+	max-height:500px;
+	overflow-x: hidden;
+}
+.p-msg .pre-body .font-img{
+	height:80px;
+}
+.p-msg .pre-body article img{
+	max-width:100%;
+}
+
+/***************End 爱心宣教***************/
+

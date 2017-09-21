@@ -1,0 +1,141 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm msg-content" ng-controller="MsgCtrl">
+    <div class="frame-panel">
+        <div class="main">
+            <!--<div class="row text-tab" ng-show="msgStyle=='text'" ng-controller="TextCtrl">-->
+                <!--<div class="col-sm-6">-->
+                    <!--<div class="panel panel-default emulate-window">-->
+                        <!--<div class="panel-heading font-bold text-center">文字信息</div>-->
+                        <!--<div class="panel-body">-->
+                            <!--<div class="m-b">-->
+                                <!--<a href="" class="pull-left thumb-sm avatar"><img src="src/img/a0.jpg" alt="..."></a>-->
+
+                                <!--<div class="m-l-xxl">-->
+                                    <!--<div class="pos-rlt wrapper b b-light r r-2x">-->
+                                        <!--<span class="arrow left pull-up"></span>-->
+                                        <!--<p class="m-b-none">{{msg}}</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-sm-6">-->
+                    <!--<div class="pos-rlt wrapper b b-light r r-2x edit-window">-->
+                        <!--<span class="arrow left pull-up"></span>-->
+
+                        <!--<div >-->
+                            <!--<div class="form-group">-->
+                                <!--<label>消息</label>-->
+                                <!--<textarea maxlength="120" ng-model="msg" class="form-control" rows="6" placeholder="Type your message"></textarea>-->
+                            <!--</div>-->
+                            <!--<label class="pull-right">{{msgLength}}/120</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="row single-pic-tab"  ng-controller="SinglePicCtrl">
+                <div class="col-sm-6">
+                    <div class="panel panel-default emulate-window">
+                        <div class="panel-heading font-bold text-center">单图文消息</div>
+                        <ul class="list-group list-group-lg m-b-none ">
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="img/a1.jpg" class="r r-2x">
+                                </a>
+                                <span class="pull-right label bg-primary inline m-t-sm">Admin</span>
+                                <a href="">Damon Parker</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="img/a2.jpg" class="r r-2x">
+                                </a>
+                                <span class="pull-right label bg-info inline m-t-sm">Member</span>
+                                <a href="">Joe Waston</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="img/a3.jpg" class="r r-2x">
+                                </a>
+                                <span class="pull-right label bg-warning inline m-t-sm">Editor</span>
+                                <a href="">Jannie Dvis</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="img/a4.jpg" class="r r-2x">
+                                </a>
+                                <span class="pull-right label bg-warning inline m-t-sm">Editor</span>
+                                <a href="">Emma Welson</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label class="col-sm-2">类型:</label>
+                        <div class="col-sm-10">
+                            <label class="i-checks radio-inline">
+                                <input type="radio" ng-model="msgStyle" name="a" value="text">
+                                <i></i>
+                                文字
+                            </label>
+                            <label class="i-checks radio-inline">
+                                <input type="radio" ng-model="msgStyle" name="a" value="singlePic">
+                                <i></i>
+                                标题+小图
+                            </label>
+                            <label class="i-checks radio-inline">
+                                <input type="radio" ng-model="msgStyle" name="a" value="multiPic">
+                                <i></i>
+                                标题+大图
+                            </label>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                    <div class="pos-rlt wrapper b b-light r r-2x edit-window">
+                        <span class="arrow left pull-up"></span>
+                        <div >
+                            <div class="form-group form-counter">
+                                <label>标题</label>
+                                <input type="text" class="form-control input_counter" ng-model="user.name"  required="" tabindex="0" aria-required="true" aria-invalid="true" style="">
+                                <em class="frm_input_append frm_counter">6/64</em>
+                            </div>
+                            <div class="form-group">
+                                <label>题图 <em class="text-muted">( 建议尺寸：540像素*260像素，不大于2M )</em></label>
+                                <button class="btn m-b-xs w-xs btn-default">上传</button>
+                                <button class="btn m-b-xs w-xs btn-default">删除</button>
+                            </div>
+                            <div class="form-group">
+                                <label>摘要</label>
+                                <textarea maxlength="120" ng-model="msg" class="form-control" rows="6" placeholder="Type your message"></textarea>
+                                <label class="pull-right">{{msgLength}}/120</label>
+                            </div>
+                            <div class="form-group">
+
+                                <label>正文:</label>
+
+                                    <label class="i-checks radio-inline">
+                                        <input type="radio" ng-model="contentType" name="a" value="content">
+                                        <i></i>
+                                        自定义内容
+                                    </label>
+                                    <label class="i-checks radio-inline">
+                                        <input type="radio" ng-model="contentType" name="a" value="url">
+                                        <i></i>
+                                        使用链接
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    正文内容：
+                    <div id="myEditor"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

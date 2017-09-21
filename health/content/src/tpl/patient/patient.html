@@ -1,0 +1,27 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Patient">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-12 mrb-15">
+                <!--<h2 class="title-3 text-center">{{typeName}}患者库</h2>-->
+                <h2 class="title-3 text-center">集团患者库</h2>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="cnt_list" class="list-group">
+                    <div ng-if="loading" class="loading">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <div ui-view>
+                        <p class="text-center form-text">没有可显示的数据！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

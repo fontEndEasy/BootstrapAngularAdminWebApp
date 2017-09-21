@@ -1,0 +1,95 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">触发消息
+        <br><small>(针对一组问题的级别提示，医生可以在app端做修改）</small></div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="m-t clearfix">
+                <h5 class="col-xs-12 text-success">
+                    <span class="col-xs-2">级别正常提示</span>
+                </h5>
+                <div class="col-xs-12">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示医生：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="患者恢复的很好，请放心！" ng-model="triggerMsgData.triggerMsgs[0]">
+                    </div>
+                </div>
+                <div class="col-xs-12 m-t-sm">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示患者：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="您回复程度很好，请放心！" ng-model="triggerMsgData.triggerMsgs[1]">
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <h5 class="col-xs-12 text-warning">
+                    <span class="col-xs-2">级别异常提示</span>
+                    <small class="col-xs-10 text-warning">异常项系统会自动发送提示短信到医生</small>
+                </h5>
+                <div class="col-xs-12">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示医生：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="患者出现异常，请及时处理！" ng-model="triggerMsgData.triggerMsgs[2]">
+                    </div>
+                </div>
+                <div class="col-xs-12 m-t-sm">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示患者：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="您的情况出现异常，建议咨询医生。" ng-model="triggerMsgData.triggerMsgs[3]">
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <h5 class="col-xs-12  text-danger">
+                    <span class="col-xs-2">级别危险提示</span>
+                    <small class="col-xs-10 text-danger">危险项系统会自动已语音方式提示到医生</small>
+                </h5>
+                <div class="col-xs-12">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示医生：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="患者出现危险项，请马上联系患者处理。" ng-model="triggerMsgData.triggerMsgs[4]">
+                    </div>
+                </div>
+                <div class="col-xs-12 m-t-sm">
+                    <div class="col-xs-2">
+                        <div class="m-t-sm">
+                            提示患者：
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" placeholder="您的情况出现异常，建议咨询医生。" ng-model="triggerMsgData.triggerMsgs[5]">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>

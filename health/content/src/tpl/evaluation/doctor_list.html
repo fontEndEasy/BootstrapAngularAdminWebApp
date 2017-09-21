@@ -1,0 +1,33 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="DoctorList">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12 mrb-15">
+                <button ng-click="return()" type="button" class="pos-btn btn btn-default" title="返回"><i class="fa fa-chevron-left"></i></button>
+                <h2 class="title-3 text-center"><span class="text-info" ng-bind="viewData.curDoctorName"></span> 的医生列表</h2>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-12 cnt-col">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table id="inviteDoctorList" class="table table-striped b-t b-b">
+                            <thead>
+                            <tr>
+                                <td>头像</td>
+                                <td>名称</td>
+                                <td>职称</td>
+                                <td>科室</td>
+                                <td>医院</td>
+                                <td>手机号码</td>
+                                <td>邀请时间</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

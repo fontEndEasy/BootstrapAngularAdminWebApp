@@ -1,0 +1,727 @@
+body {
+    background-color: #1c2b36;
+}
+.b-gray{
+    border:1px solid darkgray;
+}
+.p-t-md{
+    padding-top:15px;
+}
+.p-b-md{
+    padding-bottom:15px;
+}
+.b-r-5{
+    border-radius: 5px;
+}
+.b-t-n {
+    border-top: none !important;
+}
+
+.b-l-n {
+    border-left: none !important;
+}
+
+.b-r-n {
+    border-right: none !important;
+}
+
+.b-b-n {
+    border-bottom: none !important;
+}
+.p-none{
+    padding: 0;
+}
+.p-b-none{
+    padding-bottom: 0 !important;
+}
+.p-l-lg{
+    padding-left: 30px;
+}
+.text-white{
+    color:white;
+}
+.text-black{
+    color: black;
+}
+.h-percent-90 {
+    height: 90%;
+}
+
+.h-percent-80 {
+    height: 80%;
+}
+
+.h-percent-70 {
+    height: 70%;
+}
+
+.h-percent-60 {
+    height: 60%;
+}
+
+.h-percent-50 {
+    height: 50%;
+}
+
+.h-percent-40 {
+    height: 40%;
+}
+
+.h-percent-30 {
+    height: 30%;
+}
+
+.h-percent-20 {
+    height: 20%;
+}
+
+.h-percent-10 {
+    height: 10%;
+}
+
+.h-700 {
+    height: 700px;
+}
+
+.h-650 {
+    height: 650px;
+}
+
+.h-600 {
+    height: 600px;
+}
+
+.h-500 {
+    height: 500px;
+}
+
+.h-200 {
+    height: 200px;
+}
+
+.h-100 {
+    height: 100px;
+}
+
+.h-50 {
+    height: 50px;
+}
+
+.h-30 {
+    height: 30px;
+}
+
+.h-max-650 {
+    max-height: 650px;
+}
+
+.h-max-500 {
+    max-height: 500px;
+}
+
+.h-max-400 {
+    max-height: 400px;
+}
+.hmax400{
+    max-height: 400px;
+}
+.h-max-300 {
+    max-height: 300px;
+}
+
+.h-max-200 {
+    max-height: 200px;
+}
+.hmax200 {
+    max-height: 200px;
+}
+.hmax150 {
+    max-height: 150px;
+}
+.h-max-100 {
+    max-height: 100px;
+}
+
+.h-max-80 {
+    max-height: 80px;
+}
+
+.h-max-50 {
+    max-height: 60px;
+}
+
+.w-percent-50 {
+    width:50%;
+}
+.w-percent-20 {
+    width:20%;
+}
+
+.w-max-full {
+    max-width: 100%;
+}
+
+.w-400 {
+    width: 400px;
+}
+
+.w-300 {
+    width: 300px;
+}
+.w-250 {
+    width: 250px;
+}
+.w-200 {
+    width: 200px;
+}
+.w-100{
+    width: 100px;
+}
+.bg-warn{
+    background-color: #e63a27;
+}
+.bg-help{
+    background-color: #e6b643;
+}
+.bg-f8 {
+    background-color: #f8f8f8;
+}
+
+.bg-eee {
+    background-color: #eee;
+}
+
+.bg-red {
+    color: #fffefa;
+    background-color: red;
+}
+.bg-orange {
+    color: #fffefa;
+    background-color: #FF9155;
+}
+.bg-blue{
+    color: #fffefa;
+    background-color: #06C0F8;
+}
+.bg-hover-light:hover {
+    color: #58666e;
+    background-color: #edf1f2;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+}
+
+.overflow-auto {
+    overflow: auto
+}
+
+.text-xxs {
+    font-size: 10px;
+}
+
+.font-shadow {
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.word-break-break-word {
+    word-break: break-all;
+}
+
+.b-hover-dark:hover {
+    border-color: #3a3f51;
+}
+
+.b-t-n {
+    border-top: none;
+}
+
+.b-r-n {
+    border-right: none;
+}
+
+.p-xl {
+    padding: 40px;
+}
+
+.p-lg {
+    padding: 30px;
+}
+
+.p {
+    padding: 20px;
+}
+
+.p-md {
+    padding: 15px;
+}
+
+.p-sm {
+    padding: 10px;
+}
+
+.p-xs {
+    padding: 5px;
+}
+
+.p-xxs {
+    padding: 2px;
+}
+
+.p-t-xs {
+    padding-top: 5px;
+}
+
+.p-t-sm {
+    padding-top: 10px;
+}
+
+.p-t {
+    padding-top: 20px;
+}
+
+.p-t-lg {
+    padding-top: 30px;
+}
+
+.p-t-xl {
+    padding-top: 40px;
+}
+
+.p-b-xs {
+    padding-bottom: 5px;
+}
+
+.p-b-sm {
+    padding-bottom: 10px;
+}
+
+.p-b {
+    padding-bottom: 20px;
+}
+
+.p-l {
+    padding-left: 20px;
+}
+
+.p-l-sm {
+    padding-left: 10px;
+}
+.p-l-md{
+    padding-left:15px;
+}
+.p-l-xs {
+    padding-left: 5px;
+}
+.p-l-0{
+    padding-left: 0;
+}
+.p-r {
+    padding-right: 20px;
+}
+
+.p-r-sm {
+    padding-right: 10px;
+}
+.p-r-none{
+    padding-right: 0;
+}
+.p-l-none{
+    padding-left: 0;
+}
+.p-r-xs {
+    padding-right: 5px;
+}
+.text-normal{
+    font-weight: normal;
+}
+.fancybox-close{
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    color: #ffffff !important;
+    line-height: 0;
+}
+.fancybox-close:hover{
+    background-color: #000000;
+    color: #ffffff !important;
+    line-height: 0;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.text-danger{
+    color:#F05050 !important;
+}
+.hover-danger:hover{
+    color: #F05050 !important;
+}
+.line-height-20{
+    line-height: 20px;
+}
+.absolute-top {
+    top: 0px;
+}
+
+.absolute-bottom {
+    bottom: 0px;
+}
+
+.absolute-left {
+    left: 0px;
+}
+
+.absolute-right {
+    right: 0px;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-11 {
+    z-index: 11;
+}
+
+.opacity-98 {
+    opacity: .98;
+}
+
+.opacity-95 {
+    opacity: .95;
+}
+
+.opacity-9 {
+    opacity: .9;
+}
+
+.opacity-8 {
+    opacity: .8;
+}
+.hover-pointer{
+    cursor: pointer;
+}
+.hover-show-box .hover-show-item {
+    display: none;
+}
+
+.hover-show-box:hover .hover-show-item {
+    display: block;
+}
+.hover-white:hover{
+    color:white;
+}
+.a-link.selected {
+    color: #f60;
+}
+.text-indent-1{
+    text-indent: 1em;
+}
+.text-indent-2{
+    text-indent: 2em;
+}
+
+/*popover重置样式*/
+
+.popover {
+    max-width: 10000px;
+    z-index: 1000;
+}
+
+.editableSmall {
+    padding: 10px 10px;
+}
+
+.editableSmall .editable-wrap {
+    margin: -9px -10px;
+}
+
+.editableSmall .editable-wrap .form-control {
+    height: 28px;
+    padding: 3px 8px;
+}
+
+.editableSmall .editable-wrap .editable-buttons button {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    margin-top: 3px;
+}
+
+.editable-click-none {
+    text-decoration: none;
+    color: #333;
+    border: none;
+}
+
+
+/*会话内容样式*/
+
+.time-wrap {
+    text-align: center;
+    color: #7f7f7f;
+    font-size: 12px;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.time-wrap:before,
+.time-wrap:after {
+    content: "";
+    display: inline-block;
+    height: 1px;
+    width: 80px;
+    background-color: #b4b8bd;
+    vertical-align: middle;
+}
+
+.time-wrap .content {
+    margin: 0 6px;
+    vertical-align: middle;
+}
+
+.faceBox .faceIcon {
+    display: inline-block;
+    width: 26px;
+    height:26px;
+}
+.selected-gray{
+    background-color: #E7ECEF;
+}
+
+
+/*datepicker 日历*/
+
+.datepicker.w-full table {
+    width: 100%;
+}
+
+.datepicker.w-full {
+    margin: 0px;
+}
+
+.datepicker.text-lg .btn-group-sm>.btn,
+.btn-sm {
+    font-size: 16px;
+}
+
+haveData button span {
+    position: absolute;
+}
+
+.haveData button span:after {
+    display: block;
+    position: relative;
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    margin-left: -3px;
+    background: #58666e;
+    /*top: 50%;*/
+    left: 50%;
+    border-radius: 6px;
+}
+
+
+/*弹窗*/
+
+@media (min-width:992px) {
+    .modal-xl {
+        width: 1200px
+    }
+}
+
+/*病情资料和医生推荐*/
+.con-panel{
+    background-color: white;
+    border-radius: 3px;
+    padding: 0;
+    /*border-left: 1px solid #eee;*/
+}
+.con-panel .tab-content{
+    height: 695px;
+    overflow-y: auto;
+    padding: 10px;
+}
+.con-panel .img-add{
+    background-color: white;
+    width:75px;
+    height:48px;
+    border: 2px dashed #dee5e7;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #dee5e7;
+}
+.con-panel .img-add:hover{
+    font-size: 3rem;
+}
+
+.con-panel .docPanel{
+    overflow: auto;
+    width: 100%;
+}
+.con-panel .docPanel .wp{
+    max-width: 440px;
+    margin: 0 auto;
+    position: relative;
+    padding-top:20px;
+    padding-left: 20px;
+}
+.con-panel .docPanel li{
+    width: 100%;
+    border-bottom: 1px solid #dee5e7;
+}
+.con-panel .docPanel li .status{
+    position: absolute;
+    top:14px;
+    left:2px;
+    width: 50px;
+    height: 18px;
+    transform:rotate(-40deg);
+    color:white;
+    text-align: center;
+    line-height: 16px;
+    font-size:12px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.con-panel .docPanel li img{
+    border-radius: 3px;
+    float: left;
+    cursor: pointer;
+}
+.con-panel .docPanel li .infoCon{
+    margin-left:85px;
+}
+.con-panel .docPanel .row-1{
+    font-size: 20px;
+}
+.con-panel .docPanel .row-2{
+    font-size: 16px;
+}
+.con-panel .docPanel .row-3{
+    font-size: 14px;
+}
+
+
+
+/*修改滚动条默认样式*/
+::-webkit-scrollbar-track-piece{
+    -webkit-border-radius:0;
+}
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+::-webkit-scrollbar-thumb{
+    height:50px;
+    background-color: #e5e4e3;
+    -webkit-border-radius:4px;
+    outline-offset:-2px;
+
+}
+::-webkit-scrollbar-thumb:hover{
+    height:50px;
+    background-color: #e5e4e3;
+    -webkit-border-radius:4px;
+}
+
+/*医生详情 start*/
+.doc-detail .timeSelHide{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+
+.doc-detail .timeSelShow{
+    /*animation:timeSelShow 1s infinite;*/
+    position: absolute;
+    width: 382px;
+    right:60px;
+    bottom:0px;
+    /*transition: 1s;*/
+    /*overflow: hidden;*/
+}
+
+.doc-detail .editable-buttons{
+    vertical-align: bottom;
+    float: right;
+}
+.doc-detail .editable-buttons button{
+    width: 34px;
+    height: 30px;
+    font-size: 10px;
+}
+/*医生详情 end*/
+
+/*健康关怀 start*/
+.care .curing .status{
+     width: 40px;
+     height: 18px;
+     color:white;
+     text-align: center;
+     line-height: 16px;
+     font-size:12px;
+     -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+     border-radius: 2px;
+}
+.care .handle .status{
+    /*position: absolute;*/
+    /*top: 11px;*/
+    /*left: 0px;*/
+    /*width: 40px;*/
+    /*height: 18px;*/
+    /*transform:rotate(-45deg);*/
+    /*color:white;*/
+    /*text-align: center;*/
+    /*line-height: 16px;*/
+    /*font-size:12px;*/
+    /*-webkit-border-radius: 2px;*/
+    /*-moz-border-radius: 2px;*/
+    /*border-radius: 2px;*/
+    width: 40px;
+    height: 18px;
+    color:white;
+    text-align: center;
+    line-height: 16px;
+    font-size:12px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.care .editable-buttons{
+    vertical-align: bottom;
+    float: right;
+}
+.care .editable-buttons button{
+    width: 34px;
+    height: 30px;
+    font-size: 10px;
+}
+.care .editable-textarea{
+    width: 100%;
+}
+.care .editable-controls{
+    width: 100%;
+}
+.care .editable-input{
+    width: 100%;
+}
+/*健康关怀 end*/
+

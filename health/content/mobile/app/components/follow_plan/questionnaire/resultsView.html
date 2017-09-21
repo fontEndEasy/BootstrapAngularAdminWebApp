@@ -1,0 +1,38 @@
+<div class="clearfix">
+    <!-- <div class="col-xs-12 bg-white b-t b-b p-t-xs p-b-xs">
+        <div class="text-md p-t-xxs p-b-xxs">{{data.issueName}}</div>
+    </div> -->
+    <div class="clearfix" ng-repeat="caresIssue in data.caresIssues">
+        <div class="col-xs-12 bg-white b-t b-b p-t-sm p-b-sm m-t-xs">
+            <!-- 非填空题标题 -->
+            <div class="row p-b-xs" ng-hide="caresIssue.type == 1">
+                <div class="col-xs-12">
+                    <div class="text-md p-t-xxxs p-b-xxxs">{{$index+1}}.{{caresIssue.content}} ({{$index+1}}/{{data.caresIssues.length}})</div>
+                </div>
+            </div>
+            <!-- 选择题 -->
+            <div class="row" ng-show="caresIssue.type == 2">
+                <div class="col-xs-12 bg-white p-t-xs p-b-xs" ng-repeat="answer in caresIssue.answers">
+                    <div class="text-sm" ng-class="{true:'color-blue'}[answer.option === answer.number]">
+                        <span class="tag tag-xs tag-blue" ng-class="{true:'bg-blue color-white'}[answer.option === answer.number]">{{answer.number}}</span>&nbsp; {{answer.content}}
+                    </div>
+                </div>
+            </div>
+            <!-- 问答题 -->
+            <div class="row" ng-show="caresIssue.type == 3">
+                <div class="col-xs-12 bg-white p-t-xs p-b-xs">
+                    <p class="text-sm color-blue">
+                        {{caresIssue.content}}
+                    </p>
+                </div>
+            </div>
+            <!-- 填空题标题 -->
+            <div class="row p-b-xs" ng-show="caresIssue.type == 1">
+                <div class="col-xs-12">
+                    <div class="text-md p-t-xxxs p-b-xxxs">{{$index+1}}.
+                        <c ng-bind-html="toInput(caresIssue.content,caresIssue.answer)"></c>&nbsp;&nbsp;&nbsp;({{$index+1}}/{{data.caresIssues.length}})</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?1447817693463">
+<link rel="stylesheet" type="text/css" href="/res/css/meta/dt.css?1447817693463">
+<link rel="stylesheet" type="text/css" href="/res/css/view.css?1447817693463">
+<script>
+	FONT_SIZE = 16;
+</script>
+<script src="/res/js/jquery-1.4.4.min.js"></script>
+<script src="/res/js/common.js"></script>
+<script src="/web/res/cn"></script>
+<script src="/res/js/meta/attribute.js"></script>
+<script type="text/javascript" src="/res/js/meta/a/file.js"></script>
+<script src="/res/js/meta/view.js"></script>
+
+<script src="/web/invoke/1447817693463?BF3C3855-47E3-40B0-8158-4131793D9486,OP"></script>
+</head>
+<style>
+	#Upload input{
+		display: none;
+	}
+	#DOWNLOAD {
+		display: none;
+	}
+
+	#MASK_DIV {
+		visibility: hidden;
+	}
+</style>
+<body>	
+	<div id="Upload"></div>
+	<div id="TIPS" style='display: none; z-index: 100;' class='tips'
+		onclick='_("TIPS").style.display="none"'>
+		<img src='/res/ico/close.png' class='close_image'
+			style='float: right; cursor: pointer'>
+		<div></div>
+	</div>
+	<div class='dialog'
+		style='position: absolute; display: none; z-index: 100; visibility: hidden;'>
+		<img id='CLOSE' src='/res/ico/close.png'
+			style='position: absolute; right: 0px; cursor: pointer'
+			onclick='M.close()'>
+		<div id='CONFIRM_HEADER' class='header'></div>
+		<div id="CONFIRM"></div>
+		<div id='CONFIRM_FOOTER' class='footer' style='text-align: right;'>
+			<input class='ok button' type='button' onclick='M.ok()'> <input
+				class='cancel button' type='button' onclick='M.close()'>
+		</div>
+	</div>
+	
+	<!-- <input value="" class="img"/> -->
+
+	<div class='dialog' style='position: absolute; display: none; z-index: 100; visibility: hidden;'>
+		<img id='CLOSE' src='/res/ico/close.png'
+			style='position: absolute; right: 0px; cursor: pointer'
+			onclick='M.closeDialog(this)'>
+		<div class='header'></div>
+		<div id="MESSAGE"></div>
+		<div class='footer' style='text-align: right'>
+			<input class='ok button' type='button' onclick='M.ok()'>
+		</div>
+	</div>
+</body>
+<script>
+	function uploadFileImg(_url){
+		if(_url != "undefined" && _url != ""){
+			var img = new Image();
+			img.onload = function(){
+				RES['sys.label.select'] = '<img src="/web/files/'+_url+'" style="width:100%; height:100%;">';
+				initUpload();
+			}
+			img.onerror = function(){
+				RES['sys.label.select'] = '<img src="../../img/p0.jpg" style="width:100%; height:100%;">';
+				initUpload();
+			}
+			img.src = "/web/files/"+_url;
+		}else{
+			RES['sys.label.select'] = '<img src="../../img/p0.jpg" style="width:100%; height:100%;">';
+			initUpload();
+		}
+		
+	}
+
+	function initUpload(){
+		var ctrl = _("Upload");
+		ctrl.field = {
+			"name" : "image",
+			"title" : "品种 - 图片",
+			"type" : "attribute",
+			"full_name" : "com.dachen.cms.biz.mp.element.attr.c_Goods.image",
+			"header_text" : "图片",
+			"label_text" : "图片",
+			"data_type" : {
+				"name" : "image",
+				"file_type" : "goods_image",
+				"width" : 150,
+				"height" : 200,
+				"align" : "center",
+				"accept" : [ "*.jpg", "*.png", "*.tiff", "*.gif", "*.bmp" ],
+				"MAX_FILE_SIZE" : "64KB"
+			},
+			"input_width" : 15,
+			"column_width" : 0,
+			"label_indent" : 0.0,
+			"is_cumulative" : false,
+			"is_virtual" : false,
+			"has_dynamic_control" : false
+		};
+		A.file.initInputCtrl(ctrl);
+
+		A.event = function() {
+			var ctrl = _("Upload");
+			var value = A.file.getValue(ctrl);
+			parent.callback(value);
+			window.localStorage.a = value;
+			//在这里把 value 返回到包含的页面中，例如：显示图片 src='/web/files/' + value;
+			$("#Upload").find("img").attr("src",'/web/files/' + (value.substring(0,value.lastIndexOf("/"))));
+			return value;
+		}
+	}
+</script>
+</html>

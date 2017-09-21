@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+    <title ng-bind="$state.current.title"></title>
+    <!-- font-awesome -->
+    <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <!-- font-awesome end -->
+    <!-- jquery -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- jquery end -->
+    <!-- angualr -->
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-touch/angular-touch.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <!-- angualr end -->
+    <!-- ocLazyLoad -->
+    <script type="text/javascript" src="node_modules/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <!-- ocLazyLoad end -->
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <!-- bootstrap end -->
+    <!-- animate.min -->
+    <link rel="stylesheet" type="text/css" href="node_modules/animate.css/animate.min.css">
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <!-- animate.min end -->
+    <!-- xeditable -->
+    <link rel="stylesheet" type="text/css" href="node_modules/angular-xeditable-npm/dist/css/xeditable.css">
+    <script type="text/javascript" src="node_modules/angular-xeditable-npm/dist/js/xeditable.min.js"></script>
+    <!-- xeditable end -->
+    <!-- moment -->
+    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-moment/angular-moment.min.js"></script>
+    <!-- moment end -->
+    <!-- angularjs-toaster -->
+    <link rel="stylesheet" type="text/css" href="node_modules/angularjs-toaster/toaster.min.css">
+    <script type="text/javascript" src="node_modules/angularjs-toaster/toaster.min.js"></script>
+    <!-- angularjs-toaster end -->
+    <!-- angular-tree-control -->
+    <link rel="stylesheet" type="text/css" href="node_modules/angular-tree-control/css/tree-control.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/angular-tree-control/css/tree-control-attribute.css">
+    <script type="text/javascript" src="node_modules/angular-tree-control/angular-tree-control.js"></script>
+    <!-- angular-tree-control end -->
+    <!-- Smart Table -->
+    <script type="text/javascript" src="node_modules/angular-smart-table/dist/smart-table.min.js"></script>
+    <!-- Smart Table end -->
+    <!-- angular-bootstrap-lightbox -->
+    <link rel="stylesheet" type="text/css" href="node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.css">
+    <script type="text/javascript" src="node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js"></script>
+    <!-- angular-bootstrap-lightbox end -->
+    <!-- angular.audio -->
+    <script type="text/javascript" src="bower_components/angular-audio/app/angular.audio.js"></script>
+    <!-- angular.audio end -->
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/css/theme/app.css?V=2016360611011111 ">
+    <link rel="stylesheet" type="text/css" href="assets/css/theme/main.css?V=2016360611011111 ">
+    <link rel="stylesheet" type="text/css" href="assets/css/theme/setting.css?V=2016360611011111 ">
+    <!--CSS END-->
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <!--SCRIPTS-->
+    <script type="text/javascript" src="app/app.config.js?V=2016300611015555 "></script>
+    <script type="text/javascript" src="app/app.ctrl.js?V=2016300611015555 "></script>
+    <script type="text/javascript" src="app/app.router.js?V=2016300611015555 "></script>
+    <!--SCRIPTS END-->
+    <!-- 医药 -->
+    <script type="text/javascript" src="app/shared/medicineSel/ui-medicine.js"></script>
+    <!-- 医药 end -->
+    <!-- lightbox start -->
+    <!--<link href="bower_components/lightbox2/src/css/lightbox.css" rel="stylesheet">-->
+    <!--<script src="bower_components/lightbox2/src/js/lightbox.js"></script>-->
+    <!-- lightbox end -->
+</head>
+
+<body ng-controller="AppCtrl">
+    <toaster-container toaster-options="{'close-button': true}"></toaster-container>
+    <ui-medicine open="openUiMedicine"></ui-medicine>
+    <ui-view class="clearfix"></ui-view>
+</body>
+
+</html>

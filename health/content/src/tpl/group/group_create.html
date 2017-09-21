@@ -1,0 +1,136 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="groupCreate">
+    <div class="frame-panel">
+        <div class="panel-body">
+            <div class="row m-b-lg">
+                <h3 class="h3 col-md-10 text-center">创建医生集团</h3>
+            </div>
+
+            <div class="row m-b-lg">
+                <div class="group-reg-process col-md-10 text-center">
+                    <span><b class="fa fa-circle {{step_status ? 'text-success' : 'text-danger'}} text-lg"></b><p>申请创建</p></span>
+                    <span><i class="fa fa-long-arrow-right {{!step_check ? 'text-muted' : step_status ? 'text-success' : 'text-danger'}}"></i></span>
+                    <span><b class="fa fa-circle {{step_active ? 'text-success' : !step_check ? 'text-muted' : step_status ? 'text-muted' : 'text-danger'}} text-lg"></b><p>审核</p></span>
+                    <span><i class="fa fa-long-arrow-right {{!step_active ? 'text-muted' : step_status ? 'text-success' : 'text-danger'}}"></i></span>
+                    <span><b class="fa fa-circle text-muted text-lg"></b><p>激活</p></span>
+                </div>
+            </div>
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+            <div ng-show="((step_apply || status_normal || isReapply) && (step_status && !step_check && !step_active)) || isActive">
+                <div class="row col-md-12" ng-if="step_apply && !step_active && !status_normal">
+                    <div class="col-sm-3 col-md-3 col-lg-2 text-right"><h4 class="info-title bdr-blue">创建说明</h4></div>
+                </div>
+                <div class="row col-md-12" ng-if="step_apply && !step_active && !status_normal">
+                    <div class="col-md-offset-2 col-md-6">
+                        <p class="l-h-2x">1. 创建者的医生资格为副主任医师及以上且创建者所属医院等级是三级；</p>
+                        <p class="l-h-2x">2. 平台审核通过后，需要邀请其他医生加入医生集团，成功邀请成员达到2人后方可激活医生集团；</p>
+                        <p class="l-h-2x">3. 一个医生只能创建一个医生集团，集团创建成功后只能转让给其他医生，不可以解散集团；</p>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in" ng-if="step_apply && !step_active && !status_normal"></div>
+
+                <div class="row col-md-12" ng-if="!group_edit">
+                    <div class="col-sm-3 col-md-3 col-lg-2 text-right"><h4 class="info-title bdr-blue">基本信息</h4></div>
+                </div>
+
+                <form class="form-horizontal" novalidate name="settingsForm">
+                    <div class="row m-t-lg" ng-class="{'has-error':settingsForm.groupName.$invalid&&settingsForm.groupName.$dirty}">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">医生集团名<i class="fa fa-asterisk text-danger" ng-if="!group_edit"></i></label>
+                        </div>
+
+                        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 form-text" ng-bind="groupName" ng-show="group_edit"></div>
+                        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-show="!group_edit">
+                            <input type="text" class="form-control " placeholder="医生集团名" name="groupName" ng-model="groupName" required>
+                        </div>
+                    </div>
+
+                    <div class="row m-t-sm"
+                         ng-class="{'has-error':settingsForm.groupInfo.$invalid&&settingsForm.groupInfo.$dirty}">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">简介<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                            <textarea class="form-control" rows="6" placeholder="填写集团简介" name="groupInfo" ng-model="groupInfo" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group mrt-15">
+                        <div class="col-sm-offset-2 text-info">&nbsp;&nbsp;&nbsp;&nbsp;提示：以<i class="fa fa-asterisk text-danger mrr-15"></i>&nbsp;&nbsp;&nbsp;标注的为必填项！</div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in col-lg-8 col-md-10 col-sm-12 "></div>
+
+                    <div class="row m-t-sm">
+                        <div class="col-sm-2 text-right">
+                            <label class="control-label">集团LOGO</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                            <div ng-click="selectFile()" class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:100px;cursor:pointer" ng-model="groupLogo" name="groupLogo">
+                                <img src="{{groupLogoUrl || 'src/img/logoDefault.jpg'}}" ngf-src="groupLogo" width="100%" height="auto">
+                            </div>
+                            <div class="progress m-b-none" ng-show="groupLogoProgress>0">
+                                <div class="progress-bar progress-bar-striped progress-bar-success active font-bold"
+                                     role="progressbar m-b-none" aria-valuenow="{{groupLogoProgress}}" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: {{groupLogoProgress}}%;min-width: 2em;">
+                                    {{groupLogoProgress>0?groupLogoProgress:0}}%
+                                    <span class="sr-only">{{groupLogoProgress}}%</span>
+                                </div>
+                            </div>
+                            <p class="font-bold" ng-class="{'text-success text-right':groupLogo.result,'text-danger':reGroupLogo[0].$error}"
+                               ng-show="groupLogo.result||reGroupLogo[0].$error"> {{groupLogo.result?groupLogo.result:'上传错误：'+reGroupLogo[0].$error}}</p>
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-lg-offset-0 col-sm-6 col-xs-6">
+                            <p>提示：支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+                        </div>
+                    </div>
+                    <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+                    <div class="row m-t-sm m-b-lg">
+                        <div class="col-sm-2 col-sm-offset-2">
+                            <button class="btn btn-primary btn-block" ng-disabled='settingsForm.$invalid'
+                                    ng-click="submitBt()">保&nbsp;&nbsp;存
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-lg" ng-show="authError">
+                        <div class="col-sm-10 col-sm-offset-3 text-danger">
+                            {{authError}}
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div ng-show="(!status_normal || step_active ||step_check) && !isReapply && !isActive">
+                <div class="form-group" ng-show="step_check && step_status && !step_active">
+                    <p>尊敬的<span ng-bind="userName"></span>医生，您已申请创建医生集团，审核结果将会通过玄关健康医生app及短信通知您，请您随时关注，谢谢！</p>
+                </div>
+                <div class="form-group" ng-show="step_check && !step_status">
+                    <p class="m-b-sm">尊敬的<span ng-bind="userName"></span>医生，非常遗憾的通知您，您创建医生集团申请<b class="text-danger">未通过审核</b>。</p>
+                    <p class="m-b-md">原因： <span class="text-info" ng-bind="auditMsg"></span>。</p>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button class="btn btn-success w100" ng-click="reapply()">重新填写申请信息</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="step_active && step_status">
+                    <p class="m-b-lg">尊敬的<span ng-bind="userName"></span>医生，非常高兴的通知您，您的申请已<b class="text-success">通过审核</b>。</p>
+                    <h4>激活医生集团</h4>
+                    <div class="form-group">
+                        <p class="form-text">1. 成功邀请2人及以上（包括2人）加入，集团自动激活；</p>
+                        <p class="form-text">2. 您可以同时邀请多个医生加入集团，输入手机号时按回车或空格区分；</p>
+                        <p class="form-text">3. 如果邀请的医生没有注册玄关账号，系统会发送邀请短信邀请医生注册。</p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href class="btn btn-success w100" ui-sref="app.group_create.invite">激活医生集团</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 七牛上传组件 -->
+    <qiniu-uploader token="{{token}}" bucket="vpan" progress-call-back="progress" upload="upload" filters="qiniuFilters" file-list="fileList" cancel="cancel" max-file-size="99999gb" chunk-sizee="1mb" unique-names="true" multi-selection="true" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded"></qiniu-uploader>
+    <!-- 七牛上传组件 end -->
+</div>

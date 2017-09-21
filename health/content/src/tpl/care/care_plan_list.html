@@ -1,0 +1,112 @@
+<!-- <div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="CarePlanListCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">健康关怀计划</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseNameSelected}}</h2>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" ng-click="newPlan()">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="hid">新建计划</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>计划名称</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- 新 -->
+<div class="org hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="CarePlanLibraryCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">健康关怀计划</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseName}}</h2>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-success" ui-sref="app.carePlan">新建计划</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="CarePlanLibraryTree" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <div class="col-md-12">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="dataTables_length">
+                                <label>
+                                    每页
+                                    <select class="form-control input-sm" ng-model="pageSize" ng-change="setTable(null, 1, pageSize)">
+                                        <option value="1">1</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                    条
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped b-t dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>计划名称</th>
+                                <th>病种</th>
+                                <th>价格</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in planList track by $index">
+                                <td>{{item.name}}</td>
+                                <td>{{item.diseaseTypeName}}</td>
+                                <td>{{item.price/100}}</td>
+                                <td>{{item.status?'已启用':'已禁用'}}</td>
+                                <td>
+                                    <button ui-sref="app.carePlan({ planId: item.id})" class="btn btn-xs btn-primary text-xs">查看</button>
+                                    <button ng-click="enable(item.id,(item.status?0:1))" ng-class="item.status?'btn-danger':'btn-success'" class="btn btn-xs text-xs">{{item.status?'禁用':'启用'}}</button>
+                                </td>
+                            </tr>
+                            <tr ng-if="!planList||planList.length<1">
+                                <td colspan="4" class="text-center">无数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <pagination ng-show="page_count>0" total-items="page_count" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

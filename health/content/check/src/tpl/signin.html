@@ -1,0 +1,28 @@
+<div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
+  <a href class="navbar-brand block m-t">{{app.name}}</a>
+  <div class="m-b-lg">
+    <div class="wrapper text-center">
+      <strong></strong>
+    </div>
+    <form name="form" class="form-validation">
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          {{authError}}
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="text" placeholder="手机号码" class="form-control no-border" ng-model="user.telephone" tabindex="1" required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" placeholder="密码" class="form-control no-border" ng-model="user.password" tabindex="2" required>
+        </div>
+      </div>
+      <div class="list-group list-group-sm">
+         <label class="i-checks"><input type="checkbox" id="rememberInfo"><i></i>记住登录信息</label>
+      </div>
+      <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="login()" ng-disabled='form.$invalid'>登录</button>
+    </form>
+  </div>
+  <div class="text-center" ng-include="'src/tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+  </div>
+</div>

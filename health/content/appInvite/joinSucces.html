@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <title>个人中心</title>
+</head>
+
+<body style="padding: 20px 10px; background: #f1f2f4;">
+    <div class="content">
+        <div class="text-center  m-t-xxxl">
+            <img src="img/tick.png" height="90" width="90">
+        </div>
+        <h3 class="font-xxl m-t-lg text-center" id="msg">您已成功加入</h3>
+        <p id="group_name" class="font-xl text-center"></p>
+        <div class="btn p-t-lg p-b-xxl text-center">
+            <a class="btn width-70 bg-success cl-white" id="downLoad">立即体验玄关健康医生端</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function function_name(argument) {
+        var openApp = {
+            doc: 'dachenappdoctor://',
+            pat: 'dachenapppatient://'
+        }
+
+        //获取url参数
+        var parameterArry = (function getParameter() {
+            var url = location.search;
+            var theRequest = {};
+            if (url.indexOf('?') != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = strs.length - 1; i >= 0; i--) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        })();
+
+        //在localStorage里获取集团名称
+        var groupName = parameterArry.groupName;
+        // 已经加入
+        if (parameterArry.msg) {
+            var msg = parameterArry.msg;
+            document.getElementById('msg').innerHTML = msg + '<br/>无需重复加入';
+            document.getElementById('group_name').style.display = 'none';
+        }
+
+        document.getElementById('group_name').innerHTML = "【" + groupName + "】";
+        console.log(window);
+        var device = discernDevice();
+        var downLoadUrl = '';
+        var iphoneUrl = 'http://www.pgyer.com/IlGb';
+        var android = 'http://www.pgyer.com/kzys';
+
+        if (device == 'iphone')
+            downLoadUrl = iphoneUrl;
+        if (device == 'android')
+            downLoadUrl = android;
+        if (!device)
+            downLoadUrl = '#';
+
+        document.getElementById("downLoad").addEventListener('touchstart', function() {
+            //location.href = downLoadUrl;
+            // alert("你得设备是：" + downLoadUrl);
+            window.location.href = openApp.doc;
+            window.setTimeout(function() {
+                window.location.href = downLoadUrl;
+            }, 1000);
+        })
+
+        //识别设备
+        function discernDevice() {
+            if (navigator.userAgent.toLowerCase().indexOf('android') != -1) {
+                return 'android';
+            } else if (navigator.userAgent.toLowerCase().indexOf('iphone') != -1) {
+                return 'iphone';
+            } else {
+                return null;
+            }
+        }
+    })()
+    </script>
+</body>
+
+</html>

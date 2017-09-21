@@ -1,0 +1,101 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm fade-in-left">
+    <div class="titlecontainer">
+        <div class="bar"></div>
+        <div class="tools">
+            <div class="back" ng-click="back();">返回</div>
+            <div class="title">客户拜访</div>
+        </div>
+    </div>
+    <div class="contentcontainer">
+        <div class="visitlist clearfix" style="padding-right:0;">
+            <div class="visittext visittime">
+                <div class="row week">
+                    {{currdate.week}}
+                </div>
+                <div class="row weekdate">
+                    {{currdate.time}}
+                </div>
+            </div>
+            <div class="visittext mappsuser" ng-click="gotoSelectPosition()">
+                <div class="mapicon"><img src="common/images/u123.png" alt=""></div>
+                <div class="mapaddress">
+                    {{address}}
+                </div>
+            </div>
+        </div>
+        <div class="visitlist clearfix">
+            <div class="visitinline visittext gluser">
+                <div class="row" ng-click="selectDoctor()">
+                    <span>关联客户</span>
+                    <span ng-class="{true: 'last', false: 'last notselect'}[isSelectUserActive]">{{vm.doctorName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="visitlist clearfix" style="padding-right:0;">
+            <div class="visitinline visittext carduser">
+                <div class="row">
+                    <span class="cardusericon"><img src="common/images/u100.png" alt=""></span>
+                    <span>到访</span>
+                    <button ng-class="{true: 'cardbutton btn btn-success', false: 'cardbutton btn btn-disalbe'}[isStartActive]" ng-click="oprearCard('1')">
+                        打卡
+                    </button>
+                </div>
+                <div class="row nextcard">
+                    <span class="cardusericon"><img src="common/images/u101.png" alt=""></span>
+                    <span>离开</span>
+                    <button ng-class="{true: 'cardbutton btn btn-success', false: 'cardbutton btn btn-disalbe'}[isEndActive]" ng-click="oprearCard('2')">
+                        打卡
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="visitlist clearfix">
+            <div class="visitinline visittext visitdesc">
+                <div class="row">
+                    <textarea name="visitdesc" ng-model="vm.remark" id="visitdesc" placeholder="输入拜访总结"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="visitlist text-center visitsimbit" style="padding:20px 0;">
+            <button ng-class="{true: 'btn btn-default', false: 'btn btn-default disable'}[isSibmitActive]" ng-click="sibmitVisit()">
+                提交
+            </button>
+            <button class="btn btn-default" ng-click="saveVisit()">
+                保存
+            </button>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="resolveDialog">
+    <div class="titlecontainer">
+        <div class="bar"></div>
+        <div class="tools">
+            <div class="back" ng-click="closeThisDialog();">返回</div>
+            <div class="title">选择位置</div>
+        </div>
+    </div>
+    <div class="contentcontainer">
+        <div class="baidu-group">
+            <div id="r-result">
+                <input type="text" ng-model='localStr' id="areaDetail" placeholder="查询附近的公司、写字楼" name="areaDetail" class="form-control">
+                <i><img src="common/images/u169.png"><i>
+	          <span style="color:#ff0000" id="areaDetailspan"></span>
+	        </div>
+          <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+          <div id="allmap" style="width: 100%; height: 400px; overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);"></div>
+      </div>
+		
+		<div id="list-result"></div>
+
+		<div ng-repeat="pitem in plist" ng-click="pselect(pitem)" class="visitpositionlist clearfix">
+			<div class="visitinline visittext">
+				<div class="row positiontitle">
+					<span>{{pitem.title}}</span>
+				</div>
+				<div class="row">
+					{{pitem.address}}
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

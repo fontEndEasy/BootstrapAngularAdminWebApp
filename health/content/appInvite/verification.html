@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <script type="text/javascript" src="../assets/config.js"></script>
+    <title>加入我们</title>
+</head>
+
+<body style="padding: 20px 10px; background: #f1f2f4;">
+    <div class="content">
+        <div class="boday p-t-xxxl">
+            <div class="m-b-sm clearfix">
+                <input id="phone" type="tel" class="p-t-b-sm width-60 fl" placeholder="手机号码">
+                <div class="width-35 fr">
+                    <button class="btn bg-success cl-white btn-block width-100 border-radius-sm font-md input-Btn" id="getCode">获取验证码</button>
+                </div>
+            </div>
+            <div class="m-b-sm">
+                <input id="code" type="text" class="p-t-b-sm" placeholder="验证码">
+            </div>
+            <div class="m-t-sm clearfix ">
+                <a class="btn bg-success cl-white btn-block width-100 p-t-b-xs border-radius-sm font-lg" id="submit">提交</a>
+            </div>
+            <div class="aud-code">
+                <p>收不到验证码？试试&nbsp;&nbsp;
+                    <button class="btn bg-warning cl-white btn-block border-radius-sm font-md input-Btn" id="audCode">语音验证</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function() {
+
+        //获取url参数
+        var parameterArry = (function getParameter() {
+            var url = location.search;
+            var theRequest = {};
+            if (url.indexOf('?') != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = strs.length - 1; i >= 0; i--) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        })();
+
+        // ajax post请求：
+        var createAjax = function() {
+            var xhr = null;
+            try {
+                //IE系列浏览器
+                xhr = new ActiveXObject("microsoft.xmlhttp");
+            } catch (e1) {
+                try {
+                    //非IE浏览器
+                    xhr = new XMLHttpRequest();
+                } catch (e2) {
+                    window.alert("您的浏览器不支持ajax，请更换！");
+                }
+            }
+            return xhr;
+        };
+        var ajax = function(conf) {
+            // 初始化
+            //type参数,可选
+            var type = conf.type;
+            //url参数，必填 
+            var url = conf.url;
+            //data参数可选，只有在post请求时需要
+            var data = conf.data;
+            //datatype参数可选    
+            var dataType = conf.dataType;
+            //回调函数可选
+            var success = conf.success;
+
+            if (type == null) {
+                //type参数可选，默认为get
+                type = "get";
+            }
+            if (dataType == null) {
+                //dataType参数可选，默认为text
+                dataType = "text";
+            }
+            // 创建ajax引擎对象
+            var xhr = createAjax();
+            // 打开
+            xhr.open(type, url, true);
+            // 发送
+            if (type == "GET" || type == "get") {
+                xhr.send(null);
+            } else if (type == "POST" || type == "post") {
+                xhr.setRequestHeader("content-type",
+                    "application/x-www-form-urlencoded");
+                xhr.send(data);
+            }
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (dataType == "text" || dataType == "TEXT") {
+                        if (success != null) {
+                            //普通文本
+                            success(xhr.responseText);
+                        }
+                    } else if (dataType == "xml" || dataType == "XML") {
+                        if (success != null) {
+                            //接收xml文档    
+                            success(xhr.responseXML);
+                        }
+                    } else if (dataType == "json" || dataType == "JSON") {
+                        if (success != null) {
+                            //将json字符串转换为js对象  
+                            success(eval("(" + xhr.responseText + ")"));
+                        }
+                    }
+                }
+            };
+        };
+
+        var audCode = document.getElementById("audCode");
+        var submit = document.getElementById("submit");
+        var getCode = document.getElementById("getCode");
+
+
+        function setBtnStatus(flg) {
+            if (flg) {
+                audCode.addEventListener('touchstart', startAudCode);
+                getCode.addEventListener('touchstart', sedSms);
+                //submit.addEventListener('touchstart', verifyCode);
+                audCode.style.opacity = '1';
+                getCode.style.opacity = '1';
+                //submit.style.opacity = '1';
+            } else {
+                audCode.removeEventListener('touchstart', startAudCode, false);
+                getCode.removeEventListener('touchstart', sedSms, false);
+                //submit.removeEventListener('touchstart', verifyCode, false);
+                audCode.style.opacity = '0.5';
+                getCode.style.opacity = '0.5';
+                //submit.style.opacity = '0.5';
+            }
+        }
+
+        function startAudCode() {
+            var phoneNumber = document.getElementById("phone").value;
+            if (!phoneNumber) {
+                alert('请输入手机号码！');
+                return;
+            } else if (phoneNumber.match(/\D/g) || phoneNumber.length !== 11 || phoneNumber.charAt(0) != 1) {
+                alert('请输入有效的手机号码！');
+                return;
+            }
+            setBtnStatus(false);
+
+            var data = 'telephone=' + phoneNumber;
+            ajax({
+                type: "post",
+                url: serverApiRoot + "sms/randcode/getVoiceCode?",
+                data: data,
+                dataType: "json",
+                success: function(data) {
+                    if (data.resultCode == 1) {
+                        var num = 120;
+                        var getSms = setInterval(function() {
+                            num--;
+                            audCode.innerHTML = num + ' s';
+                            if (num == 0) {
+                                audCode.innerHTML = '语音验证';
+                                clearInterval(getSms);
+
+                                setBtnStatus(true);
+                            }
+                        }, 1000);
+                    } else if (data.resultCode == -1) {
+                        alert('语音验证失败');
+                        audCode.innerHTML = '语音验证';
+                        setBtnStatus(true);
+                    } else if (data.resultCode == 0) {
+                        alert(data.resultMsg);
+                        audCode.innerHTML = '语音验证';
+                        setBtnStatus(true);
+                    } else {
+                        alert('服务器异常');
+                        audCode.innerHTML = '语音验证';
+                        setBtnStatus(true);
+                    }
+                }
+            });
+        }
+
+        audCode.addEventListener('touchstart', startAudCode);
+        getCode.addEventListener('touchstart', sedSms);
+        submit.addEventListener('touchstart', verifyCode);
+
+        function sedSms(telephone) {
+            var phoneNumber = document.getElementById("phone").value;
+            if (!phoneNumber) {
+                alert('请输入手机号码！');
+                return;
+            } else if (phoneNumber.match(/\D/g) || phoneNumber.length !== 11 || phoneNumber.charAt(0) != 1) {
+                alert('请输入有效的手机号码！');
+                return;
+            }
+            setBtnStatus(false);
+            var url = serverApiRoot + "sms/randcode/getSMSCode?";
+            var data = 'telephone=' + phoneNumber + '&templateId=25118';
+            ajax({
+                type: "post",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function(data) {
+                    if (data.resultCode == 1) {
+                        var codeTime = 120;
+                        var getSms = setInterval(function() {
+                            codeTime--;
+                            document.getElementById("getCode").innerHTML = codeTime + ' s';
+                            if (codeTime == 0) {
+                                document.getElementById("getCode").innerHTML = '获取验证码';
+                                clearInterval(getSms);
+                                setBtnStatus(true);
+                            }
+                        }, 1000);
+                    } else if (data.resultCode == -1) {
+                        alert('获取验证码失败');
+                        //setBtnStatus(true);
+                    } else if (data.resultCode == 0) {
+                        alert(data.resultMsg);
+                        //setBtnStatus(true);
+                    } else {
+                        alert('服务器异常');
+                        //setBtnStatus(true);
+                    }
+
+                }
+            })
+        }
+
+        function verifyCode() {
+            var phoneNumber = document.getElementById("phone").value;
+            var code = document.getElementById("code").value;
+            if (!phoneNumber) {
+                alert('请输入手机号码！');
+                return;
+            } else if (phoneNumber.match(/\D/g) || phoneNumber.length !== 11 || phoneNumber.charAt(0) != 1) {
+                alert('请输入有效的手机号码！');
+                return;
+            }
+            //这里详细点还需要过滤
+            if (code.length <= 0) {
+                alert('请填写验证码');
+                return;
+            } else {
+                var verifyCodeUrl = serverApiRoot + "sms/randcode/verifyCode?";
+                var verifyCodeData = 'telephone=' + phoneNumber + '&templateId=25118&randcode=' + code;
+                setBtnStatus(false);
+                ajax({
+                    type: "post",
+                    url: verifyCodeUrl,
+                    data: verifyCodeData,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.resultCode == 1) {
+                            var verifyResigterUrl = serverApiRoot + "sms/verify/telephone?";
+                            var verifyResigterData = 'telephone=' + phoneNumber + '&userType=3';
+                            ajax({
+                                type: "post",
+                                url: verifyResigterUrl,
+                                data: verifyResigterData,
+                                dataType: "json",
+                                success: function(data) {
+                                    var groupId = parameterArry.groupId;
+                                    var inviteId = parameterArry.inviteId;
+                                    var groupName = parameterArry.groupName;
+                                    if (data.resultCode == 1) {
+                                        console.warn('手机号码未注册');
+                                        window.location.href = 'docSignin.html?telephone=' + phoneNumber + "&groupId=" + groupId + "&inviteId=" + inviteId + "&groupName=" + groupName;
+                                    } else if (data.resultCode == 0) {
+                                        console.warn('手机号码已注册');
+                                        var saveByGroupDoctorUrl = serverApiRoot + "group/doctor/saveCompleteByGroupDoctor";
+                                        var saveByGroupDoctorData = 'telephone=' + phoneNumber + '&inviteId=' + inviteId + '&groupId=' + groupId;
+                                        ajax({
+                                            type: "post",
+                                            url: saveByGroupDoctorUrl,
+                                            data: saveByGroupDoctorData,
+                                            dataType: "json",
+                                            success: function(data) {
+                                                console.log(data);
+                                                if (data.resultCode == 1) {
+                                                    if (data.data.msg) {
+                                                        window.location.href = 'joinSucces.html?groupName=' + groupName + '&msg=' + data.data.msg;
+                                                    } else {
+                                                        window.location.href = 'joinSucces.html?groupName=' + groupName;
+                                                    }
+                                                } else {
+                                                    alert(data.resultMsg);
+                                                }
+                                            }
+                                        })
+
+                                    }
+                                }
+                            })
+                        } else if (data.resultCode == 0) {
+                            //setBtnStatus(true);
+                            alert('验证码错误');
+                        } else if (data.resultCode == -1) {
+                            //setBtnStatus(true);
+                            alert(data.resultMsg);
+                        } else {
+                            //setBtnStatus(true);
+                            alert('服务器异常');
+                        }
+                    }
+                })
+            }
+        }
+
+    })()
+    </script>
+</body>
+
+</html>

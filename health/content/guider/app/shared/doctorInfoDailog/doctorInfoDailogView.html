@@ -1,0 +1,166 @@
+<script type="text/ng-template" id="doctorInfoDailogBox.html">
+    <div class="modal-body clearfix p-t-lg p-l-lg doc-detail position-relative h-600 p-r-none" ng-click="triggerClick($event)">
+        <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark fancybox-close" style="right:-10px;top:-12px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+        <!--<button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="position:absolute;right:-15px;top:-15px;" ng-click="cancel()"><i class="fa fa-close"></i></button>-->
+        <div class="col-xs-8 clearfix b-r" style="height: 100%;">
+            <div class="text-center" ng-if="infoIsloading&&introduceIsloading&&remarksIsloading">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div class="row" ng-if="!(infoIsloading&&introduceIsloading&&remarksIsloading)">
+                <div class="col-xs-3">
+                    <div class="row position-relative  r r-3x clear">
+                        <img class="w-full" ng-src="{{data.info.headPicFileName}}">
+                        <div class="position-absolute absolute-bottom absolute-left absolute-right bg-danger text-center text-white text-md p-t-xs p-b-xs" ng-if="data.doctorInfo&&data.doctorInfo.troubleFree==2">开启免打扰</div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <h4><span style="font-size: 18px;">{{data.info.name}}</span></span>
+                        <button class="text-info btn-xs no-shadow b-none bg-f8" title="拨打电话" uib-popover-template="'docInfoCallView.html'" popover-placement="bottom" popover-is-open="callView.isOpen"  ng-show="data.info.telephone"><i class="fa fa-phone inline m-t-xs fa-lg fa-fw"></i>{{data.info.telephone}}</button>
+                        <!--<button class="btn btn-info btn-xs" ng-click="callPhone(data.info.telephone)"><i class="fa fa-phone"></i>&nbsp;{{data.info.telephone}}-->
+                            <!--<i class="fa" ng-class="{true:'fa-spinner fa-spin'}[call.isCalling]"></i>-->
+                        <!--</button>-->
+                        <!--<span class="text-xs" ng-class="{false:'text-danger',true:'text-succes'}[call.result.type]" ng-if="call.result">{{call.result.content}}</span>-->
+                    </h4>
+                    <div class="m-t-xs">{{data.info.title}}/{{data.info.groupName}}/{{data.info.departments}}</div>
+                    <!--<div class="m-t-xs m-t">线下职业信息：</div>-->
+                    <div>{{data.info.hospital}} | {{data.info.departments}}</div>
+                </div>
+            </div>
+            <div class="row" ng-if="!(infoIsloading&&introduceIsloading&&remarksIsloading)">
+                <div class="col-xs-12">
+                    <div class="row m-t-xs" style="overflow-y: auto;" ng-class="{hmax400: data.type!=2, hmax150:data.type==2 }">
+                        <h5>擅长：</h5>
+                        <ul class="clearfix m-t-n-xs">
+                            <li class="pull-left m-t-xs m-b-xs m-r-sm bg-light p-l-xs p-r-xs r-2x" ng-repeat="tip in data.introduce.expertise">
+                                {{tip.name}}
+                            </li>
+                        </ul>
+                        <h5>简介：</h5>
+                        <p class="m-t-n-xs">
+                            {{data.introduce.introduction}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in" style="margin-left: -15px;" ng-if="data.type==2"></div>
+            <div class="row" style="padding-right: 15px;height: 220px;" ng-if="data.type==2">
+                <div class="text-md" style="border-left:5px solid rgb(174, 176, 177);padding-left:5px;" ng-show="data.itemData">
+                    {{data.info.name}}的{{data.itemData.name}} (¥{{data.itemData.price/100}}/{{data.itemData.timeLimit}}分钟)
+                </div>
+                <div class="clearfix position-relative">
+                    <h5 class="pull-left"  style="font-size: 16px;">可预约时间：</h5>
+                    <button class="btn btn-sm btn-icon btn-default pull-right" style="margin-top:5px" id="timeSelBtn" ng-click="changeTimeSelPanel($event)"><i ng-class="{'fa fa-plus':!showTimeSelector,'glyphicon glyphicon-remove':showTimeSelector}" class="fa fa-plus"></i></button>
+
+                    <!--选择时间-->
+                    <div ng-click="timeSelectClick($event)" class="clearfix m-t-lg b p-l-sm p-r-sm bg-light" style="-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;" id="timeSelector" ng-class="{timeSelHide:!showTimeSelector,timeSelShow:showTimeSelector}">
+                        <div>
+                        <div class="clearfix p-t-sm">添加时间：{{(addDate | amDateFormat:'YYYY/MM/DD H:mm')||'请点击添加按钮'}}</div>
+                        <div class="clearfix">
+                            <div class="col-xs-7">
+                                <div class="row">
+                                    <div class="input-group m-t-lg p-t-xs">
+                                        <input type="text" class="form-control" uib-datepicker-popup ng-model="addDate" datepicker-options="dateOptions" is-open="show" current-text="今天" clear-text="清理" close-text="关闭" show-weeks="false" starting-day="1" min-date="minDate" />
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="show=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="row">
+                                    <div class="p-l-sm p-r-sm">
+                                        <div class="input-group">
+                                            <uib-timepicker ng-model="addDate" minute-step="30" min="minDate" show-meridian="false"></uib-timepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix text-center m-b" ng-show="addDate">
+                            <button type="button " class="btn btn-default btn-sm" ng-click="submitNewDate(addDate)" ng-disabled="submitNewDateLoading">
+                                <span ng-show="!submitNewDateLoading">添加新时间段</span>
+                                <span ng-show="submitNewDateLoading"><i class="fa fa-spinner fa-spin"></i></span>
+                            </button>
+                        </div>
+                            </div>
+                        <div class="bg-light" style="position: absolute;right: -15px;bottom: 5px;width: 30px;height: 30px;border-top:1px solid rgba(0, 0, 0, 0.05);border-right: 1px solid rgba(0, 0, 0, 0.05);transform:rotate(45deg)"></div>
+                    </div>
+
+
+                </div>
+                <div class="m-t-xs" ng-if="!dateArry">
+                    无
+                </div>
+                <div style="height: 170px;overflow: auto;margin-right: -14px;">
+                <div class="m-t-xs" ng-repeat="item in dateArry" ng-if="dateArry.length>0">
+                    <div class="p-t-xs p-b-xs p-l-sm p-r-sm b clearfix hover-show-box hover-pointer m-t-xs text-center" ng-click="selected($index)" style="width:240px;margin-right: 16px;float: left;" ng-class="{true:'bg-light'}[item.isSelected]">
+                        <a>{{item.start | amDateFormat:'MM月DD日  H:mm'}} - {{item.end | amDateFormat:'H:mm'}}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <!--<span class="text-muted">已预约 {{item.count}} 人</span>-->
+                        <button class="btn btn-xs btn-icon btn-danger pull-right hover-show-item m-t-n-xxs m-b-n-xxs pull-right" ng-click="removeDate(item.start)"><i class="fa" ng-class="{true:'fa-spinner fa-spin',false:'fa-remove'}[removeDateLoading]"></i></button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 clearfix p-r-none p-l-none">
+            <div class="b-b p-l-sm p-r-sm" style="height: 50px;line-height: 50px;">
+                <span class="text-md">客服备注</span>
+                <button class="btn btn-sm btn-icon btn-default pull-right m-t-sm" ng-click="addDocRemarks()"><i class="fa fa-plus"></i></button>
+            </div>
+            <ul class="p-sm" style="max-height: 500px;overflow-y: auto;" id="remarkListContent">
+                <li ng-repeat="item in remarkList" class="m-t-sm bg-f8 b p-sm" ng-if="item.isNew!=true">
+                        <span style="font-size: 16px;">{{item.guideName}}</span><small class="pull-right">{{item.createTime | date:'MM月dd日 HH:mm'}}</small>
+                        <p>{{item.remark}}</p>
+                </li>
+                <li ng-repeat="item in remarkList" class="m-t-sm bg-f8 b p-sm" ng-if="item.isNew==true">
+                    <a href="#"  editable-textarea="item.remark" e-rows="7" e-cols="28" style="color: #58666E;"  onaftersave="updateDocRemarks(item)">
+                        <span style="font-size: 16px;">{{item.guideName}}</span><small class="pull-right">{{item.createTime | date:'MM月dd日 HH:mm'}}</small>
+                        <p>{{item.remark||'请填写内容'}}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align: center !important;" ng-if="data.type==2">
+        <div class="btn-group" uib-dropdown is-open="status.isopen">
+            <button id="single-button" style="width: 250px;" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disableSend">
+                通知患者，约不到医生<span class="caret"></span>
+                <span ng-show="appointTimeLoading"><i class="fa fa-spinner fa-spin"></i></span>
+            </button>
+            <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem" style="width: 250px;" ng-click="sendAbort(1)" ><a>联系不上医生</a></li>
+                <li class="divider"></li>
+                <li role="menuitem" style="width: 250px;" ng-click="sendAbort(2)"><a>医生没时间</a></li>
+            </ul>
+        </div>
+
+        <button class="btn btn-success" style="width: 280px;" type="button" ng-disabled="disableSend" ng-click="appointTime(data.itemData.id)">
+            <span ng-show="!appointTimeLoading">{{ {true:'发给患者付款',false:'发送医生名片给患者'}[timeSelectSataus] }}</span>
+            <span ng-show="appointTimeLoading"><i class="fa fa-spinner fa-spin"></i></span>
+        </button>
+        </div>
+    </div>
+</script>
+<!-- 拨打电话 -->
+<script type="text/ng-template" id="docInfoCallView.html">
+    <div class="form-group w-300 h-max-200">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="closeCallView()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="p-t-sm text-center">
+            确定用平台来拨通医生与您的电话吗？
+        </div>
+        <div class="m-t-xs text-center text-xs" ng-class="{true:'text-success',false:'text-danger'}[call.result.type]" ng-if="call.result">{{call.result.content}}</div>
+        <div class="clearfix text-center m-t-sm">
+            <button type="button" class="btn btn-sm btn-success m-r-xs" ng-click="callPhone(data.info.telephone)">
+                <span ng-if="call.isCalling">拨打中 <i class="fa" ng-class="{true:'fa-spinner fa-spin'}[call.isCalling]"></i>
+                </span>
+                <span ng-if="!call.isCalling">确定</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-info" ng-click="closeCallView()">取消</button>
+        </div>
+    </div>
+</script>
+<!-- 拨打电话 end -->
+
+

@@ -1,0 +1,58 @@
+<div>content</div>
+<div ui-view="pageFooter"></div>
+<script type="text/javascript">
+event.preventDefault();
+sendData(4056, 'iIMEntrance'); //埋点记录点击按钮次数
+var getOS = function() { //获取操作系统平台，IOS或安卓
+    var userAgent = navigator.userAgent;
+    return userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) ? 'ios' : userAgent.match(/Android/i) ? 'android' : '';
+};
+
+var config = { //配置文件
+    iosDownloadUrl: 'http://itunes.apple.com/cn/app/yun-zhi-jia-qi-ye-ban/id595672427?l=en&mt=8',
+    androidDownloadUrl: 'http://gdown.baidu.com/data/wisegame/ecc05b2bc9709f02/yunzhijia_289.apk',
+    schemeUrl: 'cloudhub://start?from=invite',
+    sys: getOS()
+};
+
+
+var timeout, t = 1000,
+    hasApp = true;
+setTimeout(function() {
+    if (hasApp) {} else {
+        if (config.sys == 'ios') {
+            window.location.href = config.iosDownloadUrl;
+        } else {
+            window.location.href = config.androidDownloadUrl;
+        }
+
+    }
+}, 2000)
+
+function testApp() {
+    var t1 = Date.now();
+    /*
+    var ifr = $('<iframe id="ifr"></iframe>')
+    ifr.attr('src', 'cloudhubaa://start?from=invite');
+    ifr.css('display','none');
+    $('body').append(ifr);
+    */
+    var ifr = document.createElement('iframe');
+    ifr.setAttribute('id', 'ifr');
+    ifr.setAttribute('src', config.schemeUrl);
+    ifr.style.display = 'none';
+    document.body.appendChild(ifr);
+
+    timeout = setTimeout(function() {
+        try_to_open_app(t1);
+    }, t);
+}
+
+function try_to_open_app(t1) {
+    var t2 = Date.now();
+    if (!t1 || t2 - t1 < t + 200) {
+        hasApp = false;
+    }
+}
+testApp();
+</script>

@@ -1,0 +1,93 @@
+<div class="frame-panel cst cst-detail" ng-controller="ConsultDetailCtrl">
+    <h1 class="text-center">
+        会诊
+    </h1>
+    <hr/>
+    <h2>设置会诊医生</h2>
+    <div class="list-group">
+        <div ng-if="loading" class="loading none">
+            <i class="glyphicon glyphicon-repeat"></i>
+        </div>
+        <div class="lab-container">
+            <div ng-repeat="doctor in doctors"><i class="fa fa-times" ng-click="removeItem(doctor)"></i><h3>{{doctor.name||"undefined"}}</h3></div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" ng-click="addData()">
+                <i class="fa fa-pencil"></i>
+                <span class="hid">修改医生名单</span>
+            </button>
+        </div>
+    </div>
+
+    <hr/>
+    <form name="packForm"  ng-submit="save()">
+    <div class="row m-t-lg"
+         ng-class="{'has-error':settingsForm.groupInfo.$invalid&&settingsForm.groupInfo.$dirty}">
+        <div class="col-sm-2 text-right">
+            <label class="control-label">会诊产品包介绍<i class="fa fa-asterisk text-danger"></i></label>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                                <textarea class="form-control" rows="6" placeholder="填写会诊产品包介绍"
+                                          ng-model="description" maxlength="500" required></textarea>
+        </div>
+    </div>
+
+    <div class="row m-t-md">
+        <div class="col-sm-2 text-right">
+            <label class="control-label">集团会诊专家收费价格<i class="fa fa-asterisk text-danger"></i></label>
+        </div>
+
+        <div class="col-sm-10 col-md-10 form-inline">
+            <div class="input-group len-md">
+                <input type="number" class="form-control text-center" ng-model="docPriceMin" autocomplete="off" min="1" max="100000" required placeholder="最低价">
+                <span class="input-group-addon">元</span>
+            </div>
+            —
+            <div class="input-group len-md">
+                <input type="number" class="form-control text-center" ng-model="docPriceMax" autocomplete="off" max="100000" min="{{docPriceMin}}" required placeholder="最高价">
+                <span class="input-group-addon">元</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row m-t-sm">
+        <div class="col-sm-2 text-right">
+            <label class="control-label">集团分成比例<i class="fa fa-asterisk text-danger"></i></label>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="input-group">
+                <input type="number" class="form-control text-center" ng-model="groupRatio" autocomplete="off" min="0" max="100" required>
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-sm">
+        <div class="col-sm-2 text-right">
+            <label class="control-label">会诊专家分成比例<i class="fa fa-asterisk text-danger"></i></label>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="input-group">
+                <input type="number" class="form-control text-center" ng-model="docRatio" autocomplete="off" min="0" max="100" required>
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-sm">
+        <div class="col-sm-2 text-right">
+            <label class="control-label">会诊助手分成比例<i class="fa fa-asterisk text-danger"></i></label>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="input-group">
+                <input type="number" class="form-control text-center" ng-model="orgDocRatio" autocomplete="off" min="0" max="100" required>
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit" ng-disabled="packForm.$invalid||!saved">
+        <i class="fa fa-save"></i>
+        <span class="hid">保 存</span>
+    </button>
+    </form>
+</div>

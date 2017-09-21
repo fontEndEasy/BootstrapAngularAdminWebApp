@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生集团转让</title>
+    <link href="base.css" type="text/css" rel="stylesheet">
+    <script src="../../assets/config.js"></script>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html, body, p, ul, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            background: #EBEBEB;
+            font: normal normal normal 16px/1.4em '微软雅黑', Arial;
+            color: #555;
+        }
+
+        .clearfix:before,
+        .clearfix:after,
+        .row:before,
+        .row:after{
+            display: table;
+            content: " ";
+            clear: both;
+        }
+
+        .m-t-md{
+            margin-top: 20px;
+        }
+        .wrapper{
+            line-height: 24px;
+            padding: 15px;
+        }
+        .pass{
+            font-weight: bold;
+            color: #39CF78;
+        }
+        .no-pass{
+            font-weight: bold;
+            color: #e80000;
+        }
+        .div-line-1px{
+            height: 1px;
+            margin: 1em 0;
+            background-color: #bbb;
+        }
+        .div-line-2px{
+            height: 2px;
+            margin: 1em 0;
+            background-color: #bbb;
+        }
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-md-6{
+            float: left;
+            width: 50%;
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .btn {
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background-color: #FEFEFE;
+            text-align: center;
+            color: #666;
+            font: normal normal normal 18px/40px '微软雅黑', Arial;
+            outline: none;
+            cursor: pointer;
+        }
+        .btn-success{
+            background-color: #39CF78;
+            color: #fff;
+        }
+        .btn-danger{
+            background-color: #e80000;
+            color: #fff;
+        }
+        .none{
+            display: none !important;
+        }
+        .text-warning{
+            color: #e9a700;
+        }
+        .text-danger{
+            color: #e80000;
+        }
+        .text-success{
+            color: #39CF78;
+        }
+        .text-info{
+            color: #9d4fff;
+        }
+
+        .gd-step-status {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .gd-step-status img {
+            display: block;
+            width: 40%;
+            max-width: 163px;
+            margin: 0 auto 20px;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .m-b-md{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="step_a" class="wrapper m-t-md">
+    <p class="m-b-md">医生 ( <span id="name" class="text-info"></span> ) 申请将集团 ( <span id="group" class="text-warning"></span> ) 转让给您！</p>
+    <p>申请时间：<span id="date"></span></p>
+    <div class="div-line-1px"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <button id="refuse" name="NO" class="btn btn-danger w-100">拒 绝</button>
+        </div>
+        <div class="col-md-6">
+            <button id="submit" name="YES" class="btn btn-success w-100">同 意</button>
+        </div>
+    </div>
+</div>
+<div id="step_b" class="gd-step-status none">
+    <div class="text-center none" id="accept_text">
+        <img src="img/OK.png"/>
+        <h2>您已接受对方的申请！</h2>
+    </div>
+    <div class="text-center none" id="refuse_text">
+        <img src="img/ERR.png"/>
+        <h2>您已拒绝对方的申请！</h2>
+    </div>
+</div>
+<div id="mask" class="mask mask-bg none">
+    <div class="mask-text">
+        <p id="mask_text">正在处理，请稍候！</p>
+        <p id="mask_process"><span></span><b></b><span></span><span></span><span></span><span></span></p>
+    </div>
+</div>
+<script src="base.js"></script>
+<script>
+    window.onload = function () {
+
+        var params = getParameter(window.location),
+            name = document.getElementById('name'),
+            group = document.getElementById('group'),
+            date = document.getElementById('date'),
+            refuse = document.getElementById('refuse'),
+            submit = document.getElementById('submit'),
+            stepA = document.getElementById('step_a'),
+            stepB = document.getElementById('step_b'),
+            mask = document.getElementById('mask'),
+            refuse_text = document.getElementById('refuse_text'),
+            accept_text = document.getElementById('accept_text'),
+            status = 'P';
+
+        console.log(params);
+
+        mask.setAttribute('class', 'mask mask-bg');
+        addProcess();
+
+        if(!params.groupUserApplyId || !params.access_token){
+            mask.setAttribute('class', 'mask none');
+            alert('参数有误！');
+        }else {
+
+            var dataStr = 'groupUserApplyId=' + (params.groupUserApplyId || '') + '&access_token=' + (params.access_token || '');
+
+            ajax({
+                url: serverApiRoot + '/group/getTransferInfo',
+                data: dataStr,
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+                    if (resp.resultCode == '1') {
+                        var dt = resp.data;
+                        name.innerHTML = dt.inviteUserName;
+                        group.innerHTML = dt.groupName;
+                        //date.innerHTML = new Date(dt.inviteDate).toLocaleString();
+                        date.innerHTML = dateFormat(dt.auditDate, 'yyyy年MM月dd日,hh点mm分ss秒');
+                        mask.setAttribute('class', 'mask none');
+                        if(dt.status === 'P'){
+                            accept_text.setAttribute('class', 'text-center');
+                            stepA.setAttribute('class', 'gd-step-set none');
+                            stepB.setAttribute('class', 'gd-step-status');
+                        }else if(dt.status === 'NP'){
+                            refuse_text.setAttribute('class', 'text-center');
+                            stepA.setAttribute('class', 'gd-step-set none');
+                            stepB.setAttribute('class', 'gd-step-status');
+                        }
+                    } else {
+                        mask.setAttribute('class', 'mask none');
+                        alert(resp.resultMsg);
+                    }
+                },
+                error: function () {
+                    mask.setAttribute('class', 'mask none');
+                    alert("服务端出错！");
+                }
+            });
+        }
+
+        function confirm(e){
+            var evt = e || window.event;
+            var target = evt.target || evt.srcElement;
+            if(target.name === 'YES'){
+                status = 'P';
+            }else{
+                status = 'NP';
+            }
+
+            mask.setAttribute('class', 'mask mask-bg');
+            addProcess();
+
+            if(!params.groupUserApplyId || !params.access_token){
+                mask.setAttribute('class', 'mask none');
+                alert('参数有误！');
+            }else {
+                var dataStr = 'groupUserApplyId=' + (params.groupUserApplyId || '') + '&access_token=' + (params.access_token || '') + '&status=' + (status || 'P');
+                ajax({
+                    url: serverApiRoot + '/group/confirmTransfer',
+                    data: dataStr,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (resp) {
+                        if (resp.resultCode == '1') {
+                            var dt = resp.data;
+                            stepA.setAttribute('class', 'gd-step-set none');
+                            mask.setAttribute('class', 'mask none');
+                            stepB.setAttribute('class', 'gd-step-status');
+                            if(status === 'P'){
+                                accept_text.setAttribute('class', 'text-center');
+                            }else{
+                                refuse_text.setAttribute('class', 'text-center');
+                            }
+                        } else {
+                            mask.setAttribute('class', 'mask none');
+                            alert(resp.resultMsg);
+                        }
+                    },
+                    error: function () {
+                        mask.setAttribute('class', 'mask none');
+                        alert("服务端出错！");
+                    }
+                });
+            }
+        }
+
+        submit.addEventListener('touchstart', function(){
+            confirm();
+        });
+        refuse.addEventListener('touchstart', function(){
+            confirm();
+        });
+    };
+
+</script>
+</body>
+
+</html>

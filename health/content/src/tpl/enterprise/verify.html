@@ -1,0 +1,57 @@
+    <div class="container w-auto-xs " ng-controller="verifyCtrl">
+      <a href class="navbar-brand block m-t">{{app.name}}</a>
+      <div class="panel panel-default m-t-lg col-lg-10 col-lg-offset-1">
+        <div class="panel-body ">
+          <div class="row m-t-lg m-b-lg" ng-show="verifyState=='A'">
+            <div class="col-xs-3 text-right">
+              <div class="row">
+                <span class="fa-stack fa-lg text-3x">
+                  <i class="fa fa-circle fa-stack-2x text-success"></i>
+                  <i class="fa fa-check fa-stack-1x text-white"></i>
+                </span>  
+              </div>
+            </div>
+            <div class="col-xs-9">
+                <h4 class="m-b-xs">恭喜您！您已申请公司账号。</h4>
+                <p>您成功提交申请。</br>目前已进入审核阶段（审核时间为7个工作如，审核结束会已短信方式通知您，请注意查收）</p>
+            </div>
+          </div>
+          <div class="row m-t-lg m-b-sm" ng-show="verifyState=='B'">
+            <div class="col-xs-3 text-right">
+              <div class="row">
+                <span class="fa-stack fa-lg text-3x">
+                  <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                  <i class="fa fa-close fa-stack-1x text-white"></i>
+                </span>  
+              </div>
+            </div>
+            <div class="col-xs-9">
+                <h4 class="m-b-xs">抱歉！您申请的工作账号信息未通过验证。</h4>
+                <p>问题信息：{{problem}}</br>请再次完善公司信息登记。</p>
+            </div>
+          </div>
+          <div class="row text-center m-b-lg" ng-show="verifyState=='B'">
+            <div class="col-xs-2 col-xs-offset-5">
+              <a ui-sref="access.Fill_Info" class="btn btn-sm btn-info btn-block">完善信息</a>
+            </div>
+          </div>
+          <div class="row m-t-lg m-b-sm" ng-show="verifyState=='P'">
+            <div class="col-xs-3 text-right">
+              <div class="row">
+                <span class="fa-stack fa-lg text-3x">
+                  <i class="fa fa-circle fa-stack-2x text-success"></i>
+                  <i class="fa fa-check fa-stack-1x text-white"></i>
+                </span>  
+              </div>
+            </div>
+            <div class="col-xs-9">
+                <h4 class="m-t-lg">恭喜您！您申请的公司账号已通过验证。</h4>
+            </div>
+          </div>
+          <div class="row m-b-lg" ng-show="verifyState=='P'">
+            <div class="col-xs-2 col-xs-offset-5">
+              <a ui-sref="app.groupSettings" class="btn btn-sm btn-info btn-block">进入</a>
+            </div>
+          </div>
+        </div>
+      </div>  

@@ -1,0 +1,164 @@
+<div class="hbox-auto-xs hbox-auto-sm" ng-controller="GroupCheckEdit">
+    <div class="panel-heading font-bold text-center">
+        <p class="text-lg">集团加V认证审核</p>
+    </div>
+    <div class="panel-body" ng-model="formData">
+        <form name="form" class="form-validation form-horizontal">
+            <tabset class="tab-container mrt-15">
+                <tab heading="医生集团信息" select="tabs.groupInfo()" active="true">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">医生集团名：</label>
+                            <div class="form-text col-md-10" ng-bind="viewData.name"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">简介：</label>
+                            <div class="form-text col-md-10" ng-bind="viewData.introduction"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">集团图标：</label>
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 ">
+                                <img class="w100" ng-src="{{viewData.logo}}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text-right">集团擅长：</label>
+                            <div class="form-text col-md-10" ng-bind="viewData.skill"></div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="认证公司信息" select="tabs.companyInfo()">
+                    <div ng-if="!hasIdentified">
+                        <h3 class="text-center"><i class="fa fa-exclamation-circle text-warning"></i> 未提交认证公司资料</h3>
+                    </div>
+                    <div ng-if="hasIdentified">
+                        <div class="col-md-12">
+                            <div class="col-md-2 text-right">
+                                <h4 class="info-title bdr-blue">公司基本信息</h4></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">公司全称</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="companyName">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">组织机构代码</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="orgCode">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">工商执照注册号</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="license">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">法定代表人/企业负责人姓名</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="corporation">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">经营范围(一般经营范围)</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="businessScope">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">公司开户名称</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="accountName">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">公司开户银行</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="openBank">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">公司银行账号</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="bankAcct">--</div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class=" col-md-2 text-right"><h4 class="info-title bdr-blue">医生集团管理者信息</h4></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">管理者姓名</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="adminName">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">管理者身份证号码</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="idNo">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">管理者联系电话</label>
+                            <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="adminTel">--</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">管理者证件照片</label>
+                            <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                                <img ng-src="{{idImage || 'src/img/p0.jpg'}}" ngf-src="ctrlPic" width="100%" height="auto">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class=" col-md-2 text-right">
+                                <h4 class="info-title bdr-blue">企业基本资料</h4></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">组织机构代码证</label>
+                            <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                                <img ng-src="{{orgCodeImage || 'src/img/p0.jpg'}}" ngf-src="ctrlPic" width="100%" height="auto">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">企业工商营业执照</label>
+                            <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                                <img ng-src="{{licenseImage || 'src/img/p0.jpg'}}" width="100%" height="auto">
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <div class="line line-dashed b-b line-lg pull-in" ng-if="isChecking"></div>
+            <div class="form-group check-opr" ng-if="isCheckingV">
+                <label class="col-sm-2 control-label">审核意见<i class="fa fa-asterisk text-danger"></i></label>
+
+                <div class="col-sm-6">
+                    <div class="check-items">
+                        <label class="i-checks text-success" for="pass">
+                            <input type="radio" name="check" id="pass" checked required/>
+                            <i></i>
+                            审核通过
+                        </label>
+                    </div>
+                    <div class="check-items">
+                        <label class="i-checks text-danger" for="nopass">
+                            <input type="radio" name="check" id="nopass" required/>
+                            <i></i>
+                            审核不通过
+                            <div class="inner-items">
+                                <label class="i-checks text-muted">
+                                    <input type="radio" name="check-remark" checked/>
+                                    <i></i>
+                                    <span>资料不准确</span>
+                                </label>
+                                <label class="i-checks text-muted">
+                                    <input id="other_remark" type="radio" name="check-remark"/>
+                                    <i></i>
+                                    其它原因
+                                    <div class="inner-items">
+                                        <textarea id="remarkNopass" placeholder="审核意见" class="form-control"
+                                                  ng-model='viewData.remarkNopass'></textarea>
+                                    </div>
+                                </label>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group" ng-if="isCheckingV">
+                <div class="col-sm-offset-2 col-sm-2 col-xs-4">
+                    <button type="submit" class="w100 btn btn-primary" ng-click="submit()" ng-disabled='form.$invalid'>确 定</button>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <button type="button" class="w100 btn btn-default" ng-click="return()">取 消</button>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!isCheckingV">
+                <div class="col-sm-offset-2 col-sm-2 col-xs-4">
+                    <button type="button" class="w100 btn btn-default" ng-click="return()">返 回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

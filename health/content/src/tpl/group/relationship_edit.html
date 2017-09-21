@@ -1,0 +1,56 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="RelationshipEdit">
+    <div class="panel-heading font-bold text-center">设置抽成关系</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-6 cnt-apportion-left cnt-col-lt" style="height: 100%">
+                <p class="form-text text-center">"选择<span class="text-info">上级</span>"</p>
+
+                <div id="cnt_list_relationship" class="list-group">
+                    <div class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                </div>
+            </div>
+            <div class="col-md-6 cnt-apportion-right">
+                <p class="form-text text-center">"若不选择则设置为<span class="text-info">顶级</span>"</p>
+
+                <div class="cnt-apportion-list">
+                    <div id="cnt_list_department"><span class="text-muted">上级</span></div>
+                </div>
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="form-group mb-10">
+                        <label class="control-label col-md-5 text-left">当前医生</label>
+
+                        <p class="control-label col-md-7 text-left text-info" ng-bind="formData.name"></p>
+                    </div>
+                    <div class="form-group mb-10">
+                        <label class="control-label col-md-5 text-left">集团抽成比例</label>
+
+                        <div class="col-md-5">
+                            <input type="text" placeholder="0.00" class="form-control text-center"
+                                   ng-model="formData.groupProfit">
+                        </div>
+                        <p class="form-text col-md-2 text-left">%</p>
+                    </div>
+                    <div class="form-group mb-10">
+                        <label class="control-label col-md-5 text-left">上级抽成比例</label>
+
+                        <div class="col-md-5">
+                            <input type="text" class="form-control text-center" ng-model="formData.superProfit">
+                        </div>
+                        <p class="form-text col-md-2 text-left">%</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">确 定</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

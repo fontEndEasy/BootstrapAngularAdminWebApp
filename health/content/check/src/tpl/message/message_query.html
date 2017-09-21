@@ -1,0 +1,48 @@
+<div class="hbox-auto-xs hbox-auto-sm" ng-controller="MessageQuery">
+    <div class="panel-heading font-bold text-center">
+        短信查询
+    </div>
+    <div class="panel-body" ng-model="formData">
+        <form name="form" class="form-horizontal">
+            <div class="text-danger wrapper text-center" ng-show="authError" ng-bind="authError"></div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <input type="text" placeholder="手机号码" class="form-control" ng-model="formData.phone"/>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="短信内容" class="form-control" ng-model="formData.content"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="submit" class="w100 btn btn-primary" ng-click="submit()">
+                        查 询
+                    </button>
+                </div>
+            </div>
+            <div ng-show="showResult">
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div ng-show="hasResult">
+                    <div class="table-responsive">
+                        <table id="message_table" class="table table-striped b-t b-b">
+                            <thead>
+                            <tr>
+                                <th>用户ID</th>
+                                <th>手机号码</th>
+                                <th>短信内容</th>
+                                <th>创建时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="!hasResult">
+                    <div class="col-md-12 text-center font-lg">没有找到相关内容！</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

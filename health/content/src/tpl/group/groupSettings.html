@@ -1,0 +1,116 @@
+<div class="wrapper-md">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" novalidate name="settingsForm" ng-controller="groupSettingsCtrl">
+                        <div class="row">
+                            <div class="font-bold col-sm-12"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;基本信息</div>
+                        </div>
+                        <div class="row m-t-lg" ng-class="{'has-error':settingsForm.groupName.$invalid&&settingsForm.groupName.$dirty}">
+                            <div class="col-sm-3 text-right">
+                                <label class="control-label">医生集团名</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control " placeholder="医生集团名" name="groupName" ng-model="groupName" required>
+                            </div>
+                            <!-- <div class="col-sm-5">
+                                <div class="row">
+                                    <label class="control-label font-bold">医生集团</label>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row m-t-sm" ng-class="{'has-error':settingsForm.groupInfo.$invalid&&settingsForm.groupInfo.$dirty}">
+                            <div class="col-sm-3 text-right">
+                                <label class="control-label">简介</label>
+                            </div>
+                            <div class="col-sm-9" >
+                                <textarea class="form-control" rows="6" placeholder="填写集团简介" name="groupInfo" ng-model="groupInfo" required></textarea>
+                            </div>
+                        </div>
+                        <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+                        <div class="row m-b-lg">
+                            <div class="font-bold col-sm-12"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;集团财务信息</div>
+                        </div>
+                        <div class="row m-t-sm" ng-class="{'has-error':settingsForm.parentProfit.$invalid&&settingsForm.parentProfit.$dirty}">
+                            <div class="col-sm-3 text-right">
+                                <label class="control-label">上级抽成比例</label>
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <div class="input-group m-b " >
+                                  <input type="text" class="form-control text-center"  ng-model="parentProfit" name="parentProfit" ng-disabled="financialState">
+                                  <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-class="{'has-error':settingsForm.groupProfit.$invalid&&settingsForm.groupProfit.$dirty}">
+                            <div class="col-sm-3 text-right ">
+                                <label class="control-label">集团抽成比例</label>
+                            </div>
+                            <div class="col-sm-3 col-md-2">
+                                <div class="input-group m-b">
+                                  <input type="text" class="form-control text-center" ng-model="groupProfit" ng-disabled="financialState" name="groupProfit">
+                                  <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-3 text-right">
+                                <label class="control-label">允许成员邀请医生加入</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label class="i-checks control-label">
+                                    <input type="radio" name="amemberInvite" ng-model="amemberInvite" ng-disabled="financialState" value="true">
+                                    <i></i>
+                                    是
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="i-checks control-label">
+                                    <input type="radio" name="amemberInvite" ng-model="amemberInvite" ng-disabled="financialState" value="false">
+                                    <i></i>
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm m-b-lg">
+                            <div class="col-sm-2 col-sm-offset-3">
+                                <button class="btn btn-primary btn-block" ng-disabled='settingsForm.$invalid' ng-click="submitBt()">保存</button>
+                            </div>
+                        </div>
+                        <div class="form-group m-t-lg" ng-show="authError">
+                          <div class="col-sm-10 col-sm-offset-3 text-danger">
+                            {{authError}}
+                          </div>
+                        </div>
+
+                    </form>
+                    <form ng-controller="groupLogoSettingsCtrl">
+                    <div class="line m-t-lg  line-dashed b-b line-lg pull-in" ng-show="logoUpdate" ></div>
+                    <div class="row" ng-show="logoUpdate" >
+                        <div class="font-bold col-sm-12"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;修改头像</div>
+                    </div>
+                    <div class="row m-t-sm " ng-show="logoUpdate" >
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">集团图标</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="bg-white text-center ng-File-UpLoad-Bt" nv-file-over="" over-class="b-info" style="min-height:100px;" ngf-select ng-model="groupLogo" name="groupLogo" ngf-max-size="2000000" ng-model-rejected="reGroupLogo" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                              <img src="{{groupLogoUrl}}" ngf-src="groupLogo" width="100%" height="auto">
+                            </div>
+                          </div>
+                          <div class="col-sm-5">
+                            <p>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+                            <div class="progress m-b-none" ng-show="groupLogo.progress>0">
+                              <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{groupLogo.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{groupLogo.progress}}%;min-width: 2em;">
+                                {{groupLogo.progress>0?groupLogo.progress:0}}%
+                                <span class="sr-only">{{groupLogo.progress}}%</span>
+                              </div>
+                            </div>
+                            <p class="font-bold" ng-class="{'text-success text-right':groupLogo.result,'text-danger':reGroupLogo[0].$error}" ng-show="groupLogo.result||reGroupLogo[0].$error">{{groupLogo.result?groupLogo.result:'上传错误：'+reGroupLogo[0].$error}}</p>
+                          </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,256 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ChargeCtrl">
+    <div class="frame-panel">
+        <div class="panel-body">
+            <h2 class="col-lg-6 col-md-10 col-sm-12 m-b-lg text-2x text-center">集团财务</h2>
+            <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+            <form class="form-horizontal" novalidate name="settingsForm">
+                <!--抽成比例-->
+                <div class="profit-wrap">
+                    <div class="row col-md-12">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right"><h4 class="info-title bdr-golden">抽成比例</h4></div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-4 col-md-3 col-lg-2">
+                            <div class="text-center">集团抽成比例</div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <div class="text-center">上级抽成比例</div>
+                        </div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right">
+                            <label class="control-label">在线门诊<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.clinicGroupProfit.$invalid&&settingsForm.clinicGroupProfit.$dirty}">
+                            <div class="input-group m-b ">
+                                <input type="text" class="form-control text-center" ng-model="clinicGroupProfit" autocomplete="off"
+                                       name="clinicGroupProfit" ng-disabled="financialState" tabindex="1" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.clinicParentProfit.$invalid&&settingsForm.clinicParentProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="clinicParentProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="clinicParentProfit" tabindex="2" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">图文咨询<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.textGroupProfit.$invalid&&settingsForm.textGroupProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="textGroupProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="textGroupProfit" tabindex="3" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.textParentProfit.$invalid&&settingsForm.textParentProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="textParentProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="textParentProfit" tabindex="4" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">电话咨询<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.phoneGroupProfit.$invalid&&settingsForm.phoneGroupProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="phoneGroupProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="phoneGroupProfit" tabindex="5" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.phoneParentProfit.$invalid&&settingsForm.phoneParentProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="phoneParentProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="phoneParentProfit" tabindex="6" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">健康关怀<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.carePlanGroupProfit.$invalid&&settingsForm.carePlanGroupProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="carePlanGroupProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="carePlanGroupProfit" tabindex="7" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.carePlanParentProfit.$invalid&&settingsForm.carePlanParentProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="carePlanParentProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="carePlanParentProfit" tabindex="8" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">会诊<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.consultationGroupProfit.$invalid&&settingsForm.consultationGroupProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="consultationGroupProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="consultationGroupProfit" tabindex="7" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2" ng-class="{'has-error':settingsForm.consultationParentProfit.$invalid&&settingsForm.consultationParentProfit.$dirty}">
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control text-center" ng-model="consultationParentProfit" autocomplete="off"
+                                       ng-disabled="financialState" name="consultationParentProfit" tabindex="8" required>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-8 col-md-6 col-lg-4 text-info"><span id="profits_tips">提示：以<i class="fa fa-asterisk text-danger mrr-15"></i>&nbsp;&nbsp;&nbsp;标注的为必填项！</span></div>
+                    </div>
+                </div>
+                <!--END 抽成比例-->
+
+                <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+
+                <!--收费设置-->
+                <div class="charge-wrap">
+                    <div class="row col-md-12">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right"><h4 class="info-title bdr-golden">收费设置</h4></div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-4 col-md-3 col-lg-2">
+                            <div class="text-center">最低价（元）</div>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <div class="text-center">最高价（元）</div>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-sm">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">图文咨询</label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.textMin" required tabindex="9" min="0" max="1000000">
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.textMax" required tabindex="10" min="{{charge.textMin}}" max="1000000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">电话咨询</label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.phoneMin" required tabindex="11" min="0" max="1000000">
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.phoneMax" required tabindex="12" min="{{charge.phoneMin}}" max="1000000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right">
+                            <label class="control-label">健康关怀</label>
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.carePlanMin" required tabindex="13" min="0" max="1000000">
+                        </div>
+                        <div class="col-sm-4 col-md-3 col-lg-2">
+                            <input type="text" class="form-control" placeholder="单位（元）" ng-model="charge.carePlanMax" required tabindex="14" min="{{charge.carePlanMin}}" max="1000000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-8 col-md-6 col-lg-4 text-info"><span id="charge_tips">提示：设置价格范围后，医生集团内部所有的医生套餐价格不能超出此范围。</span></div>
+                    </div>
+                </div>
+                <!--END 收费设置-->
+
+                <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+
+
+                <!--银行卡管理-->
+                <div class="bank-account-wrap">
+                    <div class="row col-md-12">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right"><h4 class="info-title bdr-golden">银行卡管理</h4></div>
+                    </div>
+                    <div class="form-group hide">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">所属银行<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-8 col-md-6 col-lg-4">
+                            <select class="form-control" id="bank_list" tabindex="15">
+                                <option value="12233333323213" selected>招商银行</option>
+                                <option value="12233333366666">兴业银行</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">开户支行<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-8 col-md-6 col-lg-4">
+                            <input class="form-control" ng-model="account.subBank" tabindex="16" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">银行卡号<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-8 col-md-6 col-lg-4">
+                            <input class="form-control" ng-model="account.bankNo" tabindex="17" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">持卡人<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-8 col-md-6 col-lg-4">
+                            <input class="form-control" ng-model="account.userRealName" tabindex="18" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-md-3 col-lg-2 text-right ">
+                            <label class="control-label">身份证号<i class="fa fa-asterisk text-danger"></i></label>
+                        </div>
+                        <div class="col-sm-8 col-md-6 col-lg-4">
+                            <input class="form-control" ng-model="account.personNo" tabindex="19" required>
+                        </div>
+                    </div>
+                    <div class="form-group hide">
+                        <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-8 col-md-2">
+                            <label class="checkbox i-checks m-b-md">
+                                <input type="checkbox" ng-model="account.isDefault" tabindex="20"><i></i>设为默认
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--END 银行卡管理-->
+
+                <div class="form-group mrt-15">
+                    <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-2 col-sm-8 col-md-6 col-lg-4 text-info"><span id="bankAccount_tips">提示：以<i class="fa fa-asterisk text-danger mrr-15"></i>&nbsp;&nbsp;&nbsp;标注的为必填项！</span></div>
+                </div>
+
+                <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+
+                <div class="row m-t-sm m-b-lg">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <button class="btn btn-primary btn-block" ng-disabled='settingsForm.$invalid' ng-click="submit()">保&nbsp;&nbsp;存</button>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg" ng-show="authError">
+                    <div class="col-sm-10 col-sm-offset-3 text-danger">
+                        {{authError}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

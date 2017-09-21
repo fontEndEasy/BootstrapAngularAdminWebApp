@@ -1,0 +1,214 @@
+/*通用模块化样式*/
+
+
+/*边距*/
+
+.m-t-lg {
+    margin-top: 40px;
+}
+
+.m-t-md {
+    margin-top: 30px;
+}
+
+.m-t-sm {
+    margin-top: 20px;
+}
+
+.m-t-xs {
+    margin-top: 10px;
+}
+
+.m-t-xxs {
+    margin-top: 5px;
+}
+
+.m-b-lg {
+    margin-bottom: 40px;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.m-b-sm {
+    margin-bottom: 20px;
+}
+
+.m-b-xs {
+    margin-bottom: 10px;
+}
+
+.p-t-sm {
+    padding-top: 20px;
+}
+
+.p-t-xs {
+    padding-top: 10px;
+}
+
+.p-t-xxs {
+    padding-top: 5px;
+}
+
+.p-b-sm {
+    padding-bottom: 20px;
+}
+
+.p-b-xs {
+    padding-bottom: 10px;
+}
+
+.p-b-xxs {
+    padding-bottom: 5px;
+}
+
+
+/*位置*/
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+
+/*边框*/
+
+.b-t {
+    border-top: 1px solid #e2e2e2;
+}
+
+.b-b {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+
+/*文本*/
+
+.text-lg {
+    font-size: 20px;
+}
+
+.text-md {
+    font-size: 18px;
+}
+
+.text-sm {
+    font-size: 16px;
+}
+
+.text-xs {
+    font-size: 14px;
+}
+
+.text-xxs {
+    font-size: 12px;
+}
+
+.text-xxxs {
+    font-size: 10px;
+}
+
+.text-undeline {
+    text-decoration: underline;
+}
+
+
+/*标记*/
+
+.tag {
+    display: inline-block;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.tag-lg {
+    font-size: 22px;
+    line-height: 26px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.tag-sm {
+    font-size: 18px;
+    line-height: 22px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.tag-xs {
+    font-size: 16px;
+    line-height: 20px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.tag-blue {
+    color: #2da4c4;
+    border-color: #2da4c4;
+}
+
+.tip {
+    display: inline-block;
+    /*padding: 0px 3px;*/
+    width: 14px;
+    text-align: center;
+}
+
+
+/*颜色*/
+
+.bg-white {
+    background: #fff;
+}
+
+.bg-default {
+    background: #f1f1f1;
+}
+
+.bg-light_purple {
+    background: #f1f0f5;
+}
+
+.bg-blue {
+    background: #2da4c4;
+}
+
+.bg-warning {
+    background: #ec971f;
+}
+
+.bg-danger {
+    background: #c9302c;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.color-blue {
+    color: #2da4c4;
+}
+
+.color-qianhui {
+    color: #626262;
+}
+
+
+/*隐藏显示*/
+
+.hide {
+    display: none;
+}
+
+
+/*按钮*/
+
+.btn-blue {
+    color: #2da4c4;
+    border-color: #2da4c4;
+    background-color: #fff;
+}

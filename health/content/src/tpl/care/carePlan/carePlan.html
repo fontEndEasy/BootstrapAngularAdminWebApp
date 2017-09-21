@@ -1,0 +1,300 @@
+<div class="org hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="CarePlanCtrl">
+    <div class="sch-frame-panel">
+        <div class="row">
+            <h4 class="font-bold text-center m-b-md">新建健康关怀计划</h4>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">健康关怀计划介绍</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2 text-right">计划名称：</label>
+                            <label class="control-label col-sm-3 text-left">{{planData.name}}</label>
+                            <label class="control-label col-sm-2 text-right">所属病种：</label>
+                            <label class="control-label col-sm-3 text-left">{{planData.diseaseTypeName}}</label>
+                        </div>
+                    </div>
+                    <div class="row m-t-xs">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2 text-right">计划简介：</label>
+                            <label class="control-label col-sm-3 text-left">{{planData.digest}}</label>
+                            <label class="control-label col-sm-2 text-right">价格：</label>
+                            <label class="control-label col-sm-3 text-left">{{planData.price>=0?planData.price/100+'元':''}}</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger btn-sm m-t-xs" ng-click="openEdit()">&nbsp;&nbsp;编 辑&nbsp;&nbsp;</button>
+                <!-- 七牛上传组件 -->
+                <qiniu-uploader token="{{token}}" bucket="vpan" upload="upload" file-list="fileList" max-file-size="99999gb" chunk-sizee="1mb"></qiniu-uploader>
+                <!-- 七牛上传组件 end -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="panel-title">健康关怀计划项目</h3>
+            </div>
+        </div>
+        <div class="clearfix m-t-sm" style="padding:0 0 0 35px">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 b-l b-grey">
+                            <div class="m-b-lg" ng-repeat="schedulePlan in planData.schedulePlans">
+                                <div class="m-l-n-xl inline pull-left">
+                                    <span class="m-t-xs badge bg-info badge-md bg-light text-white" style="margin-left:13px;">{{$index+1}}</span>
+                                </div>
+                                <div class="b bg-white b-grey r-2x clearfix">
+                                    <div class="col-xs-12 m-b-sm">
+                                        <div class="p-t-xs clearfix">
+                                            <div class="pull-left text-dark m-t-xxs">
+                                                第
+                                                <select ng-model="schedulePlan.dateSeq" ng-change="changeSeq(schedulePlan.id,schedulePlan.dateSeq)" ng-options="item as item for item in dateSeqS(planData.executeTime,schedulePlan.dateSeq,planData.schedulePlans[$index-1].dateSeq,planData.schedulePlans[$index+1].dateSeq)">
+                                                </select>
+                                                天
+                                            </div>
+                                            <div class="pull-right text-dark">
+                                                <button type="button" class="btn btn-danger btn-xs m-t-xs" ng-click="deleteSchedulePlan(schedulePlan.id,$index)" ng-show="schedulePlan.id">撤消此日程</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 m-b-sm" ng-repeat="careItem in schedulePlan.careItems">
+                                        <!-- 其它提醒 -->
+                                        <div ng-if="careItem.type===60" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>其它提醒</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="addRemind(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,careItem.otherRemind.content)">编辑</button>
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="deleteCareItem(careItem.id)">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="m-t-sm m-b-sm m-l-xs">
+                                                        <ul>
+                                                            <li class="block clearfix m-b-xs">
+                                                                {{careItem.otherRemind.content}}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 用药关怀 -->
+                                        <div ng-if="careItem.type===20" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>用药关怀</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="addMedication(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,careItem.medicalCare.medicalInfos)">编辑</button>
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="deleteCareItem(careItem.id)">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="row">
+                                                        <table class="table table-striped m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                    </th>
+                                                                    <th>
+                                                                        药品名
+                                                                    </th>
+                                                                    <th>
+                                                                        包装规格
+                                                                    </th>
+                                                                    <th>
+                                                                        生产厂家
+                                                                    </th>
+                                                                    <th>
+                                                                        药量
+                                                                    </th>
+                                                                    <th>
+                                                                        用法用量
+                                                                    </th>
+                                                                    <th>
+                                                                        周期
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="medicalInfo in careItem.medicalCare.medicalInfos">
+                                                                    <td>
+                                                                        <img ng-src="{{medicalInfo.image}}" width="50" height="50" ng-if="medicalInfo.image">
+                                                                        <img src="src/img/medicine.png" width="50" height="50" ng-if="!medicalInfo.image">
+                                                                    </td>
+                                                                    <td>{{medicalInfo.general_name}}</td>
+                                                                    <td>{{medicalInfo.pack_specification}}</td>
+                                                                    <td>{{medicalInfo.manufacturer}}</td>
+                                                                    <td>{{medicalInfo.totalQuantity.quantity+medicalInfo.totalQuantity.unit}}</td>
+                                                                    <td>{{medicalInfo.usage.period.text}}/{{medicalInfo.usage.times}}次，每次{{medicalInfo.usage.quantity}}</td>
+                                                                    <td>每{{medicalInfo.reminder.gapDay}}天，持续{{medicalInfo.reminder.duration}}天</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 检查检验项 -->
+                                        <div ng-if="careItem.type===50" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>检查检验项</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button ng-click="addCheckRemind(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,careItem.checkItem)" type="button" class="btn btn-default btn-xs">编辑</button>
+                                                    <button ng-click="deleteCareItem(careItem.id)" type="button" class="btn btn-default btn-xs">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="m-t-sm m-b-sm m-l-xs clearfix">
+                                                        <span class="pull-left">
+                                                            <label ng-repeat="check in careItem.checkItem.checks">{{check.name}}
+                                                                <k ng-if="!$last">／</k>
+                                                            </label>
+                                                        </span>
+                                                        <div class="pull-right">
+                                                            <button ng-click="addCheckDocReply(careItem.id,careItem.checkItem.doctorReply)" type="button" class="btn btn-default btn-xs">医生回复</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 生活量表 -->
+                                        <div ng-if="careItem.type===30" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>生活量表</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button ng-click="addLifeQuality(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,careItem.lifeScaleItem)" type="button" class="btn btn-default btn-xs">编辑</button>
+                                                    <button ng-click="deleteCareItem(careItem.id)" type="button" class="btn btn-default btn-xs">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="m-t-sm m-b-sm m-l-xs clearfix">
+                                                        <span class="pull-left">
+                                                            {{careItem.lifeScaleItem.lifeScaleName}}
+                                                        </span>
+                                                        <!-- <div class="pull-right">
+                                                            <button type="button" class="btn btn-default btn-xs">查看</button>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 调查表 -->
+                                        <div ng-if="careItem.type===40" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>调查表</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button ng-click="addSurvey(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,careItem.surveyItem)" type="button" class="btn btn-default btn-xs">编辑</button>
+                                                    <button ng-click="deleteCareItem(careItem.id)" type="button" class="btn btn-default btn-xs">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="m-t-sm m-b-sm m-l-xs clearfix">
+                                                        <span class="pull-left">
+                                                            {{careItem.surveyItem.surveyName}}
+                                                        </span>
+                                                        <!-- <div class="pull-right">
+                                                            <button type="button" class="btn btn-default btn-xs">查看</button>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 病情跟踪 -->
+                                        <div ng-if="careItem.type===10" class="m-t-md">
+                                            <div class="clearfix">
+                                                <div class="bg-light pull-left clearfix">
+                                                    <div class="text-sm bold m-t-xs m-b-xs m-r-md m-l-md">
+                                                        <b>病情跟踪</b>
+                                                        <span class="m-l-md">发送时间：{{careItem.sendTime}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <button ng-click="addTtriggerMsg(careItem.id,careItem.illnessTrack.triggerMsg)" type="button" class="btn btn-default btn-xs">触发消息</button>
+                                                    <button ng-click="deleteCareItem(careItem.id)" type="button" class="btn btn-default btn-xs">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="b b-2x b-light col-xs-12">
+                                                    <div class="m-t-sm m-b-sm m-l-xs clearfix" ng-repeat="question in careItem.illnessTrack.questions">
+                                                        <span class="pull-left">
+                                                            {{question.name}}
+                                                            <button ng-click="editTips(question)" type="button" class="btn btn-default btn-xs">小帖士</button>
+                                                        </span>
+                                                        <div class="pull-right">
+                                                            <small class="p-t-xs" ng-if="question.sourceId">第{{question.askSeq}}次提问，共重复{{question.askCount}}次&nbsp;</small>
+                                                            <button ng-click="moveIllnessTrack(careItem.id, $index+1, -1)" ng-hide="$first" type="button" class="btn btn-default btn-xs">上移</button>
+                                                            <button ng-click="moveIllnessTrack(careItem.id, $index+1, 1)" ng-hide="$last" type="button" class="btn btn-default btn-xs">下移</button>
+                                                            <button ng-click="addIllnessTrack(schedulePlan.dateSeq,schedulePlan.id, careItem.id,careItem.sendTime,question)" ng-if="!question.sourceId" type="button" class="btn btn-default btn-xs">编辑</button>
+                                                            <button ng-click="repeatAsk(question,careItem.sendTime)" ng-if="!question.sourceId" type="button" class="btn btn-default btn-xs">重复提问</button>
+                                                            <button ng-click="removeIllnessTrackQuestion(question.id)" type="button" class="btn btn-default btn-xs">删除</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 m-t-xs m-b-md form-inline">
+                                        <div class="form-group text-sm">
+                                            添加关怀项目：
+                                        </div>
+                                        <div class="form-group">
+                                            <button ng-click="addIllnessTrack(schedulePlan.dateSeq,schedulePlan.id)" type="button" class="btn btn-default btn-sm">病情跟踪</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="addMedication(schedulePlan.dateSeq,schedulePlan.id)">用药关怀</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button ng-click="addLifeQuality(schedulePlan.dateSeq,schedulePlan.id)" type="button" class="btn btn-default btn-sm">生活量表</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button ng-click="addSurvey(schedulePlan.dateSeq,schedulePlan.id)" type="button" class="btn btn-default btn-sm">调查表</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="addCheckRemind(schedulePlan.dateSeq,schedulePlan.id)">检查检验项</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="addRemind(schedulePlan.dateSeq,schedulePlan.id)">其他提醒</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm" ng-click="addSchedulePlan()" ng-disabled="!planData.id">添加日程项目</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

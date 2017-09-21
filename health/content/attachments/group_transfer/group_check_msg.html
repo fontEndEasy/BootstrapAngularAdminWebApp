@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生集团转让</title>
+    <link href="base.css" type="text/css" rel="stylesheet">
+    <script src="../../assets/config.js"></script>
+    <style>
+        html, body, p, ul, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background: #EBEBEB;
+            font: normal normal normal 16px/1.4em '微软雅黑', Arial;
+            color: #555;
+        }
+
+        .m-t-md{
+            margin-top: 20px;
+        }
+        .wrapper{
+            line-height: 24px;
+            padding: 15px;
+        }
+        .pass{
+            font-weight: bold;
+            color: #39CF78;
+        }
+        .no-pass{
+            font-weight: bold;
+            color: #e80000;
+        }
+        .text-info{
+            color: #9d4fff;
+        }
+        .div-line-1px{
+            height: 1px;
+            margin: 1em 0;
+            background-color: #bbb;
+        }
+        .div-line-2px{
+            height: 2px;
+            margin: 1em 0;
+            background-color: #bbb;
+        }
+        .none{
+            display: none !important;
+        }
+        .m-b-md{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper m-t-md">
+    <p class="m-b-md">您申请的集团 ( <span id="group" class="text-info "></span> ) <span class="no-pass"> 未通过审核 </span>！</p>
+    <p>审核时间：<span id="date"></span></p>
+    <div class="div-line-1px"></div>
+    <p>原因：<span id="reason" class="no-pass"></span></p>
+</div>
+<div id="mask" class="mask mask-bg none">
+    <div class="mask-text">
+        <p id="mask_text">正在处理，请稍候！</p>
+        <p id="mask_process"><span></span><b></b><span></span><span></span><span></span><span></span></p>
+    </div>
+</div>
+<script src="base.js"></script>
+<script>
+    window.onload = function () {
+        function getParameter(url){
+            var url = url.search;
+            var theRequest = {};
+            if (url.indexOf('?') != -1) {
+                var str = url.substr(1);
+                str = str.split("&");
+                for (var i = str.length - 1; i >= 0; i--) {
+                    theRequest[str[i].split("=")[0]] = decodeURI(str[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var params = getParameter(window.location);
+        var group = document.getElementById('group');
+        var date = document.getElementById('date');
+        var reason = document.getElementById('reason')
+        var mask = document.getElementById('mask');
+
+        mask.setAttribute('class', 'mask mask-bg');
+        addProcess();
+
+        if(!params.groupApplyId || !params.access_token){
+            mask.setAttribute('class', 'mask none');
+            alert('参数有误！');
+        }else {
+
+            var dataStr = 'groupApplyId=' + (params.groupApplyId || '') + '&access_token=' + (params.access_token || '');
+
+            ajax({
+                url: serverApiRoot + '/group/groupApplyHistoryInfo',
+                data: dataStr,
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+                    if (resp.resultCode == '1') {
+                        var dt = resp.data;
+                        group.innerHTML = dt.name;
+                        //date.innerHTML = new Date(dt.auditDate).toLocaleString();
+                        date.innerHTML = dateFormat(dt.auditDate, 'yyyy年MM月dd日,hh点mm分ss秒');
+                        reason.innerHTML = dt.auditMsg;
+                        mask.setAttribute('class', 'mask none');
+                    } else {
+                        mask.setAttribute('class', 'mask none');
+                        alert(resp.resultMsg);
+                    }
+                },
+                error: function () {
+                    mask.setAttribute('class', 'mask none');
+                    alert("服务端出错！");
+                }
+            });
+        }
+    };
+</script>
+</body>
+
+</html>

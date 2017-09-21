@@ -1,0 +1,93 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Integration">
+    <div class="frame-panel mailcontainer">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3 text-left">积分规则</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-right mrr-10">
+                    <button ng-show="!is_btn_show" type="button" class="btn btn-primary btn-success" style="padding-left:30px; padding-right:30px;" ui-sref="app.integration.edit_integration({type:'edit',ids:currIds,name:currName})">
+                        <span class="hid">编 辑</span>
+                    </button>
+                    <button ng-show="is_btn_show" type="button" class="btn btn-primary" ui-sref="app.integration.edit_integration({type:'add',ids:currIds,name:currName})">
+                        <span class="hid">添加药品积分</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="mail-left">
+                    <div class="search">
+                        <input type="text" placeholder="使用药品名称" ng-model="search.general_name" />
+                    </div>
+                    <ul class="query_for_integration_list">
+                        <li ng-repeat="list in query_for_integration_list | filter:search" id="{{list.id}}"><a href="javascript:void(0);">{{list.general_name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10" style="padding-left:0;">
+                <div class="row mail-right">
+                    <div class="intcontent">
+                        <span class="hd">已发放积分</span>
+                        <span class="inttotal">{{yffjf}}分</span>
+                        <span class="hd">已被消费积分</span>
+                        <span class="intcurr">{{ybxfjf}}分</span>
+                    </div>
+                    <div class="integtitle" ng-show="!is_btn_show">
+                        当前积分规则
+                    </div>
+                    <div class="row integcontent" ng-show="!is_btn_show">
+                        <div class="col-md-5">
+                            <div class="col-md-7 text-right">启用获取积分日期：</div>
+                            <div class="col-md-5 text-left">{{start_date}}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-7 text-right">停用获取积分日期：</div>
+                            <div class="col-md-5 text-left">{{end_date}}</div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-7 text-right">本平台药店销售单品获得积分数：</div>
+                            <div class="col-md-5 text-left">{{bptydxsdphdjfs}}分</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-7 text-right">其他渠道销售单品获得积分数：</div>
+                            <div class="col-md-5 text-left">{{qtqdxsdphdjfs}}分</div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-7 text-right">赠药最低所需积分数：</div>
+                            <div class="col-md-5 text-left">{{zyzdsxjfs}}分</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-7 text-right">赠送每单位药品消耗积分数：</div>
+                            <div class="col-md-5 text-left">{{zsmdwypxhjfs}}分</div>
+                        </div>
+                    </div>
+                    <div class="integtitle">
+                        积分发放/兑换记录
+                        <a href="javascript:void(0);" ng-click="select_c_PZJF_MTDSJ('30');">近30天</a>
+                        <a href="javascript:void(0);" ng-click="select_c_PZJF_MTDSJ('7');">近7天</a>
+                    </div>
+                    <div class="integration-table" ng-show="!is_date_list_show">
+                        <table id="integration-table" class="tablebox table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>发放积分数</th>
+                                    <th>兑换积分数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tlist in select_c_PZJFGZ_list">
+                                    <th>{{tlist.z_dt_date}}</th>
+                                    <th>{{tlist.yffjf}}</th>
+                                    <th>{{tlist.ybxfjf}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

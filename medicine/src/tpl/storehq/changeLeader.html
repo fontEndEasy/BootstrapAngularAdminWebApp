@@ -1,0 +1,68 @@
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right changeLeader" ng-controller="changeLeader">
+    <div class="panel-heading font-bold text-center">更换店长</div>
+    <div class="row" style="margin:0; height:50px; padding-top:10px; padding-left:10px;">
+        <span class="s1" ng-show='create' style="line-height:30px;">
+            <strong>{{sub_title}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;没有合适的店员人选？你还可以 &nbsp;&nbsp;
+            <button ng-click='toggle(0);' type="button" class="w40 btn btn-primary pull-right">创建新店长</button>
+        </span>
+        <span class="s2" ng-hide='create' style="line-height:30px;">
+            <strong>{{sub_title}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;不想创建新店长？你还可以&nbsp;&nbsp;
+            <button ng-click='toggle(1);' type="button" class="w40 btn btn-primary pull-right">任命一位店员</button>
+        </span>
+    </div>
+    <div class="lab-container" style="padding:0; margin:0;"></div>
+    <div>
+        <div class="panel-heading">
+            <div class="row">
+                <div class="integration-table">
+                    <table ng-show="create" class="table table-striped table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="radios" ng-repeat="l in list">
+                                <td>
+                                    <div class="radio" style="border:none;">
+                                        <label class="i-checks">
+                                            <input type="radio" id="checkbox" name="checkbox" value="{{l.user.id}}" data-tel="{{l['user$mobile_phone']}}">
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{l.name}}</td>
+                                <td>{{l['user$mobile_phone']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 没有合适的人选 那也可以去新建一个店长信息 -->
+    <div style="padding: 10px;" ng-hide="create">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model='name' placeholder="店长姓名">
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model='tel' placeholder="店长手机号">
+            </div>
+            <br>
+        </form>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>

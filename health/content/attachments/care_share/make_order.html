@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>健康关怀计划</title>
+    <link href="base.css" type="text/css" rel="stylesheet">
+    <script src="../../assets/config.js"></script>
+    <style>
+        html, body, p, ul, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background: #EBEBEB;
+            font: normal normal normal 16px/1.4em '微软雅黑', Arial;
+            color: #555;
+        }
+
+        .gd-step > div > h4 {
+            font-weight: bold;
+        }
+
+        .gd-step > div > p {
+            margin-bottom: 30px;
+        }
+
+        .gd-next a {
+            display: block;
+            width: 100%;
+            line-height: 40px;
+            border-radius: 10px;
+            background-color: #39CF78;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .gd-step-set div input {
+            width: 100%;
+            height: 30px;
+            padding: 5px 0;
+            margin-bottom: 20px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            background-color: #fff;
+            text-align: center;
+            font: normal normal normal 18px/40px '微软雅黑', Arial;
+            outline: none;
+            color: #666;
+        }
+
+        .gd-step-set div button, .gd-step-status div button {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border: none;
+            border-radius: 6px;
+            background-color: #39CF78;
+            text-align: center;
+            color: #fff;
+            font: normal normal normal 18px/40px '微软雅黑', Arial;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .gd-step-set {
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .gd-step-set h3 {
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .gd-step-set p {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gd-step-status {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .gd-step-status img {
+            display: block;
+            width: 40%;
+            max-width: 163px;
+            margin: 0 auto 20px;
+        }
+
+        .gd-step-status h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .gd-step-status p {
+            line-height: 1.5em;
+            text-align: center;
+        }
+
+        .gd-step-status div {
+            margin: 15% 0 0;
+        }
+
+        .gd-step-status div h3 {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        .gd-step-status div div {
+            margin: 20px 0 0;
+        }
+
+        .gd-step-status div {
+            margin: 15% 0 0;
+        }
+
+        .gd-step-status div h3 {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .none {
+            display: none;
+        }
+
+        #care_name {
+            color: #ff5b5a;
+            font-weight: bold;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div id="step_a" class="gd-step-set">
+    <h3>第一步</h3>
+
+    <p>请在下框输入您的手机号码，将套餐添加到您的玄关健康账户。</p>
+
+    <div>
+        <input id="phone_number" type="text" placeholder="输入您的手机号码" tabindex="0" minlength="11" maxlength="11"/>
+        <button id="submit">提 交</button>
+    </div>
+</div>
+<div id="step_b" class="gd-step-status none">
+    <img src="img/ok-ico.png"/>
+
+    <h2>恭喜您，添加成功！</h2>
+
+    <p><span id="care_name">胰腺癌健康关怀计划</span>已经添加到您的账户里，您只需登录玄关健康APP即可查看到该订单。</p>
+
+    <div>请打开您手机短信里的链接登录APP！</div>
+</div>
+<div id="step_c" class="gd-step-status none">
+    <img src="img/ok-ico.png"/>
+
+    <h2>恭喜您，添加成功！</h2>
+
+    <p>请用您的手机号注册玄关健康账户，您登陆账户后即可看到关怀计划的订单。</p>
+
+    <div>
+        <h3>还没安装玄关健康APP？</h3>
+
+        <p>请打开您手机短信里的链接去下载APP。</p>
+    </div>
+</div>
+<div id="mask" class="mask mask-bg none">
+    <div class="mask-text">
+        <p id="mask_text">正在处理，请稍候！</p>
+
+        <p id="mask_process"><span></span><b></b><span></span><span></span><span></span><span></span></p>
+    </div>
+</div>
+<script src="base.js"></script>
+<script>
+    window.onload = function () {
+
+        var params = getParameter(window.location);
+
+        var mask = document.getElementById('mask');
+        var maskText = document.getElementById('mask_text');
+        var submit = document.getElementById('submit');
+        var name = document.getElementById('care_name');
+        var stepA = document.getElementById('step_a');
+        var stepB = document.getElementById('step_b');
+        var stepC = document.getElementById('step_c');
+
+        name.innerHTML = params.careName || '';
+
+        submit.addEventListener('touchstart', function () {
+            var phoneNumber = document.getElementById("phone_number").value;
+            if (!phoneNumber) {
+                alert('请输入手机号码！');
+                return;
+            } else if (phoneNumber.match(/\D/g) || phoneNumber.length !== 11 || phoneNumber.charAt(0) != 1) {
+                alert('请输入有效的手机号码！');
+                return;
+            }
+            //return;
+
+            var appUrl = {
+                doctor: 'dachenappdoctor://phonenumber=' + phoneNumber,
+                patient: 'dachenapppatient://phonenumber=' + phoneNumber,
+                nurse: 'dachenappnurse://phonenumber=' + phoneNumber
+            }
+
+            //stepA.setAttribute('class', 'gd-step-set none');
+            //stepB.setAttribute('class', 'gd-step-status animating fade-in-up');
+            //stepC.setAttribute('class', 'gd-step-status animating fade-in-up');
+
+            if (params.packId) {
+                var dataStr = 'packId=' + (params.packId || '') + '&telephone=' + phoneNumber;
+            } else {
+                var dataStr = 'tk=' + (params.tk || '') + '&telephone=' + phoneNumber;
+            }
+
+            mask.setAttribute('class', 'mask mask-bg');
+            addProcess();
+
+            ajax({
+                url: serverApiRoot + '/pack/order/submitCareOrder',
+                //data: 'packId=' + 744 + '&telephone=' + phoneNumber,
+                data: dataStr,
+                type: 'post',
+                dataType: 'json',
+                success: function (resp) {
+                    console.log(resp);
+
+                    if (resp.resultCode == '1') {
+                        var dt = resp.data;
+
+                        stepA.setAttribute('class', 'gd-step-set none');
+
+                        mask.setAttribute('class', 'mask none');
+                        if (dt && dt.reg) {
+                            stepB.setAttribute('class', 'gd-step-status animating fade-in-up');
+                        } else {
+                            stepC.setAttribute('class', 'gd-step-status animating fade-in-up');
+                        }
+                    } else {
+                        mask.setAttribute('class', 'mask none');
+                        alert(resp.resultMsg);
+                        //alert("获取数据失败！");
+                    }
+                },
+                error: function () {
+                    mask.setAttribute('class', 'mask none');
+                    alert("服务端出错！");
+                }
+            });
+
+        });
+
+    };
+
+</script>
+</body>
+
+</html>

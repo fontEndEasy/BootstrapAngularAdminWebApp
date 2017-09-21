@@ -1,0 +1,170 @@
+<div class="frame-panel cst cst-list" ng-controller="topUpConfirmCtrl">
+    <div class="content">
+        <h1 class="text-center" style="font-size: 24px;font-weight: bold;">
+            充值确认
+        </h1>
+        <div class="panel panel-default m-t-lg m-b-sm">
+            <div class="m-l-sm m-r-sm clearfix">
+                <div class="row m-t-sm m-b-sm">
+                    <div class="col-xs-10">
+                        <div class="form-inline form-counter">
+                            <label class="control-label">厂商&nbsp;</label>
+                            <select class="form-control text-sm" style="width:150px" ng-model="_vendorId" ng-change="getDrugs(_vendorId)">
+                                <option value="">
+                                    全部
+                                </option>
+                                <option value="{{vendor.id}}" ng-repeat="vendor in vendors">{{vendor.name}}</option>
+                            </select>
+                            <label class="control-label">&nbsp;品种</label>
+                            <select class="form-control text-sm" style="width:150px" ng-model="_drugId">
+                                <option value="">
+                                    全部
+                                </option>
+                                <option value="{{drug.id}}" ng-repeat="drug in drugs">{{drug.title}}</option>
+                            </select>
+                            <label class="control-label">&nbsp;开始日期&nbsp;</label>
+                            <label class="control-label " style="padding:0px;width:180px">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="yyyy/mm/dd" ng-model="start_date" is-open="startBtn" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event,'startBtn')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </label>
+                            <label class="control-label">&nbsp;结束日期&nbsp;</label>
+                            <label class="control-label " style="padding:0px;width:180px">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="yyyy/mm/dd" ng-model="end_date" is-open="endBtn" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event,'endBtn')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </label>
+                            <label class="control-label">&nbsp;状态&nbsp;</label>
+                            <select class="form-control text-sm" ng-model="_status" style="width:60px">
+                                <option value="{{vendor.value}}" ng-repeat="vendor in statusOption">{{vendor.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <button class="btn btn-info btn-sm r r-2x" ng-click="getWalletRechargeList(null,1,start_date,end_date,_status,_vendorId,_drugId)">查询</button>
+                        <button class="btn btn-primary btn-sm r r-2x">导出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default m-b-none">
+        <table class="table table-striped m-none table-layout-fixed" style="border:1px solid #eaeff0;border-top:none;">
+            <thead>
+                <tr>
+                    <th width="7%">
+                        充值日期
+                    </th>
+                    <th width="13%">
+                        厂商
+                    </th>
+                    <th width="13%">
+                        品种名称
+                    </th>
+                    <th width="8%">
+                        收款账户
+                    </th>
+                    <th width="8%">
+                        对方银行
+                    </th>
+                    <th width="8%">
+                        对方户名
+                    </th>
+                    <th width="12%">
+                        对方帐号
+                    </th>
+                    <th width="8%">
+                        申请金额
+                    </th>
+                    <th width="8%">
+                        到账金额
+                    </th>
+                    <th width="11%">
+                        状态
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-hide="walletRechargeList.length>0">
+                    <td colspan="11" class="text-center">
+                        无数据
+                    </td>
+                </tr>
+                <tr ng-repeat="walletRecharge in walletRechargeList" ng-show="walletRechargeList.length>0">
+                    <td>
+                        {{walletRecharge.createDate | date:'yyyy/MM/dd'}}
+                    </td>
+                    <td class="autocut">
+                        {{walletRecharge.enterpriseName}}
+                    </td>
+                    <td class="autocut">
+                        {{walletRecharge.goodsNo}}
+                    </td>
+                    <td class="autocut">
+                        {{walletRecharge.receiveBank}}
+                    </td>
+                    <td class="autocut">
+                        {{walletRecharge.transferBank}}
+                    </td>
+                    <td class="autocut">
+                        {{walletRecharge.transferAccountPerson}}
+                    </td>
+                    <td>
+                        {{walletRecharge.transferAccountNo}}
+                    </td>
+                    <td>
+                        {{(walletRecharge.applyMoney||0)/100 | currency:"￥"}}
+                    </td>
+                    <td>
+                        {{(walletRecharge.money||0)/100 | currency:"￥"}}
+                    </td>
+                    <td style="position:relative" ng-mouseover="walletRecharge.btnBoxIsShow=true" ng-mouseleave="walletRecharge.btnBoxIsShow=false">
+                        <small><i class="fa fa-circle m-r-xs" ng-class="{1:'text-muted',2:'text-info',3:'text-success',5:'text-danger',6:'text-danger'}[walletRecharge.status]"></i> </small> {{{'1':'待核对',2:'已核对',3:'已审核',5:'批退',6:'批退'}[walletRecharge.status]}}
+                        <span style="position:absolute;top:2px;left:0px;z-index:1px;width:100px" ng-show="walletRecharge.btnBoxIsShow">
+                            <button class="btn btn-danger btn-sm r r-2x" ng-click="walletRechargeApprove(walletRecharge.id,6,walletRecharge)" ng-if="walletRecharge.status==2">批退</button>
+                            <button class="btn btn-success btn-sm r r-2x" ng-click="walletRechargeApprove(walletRecharge.id,3,walletRecharge)" ng-if="walletRecharge.status==2">审核</button>
+                            <!-- <button class="btn btn-danger btn-sm r r-2x" ng-click="walletRechargeApprove(walletRecharge.id,5,walletRecharge)" ng-if="walletRecharge.status==1">批退</button> -->
+                            <button class="btn btn-info btn-sm r r-2x m-l-lg" ng-click="walletRechargeApprove(walletRecharge.id,2,walletRecharge)" ng-if="walletRecharge.status==1">核对</button>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <pagination ng-show="page_count>1" total-items="page_count" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChange()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+    </div>
+    <script type="text/ng-template" id="CheckMoneyDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title text-md">核对金额</h3>
+        </div>
+        <div class="modal-body text-center clearfix">
+            <p class="text-md">厂商的充值申请金额为{{applyMoney/100}}元
+                <br>核对后的实际到账金额为：</p>
+            <div class="col-xs-10 col-xs-offset-1 m-t-sm">
+                <div class="input-group">
+                    <input type="number" class="form-control" ng-model="money" placeholder="请填写收到的金额">
+                    <span class="input-group-addon">元</span>
+                </div>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 m-t">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <button class="btn btn-success btn-sm btn-block m-r-xs" type="button" ng-click="ok()">&nbsp;&nbsp;确 定&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <button class="btn btn-default btn-sm btn-block m-l-xs" type="button" ng-click="close()">&nbsp;&nbsp;取 消&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>

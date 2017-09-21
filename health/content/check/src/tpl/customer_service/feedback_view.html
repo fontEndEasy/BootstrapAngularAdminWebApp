@@ -1,0 +1,48 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="FeedbackView">
+  <div class="panel-heading font-bold text-center">
+    反馈详情
+  </div>
+  <div class="panel-body" ng-model="viewData">
+    <form name="form" class="form-validation form-horizontal">
+      <div class="text-danger wrapper text-center" ng-show="authError" ng-bind="authError"></div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">姓名</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.userName"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">用户类型</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.userTypeTiltle"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">用户ID</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.userId"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 col-xs-11 control-label">版本</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.clientVersion"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">终端系统</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.phoneSystem"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">终端品牌</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.phoneModel"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">反馈时间</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.createTime"></p>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">反馈意见</label>
+        <p class="col-sm-6 form-text" ng-bind="viewData.content"></p>
+      </div>
+      <div class="line line-dashed b-b line-lg pull-in"></div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-2 col-xs-4">
+          <button type="button" class="w100 btn btn-primary" ng-click="return()">返回</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

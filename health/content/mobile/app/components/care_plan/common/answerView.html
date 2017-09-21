@@ -1,0 +1,30 @@
+<style type="text/css">
+body {
+    background: none !important;
+}
+</style>
+<div class="clearfix">
+    <div class="clearfix">
+        <div class="col-xs-12 bg-white p-t-sm p-b-sm">
+            <!-- 题目 -->
+            <div class="row p-b-xs">
+                <div class="col-xs-12">
+                    <div class="text-md p-t-xxxs p-b-xxxs">{{page+1}}.{{questionlist[page].issueName}} ({{page+1}}/{{questionlist.length}})</div>
+                </div>
+            </div>
+            <!-- 选择题 -->
+            <div class="row">
+                <div class="col-xs-12 bg-white p-t-xs p-b-xs" ng-repeat="answer in questionlist[page].resAnswers">
+                    <div class="text-sm" ng-click="choose(answer.optionsId,questionlist[page].issueId,questionlist[page].orderCareId,answer.score)" ng-class="{'color-blue':isChoose(answer.optionsId)}">
+                        <span class="tag tag-xs tag-blue" ng-class="{true:'bg-blue color-white'}[isChoose(answer.optionsId)]">{{answer.options}}</span>&nbsp; {{answer.optionsName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 m-t-md m-b-lg text-center">
+        <button type="button" class="btn btn-blue" ng-click="prev()" ng-hide="page==0">上一题</button>
+        <button type="submit" class="btn btn-blue" ng-click="submit()" ng-show="page==questionlist.length-1">提交</button>
+        <button type="button" class="btn btn-blue" ng-click="next()" ng-hide="page==questionlist.length-1">下一题</button>
+    </div>
+</div>

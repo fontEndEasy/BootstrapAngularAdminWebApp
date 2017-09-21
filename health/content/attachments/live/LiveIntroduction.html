@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会议说明</title>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #edefee;
+            font: normal normal normal 16px/1.8em '微软雅黑', Arial;
+            color: #555;
+            overflow: hidden;
+        }
+        img{
+            display: block;
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+        }
+
+        .gd-step{
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            /*bottom: 61px;*/
+            padding: 0 15px 40px;
+            overflow-y: auto;
+        }
+        .gd-step p{
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+        .fixed-footer button{
+            width: 100%;
+            padding: 13px 0;
+            background-color: #3cbafe;
+            color: #fff;
+            font-size: 20px;
+            border: none;
+            border-radius: 6px;
+        }
+        .fixed-footer{
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gd-step">
+        <p>1. 将嘉宾密码与观看密码分别发送给对方的与会人员，告知其参会事项；</p>
+        <img src="img/a.png">
+        <p>2. 在PC端浏览器上打开“加入链接”地址，输入您企业端的账号和会议的组织密码或嘉宾密码，点击“进入”；</p>
+        <img src="img/b.png">
+        <p>3. 若您是第一次进入，需要按提示下载并安装启动器；</p>
+        <img src="img/c.png">
+        <p>4. 若以前安装过，直接点击“点击启动”即可；</p>
+        <img src="img/d.png">
+        <p>5. 当您进入到会议直播界面时，点击右上角的“开始直播”按钮即可进行会议直播啦~</p>
+        <img src="img/e.png">
+    </div>
+<!--    <div class="fixed-footer">
+        <div>
+            <button onClick="closeWin()">我知道了</button>
+        </div>
+    </div>-->
+<script type="text/javascript">
+    function closeWin() {
+        window.close();
+    }
+</script>
+</body>
+
+</html>

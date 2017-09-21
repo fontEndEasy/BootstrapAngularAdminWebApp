@@ -1,0 +1,35 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="ExpertSettingCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-3 col-xs-0"></div> -->
+            <div class="col-md-12 mrb-15">
+                <h2 class="title-3 text-center">专家名单设置</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 cnt-col-lt" style="padding-right: 15px">
+                <div class="list-group">
+                    <div ng-if="loading" class="loading none">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </div>
+                    <div id="lab_container" class="lab-container">
+                        <div ng-repeat="expert in experts"><i class="fa fa-times" ng-click="removeItem(expert)"></i><h3>{{expert.name||"undefined"}}</h3></div>
+                    </div>
+                    <div class="btn-container mrb-15">
+                        <button type="button" class="btn btn-primary" ng-click="addData()">
+                            <i class="fa fa-pencil"></i>
+                            <span class="hid">修改专家名单</span>
+                        </button>
+                        <button type="button" class="btn btn-success" ng-click="save()">
+                            <i class="fa fa-save"></i>
+                            <span class="hid">保 存</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,11 @@
+<div class="modal-body clearfix p-lg">
+    <div class=" w-full position-relative">
+        <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+    </div>
+    <div class="text-center text-xs m-t">
+        <span class="text-2x text-dark"><i class="fa fa-phone fa-lg"></i>{{data.toTel}}</span>
+    </div>
+    <div class="text-center m-t">
+        <button type="button" ng-click="callPhone(data.fromTel,data.toTel)" class="btn btn-success btn-sm p-l-md p-r-md">拨打电话<i class="fa" ng-class="{true:'fa-spinner fa-spin'}[call.isCalling]"></i></button>
+    </div>
+</div>

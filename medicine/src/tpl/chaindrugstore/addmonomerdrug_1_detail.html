@@ -1,0 +1,48 @@
+modal dialog -->
+<div class="mask"></div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="monomerDetail">
+    <div class="panel-heading font-bold text-center">修改店员信息</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-6 cnt-apportion-right">
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" id='name' placeholder="姓名" class="form-control" ng-model="name" reuired>
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="手机号" id='tel'  class="form-control" ng-maxlength="11" required ng-trim="true" ng-model="tel" reuired>{{name}}
+                        </div>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="备注" id='remark' class="form-control" ng-model="remark" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="radio" name="bm" value="1" checked="checked"/>在职
+							<input name="bm" type="radio" value="2"/> 离职
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog

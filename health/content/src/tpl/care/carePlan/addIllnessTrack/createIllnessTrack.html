@@ -1,0 +1,147 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">创建病情跟踪</div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="m-t row">
+                <div class="col-xs-2 text-right">
+                    <div class="m-t-sm">
+                        发送时间：
+                    </div>
+                </div>
+                <div class="col-xs-10 form-inline">
+                    <time-set-cpn time="illnessTrackData.sendTime" hour-step="1" minute-step="30" class="form-inline"></time-set-cpn>
+                    <div class="form-group">
+                        多个病情跟踪问题将发送时间设为相同，系统会自动为题组发送给患者
+                    </div>
+                </div>
+            </div>
+            <div class="m-t row">
+                <div class="col-xs-2 text-right">
+                    <div class="m-t-sm">
+                        问题标题：
+                    </div>
+                </div>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" ng-model="illnessTrack.name" placeholder="请填写问题标题">
+                </div>
+            </div>
+            <div class="m-t row m-b-lg">
+                <div class="col-xs-2 text-right">
+                    <div class="m-t-sm">
+                        问题选项：
+                    </div>
+                </div>
+                <div ng-repeat="option in illnessTrack.options | orderBy:'seq' " ng-class="$first?'':'col-xs-offset-2'" class="col-xs-10">
+                    <div class="row">
+                        <div class="col-xs-7 form-inline">
+                            <div class="form-group m-t-sm">
+                                <label>
+                                    <input type="radio" name="radio" disabled>
+                                    <span ng-bind="option.seq=$index+1"></span> .
+                                    <a editable-text="option.name" blur="submit" ng-class="option.name?'':'text-danger'">{{option.name||'不能为空'}}</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-5 form-inline text-right">
+                            <select class="form-control" ng-model="option.levelName" ng-change="optionChange(option,['正常','异常','危险'])">
+                                <option ng-repeat="item in ['正常','异常','危险']" ng-selected="option.level==$index+1?true:false">{{item}}</option>
+                            </select>
+                            <button ng-click="addAppendQuestion(option)" class="btn btn-sm btn-default" style="padding: 6px 10px">追加问题</button>
+                            <button class="btn btn-sm btn-danger" ng-click="removeItem(option,illnessTrack.options)" ng-hide="illnessTrack.options.length<3">删除</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-10 col-xs-offset-2 m-t-sm">
+                    <button class="btn btn-info btn-sm" ng-click="addOption()">添加选项</button>
+                </div>
+            </div>
+            <div class="m-b-sm row" ng-repeat="option in illnessTrack.options | orderBy:'seq' " ng-if="option.appendQuestions&&option.appendQuestions.length>0">
+                <div class="col-xs-2 col-xs-offset-2">
+                    <div class="m-t-sm">
+                        选项{{$index+1}}追加：
+                    </div>
+                </div>
+                <div ng-repeat="appendQuestion in option.appendQuestions track by $index | orderBy:'seq'" ng-class="$first?'':'col-xs-offset-4'" class="col-xs-8 m-b-sm">
+                    <div class=" b b-grey clearfix">
+                        <div class="col-sm-2 text-center clearfix">
+                            <h4 class="m-t-md">Q<span ng-bind="appendQuestion.seq=$index+1"></span>:</h4>
+                            <div class="m-t-sm">
+                                <a ng-click="exchangeItem(appendQuestion,option.appendQuestions[$index-1],option.appendQuestions)" ng-if="!$first" title="向上移动"><i class="fa fa-arrow-up"></i></a>
+                            </div>
+                            <div>
+                                <a ng-click="exchangeItem(appendQuestion,option.appendQuestions[$index+1],option.appendQuestions)" ng-if="!$last" title="向下移动"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                            <div class="m-t-sm">
+                                <button ng-click="copyAppendQuestion(appendQuestion,option.appendQuestions)" class="btn btn-default btn-xs">复制</button>
+                            </div>
+                            <div class="m-t-xs">
+                                <button class="btn btn-default btn-xs" ng-click="removeItem(appendQuestion,option.appendQuestions)">删除</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="b-l b-grey clearfix" style="min-height:160px">
+                                <div class="m-l-md m-t-sm">
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="题目" ng-model="appendQuestion.name">
+                                    </div>
+                                    <ul class="m-b-sm">
+                                        <li class="clearfix m-t-sm" ng-repeat="appendOption in appendQuestion.options | orderBy:'seq'">
+                                            <div class="pull-left">
+                                                <label class="m-t-xs">
+                                                    <input type="radio" disabled> &nbsp;&nbsp;
+                                                    <span ng-bind="appendOption.seq=$index+1"></span>.
+                                                    <a editable-text="appendOption.name" blur="submit" ng-class="appendOption.name?'':'text-danger'">{{appendOption.name||'不能为空'}}</a>
+                                                </label>
+                                            </div>
+                                            <div class="pull-right clearfix m-l-xs">
+                                                <button class="btn btn-default btn-sm" ng-click="removeItem(appendOption,appendQuestion.options)" ng-hide="appendQuestion.options.length<3">删除</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="m-t-sm m-b-sm">
+                                        <button ng-click="addAppendOption(appendQuestion)" class="btn btn-info btn-sm">添加选项</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-2">
+        <button type="button" class="btn-block btn btn-primary" ng-click="collect()">保存并收藏</button>
+    </div>
+    <div class="col-md-offset-6 col-md-2">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>
+<style type="text/css">
+.editable-controls {
+    margin-top: 0px !important;
+    border: 0px !important;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 3px 12px;
+}
+
+.editable-click,
+a.editable-click {
+    border: 0px;
+    color: #666;
+}
+
+.editable-click,
+a.editable-click.text-danger {
+    color: #D14;
+}
+</style>

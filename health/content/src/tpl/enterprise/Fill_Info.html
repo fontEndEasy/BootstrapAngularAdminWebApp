@@ -1,0 +1,134 @@
+<div class="container w-auto-xs " ng-controller="FillInfoController">
+    <a href class="navbar-brand block m-t">{{app.name}}</a>
+
+    <div class="panel panel-default m-t-lg col-lg-10 col-lg-offset-1">
+        <div class="row">
+            <div class="panel-heading font-bold clearfix">
+                <div class="col-sm-12">公司账户注册</div>
+            </div>
+        </div>
+        <div class="panel-body ">
+            <form class="form-horizontal" novalidate name="FillInfoForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="col-sm-12"><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;公司账户基本信息&nbsp;&nbsp;&nbsp;&nbsp;<i
+                            class="fa fa-chevron-right"></i>&nbsp;&nbsp;公司账户基本信息
+                    </div>
+                </div>
+                <div class="form-group m-t-lg"
+                     ng-class="{'has-error':FillInfoForm.coName.$invalid&&FillInfoForm.coName.$dirty}">
+                    <label class="control-label col-sm-2">公司名称</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control " placeholder="公司名称" name="coName" ng-model="coName"
+                               required>
+                        <span class="help-block m-b-none">需与营业执照上名称完全一致，审核通过后，企业名称不可修改</span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error':FillInfoForm.coInfo.$invalid&&FillInfoForm.coInfo.$dirty}">
+                    <label class="control-label col-sm-2">公司简介</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="6" placeholder="请填写公司简介" name="coInfo" ng-model="coInfo"
+                                  required></textarea>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error':FillInfoForm.licNum.$invalid&&FillInfoForm.licNum.$dirty}">
+                    <label class="control-label col-sm-2">营业执照注册号</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control " placeholder="营业执照注册号" name="licNum" ng-model="licNum"
+                               required>
+                        <span class="help-block m-b-none">请输入15位营业执照注册号</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">营业执照文件</label>
+
+                    <div class="col-sm-5">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" nv-file-over="" over-class="b-info"
+                             style="min-height:100px;" ngf-select ng-model="licPic" name="licPic" ngf-max-size="2000000"
+                             ng-model-rejected="reLicPic" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                            <img src="{{licPicUrl}}" ngf-src="licPic" width="100%" height="auto"
+                                 ng-show="licPic.progress>0 || licPicUrl">
+                            <i ng-show="!licPic.progress && !licPicUrl" class="fa fa-file-picture-o"
+                               style="font-size:80px;line-height:100px;color:#dee5e7;"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <p>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+
+                        <div class="progress m-b-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold"
+                                 role="progressbar m-b-none" aria-valuenow="{{licPic.progress}}" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: {{licPic.progress}}%;min-width: 2em;">
+                                {{licPic.progress>0?licPic.progress:0}}%
+                                <span class="sr-only">{{licPic.progress}}%</span>
+                            </div>
+                        </div>
+                        <p class="font-bold"
+                           ng-class="{'text-success text-right':licPic.result,'text-danger':reLicPic[0].$error}"
+                           ng-show="licPic.result||reLicPic[0].$error">
+                            {{licPic.result?licPic.result:'上传错误：'+reLicPic[0].$error}}</p>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error':FillInfoForm.ctrlName.$invalid&&FillInfoForm.ctrlName.$dirty}">
+                    <label class="control-label col-sm-2">管理者身份证姓名</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control " placeholder="管理者身份证姓名" name="ctrlName"
+                               ng-model="ctrlName" required></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者证件照片</label>
+
+                    <div class="col-sm-4">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:160px;" ngf-select
+                             ng-model="ctrlPic" ngf-max-size="2000000" ng-model-rejected="reCtrlPic"
+                             accept="'.jpg,.jpeg,.png,.bmp'" required>
+                            <img src="{{ctrlPicUrl}}" ngf-src="ctrlPic" width="100%" height="auto"
+                                 ng-show="ctrlPic.progress>0 || ctrlPicUrl">
+                            <i ng-show="!ctrlPic.progress && !ctrlPicUrl" class="fa fa-file-picture-o"
+                               style="font-size:80px;line-height:160px;color:#dee5e7;"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>
+                            身份证上所有信息清晰可见，必须能看清证件号，照片需免冠，建议未化妆，手持人五官清晰，照片内容真是未经修改。
+                            <br>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+
+                        <div class="progress m-b-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold"
+                                 role="progressbar m-b-none" aria-valuenow="{{ctrlPic.progress}}" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: {{ctrlPic.progress}}%;min-width: 2em;">
+                                {{ctrlPic.progress>0?ctrlPic.progress:0}}%
+                                <span class="sr-only">{{ctrlPic.progress}}%</span>
+                            </div>
+                        </div>
+                        <p class="font-bold"
+                           ng-class="{'text-success text-right':ctrlPic.result,'text-danger':reCtrlPic[0].$error}"
+                           ng-show="ctrlPic.result||reCtrlPic[0].$error">
+                            {{ctrlPic.result?ctrlPic.result:'上传错误：'+reCtrlPic[0].$error}}</p>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <img src="src/img/ctrlPicSample.png" width="100%" height="auto">
+                        <br>参考示例
+                    </div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <div class="col-sm-3 col-sm-offset-2">
+                        <button class="btn btn-primary btn-block" ng-click="submitInfo()"
+                                ng-disabled="fromState==null?FillInfoForm.$invalid:fromState">提交申请
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg" ng-show="authError">
+                    <div class="col-sm-10 col-sm-offset-2 text-danger">
+                        {{authError}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

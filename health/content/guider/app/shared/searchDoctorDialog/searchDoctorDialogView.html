@@ -1,0 +1,111 @@
+<script type="text/ng-template" id="searchDoctorDialogBox.html">
+    <div class="modal-body clearfix p-lg" style="height: 800px;" st-table="displayedCollection" st-safe-src="rowCollection">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <div class="form-group">
+                    <div class="input-group b b-dark rounded">
+                        <input type="text" class="form-control input-sm bg-light no-border rounded padder ng-pristine ng-untouched ng-valid"  ng-keypress="pressEnter($event)" placeholder="搜索平台医生，根据姓名、科室、擅长、职称、医院" ng-model="keyWord" style="height:36px">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-sm bg-light rounded" ng-click="searchByKeyWord()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-t">
+            <div class="col-xs-2  h-max-600 overflow-auto">
+                <!--<div treecontrol class="tree-classic m-l-n clearfix" tree-model="dataForTheTree" on-selection="showSelected(node)" selected-node="selected">-->
+                <!--{{node.name}}-->
+                <!--</div>-->
+                <div class="checkbox">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="checkStatus.isCity" ng-click="clearKeyWord()">
+                        <i></i> 同城
+                    </label>
+                </div>
+                <div class="checkbox" style="margin-top: 10px;">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="checkStatus.isHospital" ng-click="clearKeyWord()">
+                        <i></i> 同医院
+                    </label>
+                </div>
+                <div class="checkbox" style="margin-top: 10px;">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="checkStatus.isTitle" ng-click="clearKeyWord()">
+                        <i></i> 同职称
+                    </label>
+                </div>
+            </div>
+            <div class="col-xs-10 b-l">
+                <div  style="height: 600px;overflow-y: auto;">
+                <table class="table m-b-n">
+                    <thead>
+                        <tr>
+                            <th st-sort="doctorName" width="35%">医生</th>
+                            <th st-sort="departments" width="15%">科室</th>
+                            <th width="10%">就诊量</th>
+                            <th st-sort="hospital" width="20%">线下执业</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in displayedCollection" ng-show="displayedCollection.length>0">
+                            <td>
+                                <a class="position-relative r r-3x clear pull-left m-r-sm" ng-click="openDoctorInfoDailog(row.doctorId,gId,2,cancel)">
+                                    <img class="" ng-src="{{row.headPicFileName}}">
+                                    <span class="position-absolute absolute-bottom absolute-left absolute-right bg-danger text-center text-white" ng-if="row.troubleFree==2">
+                                        <small>免打扰</small>
+                                    </span>
+                                </a>
+                                <p class="pull-left">
+                                    <h5>{{row.name}}<small class="bg-info p-l-xs p-r-xs text-white r m-l-sm" ng-if="row.title">{{row.title}}</small></h5>
+                                    <small class="text-muted clear text-ellipsis w-200">擅长：{{row.skill}}</small>
+                                </p>
+                            </td>
+                            <td>{{row.departments}}</td>
+                            <td>{{row.cureNum||0}}</td>
+                            <td>{{row.hospital}}</td>
+                            <td>
+                                <button class="btn btn-info btn-xs" type="button" ng-click="openDoctorInfoDailog(row.doctorId,gId,2,cancel)">查看详情</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="row in displayedCollection" ng-show="!displayedCollection">
+                            <td colspan="5" class="text-center">无相关数据</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="text-center" st-pagination="" st-items-by-page="20" st-displayed-pages="5" st-template="searchDoctorDialogPage.html"></div>
+            </div>
+        </div>
+    </div>
+    <!-- doctor-info-dailog -->
+    <doctor-info-dailog open="openDoctorInfoDailog" go-running="goRunning"></doctor-info-dailog>
+    <!-- doctor-info-dailog end -->
+</script>
+<script type="text/ng-template" id="searchDoctorDialogPage.html">
+    <nav ng-if="pages.length >= 2">
+        <ul class="pagination">
+            <!-- <li><a ng-click="selectPage(1)">首页</a></li> -->
+            <!-- <li ng-if="currentPage>4">
+                <a style="cursor: default;">....</a>
+            </li> -->
+            <!-- <li><a ng-click="selectPage(currentPage - 1)">上一页</a></li> -->
+
+            <li ng-repeat="page in pages" ng-class="{active: page==currentPage}">
+                <a ng-click=" selectPage(page) ">{{page}}</a>
+            </li>
+            <!-- <li ng-if="currentPage<numPages-3 ">
+                <a style="cursor: default; ">....</a>
+            </li> -->
+            <!-- <li><a ng-click="selectPage(currentPage + 1) ">下一页</a> -->
+            <!-- </li>
+            <li>
+                <a ng-click="selectPage(numPages) ">尾页</a>
+            </li> -->
+        </ul>
+    </nav>
+</script>

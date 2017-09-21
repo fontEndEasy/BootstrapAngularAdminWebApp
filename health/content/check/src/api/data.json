@@ -1,0 +1,31 @@
+{
+  "aaData": [{
+    "code": "001",
+    "name": "大辰科技",
+    "fullname": "深圳大辰科技有限公司",
+    "abbr": "大辰",
+    "super": "上级组织",
+    "fax": "0755-89832230",
+    "tel": "0755-89832231",
+    "time": "9:00-18:00",
+    "location": "深圳市科兴科学园",
+    "zipCode": "518000",
+    "etablishedTime": "2014/6/23",
+    "founder": "Mr ..",
+    "foundedTime": "2014/8/8"
+  },{
+    "code": "002",
+    "name": "浩瀚科技",
+    "fullname": "深圳浩瀚科技有限公司",
+    "abbr": "浩瀚",
+    "super": "上级组织",
+    "fax": "0755-89832230",
+    "tel": "0755-89832231",
+    "time": "9:00-18:00",
+    "location": "深圳市科兴科学园",
+    "zipCode": "518000",
+    "etablishedTime": "2014/6/23",
+    "founder": "Mr ..",
+    "foundedTime": "2014/8/8"
+  }]
+}

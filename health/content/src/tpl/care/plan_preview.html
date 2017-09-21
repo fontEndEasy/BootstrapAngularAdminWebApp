@@ -1,0 +1,116 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="PlanPreviewCtrl">
+    <div class="sch-frame-panel">
+        <div class="row">
+            <h4 class="panel-heading font-bold mrl-10">新建健康关怀计划</h4>
+        </div>
+        <div class="panel-body ">
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 text-right">计划名称：</label>
+                        <label class="control-label col-sm-3">{{planData.careName}}</label>
+                        <label class="control-label col-sm-2 text-right">所属病种：</label>
+                        <label class="control-label col-sm-3">{{planData.categoryName}}</label>
+                    </div>
+                </div>
+                <div class="row m-t-xs">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 text-right">计划简介：</label>
+                        <label class="control-label col-sm-3">{{planData.careDesc}}</label>
+                        <label class="control-label col-sm-2 text-right">价格：</label>
+                        <label class="control-label col-sm-3">{{planData.price / 100}}&nbsp;元</label>
+                    </div>
+                </div>
+                <div class="row m-t-lg">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="ng-isolate-scope" ng-class="{1:'active'}[tabNbr]" ng-click="tebChange(1)">
+                                <a href="" class="ng-binding">病情跟踪</a>
+                            </li>
+                            <li class="ng-isolate-scope" ng-class="{2:'active'}[tabNbr]" ng-click="tebChange(2)">
+                                <a href="" class="ng-binding">日程提醒</a>
+                            </li>
+                            <li class="ng-isolate-scope" ng-class="{3:'active'}[tabNbr]" ng-click="tebChange(3)">
+                                <a href="" class="ng-binding">生活量表</a>
+                            </li>
+                            <li class="ng-isolate-scope" ng-class="{4:'active'}[tabNbr]" ng-click="tebChange(4)">
+                                <a href="" class="ng-binding">用药关怀</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content m-t-sm">
+                            <div class="tab-pane ng-scope" ng-class="{1:'active'}[tabNbr]">
+                                <div ng-repeat="track in planData.tracks">
+                                    <div class="row">
+                                        <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}.
+                                            {{track.ghnrContent}}</label>
+                                    </div>
+                                    <div class="line line-dashed b-b pull-in"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane ng-scope " ng-class="{2:'active'}[tabNbr]">
+                                <div ng-repeat="remind in planData.reminds">
+                                    <div class="row">
+                                        <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index +
+                                            1}}.{{remind.ghnrContent}}</label>
+                                    </div>
+                                    <div class="line line-dashed b-b pull-in"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane ng-scope" ng-class="{3:'active'}[tabNbr]">
+                                <div ng-repeat="scale in planData.scales">
+                                    <div class="row">
+                                        <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index +
+                                            1}}.{{scale.ghnrContent}}</label>
+                                    </div>
+                                    <div class="line line-dashed b-b pull-in"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane ng-scope" ng-class="{4:'active'}[tabNbr]">
+                                <div ng-show="planData.drugs[0].drugViews.length > 0">
+                                    <table id="medicineList" class="table table-striped b-b">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>产品名（商品名）</th>
+                                            <th>包装规格</th>
+                                            <th>生产厂家</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in planData.drugs[0].drugViews">
+                                            <td><img style="border:1px solid #eee;border-radius:2px" ng-src="{{item.image_url || item.image || 'src/img/medicine.png'}}"/></td>
+                                            <td>{{item.trade_name || item.general_name}}</td>
+                                            <td>{{item.pack_specification}}</td>
+                                            <td>{{item.manufacturer}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center m-t-sm">
+                    <div class="col-sm-4 col-lg-offset-4">
+                        <div class="col-sm-4 text-center">
+                            <button type="button" class="btn btn-info" ng-click="editor()">&nbsp;&nbsp;编 辑&nbsp;&nbsp;</button>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <button type="button" class="btn btn-danger" ng-click="delete()">&nbsp;&nbsp;删 除&nbsp;&nbsp;</button>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <button type="button" class="btn btn-primary" ng-click="back()">&nbsp;&nbsp;返 回&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- </form>
+    -->
+
+</div>

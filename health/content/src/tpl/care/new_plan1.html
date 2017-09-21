@@ -1,0 +1,163 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="NewCarePlanCtrl">
+    <form class="form-horizontal" novalidate name="NewCarePlanFrom">
+        <div class="panel panel-default m-t-lg col-lg-10 col-lg-offset-1">
+            <div class="row">
+                <div class="panel-heading font-bold ">新建健康关怀计划</div>
+            </div>
+            <div class="panel-body ">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="control-label col-sm-2">计划名称：</label>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <input type="text" class="form-control " placeholder="计划名称" id="planName" name="planName" ng-model="planName" required>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-2">所属病种：</label>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" value="{{care_plan_disease.name}}" disabled="disabled" required>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="chooseDisease()">选择</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-xs">
+                        <label class="control-label col-sm-2">计划简介：</label>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <textarea class="form-control" rows="6" placeholder="计划简介" name="planInfo" ng-model="planInfo"></textarea>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-2">价格：</label>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="价格" name="planPrice" ng-model="planPrice" required>
+                                    <span class="input-group-addon">&nbsp;&nbsp;元&nbsp;&nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="carePlanMin && carePlanMax"><code>{{carePlanMin}}~{{carePlanMax}}元</code></div>
+                        </div>
+                    </div>
+                    <div class="row m-t-lg">
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                <li class="ng-isolate-scope" ng-class="{1:'active'}[tabNbr]" ng-click="tebChange(1)">
+                                    <a href="" class="ng-binding">病情跟踪</a>
+                                </li>
+                                <li class="ng-isolate-scope" ng-class="{2:'active'}[tabNbr]" ng-click="tebChange(2)">
+                                    <a href="" class="ng-binding">日程提醒</a>
+                                </li>
+                                <li class="ng-isolate-scope" ng-class="{3:'active'}[tabNbr]" ng-click="tebChange(3)">
+                                    <a href="" class="ng-binding">生活量表</a>
+                                </li>
+                                <!-- <li class="ng-isolate-scope" ng-class="{4:'active'}[tabNbr]" ng-click="tebChange(4)">
+                                  <a href="" class="ng-binding">用药关怀</a>
+                                </li> -->
+                            </ul>
+                            <div class="tab-content m-t-lg">
+                                <div class="tab-pane ng-scope" ng-class="{1:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot1">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}. {{shelf.ghnrContent}}</label>
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-default btn-xs m-t-xs" ng-click="removeShelf($index,'depot1')">删除</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane ng-scope " ng-class="{2:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot2">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}. {{shelf.ghnrContent}}</label>
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-default btn-xs m-t-xs" ng-click="removeShelf($index,'depot2')">删除</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane ng-scope" ng-class="{3:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot3">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-0">{{$index + 1}}. {{shelf.ghnrContent}}</label>
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-default btn-xs m-t-xs" ng-click="removeShelf($index,'depot3')">删除</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="tab-pane ng-scope" ng-class="{4:'active'}[tabNbr]">
+                                    <div ng-repeat="shelf in care_plan_depots.depot4">
+                                        <div class="row">
+                                            <label class="control-label text-left col-sm-8 col-sm-offset-1">{{shelf.ghnrContent}}</label>
+                                            <div class="col-sm-2">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-default btn-xs m-t-xs" ng-click="removeShelf($index,'depot1')">删除</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    </div>
+                                </div> -->
+                                <div class="row text-left">
+                                    <div class="col-sm-10 ">
+                                        <button type="button" ng-disabled="care_plan_disease?false:true" class="btn btn-info btn-sm" ng-click="showPop(tabNbr)">添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center m-b-lg">
+            <div class="col-sm-12">
+                <button type="submit" ng-disabled="NewCarePlanFrom.$invalid || (care_plan_disease?false:true)" class="btn btn-primary" ng-click="savePlan()">确认提交</button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{care_plan_disease.name}}</h3>
+        </div>
+        <div class="modal-body">
+            <div ng-show="items.length > 0">
+                <select multiple="" class="form-control text-md" ng-model="selectItem" ng-model-options="" ng-options="((items.indexOf(item)+1)+'： '+item.ghnrContent) for item in items">
+                </select>
+            </div>
+            <div class="row text-lg text-center" ng-hide="items.length > 0">
+                无相关数据
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="add()">添加</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="diseaseSelected.html">
+        <div class="modal-header">
+            <h3 class="modal-title">选择病种</h3>
+        </div>
+        <div style="height:320px;overflow-y:scroll;">
+            <div class="modal-body list-group" id="sch_cnt_list"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="add()">确定</button>
+            <button class="btn btn-info" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </script>
+</div>

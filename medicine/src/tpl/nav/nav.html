@@ -1,0 +1,451 @@
+<div class="aside-wrap" ng-controller="navCtrl">
+    <div class="navi-wrap" ng-model="datas">
+        <!-- 连锁店开始 -->
+        <div ng-show="{{datas.c_ChainDrugStore}}">
+            <!-- logo -->
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                <div class="dropdown wrapper">
+                    <a>
+                        <span class="thumb-lg w-auto-folded m-t-sm">
+                            <img ng-src="{{img_path}}" class="img-full" alt="...">
+                        </span>
+                    </a>
+                    <a data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                        <span class="clear">
+                            <span class="block m-t-sm"><strong class="font-bold text-lt">{{user_name}}</strong></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="line dk hidden-folded"></div>
+            </div>
+            <!-- /logo -->
+            <!-- list -->
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <!-- list 连锁店 -->
+                <ul class="nav" ng-scope>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.chaindrugstore" href class="nav-item">
+                            <i class="fa fa-book icon-users"></i>
+                            <span class="font-bold">通讯录</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.chainvarietylist" href class="auto nav-item">
+                            <i class="fa fa-book  icon-layers"></i>
+                            <span class="font-bold">品种库</span>
+                        </a>
+                    </li>
+                    <!-- <li ui-sref-active="active">
+							<a ui-sref="app.varietylistconfirm" href class="nav-item">
+								<i class="fa fa-book icon-wallet"></i>
+								<span class="fa font-bold">品种库认证</span>
+							</a>
+						</li> -->
+                    <li ng-if="userData._roles=='shop_manager'">
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-book  icon-pie-chart"></i>
+                            <span>销售管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>销售管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.chainsalesmanager" class="nav-item">
+                                    <span>抽成比例</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.chainsalestable" class="nav-item">
+                                    <span>推广销售报表</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.chainsalesrankinglist" class="nav-item">
+                                    <span>销售排行榜</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-database"></i>
+                            <span>患者积分管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>患者积分管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.chainintegrationtable" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-layers"></i> -->
+                                    <span>积分兑换报表</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.chainintegrationactive" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-globe"></i> -->
+                                    <span>积分兑换活动</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.system_message" href class="nav-item">
+                            <i class="fa fa-comment"></i>
+                            <span class="font-bold">系统消息</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.setting" href class="nav-item">
+                            <i class="fa  fa-cogs"></i>
+                            <span class="font-bold">设置</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.store_manager" href class="nav-item">
+                            <i class="fa fa-book  icon-user-female"></i>
+                            <span class="font-bold">管理员</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- 连锁店结束 -->
+        <!--  药厂 开始-->
+        <div ng-show="{{datas.c_DrugFactory}}">
+            <!-- logo -->
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                <div class="dropdown wrapper">
+                    <a>
+                        <span class="thumb-lg w-auto-folded m-t-sm">
+                            <img ng-src="{{img_path}}" class="img-full" alt="...">
+                        </span>
+                        <span class="block m-t-sm"><strong class="font-bold text-lt">{{user_name}}</strong></span>
+                    </a>
+                </div>
+                <div class="line dk hidden-folded"></div>
+            </div>
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <ul class="nav ng-scope">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.drugfactory" href class="nav-item">
+                            <i class="fa fa-book icon-users"></i>
+                            <span class="font-bold">通讯录</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-book icon-grid"></i>
+                            <span>品种库</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>品种库</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.factory_varietylist" class="nav-item">
+                                    <span>品种</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.drugcode" class="nav-item">
+                                    <span>药监码</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.capitalpool" href class="nav-item">
+                            <i class="fa fa-cny"></i>
+                            <span class="font-bold">资金池</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-book  icon-pie-chart"></i>
+                            <span>推广管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>推广管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.strategy" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-layers"></i> -->
+                                    <span>推广策略管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.strategyactive" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-globe"></i> -->
+                                    <span>品种推广活动</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-database"></i>
+                            <span>积分管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>积分管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.integration" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-present"></i> -->
+                                    <span>积分规则</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.integrationtable" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-layers"></i> -->
+                                    <span>积分兑换报表</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.integrationactive" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-globe"></i> -->
+                                    <span>参与积分活动药店</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.system_message" href class="nav-item">
+                            <i class="fa fa-book fa-comment-o"></i>
+                            <span class="font-bold">系统消息</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.setting" href class="nav-item">
+                            <i class="fa  fa-cogs"></i>
+                            <span class="font-bold">设置</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.store_manager" href class="nav-item">
+                            <i class="fa fa-book  icon-user-female"></i>
+                            <span class="font-bold">管理员</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- list -->
+        </div>
+        <!-- 药厂 结束-->
+        <!-- 零售店开始 -->
+        <div ng-show="{{datas.c_MonomerDrugStore}}">
+            <!-- logo -->
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                <div class="dropdown wrapper">
+                    <a>
+                        <span class="thumb-lg w-auto-folded m-t-sm">
+                            <img ng-src="{{img_path}}" class="img-full" alt="...">
+                        </span>
+                    </a>
+                    <a data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                        <span class="clear">
+                            <span class="block m-t-sm">
+                                <strong class="font-bold text-lt">{{user_name}}</strong>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="line dk hidden-folded"></div>
+            </div>
+            <!-- /logo -->
+            <!-- list -->
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <!-- list -->
+                <ul class="nav">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.monomerdrugstore" href class="nav-item">
+                            <i class="fa fa-book icon-users"></i>
+                            <span class="font-bold">通讯录</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.monovarietylist" href class="auto nav-item">
+                            <i class="fa fa-book  icon-layers"></i>
+                            <span class="font-bold">品种库</span>
+                        </a>
+                    </li>
+                    <!-- <li ui-sref-active="active">
+						<a ui-sref="app.varietylistconfirm" href class="nav-item">
+							<i class="fa fa-book icon-wallet"></i>
+							<span class="fa font-bold">品种库认证</span>
+						</a>
+					</li> -->
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-book  icon-pie-chart"></i>
+                            <span>销售管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>销售管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.monosalesmanager" class="nav-item">
+                                    <span>抽成比例</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.monosalestable" class="nav-item">
+                                    <span>推广销售报表</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.monosalesrankinglist" class="nav-item">
+                                    <span>销售排行榜</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="fa fa-database"></i>
+                            <span>患者积分管理</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                            <li class="nav-sub-header">
+                                <a href>
+                                    <span>患者积分管理</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.monointegrationtable" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-layers"></i> -->
+                                    <span>积分兑换报表</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.monointegrationactive" class="nav-item">
+                                    <!-- <i class="fa fa-book icon-globe"></i> -->
+                                    <span>积分兑换活动</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.system_message" href class="nav-item">
+                            <i class="fa fa-comment"></i>
+                            <span class="font-bold">系统消息</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.setting" href class="nav-item">
+                            <i class="fa  fa-cogs"></i>
+                            <span class="font-bold">设置</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.store_manager" href class="nav-item">
+                            <i class="fa fa-book  icon-user-female"></i>
+                            <span class="font-bold">管理员</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- list -->
+        </div>
+        <!-- 零售店结束 -->
+        <!-- 总店开始 -->
+        <div ng-show="{{datas.c_StoreHQ}}">
+            <!-- logo -->
+            <div class="clearfix hidden-xs text-center hide show" id="aside-user">
+                <div class="dropdown wrapper">
+                    <a>
+                        <span class="thumb-lg w-auto-folded m-t-sm">
+                            <img ng-src="{{img_path}}" class="img-full" alt="...">
+                        </span>
+                    </a>
+                    <a data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                        <span class="clear">
+                            <span class="block m-t-sm">
+                                <strong class="font-bold text-lt">{{user_name}}</strong>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="line dk hidden-folded"></div>
+            </div>
+            <!-- /logo -->
+            <!-- list -->
+            <nav ui-nav="" class="navi clearfix ng-scope">
+                <!-- list -->
+                <ul class="nav ng-scope">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.storehq" href class="nav-item">
+                            <i class="fa fa-book icon-home"></i>
+                            <span class="font-bold">门店管理</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.pfmanagement" href class="nav-item">
+                            <i class="fa fa-book icon-pie-chart"></i>
+                            <span class="font-bold">推广费管理</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.setting" href class="nav-item">
+                            <i class="fa fa-book icon-settings"></i>
+                            <span class="font-bold">设置</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.store_manager" href class="nav-item">
+                            <i class="fa fa-book icon-user"></i>
+                            <span class="font-bold">管理员</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- list -->
+        </div>
+        <!-- 总店结束 -->
+    </div>
+</div>

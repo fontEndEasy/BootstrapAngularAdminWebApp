@@ -1,0 +1,48 @@
+{
+  "datalist": [{
+    "type": "公共模块",
+    "name": null,
+    "route": null,
+    "count": null,
+    "items": [{
+      "type": null,
+      "name": "角色管理",
+      "route": "app.org.list",
+      "icon": "fa fa-sitemap text-primary",
+      "count": 2,
+      "items": [{
+        "type": null,
+        "name": "部门管理",
+        "route": "app.chart",
+        "count": null,
+        "items": null
+      }]
+    }, {
+      "type": null,
+      "name": "成员管理",
+      "route": "app.employee",
+      "icon": "fa fa-group text-warning",
+      "count": null,
+      "items": [{
+        "type": null,
+        "name": "工作计划",
+        "route": "app.dashboard-1",
+        "count": null,
+        "items": null
+      }, {
+        "type": null,
+        "name": "工作总结",
+        "route": "app.mail.list",
+        "count": null,
+        "items": null
+      }]
+    }, {
+      "type": null,
+      "name": "待审核",
+      "route": "app.org.position",
+      "icon": "fa fa-mortar-board text-info",
+      "count": 24,
+      "items": null
+    }]
+  }]
+}

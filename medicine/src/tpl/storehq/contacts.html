@@ -1,0 +1,76 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="storehqContacts" ng-app="myApp">
+    <div class="navi-wrap" ng-model="datas">
+        <div class="frame-panel">
+            <div class="row" style="margin:0; border-bottom:#cecece solid 1px;">
+                <div class="col-md-3 mrb-15">
+                    <h2 class="title-3 text-left">门店管理</h2>
+                </div>
+                <div class="col-md-9 mrb-10">
+                    <div class="pull-right mrr-10">
+                        <!-- <button type="button" class="btn btn-primary"
+							ng-click="add_store_drug()">
+							<span class="hid">批量添加品种</span>
+						</button> -->
+                        <button type="button" class="btn btn-primary" ui-sref='app.storehq.set_Company'>
+                            <span class="hid">创建门店</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row doormanager-container">
+                <div class="doormanager-center">
+                    <div class="cnt-col-lt doormanager" ng-repeat="s in store_list">
+                        <div id="cnt_list" class="list-group">
+                            <div style="text-align:center; padding-top:10px;" class="text-center">
+                                <img style="width:80px; height:80px;" class="img-circle" ng-src="src/img/a0.jpg">
+                            </div>
+                            <div class="lab-container"></div>
+                            <div style="height:24px;margin-bottom:3px;">
+                                <label style="height: 18px; line-height:18px; width:60px; text-align:right;  margin-bottom: 0; margin-right:5px; text-overflow:ellipsis; white-space:nowrap; overflow: hidden; float:left;">店铺名称: </label>
+                                <label style="height: 18px; line-height:18px; width: 145px; margin-bottom: 0; text-overflow:ellipsis; white-space:nowrap; overflow: hidden; float:left;" title="{{s.name}}">{{s.name}}</label>
+                            </div>
+                            <div style="height:24px;margin-bottom:3px;">
+                                <label style="height: 18px; line-height:18px; width:60px; text-align:right; margin-right:5px;text-overflow:ellipsis; white-space:nowrap; overflow: hidden; float:left;">店长: </label>
+                                <label style="height: 18px; line-height:18px; width: 145px; text-overflow:ellipsis; white-space:nowrap; overflow: hidden; margin-bottom: 0; float:left;" title="{{s.name_shop_manager}}">{{s.name_shop_manager}}</label>
+                            </div>
+                            <div style="height:24px;margin-bottom:3px;">
+                                <label style="height: 18px; line-height:18px; width:60px; text-align:right; margin-right:5px;text-overflow:ellipsis; white-space:nowrap; overflow: hidden; float:left;">管理员: </label>
+                                <label style="height: 18px; line-height:18px; width: 145px; text-overflow:ellipsis; white-space:nowrap; overflow: hidden; margin-bottom: 0; float:left;" title="{{s.name_shop_admin || '无'}}">{{s.name_shop_admin || '无'}}</label>
+                            </div>
+                            <div style="height:24px;margin-bottom:3px; overflow:hidden;">
+                                <label style="height: 18px; line-height:18px; width:60px; text-align:right; margin-right:5px;text-overflow:ellipsis; white-space:nowrap; overflow: hidden; float:left;">创建时间: </label>
+                                <label style="height: 18px; line-height:18px; width: 145px; text-overflow:ellipsis; white-space:nowrap; float:left;">{{s.created_time}}</label>
+                            </div>
+                            <div class="text-center">
+                                <button id="changeLeader" style="margin: 0 auto;" class="btn btn-success text-center" data-toggle="modal" data-target="#myModal_{{s.id}}" ng-click="changeFrame('myModal_'+s.id)">更换店长</button>
+                            </div>
+                            <!-- 弹出框设置更换店长 -->
+                            <div class="modal fade" id="myModal_{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" style="width:400px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">请选择更改店长的方式：</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <button class="btn btn-success w100" style="margin-bottom:10px;" ui-sref="app.storehq.changeleader({id:s.id,type:0})">在该门店选择一位店员任命新店长</button>
+                                            <button class="btn btn-info w100" style="margin-bottom:10px;" ui-sref="app.storehq.changeleader({id:s.id,type:1})">为该门店创建一位新店长</button>
+                                            <button ng-show="is_test" class="btn btn-info w100" style="margin-bottom:10px;" ng-click="storehqdel(s.id);">删除门店</button>
+                                            <button type="button" class="btn btn-default w100" data-dismiss="modal">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" ng-show={{isShow}}>
+                                <div ui-view>
+                                    <p class="text-center form-text">没有可显示的数据！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

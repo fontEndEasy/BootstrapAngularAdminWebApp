@@ -1,0 +1,25 @@
+<div class="modal-over">
+    <div class="modal-center animated fadeInUp text-center" style="width:200px;margin:-160px 0 0 -100px;">
+        <div class="thumb-lg">
+            <img src="assets/img/logo.png" class="img-circle">
+        </div>
+        <p class="h4 m-t m-b">玄关健康导医平台</p>
+        <form name="signinForm" ng-class="{true:'shake animated'}[signinForm.isError]">
+            <div class="clearfix" ng-class="{true:'shake animated'}[signinForm.userName.isNull]">
+                <input type="text" class="form-control text-sm btn-rounded no-border" placeholder="请输入用户名" name="userName" ng-model="userName" ng-disabled="isSingnin" required ng-enter="signin()">
+            </div>
+            <div class="input-group m-t" ng-class="{true:'shake animated'}[signinForm.userPassWord.isNull]">
+                <input type="password" class="form-control text-sm btn-rounded no-border" placeholder="请输入密码" name="userPassWord" ng-model="userPassWord" ng-disabled="isSingnin" required ng-enter="signin()">
+                <div class="input-group-btn box-shadow" title="登录">
+                    <button type="submit" ng-click="signin()" ng-disabled="isSingnin" class="btn btn-success btn-rounded no-border" style="height: 34px;">
+                        <i class="fa" ng-class="{false:'fa-arrow-right',true:'fa-spinner fa-spin'}[isSingnin]"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="text-danger m-t" ng-if="signinError">
+            {{signinError}}
+        </div>
+        <div class="m-t"><a class="text-muted hover-white" ui-sref="resetPassWord">忘记密码？</a></div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<style type="text/css">
+body {
+    background: none !important;
+}
+</style>
+<div class="clearfix">
+    <div class="clearfix">
+        <div class="col-xs-12 bg-white p-t-sm p-b-sm">
+            <!-- 非填空题标题 -->
+            <div class="row p-b-xs" ng-hide="questionlist[page].type == 1">
+                <div class="col-xs-12">
+                    <div class="text-md p-t-xxxs p-b-xxxs">{{page+1}}.{{questionlist[page].content}} ({{page+1}}/{{questionlist.length}})</div>
+                </div>
+            </div>
+            <!-- 选择题 -->
+            <div class="row" ng-show="questionlist[page].type == 2">
+                <div class="col-xs-12 bg-white p-t-xs p-b-xs" ng-repeat="answer in questionlist[page].answers">
+                    <div class="text-sm" ng-click="choose(answer.number,questionlist[page].careIssueId)" ng-class="{'color-blue':isChoose(answer.number)}">
+                        <span class="tag tag-xs tag-blue" ng-class="{'bg-blue color-white':isChoose(answer.number)}">{{answer.number}}</span>&nbsp; {{answer.content}}
+                    </div>
+                </div>
+            </div>
+            <!-- 问答题 -->
+            <div class="row" ng-show="questionlist[page].type == 3">
+                <div class="col-xs-12 bg-white p-t-xs p-b-xs">
+                    <textarea class='form-control answer text-sm' rows='3' placeholder='答案' ng-model="chooseList[page].content"></textarea>
+                </div>
+            </div>
+            <!-- 填空题标题 -->
+            <div class="row p-b-xs" ng-show="questionlist[page].type == 1">
+                <div class="col-xs-12 ">
+                    <div class="text-xs p-t-xxxs p-b-xxxs">{{page+1}}.
+                        <str-to-input question="questionlist[page].content" answer="chooseList[page].content"></str-to-input> ({{page+1}}/{{questionlist.length}})</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 m-t-md m-b-lg text-center">
+        <button type="submit" class="btn btn-blue" ng-click="prev()" ng-hide="page==0">上一题</button>
+        <button type="submit" class="btn btn-blue" ng-click="submit()" ng-show="page==questionlist.length-1">提交</button>
+        <button type="submit" class="btn btn-blue" ng-click="next()" ng-hide="page==questionlist.length-1">下一题</button>
+    </div>
+</div>

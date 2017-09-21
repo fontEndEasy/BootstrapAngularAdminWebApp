@@ -1,0 +1,72 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="QuestionsOfLifeCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">生活量表题库</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseNameSelected}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <!-- <th>关联ID</th> -->
+                                <th>题目名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4 class="modal-title">{{viewData.ghnrContent}}</h4>
+        </div>
+        <div class="modal-body" style="max-height:320px;overflow-y:scroll;">
+            <div class="row" ng-show="viewData.answerTemplates.length > 0" ng-repeat="answerTemplate in viewData.answerTemplates">
+                <div class="col-xs-12">
+                    <div class="row text-sm">
+                        <h5 class="col-xs-12">{{$index}} {{answerTemplate.issueName}}</h5>
+                    </div>
+                    <div class="row m-t-sm text-sm">
+                        <div class="col-xs-4" ng-repeat="resAnswer in answerTemplate.resAnswers">
+                            {{resAnswer.options}}.{{resAnswer.optionsName}}
+                            <code>{{resAnswer.score}}分</code>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                </div>
+            </div>
+            <div class="row text-lg text-center" ng-hide="viewData.answerTemplates.length > 0">
+                无相关数据
+            </div>
+            <div class="row">
+                <h5 class="col-xs-12">结果分析：</h5>
+            </div>
+            <div class="row" ng-repeat="assessResult in viewData.assessResults">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <h4 class="col-xs-12 text-sm">
+                        <span class="label bg-primary inline">{{assessResult.minScore}}~{{assessResult.maxScore}}分</span></h4>
+                        <p class="col-xs-12 text-sm text-dark">{{assessResult.conclusion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div>

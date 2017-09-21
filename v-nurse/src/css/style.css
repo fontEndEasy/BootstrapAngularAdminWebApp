@@ -1,0 +1,217 @@
+body,p,blockquote,figure,hr,h1,h2,h3,h4,h5,h6,ul,menu,dir,ol,dl,dd,fieldset,input[type=radio],input[type=checkbox],input[type=range],pre,xmp,plaintext,listing {
+    margin: 0;
+}
+ul,menu,dir,ol,legend,fieldset,input,input[type=password],input[type=search],isindex,textarea,input[type=hidden],input[type=image],input[type=file],input[type=radio],input[type=checkbox],input[type=range],input[type=button],input[type=submit],input[type=reset],button {
+    padding: 0;
+}
+input[type=search],input[type=button],input[type=submit],input[type=reset]{-webkit-appearance: none; }
+h1,h2,h3,h4,h5,h6 {font-size: 100%;font-weight: 400;}
+img {display: block; width:100%;}
+cite,var,address,em {font-style: normal;}
+strong {font-weight: 400;}
+a:-webkit-any-link {text-decoration: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+fieldset,iframe {border: 0;}
+ol,ul {list-style: none;}
+input,textarea,select,button {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    margin: 0;
+    resize:none;
+    outline: none !important;
+}
+select,button,input {color: inherit;}
+html {
+	-webkit-text-size-adjust: none;
+    width:100%;
+    height:100%;
+}
+
+body {
+	position: relative;
+    font-family: "Microsoft Yahei";
+    margin: 0 auto;
+    height:100%;
+    font-size: 100px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 320px;
+    max-width: 1242px;
+}
+a{ color: #333;}
+.container {
+	padding: 0;
+	margin: 0;
+}
+
+@media (min-width: 1200px){
+	.container {
+	    width: 1242px;
+	}
+}
+
+.content {
+	position:absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	background: #ffffff;
+	/*overflow: hidden;*/
+}
+
+
+.banner {
+	position: relative;
+}
+
+.bannerblock {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 1rem;
+	width: 100%;
+	line-height: 1rem;
+}
+
+.bkbg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #f1b885;
+	opacity: 0.6;
+}
+
+.bktext {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	font-size: 1.4em;
+	color: #ffffff;
+	text-indent: 1em;
+}
+
+.bktext span.btns {
+	height: 0.7rem;
+	line-height: 0.7rem;
+	margin:0.15rem 0.2rem 0 0;
+	display: inline-block;
+	background: #ffffff;
+	color: #f8c781;
+	float: right;
+	text-indent: 0;
+	padding: 0 0.15rem;
+	border-radius: 0.15rem;
+	font-size: 0.9em;
+}
+
+.bars {
+	border-bottom: #e4e4e4 solid 1px;
+}
+
+.bars ul{
+	width: 70%;
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -o-box;
+    display: box;
+	margin: 0 auto;
+	padding: 0.2rem 0;
+	color: #999999;
+}
+
+.bars ul:after {
+	content:'';
+	display: block;
+	clear: both;
+}
+
+.bars ul li {
+	-webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    text-align: center;
+}
+
+.bars ul li i {
+	display: block;
+	text-align: center;
+}
+
+.bars ul li i img {
+	width: 2.67em;
+	height: 2.67em;
+	display: inline-block;
+}
+
+.barcontent {
+	padding: 0.3rem 0.3rem;
+	padding-top: 0;
+	color: #a5a5b5;
+}
+
+.btbk p.title {
+	color: #333333;
+	font-size: 1.3em;
+}
+
+.btbk {
+	margin-top: 0.35rem;
+	font-size: 1.1em;
+	line-height: 1.5em;
+}
+
+ul.items {
+	padding: 0.2rem 0;
+	font-size: 1.4em;
+	line-height: 1.6em;
+}
+
+.buybtns {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1.2rem;
+	background-color: #2fb3cc;
+	line-height: 1.2rem;
+	text-align: center;
+	color: #ffffff;
+	font-size: 1.3em;
+}
+
+@media (device-height:480px),(device-height:568px),(device-width:384px),(device-width:360px),(device-width:384px) and (device-height:567px){
+	.buybtns{
+        position: relative;
+    }
+}
+
+@media (min-height: 640px),(min-height: 640px) and (max-width: 384px){
+	.buybtns{
+        position: absolute;
+    }
+}
+@media (device-height:1024px) and (-webkit-min-device-pixel-ratio:3),(device-height:1024px) and (-webkit-min-device-pixel-ratio:1){
+	body{
+        max-width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1243px){
+    .buybtns{
+        position: relative;
+    }
+}

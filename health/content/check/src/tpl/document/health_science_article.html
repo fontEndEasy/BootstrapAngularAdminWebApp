@@ -1,0 +1,62 @@
+<style type="text/css">
+    body{
+        background-color: #fff !important;
+        height: auto;
+        min-height: 100%;
+    }
+    .container article img{
+        max-width:100%;
+        height: auto;
+    }
+    .container>.pub-data{
+        font-size: 17px;
+        color: #8c8c8c;
+    }
+    .container >h2{
+        line-height: 150%;
+        font-size: 24px;
+    }
+    .container>.summary{
+        border-left:3px solid #CCCCCC;
+        padding-left: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 150%;
+    }
+    .container>img{
+        width: 100%;
+        margin: 10px 0;
+    }
+    .container article{
+        font-size:16px;
+        line-height: 150%;
+    }
+</style>
+
+<div class="container read-article" ng-controller="HealthScienceArticleCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <div class="btn-ctrl">
+        <button class="btn m-b-xs w-xs btn-success" ng-show="showTop" ng-click="topArticle()">置顶</button>
+        <button class="btn m-b-xs w-xs btn-success" ng-show="showQuitTop" ng-click="quitTopArticle()">取消置顶</button>
+        <button class="btn m-b-xs w-xs btn-primary" ng-show="showEdit" ng-click="editArticle()">编辑</button>
+        <button class="btn m-b-xs w-xs btn-danger"  ng-show="showDel" ng-click="deleteArticle()">删除</button>
+    </div>
+
+    <h2>{{article.title}}</h2>
+    <span class="pub-data">{{article.lastUpdateTime}}</span>
+    <div class="summary">{{article.description}}</div>
+    <img ng-src="{{article.copyPath}}" ng-show="article.isShowImg" class="img-responsive">
+    <article ng-bind-html="article.content">
+
+    </article>
+</div>
+
+<script type="text/ng-template" id="delModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">确认删除文章并关闭页面？</div>
+        <div class="panel-body">
+            <button class="btn btn-primary" ng-click="ok()">确定</button>
+            <button class="btn btn-default" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,41 @@
+<div class="col-lg-10 col-lg-offset-1 ">
+    <div class="m-t-lg clearfix">
+        <div class="col-lg-12">
+            <button class="btn w-xs  m-r r r-2x" ng-class="{'btn-info':pedding,'btn-default':!pedding}" ng-click="getGuideNoServiceOrderClick()">待处理</button>
+            <button class="btn w-xs  m-r r r-2x"  ng-class="{'btn-info':!pedding,'btn-default':pedding}" ng-click="getGuideServiceOrderClick()">已处理</button>
+        </div>
+        <div class="col-lg-12">
+
+            <!-- 1未填写、2待确定、3已确定 -->
+            <div class="clearfix m-t h-max-650 overflow-auto p bg-light r r-2x" >
+                <div class="clearfix">
+                    <div class="pull-left bg-white m-sm r box-shadow p" style="width:468px" ng-repeat="item in orderlist">
+                        <div class="p-b-sm b-b clearfix">
+                            <div class="pull-left">{{item.conferenceStopTime | date:'yyyy年MM月dd日 HH:mm'}}</div>
+                        </div>
+                        <div class="clearfix m-t-sm">
+                            <div class="pull-left">
+                                <img class="r r-2x" width="64" height="64" ng-src="{{item.topPath}}">
+                            </div>
+                            <div class="pull-left m-l-sm  m-r-sm">
+                                <h4>{{item.doctorName}}</h4>
+                                <p>电话：{{item.telephone}}</p>
+                            </div>
+                            <div class="pull-right">
+                                <!--<a class="btn btn-default r r-2x m-t" ui-sref="order.myOrder.consultingRecord({orderId: item.orderId})">咨询记录</a>-->
+                                <!--<a class="btn btn-default r r-2x m-t" ng-click="editor(item.orderId,item.doctorId)">咨询记录</a>-->
+                                <a class="btn btn-default r r-2x m-t" ng-click="consultingRecord(item)">咨询记录</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center m-t">
+                    <button class="btn btn-default r r-2x" ng-click="readMore()" ng-disable="noMore">{{noMore||orderlist.length
+                        <1? '已经全部加载': '查看更多'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ui-view></ui-view>

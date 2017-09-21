@@ -1,0 +1,166 @@
+<div class="modal-body clearfix p-lg r r-3x p-b-none">
+    <div class="w-full position-relative con-rec">
+        <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+    </div>
+    <div class="col-xs-12">
+        <!-- <div class="m-b-lg clearfix w-full text-center">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div> -->
+        <h4 class="text-center m-b-sm">填写咨询记录</h4>
+        <div class="m-b-lg clearfix  w-full text-center" ng-show="isLoading">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="panel-body" ng-show="!isLoading">
+            <div class="row">
+            <div class="col-sm-8 b-r" style="min-height: 500px;">
+                <div class="form-group">
+                    <label>咨询结果</label>
+                    <textarea class="form-control w-full" placeholder="请填写您对患者的咨询结果与对应的治疗建议" style="height:80px;resize:none;" ng-model="consultAdvise"></textarea>
+                </div>
+                <div class="form-group">
+                <ul class="clearfix">
+                    <li ng-repeat="item in voices">
+                        <div ng-click="playDoctorAudio(item)" class="b-a r-l a-link bg-light m-r-md pull-left" style="display: inline-block;padding: 2px 2px 0 2px;">
+                            <!--<span ng-if="!item.param.key">-->
+                            <!--该语音不支持播放-->
+                            <!--</span>-->
+                            <span class="pull-left"><i class="fa fa-2x fa-fw a-link"  ng-class="{false:'text-danger fa-pause-circle',undefined:'text-success fa-play-circle',true:'text-success fa-play-circle'}[item._audio.paused]"></i></span>
+                            <span class="m-t-xs pull-left text-black" ng-show="item._audio.remaining">{{item._audio.remaining.toFixed(0).toString()+'"'}}</span>
+                            <span class="m-t-xs pull-left text-black" ng-show="item.timeLong&&!item._audio.remaining">{{item.timeLong+'"'}}</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+
+                <!--<div ng-click="playDoctorAudio()" class="b-a r-l a-link bg-light m-b-sm" style="display: inline-block;padding: 2px 2px 0 2px;">-->
+                    <!--&lt;!&ndash;<span ng-if="!item.param.key">&ndash;&gt;-->
+                    <!--&lt;!&ndash;该语音不支持播放&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--<span class="pull-left"><i class="fa fa-2x fa-fw a-link"  ng-class="{false:'text-danger fa-pause-circle',undefined:'text-success fa-play-circle',true:'text-success fa-play-circle'}[item._audio.paused]"></i></span>-->
+                    <!--<span class="m-t-xs pull-left text-black" ng-show="item._audio.remaining">{{item._audio.remaining.toFixed(0).toString()+'"'}}</span>-->
+                    <!--<div class="clearfix"></div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label>疑似疾病</label>
+                    <div>
+                        <button class="btn m-b-xs m-r-xs btn-default btn-xs btn-rounded" ng-repeat="item in diseaseSelectData">{{item.name}}</button>
+                        <button class="btn m-b-xs w-xs btn-info btn-xs btn-rounded" ng-click="openDiseaseSelect(diseaseSelectUrl,'添加疑似疾病')">添加</button>
+                        <!-- hierarchical-select -->
+                        <hierarchical-select open="openDiseaseSelect" data="diseaseSelectData"></hierarchical-select>
+                        <!-- hierarchical-select end -->
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label>用药建议</label>-->
+                    <!--<div class="clearfix">-->
+                        <!--<div class="pull-left p-sm w-200 b box-shadow r r-2x bg-white m-r-xs" ng-repeat="item in patientDrugSuggestList" style="border-color: #c7d3d6;height:82px">-->
+                            <!--<div class="clearfix text-dark">-->
+                                <!--<span class="pull-left">{{item.general_name}}</span>-->
+                            <!--<span class="pull-right">-->
+                                <!--<span class="text-muted">数量</span> {{item.requires_quantity}}</span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<div class="text-muted">用法用量：</div>-->
+                                <!--<p class="clear text-ellipsis text-muted" ng-if="item.c_drug_usage_list[0].patients">-->
+                                    <!--{{item.c_drug_usage_list[0].patients}} {{item.c_drug_usage_list[0].method}} {{item.c_drug_usage_list[0].period.text}} {{item.c_drug_usage_list[0].times?item.c_drug_usage_list[0].times+'次':''}} {{item.c_drug_usage_list[0].quantity?'每次'+item.c_drug_usage_list[0].quantity:''}}-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<button class="btn m-b-xs w-xs btn-info btn-xs btn-rounded" ng-click="openDrugBox()">添加</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label>检查建议</label>
+                    <div>
+                        <button class="btn m-b-xs m-r-xs btn-default btn-xs btn-rounded" ng-repeat="item in medicationSelectData">{{item.name}}</button>
+                        <button class="btn m-b-xs w-xs btn-info btn-xs btn-rounded" ng-click="openMedicationSelect(medicationSelectUrl,'添加检查建议')">添加</button>
+                        <!-- hierarchical-select -->
+                        <hierarchical-select open="openMedicationSelect" data="medicationSelectData"></hierarchical-select>
+                        <!-- hierarchical-select end -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>图片</label>
+                    <div class="clearfix">
+                        <div class="pull-left m-r-sm m-b-sm" ng-repeat="item in uploadImgData.file">
+                            <a ng-click="openLightboxModal(uploadImgData.file,$index)"><img ng-src="{{item.oUrl}}" width="100" height="100"></a>
+                            <!--<a ng-show="item.isUploading" class="text-center block b" style="width:100px;height:100px;">-->
+                                <!--<i class="fa fa-spinner fa-spin m-t-lg"></i>-->
+                            <!--</a>-->
+                        </div>
+                    </div>
+                    <!--<div>-->
+                        <!--<button class="btn m-b-xs w-xs btn-info btn-xs btn-rounded" ng-click="upload()" ng-if="uploadImgData.file.length<8">添加</button>-->
+                        <!--&lt;!&ndash; 七牛上传组件 &ndash;&gt;-->
+                        <!--<qiniu-uploader upload="upload" token="{{token}}" bucket="message" filters="qiniuFilters" file-list="fileList" max-file-size="99999gb" chunk-sizee="1mb" multi-selection="false" success-call-back="uploaderSuccess" error-call-back="uploaderError" added-call-back="uploaderAdded" max-select="maxSelect(uploadImgData.file)"></qiniu-uploader>-->
+                        <!--&lt;!&ndash; 七牛上传组件 end &ndash;&gt;-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <!-- doctor-info-dailog -->
+            <doctor-info-dailog open="openDoctorInfoDailog"></doctor-info-dailog>
+            <!-- doctor-info-dailog end -->
+            <div class="col-sm-4">
+                <div>
+                    <h4>
+                        <a style="font-size: 18px;" ng-click="openDocInfoModal()">{{doctorInfo.name}}</a>
+                        <button class="text-info btn-xs no-shadow b-none bg-f8" title="拨打电话" uib-popover-template="'ConsultCallView.html'" popover-placement="bottom" popover-is-open="callView.isOpen" ng-show="doctorInfo.telephone" ng-click="targetInfoView.isOpen=false;"><i class="fa fa-phone inline m-t-xs fa-lg fa-fw"></i>{{doctorInfo.telephone}}</button>
+                    </h4>
+                    <p class="m-t-md">{{doctorInfo.hospital}}  {{doctorInfo.departments}}</p>
+                    <p class="m-t-lg" style="font-size:16px;">患者：{{patientInfo.name}}，{{patientInfo.age}}岁，{{patientInfo.sex}}</p>
+                    <p class="m-t-lg text-md text-indent-1" style="border-left:5px solid #BBB8C5">通话记录</p>
+                    <hr>
+                    <ul>
+                        <li ng-repeat="item in consultVoice">
+                            <span class="pull-left" style="line-height: 33px;">{{item.stoptime | amDateFormat:'YYYY/MM/DD H:mm'}}</span>
+                            <div ng-click="playConsultAudio(item)" class="b-a r-l a-link bg-light m-l-md" style="display: inline-block;padding: 2px 2px 0 2px;">
+                                <!--<span ng-if="!item.param.key">-->
+                                    <!--该语音不支持播放-->
+                                <!--</span>-->
+                                <span class="pull-left"><i class="fa fa-2x fa-fw a-link"  ng-class="{false:'text-danger fa-pause-circle',undefined:'text-success fa-play-circle',true:'text-success fa-play-circle'}[item._audio.paused]"></i></span>
+                                <span class="m-t-xs pull-left text-black" ng-show="item._audio.remaining">{{item._audio.remaining.toFixed(0).toString()+'"'}}</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" ng-show="!isLoading" style="text-align: center !important;">
+    <button class="btn btn-default" style="width: 200px;" type="button" ng-disabled="disableSend" ng-click="updateCurrecord(0)">
+        <span ng-show="!appointTimeLoading" class="ng-binding">保存</span>
+        <span ng-show="appointTimeLoading" class="ng-hide"><i class="fa fa-spinner fa-spin"></i></span>
+    </button>
+    <button class="btn btn-success" style="width: 200px;" type="button" ng-disabled="disableSend" ng-click="updateCurrecord(1)">
+        <span ng-show="!appointTimeLoading" class="ng-binding">提交</span>
+        <span ng-show="appointTimeLoading" class="ng-hide"><i class="fa fa-spinner fa-spin"></i></span>
+    </button>
+</div>
+<!-- 拨打电话 -->
+<script type="text/ng-template" id="ConsultCallView.html">
+    <div class="form-group w-300 h-max-200">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="closeCallView()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="p-t-sm text-center">
+            确定用平台来拨通医生与您的电话吗？
+        </div>
+        <div class="m-t-xs text-center text-xs" ng-class="{true:'text-success',false:'text-danger'}[call.result.type]" ng-if="call.result">{{call.result.content}}</div>
+        <div class="clearfix text-center m-t-sm">
+            <button type="button" class="btn btn-sm btn-success m-r-xs" ng-click="callPhone()">
+                <span ng-if="call.isCalling">拨打中 <i class="fa" ng-class="{true:'fa-spinner fa-spin'}[call.isCalling]"></i>
+                </span>
+                <span ng-if="!call.isCalling">确定</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-info" ng-click="closeCallView()">取消</button>
+        </div>
+    </div>
+</script>
+<!-- 拨打电话 end -->
+

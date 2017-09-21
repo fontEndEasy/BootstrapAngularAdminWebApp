@@ -1,0 +1,138 @@
+<!-- <div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="QuestionsOfLifeCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">生活量表题库</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseNameSelected}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>关联ID</th>
+                                <th>题目名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4 class="modal-title">{{viewData.ghnrContent}}</h4>
+        </div>
+        <div class="modal-body" style="max-height:320px;overflow-y:scroll;">
+            <div class="row" ng-show="viewData.answerTemplates.length > 0" ng-repeat="answerTemplate in viewData.answerTemplates">
+                <div class="col-xs-12">
+                    <div class="row text-sm">
+                        <h5 class="col-xs-12">{{$index}} {{answerTemplate.issueName}}</h5>
+                    </div>
+                    <div class="row m-t-sm text-sm">
+                        <div class="col-xs-4" ng-repeat="resAnswer in answerTemplate.resAnswers">
+                            {{resAnswer.options}}.{{resAnswer.optionsName}}
+                            <code>{{resAnswer.score}}分</code>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                </div>
+            </div>
+            <div class="row text-lg text-center" ng-hide="viewData.answerTemplates.length > 0">
+                无相关数据
+            </div>
+            <div class="row">
+                <h5 class="col-xs-12">结果分析：</h5>
+            </div>
+            <div class="row" ng-repeat="assessResult in viewData.assessResults">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <h4 class="col-xs-12 text-sm">
+                        <span class="label bg-primary inline">{{assessResult.minScore}}~{{assessResult.maxScore}}分</span></h4>
+                        <p class="col-xs-12 text-sm text-dark">{{assessResult.conclusion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div> -->
+<!-- 新 -->
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="lifeQualityLibraryCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">生活量表题库</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseName}}</h2>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-success" ui-sref="app.editLifeQuality">创建量表</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="lifeQualityLibraryTree" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <div class="col-md-12">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="dataTables_length">
+                                <label>
+                                    每页
+                                    <select class="form-control input-sm" ng-model="pageSize" ng-change="setTable(null, 1, pageSize)">
+                                        <option value="1">1</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                    条
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped b-t dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th>计划名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in surveyList track by $index">
+                                <td>{{item.title}}</td>
+                                <td>
+                                    <button class="btn btn-xs btn-primary text-xs" ui-sref="app.editLifeQuality({ lifeScaleId: item.lifeScaleId,version:item.version })">修改</button>
+                                    <button class="btn btn-xs btn-danger text-xs" ng-click="removeItem(item.lifeScaleId,item.version)">删除</button>
+                                </td>
+                            </tr>
+                            <tr ng-if="!surveyList||surveyList.length<1">
+                                <td colspan="3" class="text-center">无数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <pagination ng-show="page_count>0" total-items="page_count" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

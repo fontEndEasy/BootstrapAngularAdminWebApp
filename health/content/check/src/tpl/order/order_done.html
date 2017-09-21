@@ -1,0 +1,79 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="OrderDone">
+    <div class="frame-panel">
+        <div class="row">
+            <!-- <div class="col-md-4 col-xs-0"></div> -->
+            <div class="container">
+                <form style="padding: 10px">
+                    <div class="row">
+                        <div class="order-query">
+                            <label class="control-label text-right" style="float:left;">订单类型：</label>
+                            <div class="col-md-2">
+                                <select class="form-control" id="orderType">
+                                    <option selected>全部</option>
+                                    <option>图文咨询</option>
+                                    <option>电话咨询</option>
+                                    <option>患者报道</option>
+                                    <option>门诊</option>
+                                    <option>健康关怀</option>
+                                    <option>随访计划</option>
+                                </select>
+                            </div>
+
+                            <label class="control-label text-right" style="float:left;">订单状态：</label>
+                            <div class="col-md-2">
+                                <select class="form-control" id="orderStatus">
+                                    <option selected>全部</option>
+                                    <option>已支付</option>
+                                    <option>已完成</option>
+                                    <option>已取消</option>
+                                </select>
+                            </div>
+
+                            <label class="control-label text-right" style="float:left;">姓名：</label>
+                            <div class="col-md-2"><input class="form-control" id="userName" /></div>
+                            <label class="control-label text-right" style="float:left;">手机号：</label>
+                            <div class="col-md-2"><input class="form-control" id="telephone" /></div>
+                            <div class="col-md-1"><button class="btn btn-default w100" ng-click="queryOrder()">查 询</button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pb-10">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="wrapper-md">
+                            <div ng-init="loading=true" ng-if="loading" class="loading">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="orderList_undone" class="table table-striped b-t b-b">
+                                    <thead>
+                                    <tr>
+                                        <th>订单号</th>
+                                        <th>医生姓名</th>
+                                        <th>患者姓名</th>
+                                        <th>患者关系</th>
+                                        <th>用户姓名</th>
+                                        <th>订单类型</th>
+                                        <th>订单金额(元)</th>
+                                        <th>支付时间</th>
+                                        <th>支付类型</th>
+                                        <th>订单状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,54 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="VCheckListGroup">
+  <div class="frame-panel">
+    <div class="row">
+      <!-- <div class="col-md-4 col-xs-0"></div> -->
+      <div class="col-md-12">
+        <h2 class="org-title text-center" ng-bind="check_status">待审核(医生集团)</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 pb-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="wrapper-md">
+              <div ng-init="loading=true" ng-if="loading" class="loading">
+                <i class="glyphicon glyphicon-repeat"></i>
+              </div>
+              <div class="table-responsive">
+                <table id="vgroupList0" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>姓名</th><th>医疗机构</th><th>科室</th><th>职称</th><th>提交时间</th><th>操作</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList1" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>姓名</th><th>医疗机构</th><th>科室</th><th>职称</th><th>通过时间</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList2" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>姓名</th><th>医疗机构</th><th>科室</th><th>职称</th><th>审核意见</th><th>驳回时间</th><th>操作</th><th>备注</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <table id="vgroupList3" class="table table-striped b-t b-b" style="display:none;">
+                  <thead>
+                    <tr><th>姓名</th><th>手机号码</th><th>注册时间</th><th>操作</th><th>备注</th></tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

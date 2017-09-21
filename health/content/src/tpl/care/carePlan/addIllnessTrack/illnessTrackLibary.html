@@ -1,0 +1,79 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">病情跟踪库</div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-inline clearfix">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="form-group">
+                            请选择发送时间：
+                        </div>
+                        <time-set-cpn time="illnessTrackData.sendTime" hour-step="1" minute-step="30" class="form-inline"></time-set-cpn>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <div class="row">
+                    <div class="col-md-3 cnt-col-lt">
+                        <div id="lifeQualityLibraryTree" class="list-group" style="height: 300px;overflow: auto"></div>
+                    </div>
+                    <div class="col-md-9 cnt-col-rt">
+                        <div class="panel panel-default" style="height: 300px;overflow: auto">
+                            <div class="col-md-12">
+                                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="dataTables_length">
+                                        <label>
+                                            每页
+                                            <select class="form-control input-sm" ng-model="pageSize" ng-change="pageIndex=1;setTable(null, 1, pageSize)">
+                                                <option value="1">1</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                            </select>
+                                            条
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped b-t dataTable no-footer">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>计划名称</th>
+                                        <!-- <th>操作</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in illnessTrack track by $index">
+                                        <td class="text-center">
+                                            <input ng-click="selectItem(item)" type="checkbox" name="checkbox" ng-checked="isSelect(item)" class="a-link">
+                                        </td>
+                                        <td>{{item.qName}}</td>
+                                        <!-- <td>
+                                            <button class="btn btn-xs btn-primary text-xs" ui-sref="app.editLifeQuality({ lifeScaleId: item.lifeScaleId,version:item.version })">修改</button>
+                                            <button class="btn btn-xs btn-danger text-xs" ng-click="removeItem(item.lifeScaleId,item.version)">删除</button>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <pagination class="m-n" ng-show="page_count>0" total-items="page_count" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>

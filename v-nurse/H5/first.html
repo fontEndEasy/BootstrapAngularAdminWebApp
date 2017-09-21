@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content = "width=device-width, target-densitydpi=high-dpi, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="keywords" content="seokeywords"/>
+<meta name="description" content="seodescription"/>
+<title>VIP医院直通车</title>
+<style>
+ul,li{margin:0;padding:0;}
+@media screen and (min-width:240px) {
+    html, body{
+        font-size:9px;
+    }
+}
+@media screen and (min-width:320px) {
+    html, body{
+        font-size:12px;
+    }
+}
+@media screen and (min-width:480px) {
+    html, body{
+    font-size:18px;
+    }
+}
+@media screen and (min-width:640px) {
+    html, body{
+        font-size:24px;
+    }
+}
+@media screen and (min-width:960px) {
+    html, body{
+        font-size:36px;
+    }
+}
+div.imgbox{width:10rem;height:9.6rem;overflow:hidden;margin:0 auto;}
+div.imgbox ul{clear:both;width:75rem;display: inline-block;}
+div.imgbox ul li{float:left;width:10rem;height:9.6rem;overflow:hidden;text-align:center;}
+div.imgbox ul li img{width:10rem;height:9.6rem;}
+._img img{width:10rem;height:9.6rem;}
+#page{color:red;}
+</style>
+</head>
+<body>
+<div class="imgbox">
+    <ul>
+        <li><a href="#"><img src="../img/01.png"></img></a></li>
+        <li><a href="#"><img src="../img/02.png"></img></a></li>
+        <li><a href="#"><img src="../img/01.png"></img></a></li>
+    </ul>
+</div>
+<div class="_img">
+    <a href="second.html">
+        <img alt="" src="../img/03.png" class="imgs" style="display:block; margin: 0 auto;height:5.3rem;width:9rem;">
+    </a>
+</div>
+<script src="../Slider/js/jquery-1.7.2.min.js"></script>
+<script src="../Slider/js/slider-H5.js"></script>
+<script src="../Slider/js/bower_components/zepto-min.js"></script>
+<script src="../Slider/js/bower_components/event.js"></script>
+<script src="../Slider/js/bower_components/touch.js"></script>
+<script src="../Slider/js/bower_components/flexible.js"></script>
+<script>
+(function(){
+/*
+    注意：$.mggScrollImg返回的scrollImg对象上有
+            next，prev，go三个方法，可以实现外部对滚动索引的控制。
+    如：scrollImg.next();//会切换到下一张图片
+        scrollImg.go(0);//会切换到第一张图片
+*/
+var scrollImg = $.mggScrollImg('.imgbox ul',{
+        loop : true,//循环切换
+        auto : true,//自动切换
+        auto_wait_time:3000,//轮播间隔
+        scroll_time:300,//滚动时长
+        callback : function(ind){//这里传过来的是索引值
+            $('#page').text(ind+1);
+        }
+    });
+})()
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="EnterpriseIdentify">
+    <div id="instruction_panel" class="frame-panel" ng-if="!isIdentified && !isIdentifying">
+        <div class="panel-body">
+            <div class="identify-instruction col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <h3>医生集团加V认证</h3>
+                <div class="col-md-12 col-sm-12 col-xs-12 mrb-15">
+                    <div class="text-center col-lg-4 col-md-6 col-sm-6 col-lg-offset-4 col-md-offset-3 col-sm-offset-3">
+                        <button class="btn btn-success btn-lg w100" ng-click="identify()">开通认证</button>
+                    </div>
+                </div>
+                <p>
+                    <h4 class="text-primary">介绍</h4>
+                    <ul class="mrb-15">
+                        <li>全新的认证体系提供更安全、更严格的医生集团公司真实性认证，也能够更好地保护医生集团及患者的合法权益。</li>
+                        <li>医生集团公司认证全过程完成后，患者将看到认证过的医生集团特有的标识。</li>
+                    </ul>
+                    <h4 class="text-primary">声明</h4>
+                    <ul>
+                        <li>玄关健康平台在给医生集团提供更高级和全面服务的同时，为了进一步规范平台运营并增强医生集团公信力。我们将严格审核医生集团的的主体及权利资质的真实性、合法性、确认本次认证申请的真实性以及核定医生集团名称。</li>
+                        <li>只要在规定的时间内，认证申请真实并符合相关认证规范要求，且企业/机构主体和资质材料合法、有效、完整、准确，申请人获得企业/机构的真实授权，就能通过医生集团公司认证资质审核。</li>
+                        <li>只要在规定的时间内，认证申请的医生集团名称符合玄关健康平台的命名规则，符合合法合规性的标准，就能通过医生集团名称审核。</li>
+                        <li>申请医生集团公司认证需支付300元/次的审核服务费用，这是用户基于玄关健康平台提供的认证审核服务而支付的一次性费用，用户每申请一次认证服务需要支付一次审核服务费。无论认证成功或失败，我们都需要自行或委托第三方提供认证审核服务，因此都需要支付审核服务费。</li>
+                        <li>医生集团公司认证资质审核成功后。用户最晚应该在资质审核成功后一年内完成年审认证，年审认证需要另行支付审核服务费。如未通过年审认证，认证医生集团名称可能会被更改，认证标识及认证信息将会被取消。</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="identified_panel" class="frame-panel" ng-if="isIdentified && !isIdentifying">
+        <div class="panel-body">
+            <div class="idfy-result" ng-if="waitting">
+                <button type="button" id="btn_close" ng-click="closeTipWin()"><i class="fa fa-times-circle"></i></button>
+                <h3 class="text-center">玄关健康平台</h3>
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                    <p>您已成功提交认证资料。<br/>目前进入审核阶段（审核时间为3个工作日，审核结束会以短信方式通知，请注意查收）。<br/>如有疑问，请拨打客服热线 0755-0000-0000。</p>
+                </div>
+            </div>
+            <div class="idfy-result" ng-if="notPass">
+                <button type="button" id="btn_close" ng-click="closeTipWin()"><i class="fa fa-times-circle"></i></button>
+                <h3 class="text-center">玄关健康平台</h3>
+                <div>
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <p>您提交的认证资料 <span class="text-danger">未通过</span> 审核！<br/>原因：<span ng-bind="remarks"></span><br/>如有疑问，请拨打客服热线 0755-0000-0000。</p>
+                </div>
+            </div>
+            <form class="form-horizontal">
+                <div class="col-md-12">
+                    <div class="col-md-2 text-right">
+                        <h4 class="info-title bdr-blue">公司基本信息</h4></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">公司全称</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="companyName">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">组织机构代码</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="orgCode">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">工商执照注册号</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="license">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">法定代表人/企业负责人姓名</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="corporation">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">经营范围(一般经营范围)</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="businessScope">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">公司开户名称</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="accountName">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">公司开户银行</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="openBank">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">公司银行账号</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="bankAcct">--</div>
+                </div>
+                <div class="col-md-12">
+                    <div class=" col-md-2 text-right"><h4 class="info-title bdr-blue">医生集团管理者信息</h4></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者姓名</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="adminName">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者身份证号码</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="idNo">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者联系电话</label>
+                    <div class="form-text col-lg-6 col-md-8 col-sm-10 col-xs-12" ng-bind="adminTel">--</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者证件照片</label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <img ng-src="{{idImage}}" ngf-src="ctrlPic" width="100%" height="auto">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class=" col-md-2 text-right">
+                        <h4 class="info-title bdr-blue">企业基本资料</h4></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">组织机构代码证</label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <img ng-src="{{orgCodeImage}}" ngf-src="ctrlPic" width="100%" height="auto">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">企业工商营业执照</label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <img ng-src="{{licenseImage}}" width="100%" height="auto">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="identify_panel" class="frame-panel" ng-show="!isIdentified && isIdentifying">
+        <div class="row">
+            <div class="panel-heading">
+                <h3 class="col-lg-8 col-md-10 col-xs-12  text-center">提交医生集团公司资料认证</h3>
+            </div>
+        </div>
+        <div class="panel-body ">
+            <form class="form-horizontal" novalidate name="FillInfoForm" enctype="multipart/form-data">
+                <div class="col-md-12">
+                    <div class="col-md-2 text-right">
+                        <h4 class="info-title bdr-blue">公司基本信息</h4></div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.companyName.$invalid&&FillInfoForm.companyName.$dirty}">
+                    <label class="control-label col-sm-2">公司全称<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="companyName" ng-model="companyName" required>
+                        <span class="help-block m-b-none">只支持中国大陆工商局或市场监督管理局登记的企业。请填写工商营业执照上的企业全称，该名称将作为后续提供相关服务发票的抬头。<br/>企业全称为注册时填写的主体信息且无法修改。如工商营业执照上企业名称已变更，请提供相应的工商变更证明。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.orgCode.$invalid&&FillInfoForm.orgCode.$dirty}">
+                    <label class="control-label col-sm-2">组织机构代码<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="orgCode" ng-model="orgCode" required>
+                        <span class="help-block m-b-none">请填写组织机构代码证上的代码。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.license.$invalid&&FillInfoForm.license.$dirty}">
+                    <label class="control-label col-sm-2">工商执照注册号<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="license" ng-model="license" required>
+                        <span class="help-block m-b-none">请填写工商营业执照上的注册号。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.corporation.$invalid&&FillInfoForm.corporation.$dirty}">
+                    <label class="control-label col-sm-2">法定代表人/企业负责人姓名<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="corporation" ng-model="corporation" required>
+                        <span class="help-block m-b-none">如果属于分公司则填写工商营业执照上明确的负责人,个体工商户请填写经营者姓名,合伙企业请填写合伙人姓名，个人独资企业请填写投资人姓名，企业法人的非法人分支机构填写负责人姓名，均按照营业执照上填写。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.businessScope.$invalid&&FillInfoForm.businessScope.$dirty}">
+                    <label class="control-label col-sm-2">经营范围(一般经营范围)<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <textarea class="form-control" name="businessScope" rows="6" ng-model="businessScope" required></textarea>
+                        <span class="help-block m-b-none">与企业工商营业执照上一致。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.accountName.$invalid&&FillInfoForm.accountName.$dirty}">
+                    <label class="control-label col-sm-2">公司开户名称<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="accountName" ng-model="accountName" required>
+                        <span class="help-block m-b-none">需跟组织机构代码证上的机构名称保持一致（基本户、一般户均可）。<br/>若企业无对公银行帐号，可以填写营业执照上法人的对私银行卡号及姓名。<br/><span class="text-info">温馨提示：<br/>填写个人银行卡号时需与营业执照上法人保持一致。</span></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.openBank.$invalid&&FillInfoForm.openBank.$dirty}">
+                    <label class="control-label col-sm-2">公司开户银行<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="openBank" ng-model="openBank" required>
+                        <span class="help-block m-b-none">请填写组织机构代码证上的代码。</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.bankAcct.$invalid&&FillInfoForm.bankAcct.$dirty}">
+                    <label class="control-label col-sm-2">公司银行账号<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="bankAcct" ng-model="bankAcct" required>
+                        <span class="help-block m-b-none">我们会给该对公帐户汇入一笔非常小的金额和备注信息，需要你后续跟审核人员确认。</span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class=" col-md-2 text-right">
+                        <h4 class="info-title bdr-blue">医生集团管理者信息</h4></div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.adminName.$invalid&&FillInfoForm.adminName.$dirty}">
+                    <label class="control-label col-sm-2">管理者姓名<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-6 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="adminName" ng-model="adminName" required>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.idNo.$invalid&&FillInfoForm.idNo.$dirty}">
+                    <label class="control-label col-sm-2">管理者身份证号码<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-6 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="idNo" ng-model="idNo" required>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error':FillInfoForm.adminTel.$invalid&&FillInfoForm.adminTel.$dirty}">
+                    <label class="control-label col-sm-2">管理者联系电话<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-6 col-sm-10 col-xs-12">
+                        <input type="text" class="form-control" name="adminTel" ng-model="adminTel" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">管理者证件照片<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:160px;" ngf-select ng-model="usrPic" name="usrPic" ngf-max-size="2000000" ng-model-rejected="reUsrPic" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                            <img ng-src="{{usrPicUrl}}" ngf-src="usrPic" width="100%" height="auto" ng-show="usrPic.progress>0 || usrPicUrl">
+                            <i ng-show="!usrPic.progress && !usrPicUrl" class="fa fa-file-picture-o" style="font-size:80px;line-height:160px;color:#dee5e7;"></i>
+                        </div>
+                        <div class="progress m-b-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{usrPic.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{usrPic.progress}}%;min-width: 2em;">
+                                {{usrPic.progress>0?usrPic.progress:0}}%
+                                <span class="sr-only">{{usrPic.progress}}%</span>
+                            </div>
+                        </div>
+                        <p class="font-bold" ng-class="{'text-success text-right':usrPic.result,'text-danger':reUsrPic[0].$error}" ng-show="usrPic.result||reUsrPic[0].$error">
+                            {{usrPic.result?usrPic.result:'上传错误：'+reUsrPic[0].$error}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-lg-offset-0 col-md-offset-2 col-sm-offset-2 col-sm-5 col-xs-12">
+                        <p class="help-block">
+                            身份证上所有信息清晰可见，必须能看清证件号，照片需免冠，建议未化妆，手持人五官清晰，照片内容真是未经修改。
+                            <br> 支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M。</p>
+
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-5 col-xs-12 text-center">
+                        <img src="src/img/ctrlPicSample.png" width="100%" height="auto">
+                        <br>参考示例
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class=" col-md-2 text-right">
+                        <h4 class="info-title bdr-blue">公司基本资料</h4></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">组织机构代码证<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:160px;" ngf-select ng-model="orgCodePic" name="orgCodePic" ngf-max-size="5000000" ng-model-rejected="reOrgCodePic" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                            <img ng-src="{{orgCodePicUrl}}" ngf-src="orgCodePic" width="100%" height="auto" ng-show="orgCodePic.progress>0 || orgCodePicUrl">
+                            <i ng-show="!orgCodePic.progress && !orgCodePicUrl" class="fa fa-file-picture-o" style="font-size:80px;line-height:160px;color:#dee5e7;"></i>
+
+                        </div>
+                        <div class="progress m-b-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{orgCodePic.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{orgCodePic.progress}}%;min-width: 2em;">
+                                {{orgCodePic.progress>0 ? orgCodePic.progress:0}}%
+                                <span class="sr-only">{{orgCodePic.progress}}%</span>
+                            </div>
+                        </div>
+                        <p class="font-bold" ng-class="{'text-success text-right':orgCodePic.result,'text-danger':reCtrlPic[0].$error}" ng-show="orgCodePic.result||reOrgCodePic[0].$error">
+                            {{orgCodePic.result?orgCodePic.result:'上传错误：'+reOrgCodePic[0].$error}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-lg-offset-0 col-md-offset-2 col-sm-offset-2 col-sm-5 col-xs-12">
+                        <p class="help-block">
+                            组织机构代码证必须在有效期范围内。 格式要求：原件照片、扫描件或加盖公章的复印件 支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">公司工商营业执照<i class="fa fa-asterisk text-danger"></i></label>
+                    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12">
+                        <div class="bg-white text-center ng-File-UpLoad-Bt" style="min-height:160px;" ngf-select ng-model="licPic" name="licPic" ngf-max-size="5000000" ng-model-rejected="relicPic" accept="'.jpg,.jpeg,.png,.bmp'" required>
+                            <img ng-src="{{licPicUrl}}" ngf-src="licPic" width="100%" height="auto" ng-show="licPic.progress>0 || licPicUrl">
+                            <i ng-show="!licPic.progress && !licPicUrl" class="fa fa-file-picture-o" style="font-size:80px;line-height:160px;color:#dee5e7;"></i>
+                        </div>
+                        <div class="progress m-b-none">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active font-bold" role="progressbar m-b-none" aria-valuenow="{{licPic.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{licPic.progress}}%;min-width: 2em;">
+                                {{licPic.progress>0?licPic.progress:0}}%
+                                <span class="sr-only">{{licPic.progress}}%</span>
+                            </div>
+                        </div>
+                        <p class="font-bold" ng-class="{'text-success text-right':licPic.result,'text-danger':reLicPic[0].$error}" ng-show="licPic.result||reLicPic[0].$error">
+                            {{licPic.result?licPic.result:'上传错误：'+reLicPic[0].$error}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-lg-offset-0 col-md-offset-2 col-sm-offset-2 col-sm-5 col-xs-12">
+                        <p class="help-block">
+                            只支持中国大陆工商局或市场监督管理局颁发的工商营业执照，且必须在有效期内。 格式要求：原件照片、扫描件或者加盖公章的复印件，支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+
+                    </div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-sm-offset-2">
+                        <button class="btn btn-primary btn-block" ng-click="submitInfo()" ng-disabled="fromState==null?FillInfoForm.$invalid:fromState">提交认证
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg" ng-show="authError">
+                    <div class="col-lg-6 col-md-8 col-xs-10 col-sm-offset-2 text-danger">
+                        {{authError}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

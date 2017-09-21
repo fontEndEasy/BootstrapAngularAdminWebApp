@@ -1,0 +1,38 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsListApportion">
+    <div class="panel-heading font-bold text-center">分配组织</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-6 cnt-apportion-left cnt-col-lt" style="height: 100%">
+                <p class="form-text text-center">选择组织</p>
+                <div id="cnt_list_apportion" class="list-group">
+                    <div class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                </div>
+            </div>
+            <div class="col-md-6 cnt-apportion-right">
+                <div class="clearfix text-center">
+                    <a href="" class="thumb-md avatar"><img ng-src="{{viewData.headPicFile}}"></a>
+
+                    <div class="clear">
+                        <div class="h5 m-t-xs m-b-xs" ng-bind="viewData.name">王五</div>
+                    </div>
+                </div>
+                <div class="cnt-apportion-list">
+                    <p>所属组织</p>
+
+                    <div id="cnt_list_wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">分 配</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

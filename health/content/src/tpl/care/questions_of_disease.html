@@ -1,0 +1,72 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-controller="QuestionsOfDiseaseCtrl">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3">病情跟踪题库</h2>
+            </div>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-left">
+                    <h2 class="title-3">病种：{{diseaseNameSelected}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 cnt-col-lt">
+                <div id="sch_cnt_list" class="list-group"></div>
+            </div>
+            <div class="col-md-9 cnt-col-rt">
+                <div class="panel panel-default">
+                    <table id="planListDatable" class="table table-striped b-t b-b dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <!-- <th>关联ID</th> -->
+                                <th>题目名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4 class="modal-title">{{viewData.ghnrContent}}</h4>
+        </div>
+        <div class="modal-body" style="max-height:320px;overflow-y:scroll;">
+            <div class="row" ng-show="viewData.answerTemplates.length > 0" ng-repeat="answerTemplate in viewData.answerTemplates">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-6 text-sm">时间周期：<code>{{answerTemplate.cycleDay}}</code></div>
+                        <div class="col-xs-6 text-sm text-right">结束选项：<span class="badge badge-sm bg-info pull-right-xs">{{answerTemplate.endOptions}}</span></div>
+                    </div>
+                    <div class="row m-t-sm" ng-repeat="resAnswer in answerTemplate.resAnswers">
+                        <div class="col-xs-2">
+                            <div class="radio text-black">
+                                {{resAnswer.options}}. {{resAnswer.remark}}
+                            </div>
+                        </div>
+                        <div class="col-xs-10">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="text-xs p-t-xs p-b-xs text-muted" ng-show="resAnswer.doctorsContents">提醒医生：</div>
+                                    <p class="text-xs">{{resAnswer.doctorsContents}}</p>
+                                    <div class="text-xs p-t-xs p-b-xs text-muted" ng-show="resAnswer.patientContents">提醒患者：</div>
+                                    <p class="text-xs">{{resAnswer.patientContents}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in b-grey" ng-hide="$last"></div>
+                </div>
+            </div>
+            <div class="row text-lg text-center" ng-hide="viewData.answerTemplates.length > 0">
+                无相关数据
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div>

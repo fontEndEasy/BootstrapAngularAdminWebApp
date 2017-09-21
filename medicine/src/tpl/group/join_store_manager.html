@@ -1,0 +1,75 @@
+<div class="wrapper-md" ng-model="datas" ng-controller="joinstoremanager">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" novalidate name="settingsForm" >
+                        <div class="row">
+                            <div class="font-bold col-sm-12"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;<b style="font-size: large;">门店管理</b></div>
+                        </div>
+			            <div class="pull-right mrr-10">
+		                    <button type="button" class="btn btn-primary" ng-click="addStore();">
+		                        <i class="fa fa-fw fa-plus"></i>
+		                        <span class="hid">创建门店</span>
+		                    </button>
+		                </div>
+                        <div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+                        <br>
+                       	<div class="col-md-3 cnt-col-lt " style="width: 230px;">
+			                <div id="cnt_list" class="list-group " >
+			                		<div align="center" style="width: 50px;height: 50px;">
+			                			<img class="circle" alt="" src="src/img/a0.jpg">
+			                		</div>
+			                		<div class="line m-t-lg  line-dashed b-b line-lg pull-in"></div>
+			                		<div align="center">
+			                			<div class="u41">
+			                				<p>
+			                					<span>
+			                						店长：
+			                					</span>
+			                				</p>
+			                			</div>
+			                			<div class="u41">
+			                				<p>
+			                					<span>
+			                						杜德伟：
+			                					</span>
+			                				</p>
+			                			</div>
+			                			<div class="u41">
+			                				<p>
+			                					<span>
+			                						我去我去恶趣味：
+			                					</span>
+			                				</p>
+			                			</div>
+			                		</div>
+			                		 <div class="pull-right mrr-10">
+					                    <button style="" type="button" class="btn btn-primary" ng-click="addStore();">
+					                        <i class="fa fa-fw"></i>
+					                        <span class="hid">更换店长</span>
+					                    </button>
+					                </div>
+			                </div>
+            			</div>
+                        <div class="line m-t-lg  line-dashed b-b line-lg pull-in" ng-show="!logoUpdate" ></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</style> 
+<style type="text/css">
+.circle{ 
+margin:60 auto;
+margin-left:60px;
+border:1px solid #f60; 
+dotted #ff0000;
+width: 60px;
+height: 60px; 
+}
+div .u41{
+	text-align: right;
+}
+</style> 

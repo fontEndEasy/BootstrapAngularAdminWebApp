@@ -1,0 +1,56 @@
+<div class="modal-over z-index-1 bg-dark opacity-8">
+</div>
+<div class="modal-over z-index-11">
+    <div class="modal-center animated fadeInUp p-xl bg-f8 r r-3x box-shadow-lg b" style="width:480px;margin:-280px 0 0 -200px;">
+        <div class=" w-full position-relative" ng-hide="scenarioType">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-36px;top:-36px;" ng-click="cancel()"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="clearfix b-b p-b b-grey">
+            <div class="thumb-md pull-left m-r">
+                <img ng-src="{{user.headPicFileName}}" class="img-circle">
+            </div>
+            <div class="pull-right p-t-lg">
+                <a class="btn btn-default btn-xs r r-2x" ng-click="dismissConference()" ng-show="callRecordId">关闭会议</a>
+            </div>
+            <h5 class=" p-t-xxs"><span>{{user.name || '导医'+user.id}}&nbsp;&nbsp;<small >(导医)</small></span></h5>
+            <div class="text-success">
+                {{{1:'通话中',2:'通话中',2.1:'通话中',3:'通话中',4:'通话中',5:'通话中',6:'通话中',6.1:'通话中',7:'通话中',7.1:'通话中',8:'通话中',9:'通话中',10:'已挂断',11:'拨通中',12:'被移除',13:'已结束',14:'通话中'}[scenarioType]}}&nbsp;
+            </div>
+        </div>
+        <div class="clearfix m-t-lg">
+            <div class="pull-right m-r-lg text-center">
+                <h5><span>{{order.doctorName}}&nbsp;&nbsp;<small >(医生)</small></span><br></h5>
+                <div class="thumb-md m-b-sm">
+                    <img ng-src="{{order.doctorHeadIcon}}" class="img-circle">
+                </div>
+                <div class="text-success">
+                    {{{1:'',2:'',2.1:'未接听',3:'',4:'拨通中',5:'通话中',6:'未接听',6.1:'已挂断',7:'',7.1:'',8:'通话中',9:'未接听',10:'',11:'',12:'通话中',13:'已结束',14:'通话中'}[scenarioType]}}&nbsp;
+                </div>
+            </div>
+            <div class="pull-left m-l-lg text-center">
+                <h5><span>{{order.patientName}}&nbsp;&nbsp;<small >(患者)</small></span></h5>
+                <div class="thumb-md m-b-sm">
+                    <img ng-src="{{order.patientHeadIcon}}" class="img-circle">
+                </div>
+                <div class="text-success">
+                    {{{1:'拨通中',2:'通话中',2.1:'通话中',3:'已禁听',4:'已禁听',5:'已禁听',6:'已禁听',6.1:'已禁听',7:'未接听',7.1:'已挂断',8:'已挂断',9:'已挂断',10:'',11:'',12:'通话中',13:'已结束',14:'拨通中'}[scenarioType]}}
+                </div>
+            </div>
+        </div>
+        <div class=" m-t row h-50">
+            <div class="col-xs-10 col-xs-offset-1 text-primary text-center font-bold text-md">
+                {{result?result:'请点击下方的按钮开启三方会议'}}&nbsp;
+            </div>
+        </div>
+        <div class="text-center m-t clearfix">
+            <button class="btn btn-primary r r-2x" ng-click="createConference(order.orderId)" ng-show="!scenarioType">开启第三方通话</button>
+            <button class="btn btn-primary r r-2x" ng-click="deafConference()" ng-show="{2:true,2.1:true}[scenarioType]">禁听患者</button>
+            <button class="btn btn-primary r r-2x" ng-click="unDeafConference()" ng-show="{5:true,6.1:true,6:true}[scenarioType]">取消禁听患者</button>
+            <button class="btn btn-primary r r-2x" ng-click="inviteMember(role.doctor.id)" ng-show="{3:true,6:true,6.1:true}[scenarioType]">拨通医生</button>
+            <button class="btn btn-primary r r-2x" ng-click="inviteMember(role.patient.id)" ng-show="{7:true,7.1:true,9:true}[scenarioType]">重拨患者</button>
+            <button class="btn btn-primary r r-2x" ng-click="inviteMember(role.patient.id)" ng-show="{8:true}[scenarioType]">拨通患者</button>
+            <button class="btn btn-primary r r-2x" ng-click="inviteMember(role.guider.id)" ng-show="{10:true}[scenarioType]">重新接通</button>
+            <button class="btn btn-primary r r-2x" ng-click="cancel()" ng-show="{12:true,13:true}[scenarioType]">关闭窗口</button>
+        </div>
+    </div>
+</div>

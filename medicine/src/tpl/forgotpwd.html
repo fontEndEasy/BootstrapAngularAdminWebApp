@@ -1,0 +1,24 @@
+<div class="container w-xl w-auto-xs" ng-init="app.settings.container = false;">
+  <a href class="navbar-brand block m-t">{{app.name}}</a>
+  <div class="m-b-lg">
+    <div class="wrapper text-center">
+      <strong>请输入您的手机号码</strong>
+    </div>
+    <form name="reset" ng-init="isCollapsed=true">
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="tel" placeholder="手机号码" ng-model="email" class="form-control no-border" required>
+        </div>
+      </div>
+      <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block"  ng-click="isCollapsed = !isCollapsed" >发送</button>
+    </form>
+    <div collapse="isCollapsed" class="m-t">
+      <div class="alert alert-success">
+        <p>新密码已发送到您的手机，7天内有效。<a ui-sref="access.signin" class="btn btn-sm btn-success">登录</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" ng-include="'src/tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+  </div>
+</div>

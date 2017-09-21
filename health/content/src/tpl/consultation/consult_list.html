@@ -1,0 +1,62 @@
+<div class="frame-panel cst cst-list" ng-controller="ConsultListCtrl">
+    <div class="row content">
+            <h1 class="text-center">
+                会诊
+            </h1>
+            <hr style="border: 1px dashed #eee;"/>
+            <p class="b-l-s">
+                选择添加集团内可以提供会诊服务的医生。
+            </p>
+            <hr style="border: 1px dashed #eee;"/>
+            <button class="btn btn-success" ui-sref="app.consultation.detail">添加会诊包</button>
+            <div class="panel panel-default m-t-lg">
+                <xg-table searching="true" length-menu="[5,10,20,50]" data="data">
+                    <table class="table table-striped m-b-none table-hover" style="border:1px solid #eaeff0;border-top:none;">
+                        <tr>
+                            <th>
+                                会诊策略类型
+                            </th>
+                            <th width="150px" style="text-align: center">
+                                价格
+                            </th>
+                            <th width="150px" style="text-align: center">
+                                集团分成比例
+                            </th>
+                            <th width="150px" style="text-align: center">
+                                会诊专家分成比例
+                            </th>
+                            <th width="150px" style="text-align: center">
+                                会诊助手分成比例
+                            </th>
+                            <th width="150px" style="text-align: center">
+                                操作
+                            </th>
+                        </tr>
+                        <tr ng-repeat="item in $parent.sliceData">
+                            <td style="max-width: 200px;">{{item.consultationPackDesc}}</td>
+                            <td align="center">{{item.minFee/100}}元-{{item.maxFee/100}}元</td>
+                            <td align="center">{{item.groupPercent}}%</td>
+                            <td align="center">{{item.consultationDoctorPercent}}%</td>
+                            <td align="center" >{{item.unionDoctorPercent}}%</td>
+                            <td align="center">
+                                <button class="btn btn-primary btn-xs" ui-sref="app.consultation.detail({id:item.id})">编辑</button>
+                                <button class="btn btn-danger btn-xs" ng-click="deletePack(item.id)">删除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </xg-table>
+            </div>
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="delModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">确认删除计划？</div>
+        <div class="panel-body">
+            <button class="btn btn-primary" ng-click="ok()">确定</button>
+            <button class="btn btn-default" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</script>
+

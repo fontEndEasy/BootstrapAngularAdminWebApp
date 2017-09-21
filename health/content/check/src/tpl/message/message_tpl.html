@@ -1,0 +1,36 @@
+<div class="frame-panel-a doc" ng-controller="MsgTplCtrl">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <a ui-sref="app.edit_message_tpl" class="btn btn-info" type="button">新建模板</a>
+        </div>
+    </div>
+    <div class="row m-t-sm">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <table id="article_list" class="table table-striped b-t b-b m-t-sm h-full table-hovers">
+                    <thead>
+                    <tr>
+                        <th>用途</th>
+                        <th>发送正文</th>
+                        <th width="100px">分类</th>
+                        <th width="180px;" nowrap="nowrap">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="delModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">确认删除模板？</div>
+        <div class="panel-body">
+            <button class="btn btn-primary" ng-click="ok()">确定</button>
+            <button class="btn btn-default" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</script>

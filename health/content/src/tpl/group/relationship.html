@@ -1,0 +1,56 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="Relationship">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-12 mrb-15">
+                <div class="btn-group" style="position: absolute">
+                    <label id="list_mode" class="btn btn-sm btn-default active"><i class="fa fa-list"></i> 列表模式</label>
+                    <label id="grap_mode" class="btn btn-sm btn-default"><i class="fa fa-sitemap"></i> 图形模式</label>
+                </div>
+                <h2 class="title-3 text-center">医生等级</h2>
+            </div>
+        </div>
+        <div class="row pos-r">
+            <div class="col-md-12 cnt-col-rt" style="padding-left:15px">
+                <div class="panel panel-default">
+                    <div class="clear">
+                        <div id="level_route" class="level-route"></div>
+                    </div>
+
+                    <div id="list_view">
+                        <table id="contactsList" class="table table-striped b-t b-b">
+                            <thead>
+                            <tr>
+                                <th rowspan="2"></th>
+                                <th rowspan="2">名称</th>
+                                <th rowspan="2">所在部门</th>
+                                <th rowspan="2">职称</th>
+                                <th rowspan="2">联系方式</th>
+                                <th class="th-bl text-muted text-right">集团</th>
+                                <th rowspan="2" class="th-bl th-br">在线门诊</th>
+                                <th class="text-muted text-right">集团</th>
+                                <th rowspan="2" class="th-bl th-br">图文咨询</th>
+                                <th class="text-muted text-right">集团</th>
+                                <th rowspan="2" class="th-bl th-br">电话咨询</th>
+                                <th class="text-muted text-right">集团</th>
+                                <th rowspan="2" class="th-bl th-br">健康关怀</th>
+                                <th rowspan="2">直接下级</th>
+                            </tr>
+                            <tr>
+                                <th class="th-bl text-muted text-right">上级</th>
+                                <th class="text-muted text-right">上级</th>
+                                <th class="text-muted text-right">上级</th>
+                                <th class="text-muted text-right">上级</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tree-container" class="hide">
+                        <div ng-show="isLoading" class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

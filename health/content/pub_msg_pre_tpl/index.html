@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="玄关患教平台,爱心宣教" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script>
+        window.location.href = 'Navigator_Not_Surpport.html';
+    </script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+        .container article img{
+            max-width:100%;
+            height: auto;
+        }
+        .container >h2{
+            line-height: 150%;
+            font-size: 24px;
+        }
+        .container>.pub-data{
+            font-size: 17px;
+            color: #8c8c8c;
+        }
+        .container>img{
+            width: 100%;
+            margin: 10px 0;
+        }
+        .container article{
+            font-size:16px;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>{{title}}</h2>
+    <span class="pub-data">{{date}}</span>
+    <img src="{{imgSrc}}" class="img-responsive">
+    <article>
+        {{content}}
+    </article>
+</div>
+</body>
+</html>

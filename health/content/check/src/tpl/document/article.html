@@ -1,0 +1,79 @@
+<style type="text/css">
+    body{
+        background-color: #fff !important;
+        height: 100%;
+        overflow-y: hidden;
+    }
+    article *{
+        width: auto !important;
+        height:auto !important;
+    }
+    .app-header-fixed{
+        height: 100%;
+    }
+    .article-content{
+        width: 100%;
+        height: 100%;
+        overflow-y:auto;
+        margin-right: -10px;
+        margin-top: -50px;
+    }
+</style>
+<iframe ng-show="!isPreview" class="article-content" ng-controller="ArticleCtrl" ng-src="{{article.url}}" frameborder="0">
+    <p>你的浏览器不支持iframes.</p>
+</iframe>
+<div class="container read-article" ng-controller="ArticleCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <div class="btn-ctrl">
+        <button class="btn m-b-xs w-xs btn-success" ng-show="showTop" ng-click="topArticle()">置顶</button>
+        <button class="btn m-b-xs w-xs btn-success" ng-show="showQuitTop" ng-click="quitTopArticle()">取消置顶</button>
+        <button class="btn m-b-xs w-xs btn-primary" ng-show="showEdit" ng-click="editArticle()">编辑</button>
+        <button class="btn m-b-xs w-xs btn-danger"  ng-show="showDel" ng-click="deleteArticle()">删除</button>
+    </div>
+    <div ng-show="isPreview">
+    <h1 class="article-title">{{article.title}}</h1>
+    <hr/>
+    <aside class="article-aside">
+        <div class="row">
+            <div class="col-xs-12" ng-show="article.keywords.length>0">
+                <span class="pull-left">关键字：</span>
+                <ul class="kw-ul">
+                    <li ng-repeat="keyword in article.keywords">{{keyword.name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="pull-left">作者：</span>{{article.authorName}}
+                <ul class="author-ul">
+
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+    <hr/>
+    <aside class="article-aside">
+        <div class="row">
+            <div class="col-xs-12" style="border-left:3px solid #CCCCCC;">
+                {{article.description}}
+            </div>
+        </div>
+    </aside>
+    <img ng-src="{{article.copyPath}}" class="img-responsive font-img"  ng-show="article.copyPath&&article.isShow">
+    <hr/>
+    <article ng-bind-html="article.content">
+
+    </article>
+    </div>
+</div>
+
+<script type="text/ng-template" id="delModalContent.html">
+    <div class="panel panel-default del-modal">
+        <div class="panel-heading">确认删除文章并关闭页面？</div>
+        <div class="panel-body">
+            <button class="btn btn-primary" ng-click="ok()">确定</button>
+            <button class="btn btn-default" ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</script>

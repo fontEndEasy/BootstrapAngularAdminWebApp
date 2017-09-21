@@ -1,0 +1,11 @@
+<!-- selection -->
+<span class="arrow top hidden-folded arrow-info"></span>
+<ul class="group-list-panel bg-info" ng-controller="GroupSwitch">
+    <li ng-repeat="group in groupList">
+        <a data-id="{{group.id}}" href ng-click="{{group.isCurGroup ? '' : 'changed($event)'}}">
+            <i class="fa fa-check {{group.isCurGroup ? 'text-default' : 'text-info'}}"></i>
+            <span ng-bind="group.name"></span>
+        </a>
+    </li>
+</ul>
+<!-- /selection -->

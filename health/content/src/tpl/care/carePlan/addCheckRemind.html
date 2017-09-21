@@ -1,0 +1,89 @@
+<div class="dialog-heading font-bold text-center">
+    <div class="text-md">检查检验项</div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-inline clearfix">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="form-group">
+                            请选择发送时间：
+                        </div>
+                        <time-set-cpn time="chenckData.sendTime" hour-step="1" minute-step="30" class="form-inline"></time-set-cpn>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="form-group m-t-xs">
+                            提醒日期：
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="row form-inline">
+                        <div class="form-group">
+                            提前
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" ng-model="chenckData.checkItem.forwardDays" ng-options="item as item for item in [1,2,3,4,5,6,7]">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            天开始提醒
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="form-group">
+                            注意事项提醒：
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="row">
+                        <textarea ng-model="chenckData.checkItem.reminders" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t clearfix">
+                <table class="table table-striped table-layout-fixed b-b b-t b-r b-l m-n">
+                    <thead>
+                        <tr>
+                            <th>检查名称</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in chenckData.checkItem.checks">
+                            <td class="autocut">
+                                {{item.name}}
+                            </td>
+                            <td class="autocut text-right">
+                                <button ng-click="removePick($index)" class="btn btn-default btn-xs m-t-xs">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="m-t-sm clearfix">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="pickData()">
+                    <i class="glyphicon glyphicon-plus"></i> 添加检查
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn-block btn btn-success" ng-click="ok()">确 定</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn-block btn btn-default" ng-click="cancel()">取 消</button>
+    </div>
+</div>

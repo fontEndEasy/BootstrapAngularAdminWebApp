@@ -1,0 +1,40 @@
+<div ui-view>home</div>
+<div ui-view="footer"></div>
+<div ng-if="false">
+    <input type="file" id="file" nv-file-select uploader="uploader" ng-model="file" />
+    <button class="btn btn-success" ng-click="selectFile()">Upload</button>
+    <br/>
+    <ul>
+        <li class="text-white" ng-repeat="item in uploader.queue">
+            Name:
+            <span ng-bind="item.file.name"></span>
+            <br/>
+            <button ng-click="item.upload()">upload</button>
+        </li>
+    </ul>
+    <br/>
+    <a href class="text-white" ng-click="show()">展示</a>
+    <a ng-click="ceshi()">ceshi</a>
+    <ui-medicine open="openUiMedicine"></ui-medicine>
+    <!-- <button ng-audio="dealAudio('http://danielstern.github.io/ngAudio/audio/song1.mp3')">Click me</button> -->
+    <button ng-click="audio.paused ? audio.play() : audio.pause()">播放</button>
+    <button ng-click="audio.restart()">停止</button>
+    <button ng-click="audio.muting = !audio.muting">静音</button>
+    <label>Current Time</label>
+    <input class="form-control" type=text ng-model="audio.currentTime">
+    <label>Volume</label>
+    <input class="form-control" type=range min=0 max=1 step=0.01 ng-model="audio.volume">
+</div>
+<div ng-if="false">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="输入消息" ng-model="msg">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="send(msg)">发送</button>
+        </span>
+    </div>
+    <ul>
+        <li class="text-white" ng-repeat="item in msgList">
+            {{item}}
+        </li>
+    </ul>
+</div>

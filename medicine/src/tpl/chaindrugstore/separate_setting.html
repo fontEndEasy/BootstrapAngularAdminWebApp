@@ -1,0 +1,86 @@
+<div class="wrapper-md" ng-model="datas" ng-controller="ChainSeparateSetting">
+	<div class="row">
+		<div class="panel panel-default frame-panel">
+			<div class="row">
+				<div class="col-md-3 mrb-15">
+					<h2 class="title-3 text-left">抽成比例设置</h2>
+				</div>
+				<div class="col-md-9 mrb-10">
+					<div class="pull-right mrr-10">
+						<div>
+							<button class="btn btn-primary button btn-block"
+								ng-disabled='settingsForm.$invalid' ng-click="saveManager()">保 存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body salesmanager-body">
+				<form class="form-horizontal" novalidate name="settingsForm">
+					<div class="salesmanager-container" ng-show='{{datas.c_ChainDrugStore}}'>
+						<!-- 连锁药店 -->
+						<div class="set">
+							<div class="salesmanager-container-body">
+								<span class="col-md-2"></span>
+								<span class="col-md-2">
+									<img class="img" src="src/img/a0.jpg">
+									<b class="name">总店</b>
+								</span>
+								<span class="col-md-2">
+									<img class="img" src="src/img/a0.jpg">
+									<b class="name">店长</b>
+								</span class="col-md-2">
+								<span class="col-md-2">
+									<img class="img" src="src/img/a0.jpg">
+									<b class="name">店员</b>
+								</span>
+								<span class="col-md-4"></span>
+							</div>
+						</div>
+						<div class="salesmanager-block">
+							<div class="divs">
+								<div class="salesmanager-container-body">
+									<span class="col-md-2"><b>店长产生推广费的抽成：</b></span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_1" class="form-control one" placeholder="0" ng-model="total_1">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_2" class="form-control two" placeholder="0" ng-model="total_2">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_3" readonly="readonly" class="form-control three" style="background-color:#F9EFEF;" placeholder="0" ng-model="total_3">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="col-md-4">
+										<b class="watch" id="profits_tips_0">注：来源为店长本人的销售业绩</b>
+									</span>
+								</div>
+							</div>
+							<div class="divs last">
+								<div class="salesmanager-container-body">
+									<span class="col-md-2"><b>店员产生推广费的抽成：</b></span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_4" placeholder="0" class="form-control one" ng-model="total_4">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_5" placeholder="0" class="form-control two" ng-model="total_5">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="sale-input-block col-md-2">
+										<input type="text" id="total_6" placeholder="0" class="form-control three" ng-model="total_6">
+										<b style="size: 20px;">%</b>
+									</span>
+									<span class="col-md-4">
+										<b class="watch" id="profits_tips_1">注：来源为店员的销售业绩</b>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

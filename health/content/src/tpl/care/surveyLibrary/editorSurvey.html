@@ -1,0 +1,140 @@
+<div class="row" ng-controller="EditorSurveyCtrl">
+    <div class="col-xs-8 col-xs-offset-2">
+        <div class="panel panel-default m-t">
+            <div class="panel-heading font-blod">
+                调查表
+            </div>
+            <div class="panel-body">
+                <div class="form-group clearfix">
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <label class="control-label">量表标题</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <input type="text" class="form-control" placeholder="标题" ng-model="surveyData.title">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row text-right">
+                                    <label class="control-label">科室：</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="surveyData.diseaseName" placeholder="科室" disabled>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" ng-click="chooseDepartment()" ng-disabled="isDiseaseDisable">选择</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group clearfix">
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <label class="control-label">量表简介</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <textarea style="resize:none" class="form-control" rows="3" placeholder="简介" ng-model="surveyData.desc"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group clearfix">
+                    <div class="bg-light b clearfix m-b-sm" ng-repeat="item in surveyData.questions">
+                        <div class="col-sm-1 text-center clearfix">
+                            <h4 class="m-t-md">Q<span ng-bind="item.seq=$index+1"></span>:</h4>
+                            <div class="m-t-sm">
+                                <a title="向上移动" ng-click="putUpQuestion($index)"><i class="fa fa-arrow-up" ng-if="!$first"></i></a>
+                            </div>
+                            <div>
+                                <a title="向下移动" ng-click="putDownQuestion($index)" ng-if="!$last"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                            <div class="m-t-sm">
+                                <button class="btn btn-default btn-xs" ng-click="copyQyestiong($index, item)">复制</button>
+                            </div>
+                            <div class="m-t-xs">
+                                <button class="btn btn-default btn-xs" ng-click="removeQuestion($index)" ng-if="!$first">删除</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="b-l b-grey clearfix" style="min-height:160px">
+                                <div class="m-l-md m-t-sm">
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="题目" ng-model="item.name">
+                                    </div>
+                                    <!-- 选择题 -->
+                                    <div ng-if="item.type===1">
+                                        <ul class="m-b-sm">
+                                            <li class="clearfix m-t-sm" ng-repeat="part in item.options">
+                                                <div class="pull-left">
+                                                    <label class="m-t-xs">
+                                                        <input type="radio"> &nbsp;&nbsp;
+                                                        <span ng-bind="part.seq=$index+1"></span>:</span>.
+                                                        <a editable-text="part.name" blur="submit">{{part.name}}</a>
+                                                    </label>
+                                                    <span ng-if="part.isAddRemark">_____</span>
+                                                </div>
+                                                <div class="pull-right clearfix m-l-xs" ng-if="item.options.length>2">
+                                                    <button class="btn btn-default btn-sm" ng-click="removeOption($parent.$parent.$index,$index)">删除</button>
+                                                </div>
+                                                <div class="pull-right clearfix">
+                                                    <div class="input-group">
+                                                        <div class="m-t-xs">
+                                                            <label>
+                                                                <input type="checkbox" value="" ng-model="part.isAddRemark"> 在选项后增加填空框
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="m-b-sm">
+                                            <button class="btn btn-default btn-sm" ng-click="addOption($index)">添加选项</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-sm">
+                        <button class="btn btn-default btn-md" ng-click="addQuestion(1)">添加选择题</button>
+                        <button class="btn btn-default btn-md" ng-click="addQuestion(2)">添加填空题</button>
+                        <button class="btn btn-default btn-md" ng-click="addQuestion(3)">添加问答题</button>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-danger btn-md w-xs" ui-sref="app.surveyLibrary">取消</a>
+                    <button class="btn btn-success btn-md w-xs" ng-click="saveEdit()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.editable-controls {
+    margin-top: 0px !important;
+    border: 0px !important;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 3px 12px;
+}
+
+.editable-click,
+a.editable-click {
+    border: 0px;
+    color: #666;
+}
+</style>

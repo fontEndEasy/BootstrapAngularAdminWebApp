@@ -1,0 +1,316 @@
+<div class="col-lg-10 col-lg-offset-1 ">
+    <div class="m-t-lg clearfix">
+        <!-- 订单历史 -->
+        <div class="col-xs-4">
+            <div class="bg-white r-2x clear">
+                <div class="text-center p-t-xs p-b-xs text-dark bg-f8 b-b box-shadow">订单历史 <i class="fa fa-spinner fa-spin" ng-show="getOrderListIsLoading"></i></div>
+                <div class="block list-group overflow-auto m-n h-700 bg-light">
+                    <div class="text-center" ng-show="orderList.length<1">无数据</div>
+                    <uib-accordion close-others="true">
+                        <uib-accordion-group ng-repeat="item in orderList" template-url="orderHistoryListView.html">
+                            <uib-accordion-heading>
+                                <div class="pull-left">
+                                    {{item.day}}
+                                </div>
+                                <div class="pull-right">
+                                    {{item.count}}个
+                                </div>
+                            </uib-accordion-heading>
+                            <uib-accordion-content>
+                                <ul class=" block m-l m-r m-b-sm b-t b-grey b-2x">
+                                    <li ng-repeat="part in item.orderList" class="b-t-n b-l-n b-r-n b-grey b-b b-dashed  bg-white p-sm r r-3x clear box-shadow a-link" ng-click="chatPeopleListItemClick(part)">
+                                        <div class="row">
+                                            <div class="col-xs-3"><img class="w-full r-2x" ng-src="{{part.headImg}}"></div>
+                                            <div class="col-xs-4">
+                                                <div class="row">
+                                                    <div class="p-t-sm text-dark">
+                                                        {{part.name}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <smal class="block m-t－xs text-muted">{{part.createTime | amDateFormat:'H:mm'}}</smal>
+                                                <!-- <span class="block m-t-xs text-muted">{{part.price?'收费订单':'免费订单'}}</span> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </uib-accordion-content>
+                        </uib-accordion-group>
+                        <div class="text-center m-t text-xs text-muted">
+                            <a ng-click="getOrderList(orderList[orderList.length-1].orderList[(orderList[orderList.length-1].orderList.length-1)].createTime)" ng-disabled="isNoMoreOrderList">{{isNoMoreOrderList?'已经全部加载完':'查看更多'}}</a>
+                        </div>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+        <!-- 订单历史 end -->
+        <!-- 会话 -->
+        <div class="col-xs-8">
+            <div class="bg-white r-2x clearfix">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="text-dark bg-f8 b-b b-r clear">
+                            <span class="pull-left m-l font-bold m-t-xs m-b-xs">{{windowTarget.name||'加载中'}}</span>
+                            <button class="pull-left m-l btn btn-sm btn-default no-shadow b-none bg-f8" title="病情资料" uib-popover-template="'targetInfoView.html'" popover-placement="bottom" popover-is-open="targetInfoView.isOpen" ng-click="callView.isOpen=false;getTargetInfo(windowTarget.windowId);" ng-if="windowTarget.windowId"><i class="fa fa-file-text inline m-t-xs fa-fw"></i></button>
+                            <span class="pull-left m-t-xs" ng-if="windowIsLoading">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                        </div>
+                        <div class="h-700 block">
+                            <div class="h-full clearfix position-relative" ng-show="windowDataListDB">
+                                <!-- 
+                            sessionStatus 1:待预约，2：待支付，3：已支付，4：已完成，5：已取消 服务中：15，服务超时：16，人工取消：17；后台自动取消：18，等待队列中：19，咨询队列中：20
+                            -->
+                                <div class="position-absolute absolute-top absolute-left absolute-right z-index-11 p-t-xs p-b-xs opacity-8 text-center" ng-class="{16:'bg-danger',15:'bg-orange',22:'bg-black'}[windowBussiness.sessionStatus]" ng-if="windowBussiness && windowDataListDB">
+                                    {{ windowBussiness.sessionStatus == 16 ? '本次咨询已超过'+ windowBussiness.leftTime+'分钟':''}} {{ windowBussiness.sessionStatus == 15 ? '距离本次咨询结束还有'+ windowBussiness.leftTime+'分钟':''}} {{ windowBussiness.sessionStatus == 22 ? '本次咨询已结束':''}}
+                                    <button class="btn btn-default btn-xs inline r-2x" ng-if="windowBussiness.sessionStatus == 16" ng-click="closeOrder(windowDataListDB.gid)">结束服务 <i class="fa fa-spinner fa-spin" ng-show="closeOrderIsLoading"></i>
+                                    </button>
+                                </div>
+                                <div class="h-full bg-f8 col-xs-12 overflow-auto">
+                                    <div style="padding-top:16px;">
+                                        <!-- chat list -->
+                                        <div class="row clearfix text-center p-t p-b-xs b-b m-b-sm">
+                                            <a class="text-xs" ng-click="getWindowOldData()" ng-disabled="isOldDataLoading">{{isNoOldData?'已经全部加载':'获取更多消息'}}<i class="fa fa-spinner fa-spin" ng-show="isOldDataLoading"></i></a>
+                                        </div>
+                                        <!-- 获取过滤图片 -->
+                                        <face-icon-filter class="hide" faceimg="faceimgfc"></face-icon-filter>
+                                        <div class="clearfix row" ng-repeat="item in windowDataListDB.list track by $index" id="{{item.msgId}}">
+                                            <!-- 时间 -->
+                                            <div class="m-b-sm text-center" ng-if="item.type != 12 && ($first?true:(item.sendTime != lists[$index-1].sendTime))">
+                                                <span class="inline bg-light r-2x text-xs p-l-xs p-r-xs">{{item.sendTime|date:'MM-dd HH:mm'}}</span>
+                                            </div>
+                                            <!-- 系统消息 -->
+                                            <div class="m-b-sm text-center" ng-if="item.type==12">
+                                                <span class="inline bg-light r-2x p-l-sm p-r-sm">{{item.content}}</span>
+                                            </div>
+                                            <!-- 事件消息 -->
+                                            <div class="m-b-sm clearfix time-wrap" ng-if="item.type==15">
+                                                <span class="content">{{item.content}}</span>
+                                            </div>
+                                            <!-- 会话消息 非卡片 -->
+                                            <!--<div class="m-b-sm clearfix" ng-if="item.type==1 ||item.type==2">-->
+                                                <!--<a class="thumb-xs pull-left m-l" ng-if="item.direction==0" ng-click="patientInfoDailog(windowTarget.id,null,windowTarget.windowId)-->
+                                                <!--"><img class="r r-2x" ng-src="{{windowTarget.pic}}" alt="..."></a>-->
+                                                <!--<a class="thumb-xs pull-right m-r-lg" ng-if="item.direction==1"><img class="r r-2x" ng-src="{{user.headPicFileName}}" alt="..."></a>-->
+                                                <!--<div ng-class="{0:'pull-left',1:'pull-right'}[item.direction]" style="max-width:60%">-->
+                                                    <!--<div class="pos-rlt wrapper-sm b b-light r " ng-class="{0:'bg-white m-l-sm',1:'bg-light m-r-sm'}[item.direction]">-->
+                                                        <!--<span class="arrow pull-up" ng-class="{0:'left',1:'right arrow-light'}[item.direction]"></span>-->
+                                                        <!--&lt;!&ndash; 文本内容 &ndash;&gt;-->
+                                                        <!--<p class="m-b-none text-dark word-break-break-word faceBox" ng-if="item.type==1" ng-bind-html="textToHtml(item.content)">-->
+                                                        <!--</p>-->
+                                                        <!--&lt;!&ndash; 图片内容 &ndash;&gt;-->
+                                                        <!--<p class="m-b-none text-dark word-break-break-word" ng-if="item.type==2"><img class="w-full" ng-src="{{item.param.uri}}"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                            <!-- 会话消息 非卡片 -->
+                                            <div class="m-b-sm clearfix" ng-if="item.type==1 ||item.type==2||item.type==3">
+                                                <a class="thumb-xs pull-left m-l" ng-if="item.direction==0" ng-click="openPatientInfoDailog(windowTarget.id,null,windowTarget.windowId)"><img class="r r-2x" ng-src="{{windowTarget.pic}}" alt="..."></a>
+                                                <a class="thumb-xs pull-right m-r-lg" ng-if="item.direction==1"><img class="r r-2x" ng-src="{{user.headPicFileName}}" alt="..."></a>
+                                                <div ng-class="{0:'pull-left',1:'pull-right'}[item.direction]" style="max-width:60%">
+                                                    <div class="pos-rlt wrapper-sm b b-light r " ng-class="{0:'bg-white m-l-sm',1:'bg-light m-r-sm'}[item.direction]">
+                                                        <span class="arrow pull-up" ng-class="{0:'left',1:'right arrow-light'}[item.direction]"></span>
+                                                        <!-- 文本内容 -->
+                                                        <p class="m-b-none text-dark word-break-break-word faceBox" ng-if="item.type==1" ng-bind-html="textToHtml(item.content)">
+                                                        </p>
+                                                        <!-- 图片内容 -->
+                                                        <p class="m-b-none text-dark word-break-break-word" ng-if="item.type==2">
+                                                            <a ng-click="openLightboxModal([(item.param.uri?item.param.uri:qiniuIMRoot+item.param.key)],0)"><img class="w-full" ng-src="{{item.param.uri?item.param.uri:qiniuIMRoot+item.param.key}}"></a>
+                                                        </p>
+                                                        <!-- 语音消息 -->
+                                                        <p class="m-b-none text-dark word-break-break-word clearfix" ng-if="item.type==3">
+                                                                    <span ng-if="!item.param.key">
+                                                                        该语音不支持播放
+                                                                    </span>
+                                                            <span class="pull-left" ng-if="item.param.key"><i class="fa fa-2x fa-fw a-link" ng-click="getAudio(item.param.key)" ng-class="{false:'text-danger fa-pause-circle',undefined:'text-success fa-play-circle',true:'text-success fa-play-circle'}[thisAudio(item.param.key).paused]"></i></span>
+                                                            <span class="m-t-xs pull-left" ng-if="item.param.key">{{item.param.time}}"</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- 会话消息 卡片 -->
+                                            <!--<div class="m-b-sm clearfix" ng-if="item.type==14 && item.fromUserId != 0">-->
+                                                <!--<a href="" class="thumb-xs" ng-class="{0:'pull-left m-l',1:'pull-right m-r-lg'}[item.direction]"><img class="r r-2x" ng-src="{{item.direction == 0?windowTarget.pic:user.headPicFileName}}" alt="..."></a>-->
+                                                <!--<div ng-class="{0:'pull-left',1:'pull-right'}[item.direction]" style="max-width:60%">-->
+                                                    <!--<div class="pos-rlt wrapper-sm b b-light r " ng-class="{0:'bg-white m-l-sm',1:'bg-light m-r-sm'}[item.direction]">-->
+                                                        <!--<span class="arrow pull-up" ng-class="{0:'left',1:'right arrow-light'}[item.direction]"></span>-->
+                                                        <!--<div class="b bg-white r-2x box-shadow" ng-repeat="parts in item.mpt">-->
+                                                            <!--<div class="p-l-sm p-r-sm b-b b-light text-xs p-t-xs p-b-xs clearfix font-bold">-->
+                                                                <!--<span class="text-muted">{{parts.title}}</span>-->
+                                                                <!--<small class="pull-right m-t-n-xxs text-danger">{{parts.price}}</small>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="clearfix p-l-sm p-r-sm p-t-xs p-b-xs">-->
+                                                                <!--<div class="pull-left thumb-lg m-r">-->
+                                                                    <!--<img class="r-3x" ng-src="{{parts.pic}}" alt="{{parts.footer}}">-->
+                                                                <!--</div>-->
+                                                                <!--<div class="clear">-->
+                                                                    <!--<small class="text-muted clear text-ellipsis">{{parts.content}}</small>-->
+                                                                    <!--<span class="text-base text-dark">{{parts.remark}}</span>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="p-l-sm p-r-sm b-t b-light text-xs p-t-xs p-b-xs clear text-ellipsis text-right">-->
+                                                                <!--{{parts.footer}}-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                            <!-- 会话消息 卡片 -->
+                                            <div class="m-b-sm clearfix" ng-if="item.type==14 && item.fromUserId != 0">
+                                                <a href="" class="thumb-xs" ng-class="{0:'pull-left m-l',1:'pull-right m-r-lg'}[item.direction]"><img class="r r-2x" ng-src="{{item.direction == 0?windowTarget.pic:user.headPicFileName}}" alt="..."></a>
+                                                <div ng-class="{0:'pull-left',1:'pull-right'}[item.direction]" style="width:60%">
+                                                    <div class="pos-rlt wrapper-sm b b-light r " ng-class="{0:'bg-white m-l-sm',1:'bg-light m-r-sm'}[item.direction]">
+                                                        <span class="arrow pull-up" ng-class="{0:'left',1:'right arrow-light'}[item.direction]"></span>
+                                                        <!-- parts.param.bizType===20 -->
+                                                        <div class="b bg-white r-2x box-shadow a-link" ng-click="showDocInfo(item.param.bizParam.bizId,windowDataListDB.gid)" ng-if="item.param.bizParam.bizType===22">
+                                                            <div class="p-l-sm p-r-sm b-b b-light text-xs p-t-xs p-b-xs clearfix font-bold">
+                                                                <span class="text-muted">{{item.param.title}}</span>
+                                                                <small class="pull-right m-t-n-xxs text-danger">{{item.param.price}}</small>
+                                                            </div>
+                                                            <div class="clearfix p-l-sm p-r-sm p-t-xs p-b-xs">
+                                                                <div class="pull-left thumb-lg m-r">
+                                                                    <img class="r-3x" ng-src="{{item.param.pic}}" alt="{{item.param.footer}}">
+                                                                </div>
+                                                                <div class="clear">
+                                                                    <small class="text-muted clear text-ellipsis">{{item.param.content}}</small>
+                                                                    <span class="text-base text-dark" ng-bind-html="contentToHtml(item.param.remark)"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-l-sm p-r-sm b-t b-light text-xs p-t-xs p-b-xs clear text-ellipsis text-right">
+                                                                {{item.param.footer}}
+                                                            </div>
+                                                        </div>
+                                                        <!-- parts.param.bizType!=20 -->
+                                                        <div class="b bg-white r-2x box-shadow" ng-if="item.param.bizParam.bizType!=22">
+                                                            <div class="p-l-sm p-r-sm b-b b-light text-xs p-t-xs p-b-xs clearfix font-bold">
+                                                                <span class="text-muted">{{item.param.title}}</span>
+                                                                <small class="pull-right m-t-n-xxs text-danger">{{item.param.price}}</small>
+                                                            </div>
+                                                            <div class="clearfix p-l-sm p-r-sm p-t-xs p-b-xs">
+                                                                <div class="pull-left thumb-lg m-r">
+                                                                    <img class="r-3x" ng-src="{{item.param.pic}}" alt="{{item.param.footer}}">
+                                                                </div>
+                                                                <div class="clear">
+                                                                    <small class="text-muted clear text-ellipsis">{{item.param.content}}</small>
+                                                                    <span class="text-base text-dark" ng-bind-html="contentToHtml(item.param.remark)"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-l-sm p-r-sm b-t b-light text-xs p-t-xs p-b-xs clear text-ellipsis text-right">
+                                                                {{item.param.footer}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- 系统卡片 -->
+                                            <!--<div class="m-b-sm clearfix" ng-if="item.type==14 && item.fromUserId == 0">-->
+                                                <!--<div class="b bg-white r-2x box-shadow a-link" ng-repeat="parts in item.mpt" style="max-width:60%;margin:0 auto;" ng-click="openDoctorInfoDailog(parts.param.bizId,parts,windowDataListDB.gid)">-->
+                                                    <!--<div class="p-l-sm p-r-sm b-b b-light text-xs p-t-xs p-b-xs clearfix font-bold">-->
+                                                        <!--<span class="text-muted">{{parts.title}}</span>-->
+                                                        <!--<small class="pull-right m-t-n-xxs text-danger">{{parts.price}}</small>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="clearfix p-l-sm p-r-sm p-t-xs p-b-xs">-->
+                                                        <!--<div class="pull-left thumb-lg m-r">-->
+                                                            <!--<img class="r-3x" ng-src="{{parts.pic}}" alt="{{parts.footer}}">-->
+                                                        <!--</div>-->
+                                                        <!--<div class="clear">-->
+                                                            <!--<small class="text-muted clear text-ellipsis">{{parts.content}}</small>-->
+                                                            <!--<span class="text-base text-dark">{{parts.remark}}</span>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="p-l-sm p-r-sm b-t b-light text-xs p-t-xs p-b-xs clear text-ellipsis text-right">-->
+                                                        <!--{{parts.footer}}-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!-- 系统卡片 -->
+                                            <div class="m-b-sm clearfix" ng-if="item.type==14 && item.fromUserId == 0">
+                                                <div class="b bg-white r-2x box-shadow a-link" style="max-width:60%;margin:0 auto;" ng-click="showDocInfo(item.param.bizParam.bizId,windowDataListDB.gid)">
+                                                    <div class="p-l-sm p-r-sm b-b b-light text-xs p-t-xs p-b-xs clearfix font-bold">
+                                                        <span class="text-muted">{{item.param.title}}</span>
+                                                        <small class="pull-right m-t-n-xxs text-danger">{{item.param.price}}</small>
+                                                    </div>
+                                                    <div class="clearfix p-l-sm p-r-sm p-t-xs p-b-xs">
+                                                        <div class="pull-left thumb-lg m-r">
+                                                            <img class="r-3x" ng-src="{{item.param.pic}}" alt="{{item.param.footer}}">
+                                                        </div>
+                                                        <div class="clear">
+                                                            <small class="text-muted clear text-ellipsis">{{item.param.content}}</small>
+                                                            <span class="text-base text-dark" ng-bind-html="contentToHtml(item.param.remark)"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-l-sm p-r-sm b-t b-light text-xs p-t-xs p-b-xs clear text-ellipsis text-right">
+                                                        {{item.param.footer}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- / chat list -->
+                                        <!-- doctor-info-dailog -->
+                                        <doctor-info-dailog open="openDoctorInfoDailog" go-running="refreshWindowData"></doctor-info-dailog>
+                                        <!-- doctor-info-dailog end -->
+                                        <!-- patientInfoDailog -->
+                                        <patient-info-dailog open="patientInfoDailog"></patient-info-dailog>
+                                        <!-- patientInfoDailog end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- chat-window end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 会话 end -->
+    </div>
+</div>
+<!-- 订单历史 模版 -->
+<script type="text/ng-template" id="orderHistoryListView.html">
+    <div>
+        <div class="p-sm b-b a-link  bg-white text-muted clearfix" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+            <div class="pull-left"><i class="fa fa-fw fa-lg" ng-class="{true:'fa-caret-right',false:'fa-caret-down'}[!isOpen]"></i></div><span class="block" heading></span>
+        </div>
+        <div class="b-b bg-light" uib-collapse="!isOpen" ng-transclude>
+        </div>
+    </div>
+</script>
+<!-- 订单历史 模版 end -->
+<!-- 病情资料 -->
+<script type="text/ng-template" id="targetInfoView.html">
+    <div class="form-group w-300 h-max-600">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="targetInfoView.isOpen=false"><i class="fa fa-close"></i></button>
+        </div>
+        <div>
+            <label class="text-black">病情资料</label>
+        </div>
+        <div class="p-t-xs b-t" ng-if="targetInfoView.isLoading">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="p-t-xs b-t" ng-if="!targetInfoView.isLoading">
+            <div class="clearfix m-b-xs "><span class="pull-left text-muted text-black">姓名：</span><span class="pull-right">{{targetInfo.orderVo.patientName}}</span></div>
+            <div class="clearfix m-b-xs"><span class="pull-left text-muted text-black">性别：</span><span class="pull-right">{{targetInfo.orderVo.sex == 1 ?'男':'女'}}</span></div>
+            <div class="clearfix m-b-xs"><span class="pull-left text-muted text-black">年龄：</span><span class="pull-right">{{targetInfo.orderVo.age}}</span></div>
+            <div class="clearfix m-b-xs"><span class="pull-left text-muted text-black">手机：</span><span class="pull-right">{{targetInfo.orderVo.telephone}}</span></div>
+            <div class="clearfix m-b-xs"><span class="pull-left text-muted text-black">与患者的关系：</span><span class="pull-right">{{targetInfo.orderVo.relation}}</span></div>
+            <div class="text-muted p-t-xs b-t">病情描述</div>
+            <div class="text-dark text-xs m-t-xs text-bold">{{targetInfo.diseaseDesc}}</div>
+            <div class="text-muted m-t-xs p-t-xs b-t">影像病历：</div>
+            <div class="text-muted text-xs m-t-xs clearfix">
+                <div class="pull-left m-xs b" ng-repeat="item in targetInfo.imgStringPath">
+                    <a ng-click="openLightboxModal(targetInfo.imgStringPath,$index)">
+                        <img ng-src="{{item}}" width="64" height="64" ng-if="item">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 病情资料 end -->

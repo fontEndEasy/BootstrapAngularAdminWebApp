@@ -1,0 +1,170 @@
+<!-- navbar -->
+<div data-ng-include=" 'src/tpl/blocks/header.html' " class="app-header navbar">
+</div>
+<!-- / navbar -->
+<!-- menu -->
+<!-- <div data-ng-include=" 'src/tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}"> -->
+<div class="app-aside hidden-xs {{app.settings.asideColor}}" ui-view="nav"></div>
+</div>
+<!-- / menu -->
+<!-- content -->
+<div class="app-content">
+    <div ui-butterbar></div>
+    <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside"></a>
+    <div class="app-content-body" ui-view></div>
+</div>
+<!-- /content -->
+<!-- modal dialog -->
+<div ui-view="modalDialog"></div>
+<!-- /modal dialog -->
+<div class="" ui-view="dialogView"></div>
+<span id="msg_icon" class="msg-icon"><i class="fa fa-comments"></i><b class="msg-num">1</b></span>
+<div id="msg_window" class="msg-window none">
+    <div class="win-lt move-point">
+        <div class="user-pic"><img src="src/img/c4.jpg" /></div>
+    </div>
+    <div class="win-md">
+        <div class="contacts-find move-point">
+            <div>
+                <input id="contacts_search_input" type="text" placeholder="关键字" /><i class="fa icon-magnifier"></i></div>
+        </div>
+        <div class="contacts-list">
+            <ul>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">1</b><img src="src/img/a0.jpg" /><span>Nick</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">99+</b><img src="src/img/c0.jpg" /><span>王大锤</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">45</b><img src="src/img/c1.jpg" /><span>张小宝</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">20</b><img src="src/img/c2.jpg" /><span>李二鬼</span></li>
+                <li class="contacts-item cur-item"><i class="icon-close"></i><img src="src/img/c2.jpg" /><span>好长的名字啊</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">8</b><img src="src/img/c3.jpg" /><span>这傻蛋的名字为什么这么长</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">1</b><img src="src/img/a0.jpg" /><span>Nick</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">99+</b><img src="src/img/c0.jpg" /><span>王大锤</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">45</b><img src="src/img/c1.jpg" /><span>张小宝</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">20</b><img src="src/img/c2.jpg" /><span>李二鬼</span></li>
+                <li class="contacts-item"><i class="icon-close"></i><b class="msg-num">8</b><img src="src/img/c3.jpg" /><span>这傻蛋的名字为什么这么长</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="win-rt">
+        <div class="win-top-bar move-point">
+            <div class="win-opr-btn">
+                <span class="min-view"><i></i></span>
+                <span class="mid-view"><i></i></span>
+                <span class="max-view"><i></i><b></b></span>
+                <span class="cls-view"><i class="fa fa-times"></i></span>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="main-panel-rt"></div>
+            <div class="main-panel-lt">
+                <div class="msg-item-time">昨天 10:23</div>
+                <div class="msg-item-lt">
+                    <div class="msg-item-info">
+                        <div class="msg-item-pic">
+                            <img src="src/img/c2.jpg" />
+                        </div>
+                        <div class="msg-item-body">
+                            <div class="msg-item-sender">王自强</div>
+                            <div class="msg-item-content">
+                                <i class="fa fa-comment"></i>
+                                <div>
+                                    Hi，好久不见！
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg-item-rt">
+                    <div class="msg-item-info">
+                        <div class="msg-item-pic">
+                            <img src="src/img/c5.jpg" />
+                        </div>
+                        <div class="msg-item-body">
+                            <div class="msg-item-content">
+                                <i class="fa fa-comment"></i>
+                                <div>
+                                    亲~小编已确定，房子由于个人原因租客需要把房子转租的哟，图片真实，房子干净整洁，暂无家具家电，合同可以重新跟房东签的呦，租客目前在本地，10月20号以后可以。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg-item-time">昨天 11:02</div>
+                <div class="msg-item-lt">
+                    <div class="msg-item-info">
+                        <div class="msg-item-pic">
+                            <img src="src/img/c2.jpg" />
+                        </div>
+                        <div class="msg-item-body">
+                            <div class="msg-item-content">
+                                <i class="fa fa-comment"></i>
+                                <div>
+                                    房子由于个人原因租客需要把房子转租的哟，图片真实
+                                    <img src="src/img/c9.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg-item-time">星期五 20:43</div>
+                <div class="msg-item-rt">
+                    <div class="msg-item-info">
+                        <div class="msg-item-pic">
+                            <img src="src/img/c5.jpg" />
+                        </div>
+                        <div class="msg-item-body">
+                            <div class="msg-item-content">
+                                <i class="fa fa-comment"></i>
+                                <div>
+                                    嗯，好久不见！你还好吗？
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg-item-lt">
+                    <div class="msg-item-info">
+                        <div class="msg-item-pic">
+                            <img src="src/img/c2.jpg" />
+                        </div>
+                        <div class="msg-item-body">
+                            <div class="msg-item-sender">王自强</div>
+                            <div class="msg-item-content">
+                                <i class="fa fa-comment"></i>
+                                <div>
+                                    亲~小编已确定，房子由于个人原因租客需要把房子转租的哟，图片真实
+                                    <img src="src/img/c8.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal dialog -->
+<div class="cnt-anim-dialog animating fade-in-right none" id="d_container">
+    <div class="panel-heading font-bold text-center">患者详情 (<span class="text-info" ng-bind="viewData.patientName"></span>)
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div id="patient_record" class="data-tab"></div>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-primary">关 闭</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->
+<!-- footer -->
+<div class="app-footer wrapper b-t bg-light">
+    <span class="pull-right">{{app.version}} <a href ui-scroll-to="app" class="m-l-sm text-muted"><i
+            class="fa fa-long-arrow-up"></i></a></span> &copy; 2015 版权所有
+</div>
+<!-- / footer -->
+<div data-ng-include=" 'src/tpl/blocks/settings.html' " class="settings panel panel-default">
+</div>

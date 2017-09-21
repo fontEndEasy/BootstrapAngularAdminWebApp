@@ -1,0 +1,108 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating capitalpooldrug-anim-dialog" ng-controller="drugcodeMarkController">
+    <div class="navi-wrap capitalpool_drug">
+        <div class="row">
+            <div class="capitalpool_drug-panel">
+                <div class="row">
+                    <div class="col-md-4">
+                        标记为：
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <div class="radio markradio">
+                            <label class="i-checks">
+                                <input type="radio" name="a" value="1" checked="">
+                                <i></i> 正品
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio markradio">
+                            <label class="i-checks">
+                                <input type="radio" name="a" value="2">
+                                <i></i> 伪造
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <div class="checkbox markcheckbox">
+                            <label class="i-checks">
+                                <input type="checkbox" value="">
+                                <i></i> 串货
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group" style="padding:7px 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon" style="background:#ffffff; border:none; font-size:16px; padding:7px 0;">备注：</div>
+                                <input type="text" class="form-control" ng-model="drugcodedesc" placeholder="备注说明">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row drugcode_drug_btns text-center">
+                    <button type="button" class="btn btn-success" ng-click="pmenter()">
+                        <span>确定</span>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="pmcancel()">
+                        <span>取消</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal_capitalpool" tabindex="-1" role="dialog" aria-labelledby="myModal_capitalpool" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModal_capitalpoollable">更新成功</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.capitalpooldrug-anim-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -130px;
+    width: 420px;
+    height: 260px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0px 0 1px rgba(0, 0, 0, .5);
+}
+
+.capitalpool_drug {
+    padding: 20px 10px;
+    font-size: 16px;
+}
+
+.capitalpool_drug .row {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.capitalpool_drug button {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.drugcode_drug_btns {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+</style>

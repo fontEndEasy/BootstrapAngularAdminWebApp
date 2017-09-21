@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="玄关患教平台,健康科普" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script>
+        window.location.href = 'Navigator_Not_Surpport.html';
+    </script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+        .container article img{
+            max-width:100%;
+            height: auto;
+        }
+        .container>.pub-data{
+            font-size: 17px;
+            color: #8c8c8c;
+        }
+        .container >h2{
+            line-height: 150%;
+            font-size: 24px;
+        }
+        .container>.summary{
+            border-left:3px solid #CCCCCC;
+            padding-left: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 150%;
+        }
+        .container>img{
+            width: 100%;
+            margin: 10px 0 0;
+        }
+        .container article{
+            margin-top: 10px;
+            font-size:16px;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>{{title}}</h2>
+    <span class="pub-data">{{date}}</span>
+    <div class="summary">{{summary}}</div>
+    <img src="{{imgSrc}}" class="img-responsive">
+    <article>
+        {{content}}
+    </article>
+</div>
+</body>
+</html>

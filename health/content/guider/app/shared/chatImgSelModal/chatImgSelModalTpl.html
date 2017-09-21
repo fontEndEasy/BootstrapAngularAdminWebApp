@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 class="modal-title">图片选择</h3>
+</div>
+<div class="modal-body clearfix" style="max-height: 675px;overflow-y: auto;">
+    <span ng-show="images&&images.length==0">无数据</span>
+    <ul>
+        <li ng-repeat="item in images" ng-click="changeCheckStatus(item,$event)" class="position-relative pull-left hover-pointer">
+            <img ng-src="{{item.imgs}}" class="b b-a wrapper-xs bg-white img-responsive m-sm" style="width: 195px;height: 195px;">
+            <label class="i-checks" style="position:absolute;top:10px;right: 6px;">
+                <input type="checkbox" ng-model="item.check" class="ng-valid ng-dirty ng-valid-parse ng-touched" tabindex="0" aria-checked="true" aria-invalid="false"><i></i>
+            </label>
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+</div>

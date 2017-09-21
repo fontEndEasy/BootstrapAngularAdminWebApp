@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <div class="input-group" style="width: 400px;margin: 0 auto;position: relative;">
+        <input type="text" class="form-control" placeholder="输入资料标题关键字搜索" ng-model="mainKeyword" ng-keypress="pressEnter($event)">
+        <a ng-show="mainKWLength>0" style="position: absolute;top: 10px;right: 120px;z-index: 999;" ng-click="clearMainKW()" class="glyphicon glyphicon-remove"></a>
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="findDocByKeyWord()">搜索全部文档</button>
+        </span>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="b-a bg-light dk r r-2x m-t-md">
+                <span ng-if="doing_async">...loading...</span>
+                <abn-tree tree-control="my_tree" tree-data="my_data" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf="fa fa-stethoscope dcolor" icon-expand="fa fa-caret-right" icon-collapse="fa fa-caret-down" ng-if="isTreeLoad">
+                </abn-tree>
+            </div>
+        </div>
+        <div class="col-xs-9">
+            <div class="panel panel-default m-t-md">
+                <div class="panel-heading">
+                    <span>筛选项:</span>
+                </div>
+                <div class="panel-body-p row">
+                    <div class="font-bold kw-txt">
+                        关键字：
+                    </div>
+                    <div class="kw-content" ng-class="{'kw-open':open, 'kw-close': !open}">
+                        <div class="btn-group" id="p_kw_content">
+                            <label ng-repeat="keyword in keywords" ng-click="sortByKeyword(keyword)" class="btn btn-default m-sm btn-sm" ng-model="$parent.radioModel" btn-radio="keyword.name">{{keyword.name}}</label>
+                        </div>
+                    </div>
+                    <a class="font-bold more-txt" ng-click="open=!open" ng-show="showMore">
+                            更多
+                            <i class=" fa ng-scope fa-angle-down" ng-class="{'fa-angle-down': !open, 'fa-angle-right': open}"></i>
+                        </a>
+                </div>
+            </div>
+            <table id="doc_list" class="article_talbe table table-striped b-t b-b m-t-sm h-full table-hover">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>使用次数</th>
+                        <th>浏览量</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-info" type="button" ng-click="cancel()">关闭</button>
+</div>

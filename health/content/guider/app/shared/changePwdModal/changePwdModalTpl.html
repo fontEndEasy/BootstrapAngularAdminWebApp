@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3 class="modal-title">修改密码</h3>
+</div>
+<div class="modal-body clearfix">
+    <form class="bs-example form-horizontal ng-pristine ng-valid">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">当前密码<i class="fa fa-asterisk text-danger"></i></label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" autocomplete="off" maxlength="30" ng-model="curPassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">新密码<i class="fa fa-asterisk text-danger"></i></label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" autocomplete="off" maxlength="30" ng-model="newPassword">
+                <p style="margin-top: 15px;font-size: 12px;;">由字母、数字或符号至少两种字符组成，至少6个字符，区分大小写</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">确定密码<i class="fa fa-asterisk text-danger"></i></label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" autocomplete="off" maxlength="30" ng-model="reNewPassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <p class="text-danger">{{errorInfo}}</p>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+</div>

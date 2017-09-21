@@ -1,0 +1,158 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsListDetails">
+    <div class="panel-heading font-bold text-center">个人资料</div>
+    <div class="panel-body">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <a href="" class="pull-left thumb-md avatar b-3x m-r"><img ng-src="{{viewData.headPicFile}}"></a>
+
+                <div class="clear">
+                    <div class="h3 m-t-xs m-b-xs" ng-bind="viewData.name">王五</div>
+                    <small class="text-muted" ng-bind="viewData.info">医师 / 儿外科 / 北大医院</small>
+                </div>
+                <div class="cnt-opr-btn">
+                    <button ng-click="apportion()" type="button" class="btn btn-info btn-addon" ng-if="isNormal"><i
+                            class="fa fa-sign-in"></i>分配组织
+                    </button>
+                    <button ng-click="quit()" type="button" class="btn btn-danger btn-addon" ng-if="!isQuit"><i
+                            class="fa fa-sign-out"></i>离 职
+                    </button>
+                </div>
+            </div>
+        </div>
+        <tabset justified="true" class="tab-container mrt-15">
+            <tab heading="基本信息">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">联系方式：</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" ng-model="formData.contactWay">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">个人介绍：</label>
+                        <div class="form-text col-md-10" ng-bind="viewData.introduction">医生集团（禾新）临床基地首席儿科专家、北京和睦家医院儿科科主任。</div>
+                    </div>
+                    <div class="form-group" ng-show="isSearch">
+                        <label class="control-label col-md-2 text-right">所在组织：</label>
+                        <div class="form-text col-md-10" ng-bind="viewData.departmentFullName">擅长儿科危重症、疑难症及常见病的诊断治疗及抢救。</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">擅长：</label>
+                        <div class="form-text col-md-10" ng-bind="viewData.skill">擅长儿科危重症、疑难症及常见病的诊断治疗及抢救。</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">集团抽成：</label>
+                        <div class="col-md-5">
+                            <div class="form-text col-md-10" ng-bind="viewData.groupProfit">0</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">上级抽成：</label>
+                        <div class="col-md-5">
+                            <div class="form-text col-md-10" ng-bind="viewData.parentProfit">0</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">状态：</label>
+                        <div class="form-text col-md-10" ng-bind="viewData.relation">由集团创建人 赵医生邀请。</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-right">备注：</label>
+                        <div class="col-md-10"><textarea class="w100 form-control" ng-model="formData.remarks"></textarea></div>
+                    </div>
+                    <div class="form-group" ng-show="isNormal">
+                        <label class="control-label col-md-2 text-right">值班表：</label>
+
+                        <div class="col-md-10">
+                            <div id="duty_schedule" class="duty-schedule">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="证件信息" select="tabs.select()">
+                <div ng-show="isLoading" class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                <div class="form-horizontal" ng-model="imgs" style="margin-top:0">
+                    <div ng-repeat="path in imgs" class="form-group" ng-model="imgs" style="margin-bottom: 15px;">
+                        <label class="col-sm-2 control-label">证件图片</label>
+                        <div class="col-sm-10" ng-if="imgs">
+                            <div class="certificate-list" ng-if="imgs">
+                                <div class="gl-preview">
+                                    <img class="lic-pic" ng-src="{{path}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="col-sm-12 form-text text-center" ng-if="!imgs">暂无证件图片！</p>
+                </div>
+            </tab>
+            <tab heading="抽成关系" select="tabs.setProfit()">
+                <div class="form-horizontal" style="margin-top:0">
+                    <div class="clear" style="height: 100%">
+                        <div class="col-md-6 cnt-apportion-left cnt-col-lt" style="height: 100%">
+                            <p class="form-text text-center">选择<span class="text-info">上级</span></p>
+
+                            <div id="cnt_list_relationship" class="list-group">
+                                <div class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 cnt-apportion-right">
+                            <p class="form-text text-center">若不选择则设置为<span class="text-info">顶级</span></p>
+
+                            <div class="cnt-apportion-list">
+                                <div id="cnt_list_department"><span class="text-muted">上级</span></div>
+                            </div>
+                            <form name="form" class="form-validation form-horizontal">
+                                <div class="form-group mb-10">
+                                    <label class="control-label col-md-5 text-left">当前医生</label>
+
+                                    <p class="control-label col-md-7 text-left text-info" ng-bind="formData.name"></p>
+                                </div>
+                                <div class="form-group mb-10">
+                                    <label class="control-label col-md-5 text-left">集团抽成比例</label>
+
+                                    <div class="col-md-5">
+                                        <input type="text" placeholder="0.00" class="form-control text-center"
+                                               ng-model="formData.groupProfit">
+                                    </div>
+                                    <p class="form-text col-md-2 text-left">%</p>
+                                </div>
+                                <div class="form-group mb-10">
+                                    <label class="control-label col-md-5 text-left">上级抽成比例</label>
+
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control text-center" ng-model="formData.parentProfit">
+                                    </div>
+                                    <p class="form-text col-md-2 text-left">%</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="其它" select="tabs.otherInfo()">
+                <div ng-show="isLoading" class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                <div class="form-horizontal" ng-model="info" style="margin-top:0">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label class="col-sm-2 control-label">邀请码</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" ng-bind="viewData.inviteCode"></textarea>
+                        </div>
+                    </div>
+                    <!--<p class="col-sm-12 form-text text-center" ng-if="!info">没有更多信息！</p>-->
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

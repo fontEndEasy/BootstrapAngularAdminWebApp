@@ -1,0 +1,84 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="pfmanagementController">
+    <div class="frame-panel mailcontainer">
+        <div class="row" style="position:relative;">
+            <div class="col-md-3">
+                <h2 class="title-3 text-left">推广费管理</h2>
+            </div>
+            <span style="color:red; position:absolute; left:20px; top:33px;">温馨提示：您当前还未设置收款银行卡，为不影响您的推广费发放，请尽快绑定银行卡。</span>
+            <div class="col-md-9 mrb-10">
+                <div class="pull-right mrr-10" style="margin-top:10px;">
+                    <button type="button" class="btn btn-primary" ui-sref="app.setting({'position':'bank'})">
+                        <span class="hid">去设置</span>
+                    </button>
+                    <button ng-show="!pfflag" type="button" class="btn btn-info" ng-click="inlog(true)">
+                        <span class="hid">打款记录</span>
+                    </button>
+                    <button ng-show="pfflag" type="button" class="btn btn-success" ng-click="inlog(false)">
+                        <span class="hid">返回</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="!pfflag">
+            <div class="integration-table integrationtable-table">
+                <table id="pfmain-table" class="tablebox table table-striped">
+                    <thead>
+                        <tr>
+                            <th>分店名称</th>
+                            <th>已审核</th>
+                            <th>待审核</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>合计</th>
+                            <th>693元（未结算）</th>
+                            <th>693元</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat="lt in data_list">
+                            <td>{{lt.name}}</td>
+                            <td>{{lt.ysmoney}}</td>
+                            <td>{{lt.dsmoney}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" ng-show="pfflag">
+            <div class="integration-table integrationtable-table">
+                <table id="pflog-table" class="tablebox table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">打款日期</th>
+                            <th>收到款项</th>
+                            <th class="text-center">分店明细</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="lt in log_list">
+                            <td class="text-center">{{lt.date}}</td>
+                            <td>{{lt.sdmoney}}</td>
+                            <td class="text-center"><a ui-sref="app.pfmanagement.detail({'id':lt.id})" href="javascript:void(0);" style="text-decoration:underline; color:#00CCFF;">查看</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.integrationtableifframe {
+    margin: 20px 0;
+    border: #dee5e7 solid 1px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 5px 20px;
+}
+
+.integrationtable-table {
+    padding: 15px;
+}
+</style>

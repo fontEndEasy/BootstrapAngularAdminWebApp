@@ -1,0 +1,16 @@
+<button class="pull-left m-l-xs btn btn-sm btn-default no-shadow b-none bg-f8 " title="表情" uib-popover-template="'faceIcon.html'" popover-placement="top" popover-is-open="data.isOpen" ng-click="goRunning.closePopover('faceIcon')">
+    <i class="fa fa-smile-o inline m-t-xs fa-lg fa-fw"></i>
+</button>
+<script type="text/ng-template" id="faceIcon.html">
+    <div class="form-group clearfix">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="data.isOpen=false"><i class="fa fa-close"></i></button>
+        </div>
+        <face-icon-filter class="hide" arry="faceIconArry"></face-icon-filter>
+        <ul class="block clearfix h-max-300 clear" style="width:476px">
+            <li class="inline pull-left  p-xs b b-hover-dark a-link" ng-repeat="item in faceIconArry track by $index" ng-click="submit(item)">
+                <face-icon-filter class="inline" style="width:22px;height:22px;" code="item.key" url="'/guider/app/shared/chat_window/faceIcon/filter/faceimages'"></face-icon-filter>
+            </li>
+        </ul>
+    </div>
+</script>

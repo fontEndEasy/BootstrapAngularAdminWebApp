@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <title>Angular file upload sample</title>
+  <script src="../angular/angular.js"></script>
+  <script src="angular-file-upload.js"></script>
+
+</head>
+
+<body ng-app="fileUpload" >
+<div ng-controller="MyCtrl">
+    <img width="100" height="100" ngf-src="pic">
+    <button ngf-select ngf-max-size="2000000" ng-model="pic" ng-model-rejected="rePic" accept="'.jpg,.jpeg,.png,.bmp'" required >上传</button>
+    <p>支持格式类型 *.jpg;*.jpeg;*.png;*.bmp，大小不超过2M</p>
+    <p>上传进度：{{pic.progress}}%</p>
+    <P>上传情况：{{pic.result}}</P>
+    <p>上传错误：{{rePic[0].$error}}</p>
+</div>
+<script type="text/javascript">
+//inject angular file upload directives and services.
+var app = angular.module('fileUpload', ['ngFileUpload']);
+
+app.controller('MyCtrl', ['$scope', 'Upload', '$timeout',
+    function ($scope, Upload, $timeout) {
+        $scope.$watch('pic', function (files) {
+            goUpload (files);
+        });
+        function goUpload (files) {
+            if (files != null) {
+                if (!angular.isArray(files)) {
+                    files = [files];
+                }
+                for (var i = 0; i < files.length; i++) {
+                    $scope.errorMsg = null;
+                    (function (f) {
+                        upload(f);
+                    })(files[i]);
+                }
+            }
+        };
+        function upload (file) {
+            //console.log(file);
+            file.upload = Upload.upload({
+                url:'https://angular-file-upload-cors-srv.appspot.com/upload',
+                file:file,
+                fileName:['文件名']
+            });
+            file.upload.progress(function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+            file.upload.success(function (response) {
+                //console.log(response.result);
+                file.result = '上传成功！';
+            });
+            file.upload.error(function (response) {
+                console.log(response.status);
+            });
+        };
+    }]
+);
+</script>
+</body>
+</html>

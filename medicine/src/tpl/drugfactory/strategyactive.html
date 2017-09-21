@@ -1,0 +1,160 @@
+<div class="org hbox hbox-auto-xs hbox-auto-sm fade-in-up" ng-controller="StrategyActive">
+    <div class="frame-panel mailcontainer">
+        <div class="row">
+            <div class="col-md-3 mrb-15">
+                <h2 class="title-3 text-left">品种推广活动</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="mail-left">
+                    <div class="search">
+                        <input type="text" placeholder="过滤品种名称" ng-model="search.general_name" />
+                    </div>
+                    <ul class="query_for_company_list">
+                        <li ng-repeat="list in medicineList | filter:search" ng-click="pageIndex=1;getActivityList(list.id)"><a ng-class="list.id==goodId?'active':''">{{list.general_name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10" style="padding-left:0;">
+                <div class="row mail-right">
+                    <div class="strategyactivemoney">
+                        品种资金池可用余额
+                        <span class="strategymoney">{{money_total | currency:'￥'}}</span>元
+                        <!-- <button type="button" class="btn btn-danger" ui-sref='app.recharge'>充值</button>
+                     <span class="moneyts">当前该药品的推广费余额不足，为了不影响推广活动请及时充值！</span> -->
+                        <div class="pull-right mrr-10">
+                            <button type="button" class="btn btn-primary" style="width:120px;" ng-click="edit_strategyactive()">
+                                <span>添加推广活动</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="integration-table startegyactive-list">
+                        <ul ng-if="activityList.length>0">
+                            <li ng-repeat="activity in activityList" ng-class="activity.isShowBox?'arrowup':''">
+                                <div class="tableheader">
+                                    <div class=" a-link" ng-click="getActivityItemDetails(activity);activity.isShowBox=!activity.isShowBox">
+                                        推广期：
+                                        <span>{{activity.createDate | date:'yyyy-MM-dd'}} 至 {{activity.endDate| date:'yyyy-MM-dd'}}</span>
+                                        <span> 活动预算：{{activity.money/100 | currency:'￥'}}</span>
+                                    </div>
+                                    <div class="stgbuttons" ng-mouseover="activity.showBtnBox=!showBtnBox">
+                                        <button class="btn btn-success" ui-sref="app.strategyactive.edit_strategyactive({type:'copy',id:activity.promotionHippoId,goods:goodId})" ng-if="activity.status===1">活动中</button>
+                                        <button class="btn btn-dark" ng-if="activity.status===9">已结束</button>
+                                        <button class="btn btn-default" ui-sref="app.strategyactive.edit_strategyactive({type:'edit',id:activity.promotionHippoId,goods:goodId})" ng-if="!activity.status">未启动</button>
+                                    </div>
+                                    <div class="stgbuttonhover" ng-show="activity.showBtnBox" ng-mouseleave="activity.showBtnBox=false">
+                                        <button class="btn btn-warning stghover1" ui-sref="app.strategyactive.edit_strategyactive({type:'edit',id:activity.promotionHippoId,goods:goodId})" ng-if="!activity.status">编辑</button>
+                                        <button class="btn btn-primary stghover2" ui-sref="app.strategyactivedetail({'type':'check','id':activity.promotionHippoId,'goods':goodId})" ng-if="activity.status">审核</button>
+                                        <button class="btn btn-info stghover3" ui-sref="app.strategyactive.edit_strategyactive({type:'copy',id:activity.promotionHippoId,goods:goodId})">复制</button>
+                                        <button class="btn btn-success stghover4" ng-click="promotionStart(activity)" ng-if="!activity.status"><i class="fa fa-play"></i>启动</button>
+                                        <button class="btn btn-danger stghover5" ng-click="promotionStop(activity)" ng-if="activity.status===1"><i class="fa fa-stop"></i>停止</button>
+                                        <!-- <button class="btn btn-default stghover6">已结束</button> -->
+                                    </div>
+                                </div>
+                                <div class="m-xs b-none">
+                                    <table class="tablebox table table-striped" ng-if="activity.isShowBox">
+                                        <thead>
+                                            <tr>
+                                                <th>推广策略</th>
+                                                <th>待审核金额</th>
+                                                <th>已审核金额</th>
+                                                <th>无效销售金额</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr class="font-bold" ng-if="activity.details.pageData.length>0">
+                                                <td>汇总</td>
+                                                <td>{{activity.details.draftMoneyTotal || 0 | currency:'￥'}}</td>
+                                                <td>{{activity.details.auditMoneyTotal || 0 | currency:'￥'}}</td>
+                                                <td>{{activity.details.invalidMoneyTotal || 0 | currency:'￥'}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr ng-repeat="detail in activity.details.pageData" ng-if="activity.details.pageData.length>0">
+                                                <td>{{detail.policyName}}</td>
+                                                <td>{{detail.draftMoney || 0 | currency:'￥'}}</td>
+                                                <td>{{detail.auditMoney || 0 | currency:'￥'}}</td>
+                                                <td>{{detail.invalidMoney || 0 | currency:'￥'}}</td>
+                                            </tr>
+                                            <tr ng-if="activity.details.pageData.length<1">
+                                                <td class="text-center" colspan="4">无数据</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center" ng-if="activityList.length<1">
+                            暂无数据
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <pagination ng-show="pageTotal.length>1" total-items="pageTotal" ng-model="pageIndex" items-per-page="pageSize" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.stgbuttonhover button,
+.stgbuttons button {
+    padding: 0;
+    width: 70px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.stgbuttonhover,
+.stgbuttons {
+    position: absolute;
+    right: 45px;
+    top: 0px;
+}
+
+
+/*.stgbuttonhover,
+.stgbuttonhover button,
+.stgbuttons button {
+    display: none;
+}*/
+
+
+/*
+.stgbuttons.stgstate1 button.btnstate1,
+.stgbuttons.stgstate2 button.btnstate2,
+.stgbuttons.stgstate3 button.btnstate3 {
+    display: inline-block;
+}
+
+.stgbuttonhover.stgstate1 button.stghover1,
+.stgbuttonhover.stgstate1 button.stghover3,
+.stgbuttonhover.stgstate1 button.stghover4 {
+    display: inline-block;
+}
+
+.stgbuttonhover.stgstate2 button.stghover2,
+.stgbuttonhover.stgstate2 button.stghover3,
+.stgbuttonhover.stgstate2 button.stghover5 {
+    display: inline-block;
+}
+
+.stgbuttonhover.stgstate3 button.stghover2,
+.stgbuttonhover.stgstate3 button.stghover3,
+.stgbuttonhover.stgstate3 button.stghover6 {
+    display: inline-block;
+}*/
+
+
+/*.stgbuttonhover.stgstate1 button.stghover4 i,
+.stgbuttonhover.stgstate2 button.stghover5 i {
+    padding-right: 5px;
+}
+
+.stgbuttons button.btn-default.btnstate3 {
+    background-color: #cecece;
+    border-color: #999999;
+}*/
+</style>

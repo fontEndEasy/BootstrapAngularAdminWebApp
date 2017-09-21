@@ -1,0 +1,69 @@
+<div class="home hbox hbox-auto-xs hbox-auto-sm" ng-controller="HomeController" ng-init="
+  app.settings.asideFolded = false;
+  app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col">
+  <!-- <i class="loading fa fa-circle-o-notch"></i> -->
+    <!-- main header -->
+    <!-- / main header -->
+    <!-- <div class="wrapper-md" ng-controller="FlotChartDemoCtrl"> -->
+    <div class="wrapper-md">
+      <!-- stats -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row text-center">
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.check.group.check_list({type:'un_check', page: 'page_1'})" class="bg-primary app-item">
+              <i class="fa fa-gavel text-white text-3x"></i>
+              <span class="text-white font-thin h4">集团审核</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.check.group.with_v_list({type:'un_check', page: 'page_1'})" class="bg-gd-dk app-item">
+              <i class="fa fa-mortar-board text-white text-3x"></i>
+              <span class="text-white font-thin h4 block">加V认证</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.check.doctor.check_list({type:'un_check', page:'page_1'})" class="bg-info app-item">
+              <i class="fa fa-mortar-board text-white text-3x"></i>
+              <span class="text-white font-thin h4 block">资质审核</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4" ng-if="undefineded">
+              <a ui-sref="app.feedback_undone" class="bg-warning app-item">
+                <i class="glyphicon glyphicon-edit text-white text-3x"></i>
+                <span class="text-white font-thin h4 block">反馈处理</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.reports_of_finance({name:'group'})" class="bg-danger app-item">
+              <i class="fa fa-cny text-white text-3x"></i>
+              <span class="text-white font-thin h4 block">收入结算</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.order_query" class="bg-success app-item">
+              <i class="glyphicon glyphicon-list text-white text-3x"></i>
+              <span class="text-white font-thin h4 block">订单查询</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4">
+              <a ui-sref="app.message_query" class="bg-dark app-item">
+              <i class="fa fa-envelope text-white text-3x"></i>
+              <span class="text-white font-thin h4 block">短信查询</span>
+              </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 hide">
+              <a class="bg-white app-item add-item">
+              <i class="fa fa-plus text-dark text-3x"></i>
+              <span class="text-dark font-thin h4 block">添加模块</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,164 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div id="dialog" class="dialog-container animating fade-in-down" ng-controller="ContactsInvite">
+    <div class="dialog-heading font-bold text-center">邀请医生</div>
+    <div class="dialog-body col-md-12">
+        <form name="form" class="form-horizontal mrt-15 mrb-15 mrr-15 mrl-15">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <textarea id="doctorInfo" class="form-control" rows="1" placeholder="输入手机号 （批量邀请时，请使用空格或逗号分隔）"
+                         ng-model="formData.doctorInfo">医生号/手机号
+                    </textarea>
+                    <span id="key_type" class="keys-type none"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="submit" ng-click="batchInvite()" class="w100 btn btn-info">邀 请<i id="is_loading" class="refreshing glyphicon glyphicon-repeat"></i></button>
+                </div>
+            </div>
+
+            <div id="searchInfo">
+                <div ng-show="inGroup">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-warn pull-left avatar fa fa-warning"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.hasGroupNumbers" style="word-break:break-all"></div>
+                                        <small class="text-danger text-lg"> 以上号码已加入本集团！</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="!inGroup && !isNopass">
+                        <button ng-click="invite()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>邀请加入集团</button>
+                    </div>
+                </div>
+
+                <div ng-show="otherGroup">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-warn pull-left avatar fa fa-warning"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.otherGroupNumbers" style="word-break:break-all"></div>
+                                        <small class="text-danger text-lg"> 以上号码已加入其他集团！</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="!otherGroup && !isNopass">
+                        <button ng-click="invite()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>邀请加入集团</button>
+                    </div>
+                </div>
+
+                <div ng-show="showNopass">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-warn pull-left avatar fa fa-warning"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.nopassNumbers" style="word-break:break-all"></div>
+                                        <small class="text-danger text-lg" ng-show="isNopass"> 以上号码还未通过审核！</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showNoneResult">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-warn pull-left avatar fa fa-warning"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.keys" style="word-break:break-all"></div>
+                                        <small class="text-danger text-lg"> 以上既不是医生号也不是手机号，不能发送邀请！</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button ng-click="return()" class="btn btn-default btn-addon mrr-10">取 消</button>
+                        <button ng-click="batchInviteAnyway()" class="btn btn-primary">忽略错误，继续邀请<i
+                                ng-show="isBLoading" class="refreshing glyphicon glyphicon-repeat"></i></button>
+                    </div>
+
+                </div>
+
+                <div ng-show="showMsgBox">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">手机号码：</label>
+
+                        <div class="col-md-10">
+                            <input class="w100 form-control" ng-model="formData.phone" placeholder="请输入手机号码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-3">
+                            <button ng-click="doSend()" class="w100 btn btn-success">发 送</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="col-md-offset-2 col-md-10 form-text">我们已经为您编辑好了邀请信息，请直接点击“发送” ！</p>
+                    </div>
+                </div>
+
+                <div ng-show="showSuccess">
+                    <!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-success pull-left avatar fa fa-check"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.numbers" style="word-break:break-all"></div>
+                                        <small class="text-success text-lg"> 以上号码邀请成功！</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showWarn">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="border-bottom:none">
+                            <div class="clearfix">
+                                <i class="txt-warn pull-left avatar fa fa-warning"></i>
+                                <div class="clear">
+                                    <div class="m-t-xs m-b-xs">
+                                        <div ng-bind="viewData.keys" style="word-break:break-all"></div>
+                                        <small class="text-danger text-lg"><span ng-bind="viewData.info_text">操作失败！</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="inviteAgain">
+                        <button ng-click="invite()" class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>再次邀请
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="dialog-opr-bar clear">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-4">
+                <button ng-click="cancel()" type="button" class="pull-right w100 btn btn-default">关 闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->

@@ -1,0 +1,97 @@
+<!-- modal dialog -->
+<div class="mask"></div>
+<div class="cnt-anim-dialog animating fade-in-right" ng-controller="ContactsAddPersonnel">
+    <div class="panel-heading font-bold text-center">添加人员</div>
+    <div class="panel-body">
+        <div class="clear" style="height: 100%">
+            <div class="col-md-6 cnt-apportion-left cnt-col-lt" style="height: 100%">
+                <p class="form-text text-center">选择
+                    <span class="text-info">所属组织</span>
+                </p>
+                <div id="cnt_list_apportion" class="list-group">
+                    <div class="loading"><i class="glyphicon glyphicon-repeat"></i></div>
+                </div>
+            </div>
+            <div class="col-md-6 cnt-apportion-right">
+                <!-- <p class="form-text text-center">若不选择则添加为<span class="text-info">顶级组织</span></p> -->
+                <div class="cnt-apportion-list" style="margin-top:34px;">
+                    <div id="cnt_list_department">上级组织</div>
+                </div>
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="form-group" style="margin-bottom:8px;">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="姓名" class="form-control" ng-model="formData.name" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12" style="margin-bottom:8px;">
+                            <input type="text" placeholder="职位" class="form-control" ng-model="formData.position" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="手机号码" class="form-control" ng-model="formData.telephone" reuired>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="rolecontainer">
+                            <span>角色</span>
+                            <ul class="clearfix">
+                                <li ng-repeat="rl in roleList" id="{{rl.id}}">{{rl.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea type="text" placeholder="备注" class="form-control" style="resize:none;" ng-model="formData.remarks"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cnt-opr-bar form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="save()" type="button" class="w100 btn btn-success">保 存</button>
+        </div>
+        <div class="col-md-4">
+            <button ng-click="cancel()" type="button" class="w100 btn btn-default">取 消</button>
+        </div>
+    </div>
+</div>
+<!-- /modal dialog -->
+<style>
+.rolecontainer {
+    border: #cfdadd solid 1px;
+    border-radius: 2px;
+    display: block;
+    margin: 15px;
+    padding: 10px;
+}
+
+.rolecontainer ul li {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    width: 80px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #edf1f2;
+}
+
+.rolecontainer ul li.select {
+    background-color: #23b7e5;
+    color: #ffffff;
+}
+
+.rolecontainer ul li.active {
+    background-color: #23b7e5;
+    color: #ffffff;
+}
+
+.rolecontainer ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+</style>

@@ -1,0 +1,29 @@
+<button class="pull-left btn btn-sm btn-default no-shadow b-none bg-f8" title="快捷回复" uib-popover-template="'quickReply.html'" popover-placement="top" popover-is-open="data.isOpen" ng-click="goRunning.closePopover('quickReply')"><i class="fa fa-paper-plane-o inline m-t-xs fa-fw"></i></button>
+<script type="text/ng-template" id="quickReply.html">
+    <div class="form-group h-300 w-400">
+        <div class=" w-full position-relative">
+            <button class="btn btn-rounded btn-xs btn-icon btn-default position-absolute b-dark" style="right:-23px;top:-23px;" ng-click="data.isOpen=false"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="dropdown" uib-dropdown uib-dropdown-toggle>
+            <label class="text-black">快捷回复</label>
+            <button class="btn btn-xs btn-icon btn-info pull-right" ng-click="addQuickReplyItem()"><i class="fa fa-plus"></i></button>
+            <!-- dropdown -->
+            <!--<div class="dropdown-menu p-sm w-400 bg-f8 h-max-400 overflow-auto">-->
+                <!--<div>-->
+                    <!--123123-->
+                <!--</div>-->
+            <!--</div>-->
+            <!-- / dropdown -->
+        </div>
+        <ul class="block h-max-200 overflow-y-scroll b-t b-b m-t-xs" id="replyListContent">
+            <li class="text-sm clearfix editableSmall bg-hover-light b b-light m-t-xs hover-show-box bg-f8" ng-repeat="item in quickReplyList">
+                <button class="btn btn-danger btn-icon btn-xs m-b-n-xs pull-right pull-right hover-show-item" ng-show="item.is_system!=0" ng-click="removeQuickReplyItem(item)"><i class="fa fa-remove"></i></button>
+                <button class="btn btn-success btn-xs m-b-n-xs pull-right pull-right hover-show-item m-r-xs" ng-click="quickReplySelected(item.replyId,quickReplyList)">选择</button>
+                <div class="clearfix">
+                    <span ng-if="item.is_system==0" class="editable-click-none clear">{{item.replyContent}}</span>
+                    <span ng-if="item.is_system==1" class="editable-click-none clear" editable-text="item.replyContent" onbeforesave="quickReplySave($data,item)">{{item.replyContent||'请填写内容'}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>

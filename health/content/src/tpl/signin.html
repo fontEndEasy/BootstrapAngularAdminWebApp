@@ -1,0 +1,81 @@
+<div class="login-top">
+    <!--<p>我是公司管理者！<a ui-sref="access.signup"> 立即注册 </a>公司。</p>-->
+</div>
+<div class="container group-login-wrapper" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
+    <div class="m-b-lg clear">
+        <!--        <div class="login-left">
+            <h4>二维码扫描登录</h4>
+
+            <div class="qr-code">
+                <img src="src/img/qrcode.png">
+            </div>
+            <p>使用玄关健康医生app扫描</p>
+        </div>-->
+        <div class="login-right" ng-show="!has_more_group">
+            <h4 class="text-center">登&nbsp;&nbsp;&nbsp;&nbsp;录</h4>
+            <form name="form" class="form-validation">
+                <div class="text-danger wrapper text-center" ng-show="authError || loginError">
+                    {{authError || loginError}}
+                </div>
+                <div id="login_with_pswd" ng-if="login_with_pswd">
+                    <div class="list-group list-group-sm">
+                        <div class="list-group-item">
+                            <input type="text" placeholder="玄关医生账号(手机号)" class="form-control no-border" ng-model="user.telephone" tabindex="1" required>
+                        </div>
+                        <div class="list-group-item">
+                            <input type="password" placeholder="玄关医生密码" class="form-control no-border" ng-model="user.password" tabindex="2" required>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-sm">
+                        <label class="i-checks">
+                            <input type="checkbox" id="rememberInfo"><i></i>记住登录信息</label>
+                        <span class="pull-right">忘记密码?(<a class="text-info" ng-click="withCODE()">使用验证码登录</a>)</span>
+                    </div>
+                </div>
+                <div id="login_with_code" ng-if="!login_with_pswd">
+                    <div class="list-group list-group-sm">
+                        <div class="list-group-item">
+                            <input type="text" placeholder="手机号" class="form-control no-border" ng-model="user.telephone" tabindex="1" required>
+                            <button type="button" class="get-code" ng-click="getCode()">获取验证码</button>
+                        </div>
+                        <div class="list-group-item">
+                            <input type="text" placeholder="短信验证码" class="form-control no-border" ng-model="user.ranCode" tabindex="2" required>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-sm clear">
+                        <label class="i-checks pull-right">
+                            <a href class="text-info" ng-click="withPSWD()">使用账号密码登录</a>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="login()" ng-disabled='form.$invalid'>登&nbsp;&nbsp;录
+                </button>
+                <div class="line line-dashed"></div>
+                <div>还没有医生号？<a target="_blank" href="http://www.pgyer.com/kzys" class="text-info">下载玄关健康医生App注册</a>。</div>
+                <!--<div>还没有医生号？<a target="_blank" href="attachments/pages/downloadApp.html" class="text-info">下载玄关健康医生App注册</a>。</div>-->
+            </form>
+        </div>
+        <div class="login-right animating fade-in-right" ng-if="has_more_group">
+            <h4 class="text-center">请选择您要登录的医生集团</h4>
+            <form name="group_selection" class="form-validation">
+                <div class="text-danger wrapper text-center" ng-show="loginError">
+                    {{loginError}}
+                </div>
+                <div class="form-group">
+                    <select id="group_select" class="form-control">
+                        <option selected>请选择</option>
+                        <option>您要登录的医生集团</option>
+                        <option>医生集团</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="login_for_sure()" ng-disabled='group_selection.$invalid'>确&nbsp;&nbsp;定</button>
+                </div>
+                <p class="text-muted">进入系统后，您仍可以切换医生集团。</p>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="cprt-footer" ng-include="'src/tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+</div>

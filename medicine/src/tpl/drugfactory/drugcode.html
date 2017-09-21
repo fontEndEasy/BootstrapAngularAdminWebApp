@@ -1,0 +1,161 @@
+<style>
+/*药品列表按钮样式*/
+
+.btn-audit0 {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.btn-audit1 {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.btn-audit9 {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.btn-audit0 i {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    background-color: #28b779;
+    display: inline-block;
+}
+
+.btn-audit1 i {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    background-color: #919fb1;
+    display: inline-block;
+}
+
+.btn-audit9 i {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    background-color: #28b779;
+    display: inline-block;
+}
+
+.integrationtableifframe {
+    margin: 20px 0;
+    border: #dee5e7 solid 1px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 5px 20px;
+}
+
+.integrationtable-table {
+    padding: 15px;
+}
+
+.integrationtable-table table {
+    border: #dee5e7 solid 1px;
+}
+
+.integrationtable-table table tr {
+    line-height: 52px;
+}
+
+.integrationtable-table table tr button.check {
+    visibility: hidden;
+}
+
+.integrationtable-table table tr button.check.hover {
+    visibility: visible;
+}
+
+#drugcode-table.table tbody td div {
+    border: none;
+    margin-left: 3px;
+}
+</style>
+<div class="org hbox hbox-auto-xs hbox-auto-sm" ng-controller="DrugCodeController">
+    <div class="frame-panel">
+        <div class="row">
+            <div class="col-md-3">
+                <h2 class="title-3 text-left">药监码管理</h2>
+            </div>
+        </div>
+        <div class="row integrationtableifframe">
+            <div class="col-xs-4 clearfix">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">药店</label>
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="store" class="form-control" placeholder="模糊查询药店名称" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4 clearfix">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">药监码</label>
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="mc" class="form-control" placeholder="模糊查询药监码" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4 clearfix">
+                <button type="button" class="control-label btn btn-primary" ng-click="drug_store=store;drug_mc=mc;page=1;getCheckCodeList()">
+                    <span class="hid">查 询</span>
+                </button>
+                <!-- <button type="button" class="control-label btn btn-primary btn-success" style="width：100px;" ng-click="marks('all','')">
+                    <span class="hid">批量标记</span>
+                </button>
+                <button type="button" class="control-label btn btn-primary btn-success disabled" style="width：100px;" ng-click="searchIntegrationTable()">
+                    <span class="hid">导 出</span>
+                </button> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="integration-table integrationtable-table">
+                <table class="tablebox table table-striped m-n">
+                    <thead>
+                        <tr>
+                            <th style="width:25px;">
+                                <label class="i-checks m-b-none" ng-click="checkAll()">
+                                    <input type="checkbox" ng-model="isCheckAll"><i></i>
+                                </label>
+                            </th>
+                            <th>药监码</th>
+                            <th>来源</th>
+                            <th>药店名称</th>
+                            <th>所在地区</th>
+                            <th>扫描次数</th>
+                            <!-- <th>真伪</th>
+                            <th>流向</th>
+                            <th></th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in checkCodeList">
+                            <td>
+                                <label class="i-checks m-b-none" ng-click="checkOne()">
+                                    <input type="checkbox" ng-model="item.isCheck"><i></i>
+                                </label>
+                            </td>
+                            <td>{{item.drug_mc}}</td>
+                            <td>{{item.source}}</td>
+                            <td>{{item.drug_store$name}}
+                            </td>
+                            <td>{{item.drug_store$province.name}}</td>
+                            <td>{{item.num||0}}</td>
+                            <!-- <td>123</td>
+                            <td>123</td>
+                            <td>123</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination ng-show="page_count>0" total-items="page_count" ng-model="page" items-per-page="page_size" ng-change="pageChanged()" direction-links="false" boundary-links="true" first-text="首页" last-text="尾页"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
